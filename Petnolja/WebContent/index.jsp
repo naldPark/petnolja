@@ -76,11 +76,11 @@
     <h2><b>&nbsp;&nbsp;펫놀자가 엄선한 추천리스트</b></h2><br>
     
     <div style="width:100%; height:80%;">
-      <div class="recommend"><a href="<%=contextPath%>/views/member/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter1.jpg"></a></div>
-      <div class="recommend"> <a href="<%=contextPath%>/views/member/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter2.jpg"></a></div>
-      <div class="recommend"> <a href="<%=contextPath%>/views/member/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter3.jpg"></a></div>
-      <div class="recommend"> <a href="<%=contextPath%>/views/member/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter4.jpg"></a></div>
-      <div class="recommend"> <a href="<%=contextPath%>/views/member/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter5.jpg"></a></div>
+      <div class="recommend"><a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter1.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter2.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter3.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter4.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter5.jpg"></a></div>
       <div class="recommendTitle" >펫시터 만렙입니다</div>
       <div class="recommendTitle" >저한테 맡겨여</div>
       <div class="recommendTitle" >흠흠흠ㅎ므</div>

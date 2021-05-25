@@ -396,7 +396,7 @@
         })
 
     </script>
-  </div>  <br clear="both">
+   <br clear="both">
   <!--오른쪽면 끝-->
 </div>
 
