@@ -51,14 +51,15 @@ private Properties prop = new Properties();
 				rset.getString("mem_email"),
 				rset.getString("mem_address"),
 				rset.getString("mem_detail_address"),
+				rset.getDouble("MEM_LATITUDE"),
+				rset.getDouble("MEM_LONGTITUDE"),
 				rset.getDate("mem_enrolldate"),
 				rset.getString("mem_status"),
 				rset.getDate("MEM_DEL_DATE"),
 				rset.getString("MEM_DEL_DETAIL"),
 				rset.getString("MEM_ADS"),
 				rset.getString("MEM_BLOCK"),
-				rset.getString("MEM_REPORT"),
-				rset.getString("MEM_REPORT_DETAIL")
+				rset.getString("MEM_REPORT")
 				);	
 			}
 		} catch (SQLException e) {
@@ -147,4 +148,36 @@ private Properties prop = new Properties();
 		return result;
 	}
 
+	public int insertMember(Connection conn, Member m) {
+		// insert문
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getMemName());
+			pstmt.setString(3, m.getMemPwd());
+			pstmt.setString(4, m.getMemTel());
+			pstmt.setString(5, m.getMemEmail());
+			pstmt.setString(6, m.getMemAddress());
+			pstmt.setString(7, m.getMemDetailAddress());
+			pstmt.setDouble(8, m.getMemLatitude());
+			pstmt.setDouble(9, m.getMemLongtitude());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
 }

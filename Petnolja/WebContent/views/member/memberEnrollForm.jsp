@@ -17,7 +17,7 @@
           border:1px solid lightgray;
           padding: 15px;
         }
-        #enroll-form input{margin-bottom: 10px;}
+        #enroll-f input{margin-bottom: 10px;}
 </style>
 </head>
 <body>
@@ -26,27 +26,29 @@
 <br><br>
     <div id="outer">
         <br>
-
         <h3 align="center">회원가입</h3><br>
-        <div style="width: 60%;margin:auto" id="enroll-form" name="enroll-form">
+       
+        <div style="width: 60%;margin:auto" id="enroll-f">
             <span style="color:gray" align="center">
                 회원정보는 개인정보처리방침에 따라 안전하게 보관되며, <br>
                 회원님의 명백한 동의없이 공개 또는 제3자에게 제공되지 않습니다.
             </span><br><br>
-            <form action="" method="post">
+        <form action="<%=contextPath %>/insert.me" id="enroll-form" method="post">
+        
+ 			<!-- 이름, 아이디, 비밀번호, 비밀번호 확인, 전화번호, 이메일, 주소 -->       
             <div class="form-group">
                 이름*
-                <input type="text" class="form-control" placeholder="한글로 작성하되 5자 이상인 경우 5자까지만 입력 해 주세요"   id="userName">
+                <input type="text" class="form-control" placeholder="한글로 작성하되 5자 이상인 경우 5자까지만 입력 해 주세요"   id="userName" name="userName" required>
                 아이디*
-                <input type="text" class="form-control"  placeholder="영소문자,숫자로만 5~20자 사이로 정해 주세요"  id="userId">
+                <input type="text" class="form-control"  placeholder="영소문자,숫자로만 5~20자 사이로 정해 주세요"  id="userId" name="userId" required>
                 비밀번호*
-                <input type="text" class="form-control"  placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1">
+                <input type="text" class="form-control"  placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1" name="userPwd1" required>
                 비밀번호확인*
-                <input type="password" class="form-control" placeholder="동일한 비밀번호를 입력 해 주세요"  id="userPwd2">
+                <input type="password" class="form-control" placeholder="동일한 비밀번호를 입력 해 주세요"  id="userPwd2" required>
                 전화번호*
-                <input type="text" class="form-control" placeholder="-를 포함하여 입력 해 주세요"  id="userPhone">
+                <input type="text" class="form-control" placeholder="-를 포함하여 입력 해 주세요"  id="userPhone" name="phone" required>
                 이메일*
-                <input type="text" class="form-control" >
+                <input type="email" class="form-control" name="email" required>
                 주소*<br>
                 <div><%@ include file = "address.jsp"%></div>   
                 <br>

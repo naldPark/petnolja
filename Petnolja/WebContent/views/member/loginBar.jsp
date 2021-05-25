@@ -41,7 +41,7 @@
              <input type="text" data-range="true" data-multiple-dates-separator=" - " data-language="ko" placeholder="날짜선택" class="datepicker-here form-control" style="cursor: pointer;">
              <span class="input-group-text " style="background-color: white;cursor: pointer;" onclick="chooseDate()"><img src="<%=contextPath %>/resources/images/member/calendar.png" style="height: 20px;"></span>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <button class="btn btn-primary" type="button"style="width: 100px;margin-right: 10px;" onclick="location.href='<%=contextPath%>/views/member/searchPetsitter.jsp'">검색</button>
+               <button class="btn btn-primary" type="button"style="width: 100px;margin-right: 10px;" onclick="location.href='<%=contextPath%>/views/research/searchPetsitter.jsp'">검색</button>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          </div>
          
@@ -86,7 +86,7 @@
               <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" autocomplete="current-password">
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%">로그인</button><br><br>
-          <button type="button" class="btn btn-light" style="width:40%" onclick="location.href='<%=contextPath%>/views/member/memberEnrollForm.jsp'">회원가입</button>
+          <button type="button" class="btn btn-light" style="width:40%" onclick="location.href ='<%=contextPath%>/enrollform.me'">회원가입</button>
           <button type="button" class="btn btn-light" style="width:40%" onclick="findMain()">ID/PW찾기</button>
       </form>
     </div>
