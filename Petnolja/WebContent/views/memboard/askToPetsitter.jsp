@@ -50,7 +50,7 @@
             <span>            20MB이하의 파일만 첨부 가능합니다.</span><br>
 <br>
           <button type="submit" class="btn btn-primary">문의하기</button>&nbsp;
-          <button type="button" class="btn btn-secondary">문의목록보기</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'">문의목록보기</button>
           <button type="button" class="btn btn-outline-secondary" onclick="history.back();">뒤로가기</button>
         </div>
  </div>

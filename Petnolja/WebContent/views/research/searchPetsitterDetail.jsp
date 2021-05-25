@@ -278,7 +278,7 @@
             
           <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();"><div id="likeImgDiv"><img src="../../resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가</div></button><br>
           <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl"><img src="../../resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기</button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitter.jsp'"><img src="../../resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="../../resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
         </div>
         <br><br>
          <!-- 공유하기 버튼 클릭시 모달 실행 -->
