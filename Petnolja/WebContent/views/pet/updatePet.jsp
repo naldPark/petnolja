@@ -22,7 +22,7 @@
 	
 	<div class="outer">	
 		<div id="dog">
-			<h2>반려동물을 추가해보세요</h2><br>
+			<h2>반려동물 정보 수정</h2><br>
 			<span><b>반려동물을 추가하지 않으면 예약이 진행되지 않습니다.</b></span>
 			<br>
 			<table>
