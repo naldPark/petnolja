@@ -230,7 +230,7 @@
 		function validate(){
 			
 			if($("#file1").val()==""){
-					window.alert("사진을 첨부해라");
+					window.alert("사진을 첨부해주세요.");
 					return false;
 				}
 
