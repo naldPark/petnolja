@@ -31,6 +31,9 @@ public class MemberInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 인코딩 작업
+		request.setCharacterEncoding("UTF-8");
+		
 		// 회원가입 요청시 전달값 뽑아서 변수 및 객체에 기록
 		String userId = request.getParameter("userId"); // 아이디
 		String userName = request.getParameter("userName"); // 이름
@@ -39,9 +42,13 @@ public class MemberInsertController extends HttpServlet {
 		String email = request.getParameter("email"); // 이메일
 		String address = request.getParameter("address"); // 주소
 		String address2 = request.getParameter("address2"); // 상세주소
-		double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
-		double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
-		
+		// double latitude =
+//		double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
+		// double longtitude = 	
+//		double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
+			double latitude= 2.3333333;
+			double longtitude= 3.2222;
+			
 		// 기본생성자로 생성 후 setter 이용해서 담기
 		Member m = new Member(userId, userName, userPwd1, phone, email, address, address2, latitude, longtitude);
 		
