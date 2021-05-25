@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <% String findId = (String)request.getAttribute("findId"); %>
+    pageEncoding="UTF-8" import ="com.petnolja.member.model.vo.Member"%>
+
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,15 +70,15 @@
         </div>
 
         <div class="find" id="findPwd1">
-              <form action="" method="post">     
+              <form action="findPwd1.mem" method="post">     
                   <div style="height:230px;" align="center">       
                     <br>
-                    <input type="text" class="form-control" placeholder="아이디를 입력하세요"  name="userId" required><br>
-                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required>
+                    <input type="text" class="form-control" placeholder="아이디를 입력하세요"  name="userId" id="findPwdId" required><br>
+                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" id="findPwdName" required>
                     <br> <span>아이디를 모르시나요 ?&nbsp;&nbsp;</span>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="closePopup(); findId();">아이디 찾기</button>
                   </div>             
-                  <button type="button" class="btn btn-primary findBtn" style="width:100%;">다음</button><br><br>  <!--submit버튼으로 변경해야함-->
+                  <button type="button" class="btn btn-primary" id="findPwdBtn1" style="width:100%;">다음</button><br><br>  <!--submit버튼으로 변경해야함-->
               </form>
        </div>
 
@@ -87,8 +88,8 @@
                 <div style="height:230px;" align="center">       
                   <br>
                   <br><br>
-                  <input type="radio" class="radioInput" id="findPwdByEmail" checked><label for="findPwdByEmail" >이메일로 인증하기(ads***@naver.com)</label><br><br>
-                  <input type="radio" class="radioInput" id="findPwdBySMS"><label for="findPwdBySMS">SMS로 인증하기(010-****-1111)</label><br>
+                  <input type="radio" class="radioInput" id="findPwdByEmail" checked name="findPwdWay"><label for="findPwdByEmail" >에러: 처음부터 다시시작하세요</label><br><br>
+                  <input type="radio" class="radioInput" id="findPwdBySMS" name="findPwdWay"><label for="findPwdBySMS">에러: 처음부터 다시시작하세요</label><br>
                   <br><br>
                 </div>             
                 <button type="button" class="btn btn-primary" style="width:100%;" id="emailCheck">다음</button><br><br>
@@ -110,17 +111,18 @@
         </div>
 
         <div class="find">
-          <form action="" method="post">     
+          <form action="findPwd2.mem" method="post">     
             <div style="height:230px;" align="center">       
               <br>
                  새로운 비밀번호를 설정합니다<br><br>
                  <!-- <input type="hidden" autocomplete="username" ng-hide="true"> -->
                 <input type="password" class="form-control" placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이"  name="userPwd" id="userPwd1" required autocomplete="new-password" ><br>
                 <input type="password" class="form-control" placeholder="동일하게 입력하세요" id="userPwd2" required autocomplete="new-password" >
+                <input type="hidden" id="userPwdSetNo" name="userPwdSetNo" value="">
+                <input type="hidden" id="userId2" name="userId2" value="">
               <br><br>
             </div>             
             <button type="submit" class="btn btn-primary" style="width:100%;" onclick="return validate();">확인</button><br><br>
-            <!-- 만약 앞에 클릭한 값에 값이 담겨있을 경우만 보여주기 끝 -->
          </form> 
        </div>
   </div>
@@ -129,10 +131,12 @@
 
 
 <script>
+
+		//모달창이라서 hide show로 적용 헀습니다......
         function findMain(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findMain").css("display","block")}
         function findId(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findId1").css("display","block");$("#findTitle").text("아이디 찾기")}
         function findPwd(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findPwd1").css("display","block"); $("#findTitle").text("비밀번호 찾기")}
-        function closePopup(){$("#popup").addClass('hide'); $("#findMain,#findId1,#findPwd1").css("display","none"); $("#findTitle").text("")}
+        function closePopup(){$("#popup").addClass('hide'); $("#findMain,#findId1,#findPwd1").css("display","none"); $("#findTitle").text("");$("input").val("");}
 
         $(function(){
           $("#findIdByEmail").click(function(){
@@ -146,27 +150,28 @@
 
           $(".findBtn").click(function(){
                $(this).parent().parent().css("display","none");
-              $(this).parent().parent().next().css("display","block");
+               $(this).parent().parent().next().css("display","block");
           });
         })
 </script>
 
 
 <!-- 아이디찾기 마지막 부분 디스플레이 끝-->
+<script>
 
-<script type="text/javascript">
-    var userName = "날드";  //고객님의 성함
-    var userEmail = "daita0225@naver.com";  //고갱님의 이메일주소
-    var userMessage = "1234";  //인증번호가 들어갈 자리
+
+    var userName = "";  //고객님의 성함
+    var userEmail = "";  //고갱님의 이메일주소
+    var userMessage = "";  
     $(document).ready(function() {
       emailjs.init("user_eo9lqugonxfzo2twbsdjP");	
 
     //이메일 인증번호 발송	
-    $('#emailCheck').click(function(){       
-      userMessage =Math.floor(Math.random()*10000000);
+    $('#emailCheck').click(function(){   
       console.log(userMessage);
       $(this).parent().parent().css("display","none");
       $(this).parent().parent().next().css("display","block");	 
+
       
     // var templateParams = {	
     //       name: userName, email : userEmail, message : userMessage
@@ -193,6 +198,36 @@
           })
     });
     // 발송된 이메일 검증 끝
+    
+    // 비밀번호 이름 아이디 검증
+    	$('#findPwdBtn1').click(function(){ 
+		$.ajax({
+			url:"findPwd1.mem",
+			data:{
+				userId:$("#findPwdId").val(),
+				userName:$("#findPwdName").val(),
+			},
+			type:"post",
+			success:function(result){
+				if(result!=null){
+				alert("문자는 api가 유료라 구현하지 않았습니다 메일을 이용해주시고, 임시로 콘솔창에 인증번호 출력해놨습니다");
+				$("label[for='findPwdByEmail']").text("이메일로 인증하기("+result.tempEmail+")");	
+				$("label[for='findPwdBySMS']").text("SMS로 인증하기("+result.tempTel+")");	
+			    $("#findPwdBtn1").parent().parent().css("display","none");
+	            $("#findPwdBtn1").parent().parent().next().css("display","block");
+	            userMessage = result.tempPwd; // 인증번호
+	            userName = result.memName;  //고객님의 성함
+	            userEmail = result.memEmail; // 고객님의 이메일
+            	$("#userPwdSetNo").val(result.memNo);
+            	$("#userId2").val(result.memId);
+				}else{
+					alert("일치하는 계정이 없습니다");	
+				}
+			},error:function(){
+				alert("에러입니다");
+			}
+		});
+	})
 
 
     function validate(){
@@ -219,12 +254,9 @@
               userPwd2.focus();
               return false;
           }
-          alert("변경이 완료되었습니다");
 }
 
 
-    //정리를 하면 서블릿에서 값을 받아와야하는 경우애는...
-    // js에서 display를 설정해줘야겠다...
 
 </script>
 </body>

@@ -30,7 +30,6 @@ public class FindeIdController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("뭐왔냐 ?");
 		Member m = new Member();
 
 		m.setMemName(request.getParameter("userName"));

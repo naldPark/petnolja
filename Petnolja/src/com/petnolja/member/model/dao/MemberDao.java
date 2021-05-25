@@ -1,5 +1,7 @@
 package com.petnolja.member.model.dao;
 
+import static com.petnolja.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,7 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import static com.petnolja.common.JDBCTemplate.*;
+
+import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
 
 public class MemberDao {
@@ -93,6 +96,55 @@ private Properties prop = new Properties();
 		}
 		return findId;
 
+	}
+	
+	public FindMember findPwd1(Connection conn, String userId, String userName) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		FindMember m= null;
+		
+		String sql = prop.getProperty("findPwd1");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userName);
+			rset = pstmt.executeQuery();
+			if(rset.next()){
+				m = new FindMember();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setMemTel(rset.getString("MEM_TEL"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+		
+	}
+	
+	public int findPwd2(Connection conn, int userNo, String userPwd, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("findPwd2");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userPwd);
+			pstmt.setInt(2, userNo);
+			pstmt.setString(3, userId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

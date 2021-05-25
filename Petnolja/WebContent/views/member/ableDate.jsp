@@ -77,9 +77,9 @@
   <body>
     <table id="calendar"  border="0" align="center" width="270" height="270" style="font-size:13pt;">
       <tr>
-        <td align ="center"> <label onclick="prevClaendar()"> &lt; </label> </td>
+        <td align ="center"> <label onclick="prevClaendar()"></label> </td>
         <td colspan="5" align ="center" id="calendarYM">yyyy년 m월</td>
-        <td align ="center"> <label onclick="nextCalendar()">&gt;</label> </td>
+        <td align ="center"> <label onclick="nextCalendar()">></label> </td>
       </tr>
  
       <tr>

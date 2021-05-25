@@ -47,7 +47,7 @@
                     <a class="nav-link" href="<%=contextPath %>">홈</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="<%=contextPath%>/views/member/searchPetsitter.jsp">펫시터조회</a>
+                    <a class="nav-link" href="<%=contextPath%>/views/research/searchPetsitter.jsp">펫시터조회</a>
                   </li>
                   <!--펫시터만 보여지는 메뉴-->
                   <!-- //if(loginUser != null && ...)) { -->
@@ -65,9 +65,9 @@
                 <img src="<%=contextPath %>/resources/images/member/user.png" style="height: 45px; margin-right:20px;" id="dropdownMenuButton" data-toggle="dropdown">
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="<%=contextPath%>/views/member/memberUpdateForm.jsp">회원정보수정</a>
-                  <a class="dropdown-item" href="<%=contextPath%>/views/member/reserveList.jsp">예약내역</a>
-                  <a class="dropdown-item" href="<%=contextPath%>/views/member/daliyLog.jsp">일지보기</a>
-                  <a class="dropdown-item" href="<%=contextPath%>/views/member/addPet.jsp">반려견등록</a>
+                  <a class="dropdown-item" href="<%=contextPath%>/views/memreserve/reserveList.jsp">예약내역</a>
+                  <a class="dropdown-item" href="<%=contextPath%>/views/pet/daliyLog.jsp">일지보기</a>
+                  <a class="dropdown-item" href="<%=contextPath%>/views/pet/petList.jsp">반려견등록</a>
                   <a class="dropdown-item" href="<%=contextPath%>/views/member/favoriteList.jsp">즐겨찾기조회</a>
                   <% if(loginUser != null){%>
                   <a class="dropdown-item" href="<%=contextPath%>/logout.mem">로그아웃</a>

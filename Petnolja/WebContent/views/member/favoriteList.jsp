@@ -63,7 +63,7 @@
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
             <br>
-            <a href="searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
+            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
             <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
         </div>
       </div>
@@ -80,7 +80,7 @@
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
             <br>
-            <a href="searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
+            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
             <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
         </div>
       </div>
@@ -95,7 +95,7 @@
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
             <br>
-            <a href="searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
+            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
             <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
         </div>
       </div>
