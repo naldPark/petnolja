@@ -59,12 +59,12 @@
     </div>
 	
 	<script>
-		function(){
-			$("#address").val("<%=loginUser.getMemAddress()%>");
-			$("#address2").val("<%=loginUser.getMemDetailAddress()%>");
+		$(document).ready(function(){
+			$("#member_addr").val("<%=loginUser.getMemAddress()%>");
+			$("#detaiAddress").val("<%=loginUser.getMemDetailAddress()%>");
 			$("#latitude").val("<%=loginUser.getMemLatitude()%>");
 			$("#longtitude").val("<%=loginUser.getMemLongtitude()%>");
-		}
+		})
 	</script>
     
     <script>
