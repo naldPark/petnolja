@@ -42,7 +42,7 @@
                 아이디*
                 <input type="text" class="form-control"  placeholder="영소문자,숫자로만 5~20자 사이로 정해 주세요"  id="userId" name="userId" required>
                 비밀번호*
-                <input type="text" class="form-control"  placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1" name="userPwd1" required>
+                <input type="password" class="form-control"  placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1" name="userPwd1" required>
                 비밀번호확인*
                 <input type="password" class="form-control" placeholder="동일한 비밀번호를 입력 해 주세요"  id="userPwd2" required>
                 전화번호*
