@@ -64,10 +64,30 @@ public class MemberService {
 		}
 		
 		close(conn);
-		
+		System.out.println("업데이트서비스" + result);
 		return result;
 		
 	}
+	
+	public Member updateMember(Member m) {
+		Connection conn = getConnection();
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMem = null;
+		if(result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemNo());
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		System.out.println("여기는 셀렉트쪽 서비스"+ m);
+		return updateMem;
+		
+	}
+	
 	
 	
 }

@@ -86,5 +86,35 @@
 		  , ?
 		  )
 	</entry>
-
+	
+	<entry key="updateMember">
+		UPDATE
+		       MEMBER
+		   SET MEM_PWD = ?
+		     , MEM_TEL = ?
+		     , MEM_EMAIL = ?
+		     , MEM_ADDRESS = ?
+		     , MEM_DETAIL_ADDRESS = ?
+		     , MEM_LATITUDE = ?
+		     , MEM_LONGTITUDE = ?
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT
+			   MEM_NO	
+		     , MEM_ID
+		     , MEM_NAME
+		     , MEM_PWD
+		     , MEM_TEL
+		     , MEM_EMAIL
+		     , MEM_ADDRESS
+		     , MEM_DETAIL_ADDRESS
+		     , MEM_LATITUDE
+		     , MEM_LONGTITUDE
+		  FROM MEMBER
+		 WHERE MEM_NO = ?
+		   AND MEM_STATUS = 'Y'
+	</entry>
+	
 </properties>

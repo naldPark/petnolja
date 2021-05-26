@@ -178,6 +178,68 @@ private Properties prop = new Properties();
 		
 	}
 	
+	public int updateMember(Connection conn, Member m) {
+		// update문
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemPwd());
+			pstmt.setString(2, m.getMemTel());
+			pstmt.setString(3, m.getMemEmail());
+			pstmt.setString(4, m.getMemAddress());
+			pstmt.setString(5, m.getMemDetailAddress());
+			pstmt.setDouble(6, m.getMemLatitude());
+			pstmt.setDouble(7, m.getMemLongtitude());
+			pstmt.setInt(8, m.getMemNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("업데이트 dao" + result);
+		return result;
+	}
 	
+	public Member selectMember(Connection conn, int memNo) {
+		// select문
+		Member updateMem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+
+			rset = pstmt.executeQuery();
+			
+		if(rset.next()) {
+			updateMem = new Member(rset.getInt("mem_no"),
+								   rset.getString("mem_id"),
+								   rset.getString("mem_name"),
+								   rset.getString("mem_pwd"),
+								   rset.getString("mem_tel"),
+								   rset.getString("mem_email"),
+								   rset.getString("mem_address"),
+								   rset.getString("mem_detail_address"),
+								   rset.getDouble("mem_latitude"),
+								   rset.getDouble("mem_longtitude"));
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("여기는 dao" + updateMem);
+		return updateMem;
+	}
 	
 }

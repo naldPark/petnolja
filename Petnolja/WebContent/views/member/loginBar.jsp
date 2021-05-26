@@ -97,7 +97,7 @@
         <br>
         <h5><b><span style="color:rgb(0, 123, 255)"><%=loginUser.getMemName()%></span>님 환영합니다</b></h5>
         <img src="<%=contextPath %>/resources/images/member/welcome.png" style="height: 140px">
-          <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/views/member/memberUpdateForm.jsp'">정보수정</button>
+          <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/update.me'">정보수정</button>
           <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/logout.mem'">로그아웃</button>
     </div>
      <% } %>

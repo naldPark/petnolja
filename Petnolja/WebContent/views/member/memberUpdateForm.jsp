@@ -19,7 +19,7 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-
+	
     <br><br>
     <div class="outer">
         <br>
@@ -32,20 +32,20 @@
                 회원님의 명백한 동의 없이 공개 또는 제 3자에게 제공되지 않습니다.
             </span> <br><br>
             <span><b>* 표시는 필수 입력사항입니다.</b></span> <br><br>
-            <form action="" method="post" id="enroll-form" name="enroll-form">
+            <form action="<%=contextPath%>/update2.me" method="post" id="enroll-form" name="enroll-form">
                 <div class="update-group">
                     이름
-                    <input type="text" class="form-control" readonly> 
+                    <input type="text" class="form-control" value="<%=loginUser.getMemName()%>" readonly> 
                     아이디*
-                	<input type="text" class="form-control" readonly>      
+                	<input type="text" class="form-control" value="<%=loginUser.getMemId() %>" readonly>      
                     비밀번호*
-                    <input type="text" class="form-control"  placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1">
+                    <input type="password" class="form-control" name="userPwd1" value="<%=loginUser.getMemPwd() %>" placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이로 정해 주세요"  id="userPwd1">
                     비밀번호확인*
                     <input type="password" class="form-control" placeholder="동일한 비밀번호를 입력 해 주세요"  id="userPwd2">
                     전화번호*
-                    <input type="text" class="form-control" placeholder="-를 포함하여 입력 해 주세요"  id="userPhone">
+                    <input type="text" class="form-control" name="phone" value="<%=loginUser.getMemTel()%>" placeholder="-를 포함하여 입력 해 주세요"  id="userPhone">
                     이메일*
-                    <input type="text" class="form-control"  required>
+                    <input type="text" class="form-control" name="email" value="<%=loginUser.getMemEmail()%>" required>
                     주소*<br>
                     <div><%@ include file = "address.jsp"%></div> 
                     <br>
@@ -57,7 +57,15 @@
             </form>
         </div>
     </div>
-
+	
+	<script>
+		function(){
+			$("#address").val("<%=loginUser.getMemAddress()%>");
+			$("#address2").val("<%=loginUser.getMemDetailAddress()%>");
+			$("#latitude").val("<%=loginUser.getMemLatitude()%>");
+			$("#longtitude").val("<%=loginUser.getMemLongtitude()%>");
+		}
+	</script>
     
     <script>
          function validate(){
