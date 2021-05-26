@@ -6,17 +6,17 @@
 <meta charset="UTF-8">
 <title>펫놀자</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8a3fded1fd07016125ac9fdf2d65bcd4&libraries=services"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div id="addressDiv">
-    <input id="member_post" type="text" placeholder="우편번호" readonly onclick="findAddr()" class="form-control" value="" style="background-color:white!important; float: left; width: 420px">
+    <input id="member_post" required type="text" placeholder="우편번호" readonly onclick="findAddr()" class="form-control" value="" style="background-color:white!important; float: left; width: 420px">
     <button type="button"  class="btn btn-secondary" style="width: 148px; margin-left:10px"  onclick="findAddr()">우편번호 찾기</button>
-    <input id="member_addr" name="address" required  type="text" placeholder="주소" readonly class="form-control"  onclick="findAddr()" style="background-color:white!important;" value="">
-    <input type="text" name="address2" id="detaiAddress" required  placeholder="상세주소" class="form-control" >
+    <input id="member_addr" name="address" required id="address" type="text" placeholder="주소" readonly class="form-control"  onclick="findAddr()" style="background-color:white!important;" value="">
+    <input type="text" name="address2" required id="address2" placeholder="상세주소" class="form-control" >
     <input type="hidden" name="latitude" required value="" id="latitude">
     <input type="hidden" name="longtitude" required value="" id="longtitude">
     </div> 

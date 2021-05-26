@@ -202,7 +202,7 @@ private Properties prop = new Properties();
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("업데이트 dao" + result);
+		
 		return result;
 	}
 	
@@ -238,7 +238,7 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("여기는 dao" + updateMem);
+		
 		return updateMem;
 	}
 	

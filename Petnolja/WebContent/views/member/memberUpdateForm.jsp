@@ -59,13 +59,12 @@
     </div>
 	
 	<script>
-		$(document).ready(function(){
-			$("#member_post").val("주소를 수정하려면 클릭 해 주세요");
-			$("#member_addr").val("<%=loginUser.getMemAddress()%>");
-			$("#detaiAddress").val("<%=loginUser.getMemDetailAddress()%>");
+		function(){
+			$("#address").val("<%=loginUser.getMemAddress()%>");
+			$("#address2").val("<%=loginUser.getMemDetailAddress()%>");
 			$("#latitude").val("<%=loginUser.getMemLatitude()%>");
 			$("#longtitude").val("<%=loginUser.getMemLongtitude()%>");
-		})
+		}
 	</script>
     
     <script>

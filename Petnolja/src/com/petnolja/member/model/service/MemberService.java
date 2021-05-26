@@ -64,7 +64,7 @@ public class MemberService {
 		}
 		
 		close(conn);
-		System.out.println("업데이트서비스" + result);
+		
 		return result;
 		
 	}
@@ -83,7 +83,7 @@ public class MemberService {
 		}
 		
 		close(conn);
-		System.out.println("여기는 셀렉트쪽 서비스"+ m);
+		
 		return updateMem;
 		
 	}

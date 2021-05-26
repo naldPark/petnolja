@@ -45,7 +45,7 @@ public class MemberUpdateController extends HttpServlet {
 		double latitude= 2.3333333;
 		double longtitude= 3.2222;
 		Member m = new Member(userNo, userPwd1, phone, email, address, address2, latitude, longtitude); 
-		System.out.println("보내기 전 여기는 컨트롤러입니다" + m);
+		
 		Member updateMem = new MemberService().updateMember(m);
 		
 		
