@@ -22,7 +22,6 @@
             width: 1200px;
             height: 800px;
             margin: auto;
-            margin-top: 40px;
             padding:10px;
         }
 

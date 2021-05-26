@@ -22,7 +22,6 @@
             width: 1200px;
             height: 700px;
             margin: auto;
-            margin-top: 40px;
             padding:10px;
         }
 
@@ -32,7 +31,7 @@
 
         form {
             width: 1100px;
-            margin: auto;
+            margin: auto 0;
         }
 
         #buttons {
@@ -48,7 +47,6 @@
 </head>
 
 <body>
-
     <%@ include file="adminMenubar.jsp" %>
     <div class="outer" align="center">
         <br><br>
