@@ -70,8 +70,6 @@
 
     <%@include file="adminMenubar.jsp" %>
     <br><br><br>
-
-
     <div class="outer">
 
         <table id="admin-chart" align="center">
@@ -100,7 +98,6 @@
                         
                         <!--기능구현할때 for문으로 데이터 갯수만큼 가져오기
                         <% for(int i=0; i < month.lenth; i++) { %>
-
                             <tr>
                                 <td><%= 날짜 %></td>
                                 <td><%= 수익 %></td>
@@ -124,7 +121,7 @@
                         <canvas id="myChart1"></canvas>
                     </div>
                 </td>
-            </tr>-->
+            </tr>
 
             <tr>
                 <td colspan="2"><h5 align="left"><b>견종별</b></h5>
