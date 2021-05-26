@@ -96,16 +96,6 @@
                             <th width="120">비고</th>
                         </tr>
                         
-                        <!--기능구현할때 for문으로 데이터 갯수만큼 가져오기
-                        <% for(int i=0; i < month.lenth; i++) { %>
-                            <tr>
-                                <td><%= 날짜 %></td>
-                                <td><%= 수익 %></td>
-                                <td><%= 지출 %></td>
-                                <td></td>
-                            </tr>
-                        <% } %>
-                        -->
                         
                         <tr>
                             <td id="sum">총계</td>
@@ -241,31 +231,7 @@
 
     <!--차트 그리는 스크립트-->
     <script>
-        /*var ctx1 = document.getElementById('myChart1').getContext('2d');
-        var chart = new Chart(ctx1, {
-            // 챠트 종류를 선택 
-            type: 'line',
-            // 챠트를 그릴 데이타 
-            data: {
-                labels: [
-                            <% for(int i=1; i <= month; i++) { %>
-                                <%= i %> ,
-                            <% } %>
-                        ],
-                datasets: [{
-                    label: '순익',
-                    backgroundColor: 'transparent',
-                    borderColor: 'rgb(27, 119, 182)',
-                    data: [
-                            <% for(int i=0; i< month; i++) { %>
-                                <%= 순익sum - 지출sum %> ,
-                            <% } %>
-                        ]
-                }]
-            },
-            // 옵션 
-            options: {}
-        });*/
+        
 
         var chBar = document.getElementById("myChart2");
         var chartData = {
