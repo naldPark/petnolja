@@ -108,7 +108,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="001">001</p>
+                    001
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010a">jieun1010a</p>
@@ -135,7 +135,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="002">002</p>
+                    002
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010b">jieun1010b</p>
@@ -162,7 +162,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>003</p>
+                    003
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010c">jieun1010c</p>
@@ -189,7 +189,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>004</p>
+                    004
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -216,7 +216,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>005</p>
+                    005
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -243,7 +243,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>006</p>
+                    006
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -270,7 +270,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>007</p>
+                    007
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -297,7 +297,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>008</p>
+                    008
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -324,7 +324,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>009</p>
+                    009
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
@@ -351,7 +351,7 @@
                     <input type="checkbox">
                 </td>
                 <td>
-                    <p>010</p>
+                    010
                 </td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
