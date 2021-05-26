@@ -129,7 +129,7 @@
                         <tr class="table-warning">
                             <th width="120" height="50">견종</th>
                             <th width="120">거래량</th>
-                            <th width="120">순익</th>
+                            <th width="120">순익(단위: 천 원)</th>
                             <th width="120">순익/거래량</th>
                         </tr>
                         <tr>
@@ -273,7 +273,7 @@
             data: {
                 labels: [$("#a1").text(), $("#a2").text(), $("#a3").text(), $("#a4").text(), $("#a5").text(), $("#a6").text(),$("#a7").text()],
                 datasets: [{
-                    label: '순익/거래량 순위',
+                    label: '순익/거래량',
                     data: [$("#1st").text(), $("#2nd").text(), $("#3rd").text(), $("#4th").text(), $("#5th").text(), $("#6th").text(), $("#7th").text()],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
