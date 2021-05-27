@@ -104,7 +104,7 @@
     <div class="wrap">
         <div id="copy" align="center"><label>펫놀자? 관리자!</label></div>
         <div id="etc">
-            <div id="symbol"><img src="../../resources/images/logo.png" alt=""></div>
+            <div id="symbol"><img src="../../resources/images/logo.png"></div>
             <form action="" method="POST" id="login-area">
                 <div id="login">
                     <div>
