@@ -9,12 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <!--부트스트랩-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
     <style>
@@ -40,7 +34,7 @@
 
 
         #sum {
-            background-color: lightgrey;
+            background-color: rgb(255, 211, 129);
         }
 
         .container {
@@ -55,10 +49,14 @@
 
         #admin-chart{
             box-sizing: border-box;
-            width:100%;
-            height: 100%;
+            width:90%;
+            height: 95%;
         }
-
+        
+		#admin-chart tr{font-size: 14px;}
+		
+		canvas {padding-right: 30px;}		
+		
 
     
 
@@ -69,7 +67,6 @@
 <body>
 
     <%@include file="adminMenubar.jsp" %>
-    <br><br><br>
     <div class="outer">
 
         <table id="admin-chart" align="center">
@@ -90,7 +87,7 @@
                 <td>
                     <table id="money-table" class="table-bordered" align="center">
                         <tr class="table-warning">
-                            <th width="120" height="50px">날짜</th>
+                            <th width="120" height="50">날짜</th>
                             <th width="120">매출</th>
                             <th width="120">비용</th>
                             <th width="120">비고</th>
@@ -307,6 +304,8 @@
             }
         });
 
+        
+        
     </script>
 </body>
 
