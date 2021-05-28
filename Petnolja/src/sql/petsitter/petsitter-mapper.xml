@@ -34,9 +34,25 @@
 		    ,PET_NO
 		    ,LICENSE
 		    ,EXPERIENCE
-		    ,MOTIVE
 		    ,PROMOTION_STATUS
 		    ,PROMOTION_DATE
+		    ,ADDITIONS
+		FROM SITTER
+		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+		ORDER 
+			BY SITTER.SITTER_NO DESC
+	</entry>
+	
+	<entry key="selectNewPetsitter">
+		SELECT
+			SITTER_NO
+    		,MEM_ID
+		    ,PET_PERIOD
+		    ,PET_NO
+		    ,LICENSE
+		    ,EXPERIENCE
+		    ,MOTIVE
+		    ,ADD_CONTENT
 		    ,ADDITIONS
 		FROM SITTER
 		JOIN MEMBER ON(SITTER_NO = MEM_NO)

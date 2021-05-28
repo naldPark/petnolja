@@ -28,4 +28,12 @@ public class PetsitterService {
 		close(conn);
 		return list;
 	}
+	
+	public Petsitter selectNewPetsitter(int sitterNo) {
+		Connection conn = getConnection();
+		Petsitter p = new PetsitterDao().selectNewPetsitter(conn, sitterNo);
+		close(conn);
+		return p;		
+	}
+	
 }

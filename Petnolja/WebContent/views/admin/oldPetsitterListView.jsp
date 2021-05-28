@@ -124,9 +124,9 @@
 							<td>
 								<p class="rowColumn" contenteditable="false" data-default="Y">
 									<% if(n.getExperience().equals(null)) {%>
-										Y	
+										N	
 									<%}else { %>
-										N
+										Y
 									<% } %>
 									</p>
 							</td>

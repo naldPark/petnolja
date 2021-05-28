@@ -11,12 +11,17 @@ public class Petsitter {
 	private String petNo; // 펫 수
 	private String license; // 자격증 보유
 	private String experience; // 경험기간
-	private String motive; // 
+	private String motive; // 지원동기
+	private String addContent; // 하고싶은말
 	private char pStatus; // 승인 여부
 	private Date pDate; // 승인일
 	private String stopReason; // 중지사유
 	private String stopContent; // 중시 상세 사유
 	private int penaltyCount; // 패널티 누적 횟수
+	private String sitterTitle; // 시터 제목
+	private String sitterContent; // 시터 내용
+	private String sitterCkIn; // 체크인
+	private String sitterCkOut; // 체크아웃
 	private String additions; // 추가서비스
 	
 	public Petsitter() {}
@@ -56,7 +61,23 @@ public class Petsitter {
 		this.pDate = pDate;
 		this.additions = additions;
 	}
+	
 
+	public Petsitter(String memID, int sitterNo, String petPeriod, String petNo, String license, String experience,
+			String motive, String addContent, String additions) {
+		super();
+		this.memID = memID;
+		this.sitterNo = sitterNo;
+		this.petPeriod = petPeriod;
+		this.petNo = petNo;
+		this.license = license;
+		this.experience = experience;
+		this.motive = motive;
+		this.addContent = addContent;
+		this.additions = additions;
+	}
+
+	
 	public String getMemID() {
 		return memID;
 	}
@@ -121,6 +142,14 @@ public class Petsitter {
 		this.motive = motive;
 	}
 
+	public String getAddContent() {
+		return addContent;
+	}
+
+	public void setAddContent(String addContent) {
+		this.addContent = addContent;
+	}
+
 	public char getpStatus() {
 		return pStatus;
 	}
@@ -161,6 +190,38 @@ public class Petsitter {
 		this.penaltyCount = penaltyCount;
 	}
 
+	public String getSitterTitle() {
+		return sitterTitle;
+	}
+
+	public void setSitterTitle(String sitterTitle) {
+		this.sitterTitle = sitterTitle;
+	}
+
+	public String getSitterContent() {
+		return sitterContent;
+	}
+
+	public void setSitterContent(String sitterContent) {
+		this.sitterContent = sitterContent;
+	}
+
+	public String getSitterCkIn() {
+		return sitterCkIn;
+	}
+
+	public void setSitterCkIn(String sitterCkIn) {
+		this.sitterCkIn = sitterCkIn;
+	}
+
+	public String getSitterCkOut() {
+		return sitterCkOut;
+	}
+
+	public void setSitterCkOut(String sitterCkOut) {
+		this.sitterCkOut = sitterCkOut;
+	}
+
 	public String getAdditions() {
 		return additions;
 	}
@@ -171,14 +232,12 @@ public class Petsitter {
 
 	@Override
 	public String toString() {
-		return "PetsitterList [memID=" + memID + ", sitterNo=" + sitterNo + ", access=" + access
-				+ ", petPeriod=" + petPeriod + ", petNo=" + petNo + ", license=" + license + ", experience="
-				+ experience + ", motive=" + motive + ", pStatus=" + pStatus + ", pDate=" + pDate + ", stopReason="
-				+ stopReason + ", stopContent=" + stopContent + ", penaltyCount=" + penaltyCount + ", additions="
-				+ additions + "]";
+		return "Petsitter [memID=" + memID + ", sitterNo=" + sitterNo + ", access=" + access + ", petPeriod="
+				+ petPeriod + ", petNo=" + petNo + ", license=" + license + ", experience=" + experience + ", motive="
+				+ motive + ", addContent=" + addContent + ", pStatus=" + pStatus + ", pDate=" + pDate + ", stopReason="
+				+ stopReason + ", stopContent=" + stopContent + ", penaltyCount=" + penaltyCount + ", sitterTitle="
+				+ sitterTitle + ", sitterContent=" + sitterContent + ", sitterCkIn=" + sitterCkIn + ", sitterCkOut="
+				+ sitterCkOut + ", additions=" + additions + "]";
 	}
 
-	
-	
-	
 }

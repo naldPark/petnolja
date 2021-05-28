@@ -29,7 +29,6 @@ public class PetsitterDao {
 	}
 	
 	
-	
 	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn){
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -103,6 +102,42 @@ public class PetsitterDao {
 		}
 		
 		return list;
+		
+	}
+	
+	public Petsitter selectNewPetsitter(Connection conn, int sitterNo) {
+		// select문 => ResultSet객체 (한행)
+		Petsitter p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNewPetsitter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Petsitter(rset.getString("sitter_no"),
+								rset.getInt("mem_id"),
+								rset.getString("pet_period"),
+								rset.getString("pet_no"),
+								rset.getString("license"),
+								rset.getString("experience"),
+								rset.getString("motive"),
+								rset.getString("add_content"),
+								rset.getString("additions"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
 		
 	}
 

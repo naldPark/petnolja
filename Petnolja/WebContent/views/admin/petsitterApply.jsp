@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Petsitter"%>
+    
+<%
+	Petsitter p = (Petsitter)request.getAttribute("p");
+%>    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,27 +78,33 @@
                 </tr>
                 <tr>
                     <td>
-                        <h6><b>아이디 : </b></h6>
+                        <h6><b>아이디 : <%= p.getMemID() %></b></h6>
                     </td>
                     <td>
-                        <h6><b>제공 서비스 : </b></h6>
+                        <h6><b>제공 서비스 : <%= p.getAdditions() %></b></h6>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <h6><b>반려동물 반려기간 : </b></h6>
+                        <h6><b>반려동물 반려기간 : <%= p.getPetPeriod() %></b></h6>
                     </td>
                     <td>
-                        <h6><b>자격증 보유현황 : </b></h6>
+                        <h6><b>자격증 보유현황 : <%= p.getLicense() %></b></h6>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h6><b>현재 반려견 수 : </b></h6>
+                        <h6><b>현재 반려견 수 : <%= p.getPetNo() %></b></h6>
                     </td>
                     <td>
-                        <h6><b>펫시팅 경험 : </b></h6>
+                        <h6><b>펫시팅 경험 : 
+							<% if(p.getExperience().equals(null)) {%>
+								N	
+							<%}else { %>
+								Y
+							<% } %>
+						</b></h6>
                     </td>
                 </tr>
 
@@ -107,7 +117,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div class="box">뽑아주세요</div>
+                        <div class="box"><%= p.getMotive() %></div>
 
                     </td>
                 </tr>
@@ -119,7 +129,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div class="box">뽑아주세요</div>
+                        <div class="box"><%= p.getAddContent() %></div>
 
                     </td>
                 </tr>
