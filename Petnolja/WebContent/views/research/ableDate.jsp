@@ -42,22 +42,27 @@
         cnt = cnt + 1;
     }
       //달력 출력
+      var userAbleDate='<%=sitterInfo.getAbleDate()%>'.split(",");   
+      
       for(i=1; i<=lastDate.getDate(); i++){
         cell =row.insertCell();
         cell.innerHTML = i;
+        cell.style.color="lightgrey";
 
 
         //여기서 비활성화 조정하자
-		if(i< 10){ varDate = "0" + i}else{varDate=i};
+        if(i< 10){ varDate = "0" + i}else{varDate=i};
 
-		ableCheck= today.toISOString().substring(0,8)+varDate;
-        var userAbleDate=['2021-05-09','2021-05-10','2021-05-11'];
-
+		var ableCheck= today.toISOString().substring(0,8)+varDate;
+        
         for(var k=0;k<userAbleDate.length;k++){
 
+    
+      
+
 		if(userAbleDate[k]==ableCheck){
-			cell.style.background="rgb(33,150,243)";
-            cell.style.color="white";
+			cell.style.background="rgb(210, 235, 250)";
+            cell.style.color="darkgrey";
 		}
 		//여기까지 비활성화 조정하자
     }
