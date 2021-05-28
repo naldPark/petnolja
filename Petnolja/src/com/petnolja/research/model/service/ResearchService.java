@@ -16,18 +16,24 @@ import com.petnolja.research.model.vo.Review;
 public class ResearchService {
 	
 	// 메인페이지에서 노출될 항목 조회
-	public HashMap<String, Object> indexList(){
+	public ArrayList<Sitter> indexSitterList(){
 		Connection conn = getConnection();
 		ArrayList<Sitter> sitterList = new ResearchDao().indexSitterList(conn);
-		ArrayList<Review> reviewList = new ResearchDao().indexReviewList(conn);
-		
-		HashMap<String, Object> indexHm = new HashMap<>();
-		indexHm.put("sitterList", sitterList);
-		indexHm.put("reviewList", reviewList);
 		
 		close(conn);
 		
-		return indexHm;
+		return sitterList;
+		
+	}
+	
+	// 메인페이지에서 노출될 항목 조회
+	public ArrayList<Review> indexReviewList(){
+		Connection conn = getConnection();
+	    ArrayList<Review> reviewList = new ResearchDao().indexReviewList(conn);
+		
+		close(conn);
+		
+		return reviewList;
 		
 	}
 	
@@ -54,15 +60,26 @@ public class ResearchService {
 	}
 	
 	//searchPetsitterDetail.jsp에 보여줄 화면 구성
-	public ArrayList<Research> searchSitterDetail(int sitterNo, int userNo) {
+	public Research searchSitterDetail(int sitterNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Research> sitterInfo = new ResearchDao().searchSitterDetail(conn, sitterNo);
+		Research sitterInfo = new ResearchDao().searchSitterDetail(conn, sitterNo);
+
+		close(conn);
+		
+		return sitterInfo;
+	}
+	
+	//searchPetsitterDetail.jsp에 보여줄 화면에서 유저와 펫의 정보
+	public ArrayList<Pet> memPetInfo(int sitterNo, int userNo) {
+		Connection conn = getConnection();
+		
 		ArrayList<Pet> petList = new ResearchDao().memPetInfo(conn, sitterNo, userNo);
+		
 		
 		close(conn);
 		
-		return list;
+		return petList;
 		
 	}
 	

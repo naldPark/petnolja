@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.Pet,com.petnolja.research.model.vo.Research" %>
+  <%
+    Research sitterInfo = (Research)request.getAttribute("sitterInfo");
+ 	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
+ 	String[] sitterPic = (String[])request.getAttribute("sitterPic");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +69,7 @@
         /* .carousel-inner img {width: 30%; height: 300px; padding: 20px;} */
         .carousel-item h3{color:black!important;  text-align: left; font-size:17pt;}
         .carousel-item p{color:gray!important; text-align: left; font-size:14pt;}
-        .reviewImg{
+        .sitterImg{
           float: left; 
           width: 33%; height: 300px; padding: 20px;
         }
@@ -87,43 +92,11 @@
 
     <!--사진슬라이드-->
   <div class="wrap1">
-    <div id="demo" class="carousel slide" data-ride="carousel">
-      <ul class="carousel-indicators">
-        <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <li data-target="#demo" data-slide-to="1"></li>
-        <li data-target="#demo" data-slide-to="2"></li>
-        <li data-target="#demo" data-slide-to="3"></li>
-        <li data-target="#demo" data-slide-to="4"></li>
-        <li data-target="#demo" data-slide-to="5"></li>
-      </ul>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../../resources/images/temp/dog1.jpg" class="reviewImg">
-          <img src="../../resources/images/temp/dog2.jpg" class="reviewImg">
-          <img src="../../resources/images/temp/dog3.jpg" class="reviewImg">
 
-        </div>
-        <div class="carousel-item">
-            <img src="../../resources/images/temp/dog4.jpg" class="reviewImg">
-            <img src="../../resources/images/temp/dog5.jpg" class="reviewImg">
-            <img src="../../resources/images/temp/dog1.jpg" class="reviewImg">
+		<% for(int i=1 ; i<sitterPic.length ; i++){  %>
+          <img src="<%=contextPath%>/<%=sitterPic[i]%>" class="sitterImg">
+		<%} %>
 
-        </div>
-        <div class="carousel-item">
-            <img src="../../resources/images/temp/dog2.jpg" class="reviewImg">
-            <img src="../../resources/images/temp/dog3.jpg" class="reviewImg">
-            <img src="../../resources/images/temp/dog4.jpg" class="reviewImg">
-
-        </div>
-
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-          <span><img src="../../resources/images/member/left-arrow.png" width="70"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
-          <span><img src="../../resources/images/member/right-arrow.png" width="70"></span>
-        </a>
-      </div>
-    </div>
   </div>
 
   <!--왼쪽면-->
@@ -131,20 +104,15 @@
       <!--펫시터소개 제목-->
       <hr>
       <div style="height:200px; text-align: center;"> 
-        <img src="../../resources/images/temp/petsitter5.jpg" style="height: 200px; float: left; padding:15px;" >
+        <img src="<%=contextPath%>/<%=sitterPic[0]%>" style="height: 200px; float: left; padding:15px;" >
         <br><br><br>
-        <h3>논현동 펫시팅 8년 경력 책임지고 돌봐드립니다</h3><br>
-        <span style="padding-left:500px">펫시터 강보람</span>
+        <h3><%=sitterInfo.getSitterTitle()%></h3><br>
+        <span style="padding-left:500px">펫시터 <%=sitterInfo.getSitterName()%></span>
       </div>
       <!--펫시터 자기소개-->
       <hr>
-      <div style="white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:20px; border:1px solid gray;" > 
-            안녕하세요 논현동에 사는 펫시터 입니다.
-            저는 남편하고 둘이서 살고 있구요. 집에는 아주 순한 5살짜리 푸들이 있어요 !
-            활동을 하다보니 역시나 저에게 너무 잘 맞았고 일이라는 생각이 전혀 안 들 정도로 아이들과 교감하는 것이 행복했습니다. 
-            집에 오는 아가들이 잘 따르고 편안해 할 때와 너무 만족해 하시며 
-            고마워 하시는 견주님들을 볼 때 너무 보람있고 행복한 일이라고 느끼고 있습니다. 
-            앞으로도 처음 그 마음처럼 사랑과 정성으로 아이들을 돌보겠습니다~~^^<br>
+      <div style="white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:20px; padding-right:20px; border:1px solid gray;" > 
+            <%=sitterInfo.getSitterContent()%><br>
       </div> 
 
       <!--시팅 금액-->
@@ -153,9 +121,9 @@
             <h4>시팅 금액</h4><br>
                 <ul id="weight">
                     <li style="list-style-type:none; color:gray"><br>1박케어<br>데이케어</li>
-                    <li>소형견<br>40,000원<br>35,000원</li>
-                    <li>중형견<br>50,000원<br>40,000원</li>
-                    <li>대형견<br>80,000원<br>예약불가</li>
+                    <li>소형견<br><%=sitterInfo.getSmallNightFee()%>원<br><%=sitterInfo.getSmallDayFee()%>원</li>
+                    <li>중형견<br><%=sitterInfo.getMidNightFee()%>원<br><%=sitterInfo.getMidDayFee()%>원</li>
+                    <li>대형견<br><%=sitterInfo.getBigNightFee()%>원<br><%=sitterInfo.getBigDayFee()%>원</li>
                 </ul>
       </div> 
 
@@ -176,18 +144,18 @@
         <h4>지원 사항</h4><br>
         <div id="searchCheckbox" style="padding-left:20px">
             <input class="largerCheckbox" type="checkbox" name="pickup" id="pickup" checked="checked" disabled="disabled">&nbsp;&nbsp; <label for="pickup">자차 픽업 가능
-            <span><img src="../../resources/images/member/checkboxPickup.png" style="height: 30px"></span></label>
+            <span><img src="<%=contextPath%>/resources/images/member/checkboxPickup.png" style="height: 30px"></span></label>
             <span style="margin:20px;"></span>
             <input class="largerCheckbox" type="checkbox" name="bath" id="bath" checked="checked" disabled="disabled">&nbsp;&nbsp;<label for="bath">목욕 가능
-            <span><img src="../../resources/images/member/checkboxBath.png" style="height: 30px"></span></label>
+            <span><img src="<%=contextPath%>/resources/images/member/checkboxBath.png" style="height: 30px"></span></label>
             <span style="margin:20px;"></span>
             <input class="largerCheckbox" type="checkbox"  name="medicine" id="medicine" disabled="disabled">&nbsp;&nbsp;<label for="medicine">약물 복용
-            <span><img src="../../resources/images/member/checkboxMedicine.png" style="height: 30px" ></span></label><br><br>
+            <span><img src="<%=contextPath%>/resources/images/member/checkboxMedicine.png" style="height: 30px" ></span></label><br><br>
             <input class="largerCheckbox" type="checkbox"  name="oldPet" id="oldPet" checked="checked" disabled="disabled">&nbsp;&nbsp;<label for="oldPet">노령견 케어 가능
-            <span><img src="../../resources/images/member/checkboxOldpet.png" style="height: 30px"></span></label>
+            <span><img src="<%=contextPath%>/resources/images/member/checkboxOldpet.png" style="height: 30px"></span></label>
             <span style="margin:20px;"></span>
             <input class="largerCheckbox" type="checkbox" name="hospital" id="hospital" checked="checked" disabled="disabled">&nbsp;&nbsp;<label for="hospital">응급상황시 인근 병원 이동 가능
-            <span><img src="../../resources/images/member/checkboxHospital.png" style="height: 30px"></span></label>
+            <span><img src="<%=contextPath%>/resources/images/member/checkboxHospital.png" style="height: 30px"></span></label>
             <br><br>
         </div>
        </div> 
@@ -196,7 +164,7 @@
            <div style="text-align:left; margin-bottom:30px; padding-left:20px;" > 
                 <br>
                 <h4 style="float:left;">후기 4개</h4>
-                <div style="text-align: right; padding-right: 20px;"><img src="../../resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
+                <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
                     <a href="" style="text-decoration: none; color:gray">추천순</a> | 
                     <a href="" style="text-decoration: none; color:gray">별점순</a> | 
                     <a href="" style="text-decoration: none; color:gray">최신순</a>
@@ -276,9 +244,9 @@
         <div style="text-align: center;">
             <br><br><br>
             
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();"><div id="likeImgDiv"><img src="../../resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가</div></button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl"><img src="../../resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기</button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="../../resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();"><div id="likeImgDiv"><img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가</div></button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl"><img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기</button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
         </div>
         <br><br>
          <!-- 공유하기 버튼 클릭시 모달 실행 -->
@@ -299,7 +267,7 @@
 
         <!--예약달력확인--><br>
           <h6>예약 가능 날짜</h6>
-          <div style="border:1px solid lightgray;"><%@ include file = "../member/ableDate.jsp" %></div>
+          <div style="border:1px solid lightgray;"><%@ include file = "ableDate.jsp" %></div>
         
         <br>
         <!--예약 area-->
@@ -311,11 +279,11 @@
                 <br>
                     <div style="float: left; margin-left:45px;">
                       위탁할시간<br>
-                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px" >오전8시</div>
+                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px;width:100px;" ><%=sitterInfo.getCheckin()%>시</div>
                     </div>          
                     <div class="form-group" style="margin-left:160px; text-align: left;">&nbsp;
                       찾아올시간<br>
-                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" >오전8시</div>
+                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" ><%=sitterInfo.getCheckout()%>시</div>
                     </div>
             </div>
 
@@ -364,10 +332,10 @@
           var temp=0;
           function like(){
             if(temp==0){
-              $("#likeImgDiv").html('<img src="../../resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨');
+              $("#likeImgDiv").html('<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨');
               temp++;
             }else{
-              $("#likeImgDiv").html('<img src="../../resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가');
+              $("#likeImgDiv").html('<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가');
               temp--;
             }
           }

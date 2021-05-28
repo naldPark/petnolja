@@ -34,10 +34,9 @@ public class IndexController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HashMap<String, Object> indexHm = new ResearchService().indexList();
-		ArrayList<Sitter> sitterList = (ArrayList<Sitter>) indexHm.get("sitterList");
-		ArrayList<Review> reviewList = (ArrayList<Review>) indexHm.get("reviewList");	
-		//여기서 꺼내서 담자 수정하기
+		ArrayList<Sitter> sitterList = new ResearchService().indexSitterList();
+		ArrayList<Review> reviewList = new ResearchService().indexReviewList();
+		
 		request.getSession().setAttribute("sitterList", sitterList);
 		request.getSession().setAttribute("reviewList", reviewList);
 		response.sendRedirect(request.getContextPath());
