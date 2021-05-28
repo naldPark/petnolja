@@ -40,9 +40,23 @@ public class Petsitter {
 		this.penaltyCount = penaltyCount;
 		this.additions = additions;
 	}
+	
+	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
+			String experience, String motive, char pStatus, Date pDate, String additions) {
+		super();
+		this.memID = memID;
+		this.sitterNo = sitterNo;
+		this.access = access;
+		this.petPeriod = petPeriod;
+		this.petNo = petNo;
+		this.license = license;
+		this.experience = experience;
+		this.motive = motive;
+		this.pStatus = pStatus;
+		this.pDate = pDate;
+		this.additions = additions;
+	}
 
-	
-	
 	public String getMemID() {
 		return memID;
 	}

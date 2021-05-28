@@ -30,11 +30,11 @@ public class PetsitterDao {
 	
 	
 	
-	public ArrayList<Petsitter> selectPetsitterList(Connection conn){
+	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn){
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectPetsitterList");
+		String sql = prop.getProperty("selectOldPetsitterList");
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -54,6 +54,43 @@ public class PetsitterDao {
 									rset.getString("stop_reason"),
 									rset.getString("stop_content"),
 									rset.getInt("penalty_count"),
+									rset.getString("additions")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
+	public ArrayList<Petsitter> selectNewPetsitterList(Connection conn){
+		ArrayList<Petsitter> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNewPetsitterList");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Petsitter(rset.getString("mem_id"),
+									rset.getInt("sitter_no"),
+									rset.getString("sitter_access").charAt(0),
+									rset.getString("pet_period"),
+									rset.getString("pet_no"),
+									rset.getString("license"),
+									rset.getString("experience"),
+									rset.getString("motive"),
+									rset.getString("promotion_status").charAt(0),
+									rset.getDate("promotion_date"),
 									rset.getString("additions")));
 			}
 			

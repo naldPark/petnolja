@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기존 펫시터 목록</title>
 
 
 <style>
@@ -123,7 +123,7 @@
 							</td>
 							<td>
 								<p class="rowColumn" contenteditable="false" data-default="Y">
-									<% if(n.getExperience().isEmpty()) {%>
+									<% if(n.getExperience().equals(null)) {%>
 										Y	
 									<%}else { %>
 										N
@@ -274,8 +274,6 @@
                             content.textContent = content.dataset.default;
 
                         } else {
-
-
 
                             // @details 내용의 수정이 완료되었다면 data 태그의 기본값도 바꿔준다.
                             content.dataset.default = content.textContent;

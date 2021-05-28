@@ -122,7 +122,7 @@
             <a href="">펫시터 관리</a>
             <ul>
                 <li><a href="<%=contextPath%>/oldlist.ad">기존 펫시터 관리</a></li>
-                <li><a href="">신규 펫시터 관리</a></li>
+                <li><a href="<%=contextPath%>/newlist.ad">신규 펫시터 관리</a></li>
             </ul>
         </li>
         <li><a href="">게시판 관리</a>

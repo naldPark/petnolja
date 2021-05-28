@@ -13,16 +13,16 @@ import com.petnolja.petsitter.model.service.PetsitterService;
 import com.petnolja.petsitter.model.vo.Petsitter;
 
 /**
- * Servlet implementation class OldListController
+ * Servlet implementation class NewListController
  */
-@WebServlet("/oldlist.ad")
-public class OldListController extends HttpServlet {
+@WebServlet("/newlist.ad")
+public class NewListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OldListController() {
+    public NewListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,12 @@ public class OldListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Petsitter> list = new PetsitterService().selectOldPetsitterList();
+		ArrayList<Petsitter> list = new PetsitterService().selectNewPetsitterList();
 		
-		// 기존 펫시터 리스트 페이지 (oldPetsitterListView.jsp) 보여줌
+		
+		// 새로 지원한 펫시터 리스트 페이지 보여줌
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/admin/oldPetsitterListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/newPetsitterListView.jsp").forward(request, response);
 		
 	}
 

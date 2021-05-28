@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="selectPetsittereList">
+	<entry key="selectOldPetsittereList">
 		SELECT
     		MEM_ID
 		    ,SITTER_NO
@@ -20,8 +20,28 @@
 		    ,ADDITIONS
 		FROM SITTER
 		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+		WHERE PROMOTION_STATUS = 'Y'
 		ORDER 
 			BY SITTER.PROMOTION_DATE DESC
+	</entry>
+	
+	<entry key="selectNewPetsittereList">
+		SELECT
+    		MEM_ID
+		    ,SITTER_NO
+		    ,SITTER_ACCESS
+		    ,PET_PERIOD
+		    ,PET_NO
+		    ,LICENSE
+		    ,EXPERIENCE
+		    ,MOTIVE
+		    ,PROMOTION_STATUS
+		    ,PROMOTION_DATE
+		    ,ADDITIONS
+		FROM SITTER
+		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+		ORDER 
+			BY SITTER.SITTER_NO DESC
 	</entry>
 	
 </properties>

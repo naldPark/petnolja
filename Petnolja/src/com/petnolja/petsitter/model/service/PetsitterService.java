@@ -10,13 +10,22 @@ import static com.petnolja.common.JDBCTemplate.*;
 public class PetsitterService {
 
 	
-	public ArrayList<Petsitter> selectPetsitterList(){
+	public ArrayList<Petsitter> selectOldPetsitterList(){
 		
 		Connection conn = getConnection();
-		ArrayList<Petsitter> list = new PetsitterDao().selectPetsitterList(conn);
+		ArrayList<Petsitter> list = new PetsitterDao().selectOldPetsitterList(conn);
 		
 		close(conn);
 		return list;
 		
+	}
+	
+	public ArrayList<Petsitter> selectNewPetsitterList(){
+		
+		Connection conn = getConnection();
+		ArrayList<Petsitter> list = new PetsitterDao().selectNewPetsitterList(conn);
+		
+		close(conn);
+		return list;
 	}
 }
