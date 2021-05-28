@@ -25,6 +25,8 @@
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<div class="outer">
+	
+	<form action="<%=contextPath%>/leave2.me" method="post">
 		<br>
 		<h2>탈퇴 안내</h2>
 		<br>
@@ -44,39 +46,37 @@
 		<br><br>
 		<hr>
 		<br>
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="notUse"> <label for="notUse"><b>사용을 잘 안하게 되요.</b></label> <br><br>
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="noUser"> <label for="noUser"><b>유저수가 너무 적습니다.</b></label> <br><br>
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="newId"> <label for="newId"><b>계정을 새로 만들고 싶습니다.</b></label> <br><br>
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="notUi"> <label for="notUi"><b>UI가 너무 후집니다.</b></label> <br><br>
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="otherSite"> <label for="otherSite"><b>다른 사이트를 이용하고 싶어요.</b></label> <br><br> 
-		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="etc"> <label for="etc"><b>기타</b></label>
+		<div id="necessary">
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="사용x" id="notUse"> <label for="notUse"><b>사용을 잘 안하게 되요.</b></label> <br><br>
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="유저수" id="noUser"> <label for="noUser"><b>유저수가 너무 적습니다.</b></label> <br><br>
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="새계정" id="newId"> <label for="newId"><b>계정을 새로 만들고 싶습니다.</b></label> <br><br>
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="ui" id="notUi"> <label for="notUi"><b>UI가 너무 후집니다.</b></label> <br><br>
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="사이트" id="otherSite"> <label for="otherSite"><b>다른 사이트를 이용하고 싶어요.</b></label> <br><br> 
+		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" name="check" value="etc" id="etc"> <label for="etc"><b>기타</b></label>
 		<br><br>
 		<hr>
 		<br>
-		<div id="necessary">
+		
 		&nbsp;&nbsp;<input class="largerCheckbox" type="checkbox" id="agree"> <label for="agree"><b>안내 사항을 모두 확인하였으며, 이에 동의합니다.</b></label>
 		</div>	
 		<br><br><br>
 		<div align="center">
-			<button type="submit" id="submit" class="btn btn-primary" style="width:150px;">확인</button>
+			<button type="submit" id="submit" class="btn btn-primary" style="width:150px;" onclick="return validate();">확인</button>
 		</div>
+		</form>
 	</div>
+	
 	<script>
-		$(function(){
-
-			$("#submit").click(function(){
-				$("#necessary").children(":checkbox").each(function(){
-					if($(this).prop("checked")){
-						location.href='<%=contextPath%>/views/member/memberCompleteForm.jsp'
-					}else{
-						window.alert("동의 사항에 체크해주세요.");
-						return false;
-					}
-				})
-			})
-
-		})
+    	function validate(){
+        	if($("#agree").prop("checked")){ // 일치하면
+        	
+        	}else{ 
+           		window.alert("안내사항 확인 동의부터해라");
+           		return false;
+        	}
+        }
 	</script>
+	
 	
 	<%@ include file = "../common/footer.jsp"%>
 </body>
