@@ -547,3 +547,56 @@ BEGIN
 END;
 
 
+CREATE OR REPLACE VIEW VW_SITTER
+AS select DISTINCT
+         MEM_NO
+        ,MEM_ID
+        ,MEM_NAME
+        ,MEM_ADDRESS
+        ,MEM_LATITUDE
+        ,MEM_LONGTITUDE
+        ,PET_PERIOD
+        ,LICENSE
+        ,EXPERIENCE
+        ,ADD_CONTENT
+        ,PENALTY_COUNT
+        ,SITTER_TITLE
+        ,SITTER_CONTENT
+        ,ADDITIONS
+        ,DSMALL
+        ,DMID
+        ,DBIG
+        ,OSMALL
+        ,OMID
+        ,OBIG
+        ,AVGRATING 
+        ,SITTER_CHECKIN
+        ,SITTER_CHECKOUT
+        ,MEM_BLOCK
+        MEM_REPORT
+from member
+join sitter on(mem_no = sitter_no)
+-- 펫시터의 하루, 당일 케어비용 열로 정렬 변경 (D로시작 당일, O으로시작 일박)
+JOIN(SELECT *
+        FROM(SELECT SITTER_NO, PET_SIZE, FEE
+            FROM FEE WHERE PET_CARE='데이')
+        PIVOT (SUM(FEE)
+            FOR PET_SIZE IN('소형' DSMALL,'중형' DMID,'대형' DBIG)))USING(SITTER_NO)
+JOIN(SELECT *
+        FROM(SELECT SITTER_NO, PET_SIZE, FEE
+            FROM FEE WHERE PET_CARE='1박')
+        PIVOT (SUM(FEE)
+            FOR PET_SIZE IN('소형' OSMALL,'중형' OMID,'대형' OBIG)))USING(SITTER_NO)
+-- 펫시터의 하루, 당일 케어비용 열로 정렬 변경 끝
+-- 펫시터의 평균평점 확인
+FULL JOIN(SELECT SITTER_NO, AVG(REV_RATING) AVGRATING 
+            FROM REVIEW
+            JOIN RESERV_SITTING USING(RES_NO)
+            JOIN FEE USING(SITTING_NO)
+            GROUP BY SITTER_NO) USING (SITTER_NO)
+-- 펫시터의 평균평점 확인 끝
+where MEM_STATUS ='Y'
+and promotion_status='Y'
+AND STOP_REASON IS NULL;
+
+
