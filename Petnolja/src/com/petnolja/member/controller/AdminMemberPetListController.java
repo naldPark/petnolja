@@ -29,6 +29,7 @@ public class AdminMemberPetListController extends HttpServlet {
 
 		request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
 	
+		
 	}
 
 	/**
