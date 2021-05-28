@@ -21,6 +21,7 @@ public class Member {
 	private String memAds;
 	private String memBlock;
 	private String memReport;
+	private String memMemo; //추가로 담길값이 있을때 임시로 사용하려고 만들었습니다.
 	
 	
 	public Member() {}
@@ -96,6 +97,23 @@ public class Member {
 		this.memDetailAddress = memDetailAddress;
 		this.memLatitude = memLatitude;
 		this.memLongtitude = memLongtitude;
+	}
+	
+	
+
+	/**
+	 * 관리자 회원목록에 사용
+	 */
+	public Member(int memNo, String memId, String memName, String memTel, String memEmail, String memAddress,
+			String memBlock) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memName = memName;
+		this.memTel = memTel;
+		this.memEmail = memEmail;
+		this.memAddress = memAddress;
+		this.memBlock = memBlock;
 	}
 
 
@@ -300,6 +318,17 @@ public class Member {
 
 	public void setMemReport(String memReport) {
 		this.memReport = memReport;
+	}
+	
+
+	public String getMemMemo() {
+		return memMemo;
+	}
+
+
+
+	public void setMemMemo(String memMemo) {
+		this.memMemo = memMemo;
 	}
 
 

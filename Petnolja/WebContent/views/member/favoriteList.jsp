@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.petsitter.model.vo.Sitter" %>    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Sitter> list = (ArrayList<Sitter>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,62 +58,52 @@
 
 
        <!-- 즐겨찾기 리스트 시작-->
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter3.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6><br>
-            <span>작성일 : 2020-01-01</span><br>
-            <span>펫시터: 고길동</span><br>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
-            <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
-        </div>
-      </div>
-
-    
-
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter1.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6><br>
-            <span>작성일 : 2020-01-01</span><br>
-            <span>펫시터: 고길동</span><br>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
-            <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
-        </div>
-      </div>
-
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter2.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6><br>
-            <span>작성일 : 2020-01-01</span><br>
-            <span>펫시터: 고길동</span><br>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
-            <div class="likeImgDiv"><img src="../../resources/images/member/favoriteHeart.png"></div><br>
-        </div>
-      </div>
+       
+       <% if(list.isEmpty()){ %>
+      	<br>조회된 리스트가 없습니다.<br><br><br>
+            		
+       <% }else { %>
+	      	 <% for(Sitter s : list){ %>
+			      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
+			        <div class="reserveImg"><img src="<%=contextPath%>/<%=s.getPath()%>" style="height: 150px;"></div>
+			        <div style="float:left;">
+			            <br>
+			            <h6><b><%=s.getSitterTitle() %></b></h6><br>
+			            <br>
+			            <span>펫시터: <%=s.getSitterName()%></span><br>
+			        </div>
+			        <div id="linkList" style="padding-left:800px; text-align: center;">
+			            <br>
+			            <a href="../research/searchPetsitterDetail.jsp"><span>자세히보기</span></a><br><br>
+			            <div class="likeImgDiv" value=<%=s.getSitterNo()%>><img src="<%=contextPath%>/resources/images/member/favoriteHeart.png"></div><br>
+			        </div>
+			      </div>
+	
+	      		<% } %>
 
       <!-- 즐겨찾기 리스트 끝-->
       
-             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-              </ul>
+      <!-- 페이지 목록 시작 -->
+	             <ul class="pagination justify-content-center">
+	             <% if(pi.getCurrentPage() != 1){ %>
+	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/favoriteList.mem?currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
+	           	 <% } %>
+	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	           	 
+	           		 <% if(p != pi.getCurrentPage()){ %>
+	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/favoriteList.mem?currentPage=<%= p %>"><%= p %></a></li>
+		             <% }else { %>
+		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/favoriteList.mem?currentPage=<%= p %>"><%= p %></a></li>
+	            	 <% } %>
+	             <% } %>
+	     
+	
+				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/favoriteList.mem?currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
+				<% } %>
+	              </ul>
+      <!-- 페이지 목록 끝 -->
+     <% } %>
 
   </div> 
         
@@ -144,32 +139,35 @@
       </div>
     </div>
   </div>
+  
+  
+  	<script>
+		$(".likeImgDiv").click(function(){ 
+			var sitterLike = $(this);
+			var like = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png">'
+			var unlike = '<img src="<%=contextPath%>/resources/images/member/justHeart.png">'
+			console.log(sitterLike.attr("value"));
+			$.ajax({
+				url:"changeFavorite.mem",
+				data:{
+					sitterNo:sitterLike.attr("value")
+				},
+				type:"post",
+				success:function(result){			
+					if(result>1){
+						sitterLike.html(unlike);
+						alert("즐겨찾기가 해제 되었습니다");
+					}else{
+						sitterLike.html(like);
+						alert("즐겨찾기가 추가되었습니다");
+					}
+				},error:function(){
+					console.log("ajax통신 실패");
+				}
+			});
+  		  });
 
-  <script>
-       
-       var like = '<img src="../../resources/images/member/favoriteHeart.png">'
-       var unlike = '<img src="../../resources/images/member/justHeart.png">'
-
-       $(".likeImgDiv").click(function(){    
-         if($(this).html()==like){
-          $(this).html(unlike);
-         } else{
-          $(this).html(like);
-         }
-      }) 
-       
-        // function like(){
-        //   if(temp==0){
-        //     $(".likeImgDiv").html('<img src="../../resources/images/member/justHeart.png">');
-        //     temp++;
-        //   }else{
-        //     $(".likeImgDiv").html('<img src="../../resources/images/member/favoriteHeart.png">');
-        //     temp--;
-        //   }
-        // }
-   
-    </script>
-
+	</script>
 
 
  <br><br>
