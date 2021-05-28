@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>펫시터</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a430452224cfcb3ee2eea019ba05725c&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
 <link rel="stylesheet"  href="<%=request.getContextPath()%>/resources/css/datepicker.min.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.1.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/datepicker.min.js"></script>

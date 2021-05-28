@@ -10,7 +10,7 @@
     <body>
     <div id="map" style="width:300px;height:300px;"></div>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
     <script>
  
 
@@ -43,7 +43,7 @@
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:220px;text-align:center;padding:6px 0;font-size:10pt;">서울특별시종로구종로65길 12-4</div>'
+                content: '<div style="width:220px;text-align:center;padding:6px 0;font-size:10pt;"><%=sitterInfo.getAddress()%></div>'
             });
             infowindow.open(map, marker);
     

@@ -171,7 +171,7 @@
                 </div>
                 <br>
                 <div> 
-                    <img src="../../resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
+                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
                     <br>
                     <span style="float:left"><b>논현동 강개순 님</b></span>
                     <div id="starList"> &nbsp;&nbsp;
@@ -191,7 +191,7 @@
         
                 </div>
                 <div> 
-                    <img src="../../resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
+                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
                     <br>
                     <span style="float:left"><b>논현동 강개순 님</b></span>
                     <div id="starList"> &nbsp;&nbsp;
@@ -211,7 +211,7 @@
         
                 </div>
                 <div> 
-                    <img src="../../resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
+                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
                     <br>
                     <span style="float:left"><b>논현동 강개순 님</b></span>
                     <div id="starList"> &nbsp;&nbsp;
