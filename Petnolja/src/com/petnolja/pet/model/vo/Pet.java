@@ -7,7 +7,7 @@ public class Pet {
 	private int petNo;
 	private int memNo;
 	private String petName;
-	private Date petBirth;
+	private String petBirth;
 	private double petWeight;
 	private String petGender;
 	private String petSize;
@@ -22,10 +22,11 @@ public class Pet {
 	private String hospiTel;
 	private String neutered;
 	private String chip;
+	private String favorite; // 견주의 즐겨찾기 여부확인을 위해 추가 
 	
 	public Pet() {}
 
-	public Pet(int petNo, int memNo, String petName, Date petBirth, double petWeight, String petGender, String petSize,
+	public Pet(int petNo, int memNo, String petName, String petBirth, double petWeight, String petGender, String petSize,
 			String petBreed, String petStatus, Date petEnrollDate, String petImg, String vaccine, String caution,
 			String note, String hospi, String hospiTel, String neutered, String chip) {
 		super();
@@ -47,6 +48,18 @@ public class Pet {
 		this.hospiTel = hospiTel;
 		this.neutered = neutered;
 		this.chip = chip;
+	}
+	
+	
+	public Pet(int petNo, int memNo, String petName, String petBirth, String petGender, String petSize, String favorite) {
+		super();
+		this.petNo = petNo;
+		this.memNo = memNo;
+		this.petName = petName;
+		this.petBirth = petBirth;
+		this.petGender = petGender;
+		this.petSize = petSize;
+		this.favorite = favorite;
 	}
 
 	public int getPetNo() {
@@ -73,11 +86,11 @@ public class Pet {
 		this.petName = petName;
 	}
 
-	public Date getPetBirth() {
+	public String getPetBirth() {
 		return petBirth;
 	}
 
-	public void setPetBirth(Date petBirth) {
+	public void setPetBirth(String petBirth) {
 		this.petBirth = petBirth;
 	}
 

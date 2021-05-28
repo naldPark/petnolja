@@ -33,6 +33,7 @@ public class UserSetSearch {
 		this.longtitude = longtitude;
 		this.options = options;
 	}
+	
 	public String getSetDate() {
 		return setDate;
 	}

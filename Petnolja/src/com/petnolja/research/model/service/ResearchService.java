@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.vo.Sitter;
 import com.petnolja.research.model.dao.ResearchDao;
 import com.petnolja.research.model.vo.Research;
@@ -30,7 +31,7 @@ public class ResearchService {
 		
 	}
 	
-	
+	//검색시 보여줄 시터리스트의 총 갯수
 	public int searchListCount(String startDate, String endDate, String[] options) {
 		Connection conn = getConnection();
 		int result=new ResearchDao().searchListCount(conn, startDate, endDate, options);
@@ -40,7 +41,7 @@ public class ResearchService {
 		return result;
 	}
 	
-	
+	//검색시 보여줄 시터리스트
 	public ArrayList<Research> searchSitter(Member m, String startDate, String endDate, String[] options, PageInfo pi) {
 		Connection conn = getConnection();
 		
@@ -50,7 +51,22 @@ public class ResearchService {
 	
 		return list;
 		
+	}
+	
+	//searchPetsitterDetail.jsp에 보여줄 화면 구성
+	public ArrayList<Research> searchSitterDetail(int sitterNo, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Research> sitterInfo = new ResearchDao().searchSitterDetail(conn, sitterNo);
+		ArrayList<Pet> petList = new ResearchDao().memPetInfo(conn, sitterNo, userNo);
+		
+		close(conn);
+		
+		return list;
 		
 	}
+	
+	
+	
 
 }

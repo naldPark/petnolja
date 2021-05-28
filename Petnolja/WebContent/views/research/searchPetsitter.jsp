@@ -63,7 +63,7 @@
       <br>
             <!-- 펫시터 소개 박스 -->
 	  <% for(Research s : list){ %>
-      <div class="recommendList" onclick="location.href='<%=contextPath%>/views/research/searchPetsitterDetail.jsp'"> 
+      <div class="recommendList" onclick="location.href='<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>'"> 
 
         <br>
           <img src="<%=contextPath%>/<%=s.getPath()%>" style="height: 230px; width: 300px; float: left; padding:15px; margin-bottom: 30px;" >
@@ -72,7 +72,7 @@
           <hr width="900px"> 
 
           <div style="text-align:left; margin-bottom:30px; float:left; color: rgb(95, 95, 95);" > 
-              <span><%=s.getAddContent()%><br></span>
+              <span><%=s.getAdditions()%><br></span>
                   <% if(!us.getSetAddress().equals("N")) { %>
                   	<br>&nbsp;&nbsp;- 회원님과의 거리는 <%=s.getDistance()%> km 입니다 
                   <% } %><br>
@@ -86,8 +86,8 @@
 
         </div> 
         <div style="text-align:right;padding-bottom: 20px; padding-right: 30px;">
-	        <h5><%=s.getOnenightFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-	        <h5><%=s.getDayFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
+	        <h5><%=s.getSmallNightFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
+	        <h5><%=s.getSmallDayFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
 	      	 소형견 기준<br>
 	      	<span style="align:right">후기 평균별점 :
 		       <span id="starList">

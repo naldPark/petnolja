@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.vo.Sitter;
 import com.petnolja.research.model.vo.Research;
 import com.petnolja.research.model.vo.Review;
@@ -86,7 +87,7 @@ public class ResearchDao {
 	
 	
 	
-	
+	//검색시 보여줄 시터리스트의 총 갯수
 	public int searchListCount(Connection conn, String startDate, String endDate, String[] options) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -121,6 +122,7 @@ public class ResearchDao {
 	
 	}
 	
+	//검색시 보여줄 시터리스트
 	public ArrayList<Research> searchSitter(Connection conn, Member m, String startDate, String endDate, String[] options, PageInfo pi) {
 		ArrayList<Research> list = new ArrayList<>();
 		ResultSet rset = null;
@@ -150,7 +152,7 @@ public class ResearchDao {
 				list.add(new Research(rset.getInt("SITTER_NO"),
 						rset.getString("MEM_NAME"),
 						rset.getString("SITTER_TITLE"),
-					    rset.getString("ADD_CONTENT"),
+					    rset.getString("ADDITIONS"),
 					    String.format("%,d",rset.getInt("ONENIGHTFEE")),
 					    String.format("%,d",rset.getInt("DAYFEE")),
 					    rset.getInt("AVGRATING"),
@@ -170,6 +172,78 @@ public class ResearchDao {
 		
 	}
 	
+	//searchPetsitterDetail.jsp에 보여줄 화면 구성
+	public ArrayList<Research> searchSitterDetail(Connection conn, int sitterNo) {
+		
+		ArrayList<Research> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchSitterDetail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Research(rset.getInt("MEM_NO"),
+						rset.getString("MEM_NAME"),
+						rset.getString("MEM_ADDRESS"),
+					    rset.getString("LICENCE"),
+					    rset.getString("SITTER_TITLE"),
+					    rset.getString("SITTER_CONTENT"),
+					    rset.getString("ADDITIONS"),
+					    String.format("%,d",rset.getInt("OSMALL")),
+					    String.format("%,d",rset.getInt("OMID")),
+					    String.format("%,d",rset.getInt("OBIG")),
+					    String.format("%,d",rset.getInt("DSMALL")),
+					    String.format("%,d",rset.getInt("DMID")),
+					    String.format("%,d",rset.getInt("DBIG")),
+					    rset.getInt("AVGRATING"),
+					    rset.getInt("SITTER_CHECKIN"),
+					    rset.getInt("SITTER_CHECKOUT"),
+					    rset.getString("ABLE_DATE"),
+					    rset.getString("FILE_LIST")
+						));
+					    }
 	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
 	
+	public ArrayList<Pet> memPetInfo(Connection conn, int sitterNo, int userNo) {
+		ArrayList<Pet> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("memPetInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Pet(rset.getInt("MEM_NO"),
+						rset.getInt("PET_NO"),
+						rset.getString("pet_name"),
+						rset.getString("pet_birth"),
+					    rset.getString("pet_gender"),
+					    rset.getString("pet_size"),
+					    rset.getString("FAVORITE")
+						));
+					    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
 }
