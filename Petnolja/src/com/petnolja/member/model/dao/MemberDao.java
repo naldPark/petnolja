@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.petsitter.model.vo.Sitter;
 
 public class MemberDao {
 	
@@ -31,154 +32,246 @@ private Properties prop = new Properties();
 		
 	}
 	
-	public Member loginMember(Connection conn, String userId, String userPwd) {
-		
-		Member m = null;
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("loginMember");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
-			rset = pstmt.executeQuery();
+	// 회원 로그인
+		public Member loginMember(Connection conn, String userId, String userPwd) {
 			
-			if(rset.next()) {
-				m = new Member(
-				rset.getInt("mem_no"),
-				rset.getString("mem_id"),
-				rset.getString("mem_name"),
-				rset.getString("mem_pwd"),
-				rset.getString("mem_tel"),
-				rset.getString("mem_email"),
-				rset.getString("mem_address"),
-				rset.getString("mem_detail_address"),
-				rset.getDouble("MEM_LATITUDE"),
-				rset.getDouble("MEM_LONGTITUDE"),
-				rset.getDate("mem_enrolldate"),
-				rset.getString("mem_status"),
-				rset.getDate("MEM_DEL_DATE"),
-				rset.getString("MEM_DEL_DETAIL"),
-				rset.getString("MEM_ADS"),
-				rset.getString("MEM_BLOCK"),
-				rset.getString("MEM_REPORT")
-				);	
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}		
-		
-		
-		return m;
-		
-	}
-	
-	
-	public String findId(Connection conn, Member m) {
-		String findId = null;
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("findId");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getMemName());
-			pstmt.setString(2, m.getMemEmail());
-			pstmt.setString(3, m.getMemTel());
-			rset=pstmt.executeQuery();
-			if(rset.next()){
-				findId = rset.getString("MEM_ID");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
+			Member m = null;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("loginMember");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, userPwd);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					m = new Member(
+					rset.getInt("mem_no"),
+					rset.getString("mem_id"),
+					rset.getString("mem_name"),
+					rset.getString("mem_pwd"),
+					rset.getString("mem_tel"),
+					rset.getString("mem_email"),
+					rset.getString("mem_address"),
+					rset.getString("mem_detail_address"),
+					rset.getDouble("MEM_LATITUDE"),
+					rset.getDouble("MEM_LONGTITUDE"),
+					rset.getDate("mem_enrolldate"),
+					rset.getString("mem_status"),
+					rset.getDate("MEM_DEL_DATE"),
+					rset.getString("MEM_DEL_DETAIL"),
+					rset.getString("MEM_ADS"),
+					rset.getString("MEM_BLOCK"),
+					rset.getString("MEM_REPORT")
+					);	
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}		
+			
+			
+			return m;
+			
 		}
-		return findId;
+		
+		// 회원 아이디 찾기 본인검증 및 찾아오기
+		public String findId(Connection conn, Member m) {
+			String findId = null;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("findId");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, m.getMemName());
+				pstmt.setString(2, m.getMemEmail());
+				pstmt.setString(3, m.getMemTel());
+				rset=pstmt.executeQuery();
+				if(rset.next()){
+					findId = rset.getString("MEM_ID");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return findId;
 
-	}
-	
-	public FindMember findPwd1(Connection conn, String userId, String userName) {
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		FindMember m= null;
+		}
 		
-		String sql = prop.getProperty("findPwd1");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userName);
-			rset = pstmt.executeQuery();
-			if(rset.next()){
-				m = new FindMember();
-				m.setMemNo(rset.getInt("MEM_NO"));
-				m.setMemId(rset.getString("MEM_ID"));
-				m.setMemName(rset.getString("MEM_NAME"));
-				m.setMemEmail(rset.getString("MEM_EMAIL"));
-				m.setMemTel(rset.getString("MEM_TEL"));
+		// 회원 비밀번호 재설정을 위한 본인 검증
+		public FindMember findPwd1(Connection conn, String userId, String userName) {
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			FindMember m= null;
+			
+			String sql = prop.getProperty("findPwd1");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, userName);
+				rset = pstmt.executeQuery();
+				if(rset.next()){
+					m = new FindMember();
+					m.setMemNo(rset.getInt("MEM_NO"));
+					m.setMemId(rset.getString("MEM_ID"));
+					m.setMemName(rset.getString("MEM_NAME"));
+					m.setMemEmail(rset.getString("MEM_EMAIL"));
+					m.setMemTel(rset.getString("MEM_TEL"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return m;
-		
-	}
-	
-	public int findPwd2(Connection conn, int userNo, String userPwd, String userId) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("findPwd2");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userPwd);
-			pstmt.setInt(2, userNo);
-			pstmt.setString(3, userId);
-			result = pstmt.executeUpdate();
+			return m;
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
 		}
 		
-		return result;
-	}
+		// 회원 비밀번호 재설정
+		public int findPwd2(Connection conn, int userNo, String userPwd, String userId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("findPwd2");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userPwd);
+				pstmt.setInt(2, userNo);
+				pstmt.setString(3, userId);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		// 회원이 본인의 즐겨찾기를 조회할때 목록 갯수 뽑기
+		public int favoriteListCount(Connection conn, int userNo) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("favoriteListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return listCount;		
+			
+		}
+		
+		// 회원이 본인의 즐겨찾기를 조회
+		public ArrayList<Sitter> favoriteList(Connection conn, PageInfo pi, int userNo){
+			
+			ArrayList<Sitter> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("favoriteList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+				int endRow = startRow + pi.getBoardLimit() - 1;
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Sitter(rset.getInt("SITTER_NO"),
+										rset.getString("SITTER_TITLE"),
+									    rset.getString("MEM_NAME"),
+									    rset.getString("PATH")));
+				}
+				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(pstmt);
+				}
+				return list;	
+		}
+		
+		public int favoriteChange(Connection conn, int userNo, int sitterNo) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("favoriteInsert");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, sitterNo);
+				pstmt.setInt(3, userNo);
+				pstmt.setInt(4, sitterNo);
+				result = pstmt.executeUpdate();
+				if (result == 0) {
+					close(pstmt);
+					sql = prop.getProperty("favoriteDelete");
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, userNo);
+					pstmt.setInt(2, sitterNo);
+					result = pstmt.executeUpdate() + 1;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
 
-	public int insertMember(Connection conn, Member m) {
-		// insert문
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertMember");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getMemId());
-			pstmt.setString(2, m.getMemName());
-			pstmt.setString(3, m.getMemPwd());
-			pstmt.setString(4, m.getMemTel());
-			pstmt.setString(5, m.getMemEmail());
-			pstmt.setString(6, m.getMemAddress());
-			pstmt.setString(7, m.getMemDetailAddress());
-			pstmt.setDouble(8, m.getMemLatitude());
-			pstmt.setDouble(9, m.getMemLongtitude());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
 		}
 		
-		return result;
-		
-	}
+		// 회원가입 insert입니다
+		public int insertMember(Connection conn, Member m) {
+			// insert문
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, m.getMemId());
+				pstmt.setString(2, m.getMemName());
+				pstmt.setString(3, m.getMemPwd());
+				pstmt.setString(4, m.getMemTel());
+				pstmt.setString(5, m.getMemEmail());
+				pstmt.setString(6, m.getMemAddress());
+				pstmt.setString(7, m.getMemDetailAddress());
+				pstmt.setDouble(8, m.getMemLatitude());
+				pstmt.setDouble(9, m.getMemLongtitude());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+			
+		}
 	
 	public int updateMember(Connection conn, Member m) {
 		// update문
