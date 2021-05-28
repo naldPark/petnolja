@@ -37,27 +37,24 @@
                 var sDay = sDate.val(); //시작달력
                 var eDay = eDate.val(); //끝달력
 
-// 날짜차단하기 시작
-var disabled_days = ["2021-5-2", "2021-5-8", "2016-6-20"]; //차단할 날짜를 적으면 됨
-$('#datepicker1, #datepicker2').datepicker({
-    language: 'ko',
-    onRenderCell: function (date, cellType) {
-        pretty_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        var disabled = false
-        if  (cellType == 'day')    
-            disabled = disabled_days.indexOf(pretty_date) != -1
-        return {disabled: disabled}
-    }
-});
-// 날짜차단하기 끝
+                // 날짜차단하기 시작
+                var disabled_days = ["2021-5-2", "2021-5-8", "2016-6-20"]; //차단할 날짜를 적으면 됨
+                $('#datepicker1, #datepicker2').datepicker({
+                    language: 'ko',
+                    onRenderCell: function (date, cellType) {
+                        pretty_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                        var disabled = false
+                        if  (cellType == 'day')    
+                            disabled = disabled_days.indexOf(pretty_date) != -1
+                        return {disabled: disabled}
+                    }
+                });
+                // 날짜차단하기 끝
 
-sDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
-  //   minDate: new Date('2021-05-03'.replace(/-/g, "/"))
-eDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
-// eDate.datepicker({maxDate: new Date('2021-05-20'.replace(/-/g, "/")) });
-
-
-
+                sDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
+                //   minDate: new Date('2021-05-03'.replace(/-/g, "/"))
+                eDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
+                // eDate.datepicker({maxDate: new Date('2021-05-20'.replace(/-/g, "/")) });
 
 
 

@@ -47,7 +47,7 @@
                     <a class="nav-link" href="<%=contextPath %>">홈</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="<%=contextPath%>/views/research/searchPetsitter.jsp">펫시터조회</a>
+                    <a class="nav-link" href="<%=contextPath%>/searchSitter.mem">펫시터조회</a>
                   </li>
                   <!--펫시터만 보여지는 메뉴-->
                   <!-- //if(loginUser != null && ...)) { -->
@@ -61,7 +61,9 @@
                       <!--}-->
                     <!--펫시터만 보여지는 메뉴 끝-->
                 </ul>
-                 
+                <% if(loginUser != null){%>
+                <span><b><%=loginUser.getMemName()%></b> 님  환영합니다&nbsp;&nbsp;</span>
+                <%} %>
                 <img src="<%=contextPath %>/resources/images/member/user.png" style="height: 45px; margin-right:20px;" id="dropdownMenuButton" data-toggle="dropdown">
 
                 <% if(loginUser != null){%>

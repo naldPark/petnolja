@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.research.model.vo.*, com.petnolja.common.model.vo.PageInfo"%>
+ <%
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Research> list = (ArrayList<Research>)request.getAttribute("searchlist");
+ 	UserSetSearch us = (UserSetSearch)request.getAttribute("userSet");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +18,7 @@
         }
         #outer{
           width:1400px;
-          height: 1600px;
+          height: 1800px;
           margin:auto;
           position:relative;
           font-family:'Noto Sans KR', sans-serif !important;
@@ -23,15 +28,15 @@
             width:100%;
             margin:auto;
         }
-        .wrap1{height:17%;}
-        .wrap1>div{float:left; height:100%; text-align: center;}
-      
+
         .recommendList{
           box-shadow:5px 5px 10px 5px gray;
           cursor: pointer;
+          padding-bottom: 20px;
+          height: 270px;
         }
         .recommendList:hover{background-color: rgb(245, 245, 245);}
-        #starList{font-size: 13pt;  letter-spacing :2px;} 
+        #starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
 </style>
 
 </head>
@@ -47,109 +52,128 @@
     <div style="text-align:left; margin-bottom:30px; padding-left:20px; padding-right:20px;" > 
       <br>
 
-      <div style="text-align: right; padding-right: 20px;"><img src="../../resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
+      <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
           <a href="" style="text-decoration: none; color:gray">별점순</a> | 
           <a href="" style="text-decoration: none; color:gray">가격순</a> | 
+          <% if(us.getSetDate().equals("Y")) { %>
           <a href="" style="text-decoration: none; color:gray">거리순</a> | 
-          <a href="" style="text-decoration: none; color:gray">최신순</a>
+          <% } %>
+          <a href="" style="text-decoration: none; color:gray">이용가능일순</a>
       </div>
       <br>
             <!-- 펫시터 소개 박스 -->
-
-      <div class="recommendList" onclick="location.href='searchPetsitterDetail.jsp'"> 
+	  <% for(Research s : list){ %>
+      <div class="recommendList" onclick="location.href='<%=contextPath%>/views/research/searchPetsitterDetail.jsp'"> 
 
         <br>
-          <img src="../../resources/images/temp/petsitter1.jpg" style="height: 200px;float: left; padding:15px; margin-bottom: 30px;" >
+          <img src="<%=contextPath%>/<%=s.getPath()%>" style="height: 230px; width: 300px; float: left; padding:15px; margin-bottom: 30px;" >
           <br>
-          <h3>한강산책 가능한 펫시터</h3>
+          <h3><%=s.getSitterTitle()%></h3>
           <hr width="900px"> 
 
-          <div style=" text-align:left; margin-bottom:30px; float:left;" > 
-              <span>자차 픽업 가능, 목욕 가능, 응급상황시 인근 병원 이동 가능<br>뭐뭐가능          </span><br><br>
-              <div id="starList">
-                <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                </div>
-        </div> 
-        <div style="text-align:right;padding-bottom: 50px; padding-right: 30px;">
-        <h5>45,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-        <h5>30,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
-        </div>
-        <br>
-      </div>
-      <br><br>
-      <div class="recommendList"> 
-        <br>
-          <img src="../../resources/images/temp/petsitter2.jpg" style="height: 200px;float: left; padding:15px; margin-bottom: 30px;" >
-          <br>
-          <h3>한강산책 가능한 펫시터</h3>
-          <hr width="900px"> 
+          <div style="text-align:left; margin-bottom:30px; float:left; color: rgb(95, 95, 95);" > 
+              <span><%=s.getAddContent()%><br></span>
+                  <% if(!us.getSetAddress().equals("N")) { %>
+                  	<br>&nbsp;&nbsp;- 회원님과의 거리는 <%=s.getDistance()%> km 입니다 
+                  <% } %><br>
+                  <% if(us.getCountDay() ==-1) { %>
+				  <% } else if(us.getCountDay() ==s.getDateCount()) { %>
+				      &nbsp;&nbsp;- 선택하신 일자로 예약 가능합니다
+				  <% } else if(s.getDateCount()>0){ %>
+      				   &nbsp;&nbsp;- 선택하신 <%=us.getCountDay()%>일 중 <%=s.getDateCount()%>일만 예약가능합니다
+				  <% } %>
+              <br><br>
 
-          <div style=" text-align:left; margin-bottom:30px; float:left;" > 
-              <span>자차 픽업 가능, 목욕 가능, 응급상황시 인근 병원 이동 가능<br>뭐뭐가능          </span><br><br>
-              <div id="starList">
-                <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                </div>
         </div> 
-        <div style="text-align:right;padding-bottom: 50px; padding-right: 30px;">
-        <h5>45,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-        <h5>30,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
+        <div style="text-align:right;padding-bottom: 20px; padding-right: 30px;">
+	        <h5><%=s.getOnenightFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
+	        <h5><%=s.getDayFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
+	      	 소형견 기준<br>
+	      	<span style="align:right">후기 평균별점 :
+		       <span id="starList">
+              	  <% for(int i=0 ; i<s.getAvgRating(); i++){ %>
+               		 &#9733;
+				  <% } %>
+		       </span>
+	        </span>
         </div>
-        <br>
       </div>
-      <br><br>
-      <div class="recommendList"> 
-        <br>
-          <img src="../../resources/images/temp/petsitter3.jpg" style="height: 200px;float: left; padding:15px; margin-bottom: 30px;" >
-          <br>
-          <h3>한강산책 가능한 펫시터</h3>
-          <hr width="900px"> 
+      <br>
+      <%}%>
+      <br>
 
-          <div style=" text-align:left; margin-bottom:30px; float:left;" > 
-              <span>자차 픽업 가능, 목욕 가능, 응급상황시 인근 병원 이동 가능<br>뭐뭐가능          </span><br><br>
-              <div id="starList">
-                <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                </div>
-        </div> 
-        <div style="text-align:right;padding-bottom: 50px; padding-right: 30px;">
-        <h5>45,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-        <h5>30,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
-        </div>
-        <br>
-      </div>
-      <br><br>
-      <div class="recommendList"> 
-        <br>
-          <img src="../../resources/images/temp/petsitter4.jpg" style="height: 200px;float: left; padding:15px; margin-bottom: 30px;" >
-          <br>
-          <h3>한강산책 가능한 펫시터</h3>
-          <hr width="900px"> 
+        <!-- 페이지 목록 시작 -->
+             <ul class="pagination justify-content-center">
+             <% if(pi.getCurrentPage() != 1){ %>
+                <li class="page-item"><a class="page-link">&lt;</a></li>
+           	 <% } %>
+           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           	 
+           		 <% if(p != pi.getCurrentPage()){ %>
+               		 <li class="page-item"><a class="page-link"><%= p %></a></li>
+	             <% }else { %>
+	            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)"><%= p %></a></li>
+            	 <% } %>
+             <% } %>
+     
 
-          <div style=" text-align:left; margin-bottom:30px; float:left;" > 
-              <span>자차 픽업 가능, 목욕 가능, 응급상황시 인근 병원 이동 가능<br>뭐뭐가능          </span><br><br>
-              <div id="starList">
-                <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                </div>
-        </div> 
-        <div style="text-align:right;padding-bottom: 50px; padding-right: 30px;">
-        <h5>45,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-        <h5>30,000원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
-        </div>
-        <br>
-      </div>
-      <br><br>
-      <ul class="pagination pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">이전</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">다음</a></li>
-      </ul>
+			<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+            	<li class="page-item"><a class="page-link"> &gt;</a></li>
+			<% } %>
+              </ul>
+     <!-- 페이지 목록 끝 -->
+      
+      
+      
+      
     </div>
   </div>
     
+  <script>
+ 
+    $(".page-link").click(function(){
+
+      var page = $(this).text();
+      if(page =="<"){
+          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
+      } else if(page==" >"){
+        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
+      } else {
+        $("#searchPage").val(page);
+      }
+      $("#searchSubmitBtn").click();
+    })
+
+
+
+
+    <%if(us!=null){%> 
+	      $(document).ready(function(){
+           // 주소를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
+	    	 	 <%if(us.getSetAddress().equals("Y")){%>
+		            $("#search_addr").val("<%=us.getAddress()%>");
+		            $("#latitude").val("<%=us.getLatitude()%>");
+		            $("#longtitude").val("<%=us.getLongtitude()%>");
+	            <%}%>
+            // 날짜를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
+		        <%if(us.getSetDate().equals("Y")){%>
+		           	$("input[name=chooseDate]").val("<%=us.getSearchStartDate()%>"+" - "+"<%=us.getSearchEndDate()%>");
+		        <%}%>
+            <%if(us.getOptions()!=null){%>
+         		   <%for(int i=0 ; i<us.getOptions().length; i++){%>
+         		  			$("#<%=us.getOptions()[i]%>").prop('checked', true);
+         		   <%}%>
+
+		    <%}%>
+	      })   
+     <%} %>   
+    </script>
 
 
 </div><br><br><br><br><br><br><br><br><br><br><br>  <br clear="both">
+
+
+
 <%@ include file = "../common/footer.jsp" %>
 </body>
 </html>

@@ -6,12 +6,18 @@
 <meta charset="UTF-8">
 <title>펫시터</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a430452224cfcb3ee2eea019ba05725c&libraries=services"></script>
 <link rel="stylesheet"  href="<%=request.getContextPath()%>/resources/css/datepicker.min.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.1.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/datepicker.ko.js"></script>
 <style>
       .datepicker--day-name{color:black;}
+      .datepicker--cell:not(.-disabled-) {
+        background: rgb(232, 244, 252) !important; 
+        border-radius: 0em; 
+        color:rgb(95, 95, 95);
+    }
       .largerCheckbox, #searchCheckbox label{cursor: pointer;}
       #searchBar{width:78%; background-color: rgb(210, 235, 250); margin-right: 15px;}
         .loginBar{width:20%; padding:5px;}
@@ -20,7 +26,11 @@
           width:20px;
           height:20px;
         }
-      /* *{border:1px solid black;  } */
+        #search-form div input[readonly] {
+           background-color: white!important; 
+        }
+        .wrap1{height:280px;}
+        .wrap1>div{float:left; height:100%; text-align: center;}
 </style>
 </head>
 <body>
@@ -30,35 +40,37 @@
      <hr>
      <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2>임시계정 유저(gesun/pass01) 펫시터(geddong/pass01)<br>
      <div id="searchBar">
-       <form action="" method="get" id="search-form"><br>
+       <form action="<%=contextPath %>/searchSitter.mem" method="post" id="search-form"><br>
 
            <div class="input-group mb-3">
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-             
-             <input type="text" id="member_addr" class="form-control" placeholder="지역설정" onclick="findAddr()" value="" name="address"style="cursor: pointer;" >
+             <input type="text" id="search_addr" class="form-control" placeholder="지역설정" readonly onclick="findAddr()" value="" name="address"style="cursor: pointer;" >
              <span class="input-group-text" style="background-color: white; cursor: pointer;" onclick="findAddr()"><img src="<%=contextPath %>/resources/images/member/search.png" style="height: 20px;"></span>
+             <input type="hidden" name="latitude" required value="" id="latitude">
+    	       <input type="hidden" name="longtitude" required value="" id="longtitude">
+             <input type="hidden" name="searchPage" required value="1" id="searchPage">
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-             <input type="text" data-range="true" data-multiple-dates-separator=" - " data-language="ko" placeholder="날짜선택" class="datepicker-here form-control" style="cursor: pointer;">
+             <input type="text" name="chooseDate" data-range="true" data-multiple-dates-separator=" - " data-language="ko" readonly placeholder="날짜선택" class="datepicker-here form-control" style="cursor: pointer;">
              <span class="input-group-text " style="background-color: white;cursor: pointer;" onclick="chooseDate()"><img src="<%=contextPath %>/resources/images/member/calendar.png" style="height: 20px;"></span>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <button class="btn btn-primary" type="button"style="width: 100px;margin-right: 10px;" onclick="location.href='<%=contextPath%>/views/research/searchPetsitter.jsp'">검색</button>
+             <button class="btn btn-primary" id="searchSubmitBtn" type="submit"style="width: 100px; margin-right: 10px;">검색</button>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          </div>
          
 
          <div id="searchCheckbox"><br><br>
-           <input class="largerCheckbox" type="checkbox" name="pickup" id="pickup">&nbsp;&nbsp; <label for="pickup">자차 픽업 가능
+           <input class="largerCheckbox" type="checkbox" name="option" id="pickup" value="픽업">&nbsp;&nbsp; <label for="pickup">자차 픽업 가능
            <span><img src="<%=contextPath %>/resources/images/member/checkboxPickup.png" style="height: 30px"></span></label>
            <span style="margin:20px;"></span>
-           <input class="largerCheckbox" type="checkbox" name="bath" id="bath">&nbsp;&nbsp;<label for="bath">목욕 가능
+           <input class="largerCheckbox" type="checkbox" name="option" id="bath" value="목욕">&nbsp;&nbsp;<label for="bath">목욕 가능
            <span><img src="<%=contextPath %>/resources/images/member/checkboxBath.png" style="height: 30px"></span></label>
            <span style="margin:20px;"></span>
-           <input class="largerCheckbox" type="checkbox"  name="medicine" id="medicine">&nbsp;&nbsp;<label for="medicine">약물 복용
+           <input class="largerCheckbox" type="checkbox"  name="option" id="medicine" value="약물">&nbsp;&nbsp;<label for="medicine">약물 복용
            <span><img src="<%=contextPath %>/resources/images/member/checkboxMedicine.png" style="height: 30px"></span></label><br><br>
-           <input class="largerCheckbox" type="checkbox"  name="oldPet" id="oldPet">&nbsp;&nbsp;<label for="oldPet">노령견 케어 가능
+           <input class="largerCheckbox" type="checkbox"  name="option" id="oldPet" value="노령견">&nbsp;&nbsp;<label for="oldPet">노령견 케어 가능
            <span><img src="<%=contextPath %>/resources/images/member/checkboxOldpet.png" style="height: 30px"></span></label>
            <span style="margin:20px;"></span>
-           <input class="largerCheckbox" type="checkbox" name="hospital" id="hospital">&nbsp;&nbsp;<label for="hospital">응급상황시 인근 병원 이동 가능
+           <input class="largerCheckbox" type="checkbox" name="option" id="hospital" value="병원">&nbsp;&nbsp;<label for="hospital">응급상황시 인근 병원 이동 가능
            <span><img src="<%=contextPath %>/resources/images/member/checkboxHospital.png" style="height: 30px"></span></label>
            <br><br>
          </div>
@@ -86,7 +98,7 @@
               <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" autocomplete="current-password">
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%">로그인</button><br><br>
-          <button type="button" class="btn btn-light" style="width:40%" onclick="location.href ='<%=contextPath%>/enrollform.me'">회원가입</button>
+          <button type="button" class="btn btn-light" style="width:40%" onclick="location.href='<%=contextPath%>/enrollform.me'">회원가입</button>
           <button type="button" class="btn btn-light" style="width:40%" onclick="findMain()">ID/PW찾기</button>
       </form>
     </div>
@@ -97,7 +109,7 @@
         <br>
         <h5><b><span style="color:rgb(0, 123, 255)"><%=loginUser.getMemName()%></span>님 환영합니다</b></h5>
         <img src="<%=contextPath %>/resources/images/member/welcome.png" style="height: 140px">
-          <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/update.me'">정보수정</button>
+          <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/views/member/memberUpdateForm.jsp'">정보수정</button>
           <button type="button" class="btn btn-secondary" style="width:40%" onclick="location.href='<%=contextPath%>/logout.mem'">로그아웃</button>
     </div>
      <% } %>
@@ -109,21 +121,44 @@
   <br clear="both"><br>
 
  <script>
+ 
+ 	// 주소 검색하는 부분입니다
     function findAddr(){
         new daum.Postcode({
             oncomplete: function(data) {
+                
                 var roadAddr = data.roadAddress;
                 var jibunAddr = data.jibunAddress; 
-                if(roadAddr !== ''){document.getElementById("member_addr").value = roadAddr;} 
-                else if(jibunAddr !== ''){document.getElementById("member_addr").value = jibunAddr;}
+
+                if(roadAddr !== ''){
+                    document.getElementById("search_addr").value = roadAddr;
+                } 
+                else if(jibunAddr !== ''){
+                    document.getElementById("search_addr").value = jibunAddr;
+                }
+                var geocoder = new kakao.maps.services.Geocoder();
+                    geocoder.addressSearch($("#search_addr").val(), function(result, status) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    $("#latitude").val(result[0].y);
+                    $("#longtitude").val(result[0].x);
+                })
             }
         }).open();
+
+      
+
+        
     }
 
+    // 날짜선택하는 부분입니다
     function chooseDate(){
-    var myDatepicker = $('.datepicker-here').datepicker().data('datepicker');
-    myDatepicker.show();}
-    $('.datepicker-here').datepicker({autoClose:true })
+    var searchDatePicker = $('.datepicker-here').datepicker().data('datepicker');
+    searchDatePicker.show();
+    }
+    $('.datepicker-here').datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
+    $('.datepicker-here').datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
+    $('.datepicker-here').datepicker({autoClose:true, toggleSelected: false })
+    
     </script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
