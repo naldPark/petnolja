@@ -12,6 +12,7 @@ import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.petsitter.model.vo.Sitter;
 
 public class MemberService {
 
