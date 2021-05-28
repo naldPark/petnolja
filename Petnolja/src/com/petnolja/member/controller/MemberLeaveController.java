@@ -35,9 +35,11 @@ public class MemberLeaveController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String memId = ((Member) session.getAttribute("loginUser")).getMemId();
 		String memPwd = ((Member) session.getAttribute("loginUser")).getMemPwd();
+		String checkbox = "";
 		
-		String[] checkbox = request.getParameterValues("check");
-		
+		if(request.getParameterValues("check")!=null) {
+			checkbox = String.join(",", request.getParameterValues("check"));
+		}
 		int result = new MemberService().leaveMember(checkbox, memId, memPwd);
 		
 		if(result > 0) {

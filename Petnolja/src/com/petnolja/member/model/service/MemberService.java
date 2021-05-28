@@ -88,7 +88,7 @@ public class MemberService {
 		
 	}
 	
-	public int leaveMember(String[] checkbox, String memId, String memPwd) {
+	public int leaveMember(String checkbox, String memId, String memPwd) {
 		Connection conn = getConnection();
 		int result = new MemberDao().leaveMember(conn, checkbox, memId, memPwd);
 		if(result > 0) {

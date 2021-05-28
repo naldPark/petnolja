@@ -242,7 +242,7 @@ private Properties prop = new Properties();
 		return updateMem;
 	}
 	
-	public int leaveMember(Connection conn, String[] checkbox, String memId, String memPwd) {
+	public int leaveMember(Connection conn, String checkbox, String memId, String memPwd) {
 		// update문
 		int result = 0;
 		PreparedStatement pstmt = null;
