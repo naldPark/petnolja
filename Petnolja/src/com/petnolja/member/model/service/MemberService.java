@@ -1,14 +1,7 @@
 package com.petnolja.member.model.service;
 
-import static com.petnolja.common.JDBCTemplate.close;
-import static com.petnolja.common.JDBCTemplate.commit;
-import static com.petnolja.common.JDBCTemplate.getConnection;
-import static com.petnolja.common.JDBCTemplate.rollback;
-
+import static com.petnolja.common.JDBCTemplate.*;
 import java.sql.Connection;
-import java.util.ArrayList;
-
-import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
@@ -95,108 +88,17 @@ public class MemberService {
 		
 	}
 	
-	/** 최서경
-	 * @return 총 회원 수 (관리자)
-	 */
-	public int selectListCount() {
-		
+	public int leaveMember(String checkbox, String memId, String memPwd) {
 		Connection conn = getConnection();
-		
-		int listCount = new MemberDao().selectListCount(conn);
-		
-		close(conn);
-		
-		return listCount;
-	}
-
-	/** 최서경
-	 * @return 총 회원 목록 조회
-	 */
-	public ArrayList<Member> selectList(PageInfo pi){
-		Connection conn = getConnection();
-		
-		ArrayList<Member> list = new MemberDao().selectList(conn, pi);
-		
-		close(conn);
-		
-		return list;
-		
-	}
-	
-	/** 최서경
-	 * 관리자 페이지에서 회원 정보 수정
-	 */
-	public int adminUpdateMember(int memNo, String updateCol, String updateVal) {
-		
-		Connection conn = getConnection();
-		
-		int result = new MemberDao().adminUpdateMember(conn, memNo, updateCol, updateVal);
-				
+		int result = new MemberDao().leaveMember(conn, checkbox, memId, memPwd);
 		if(result > 0) {
 			commit(conn);
-		} else {
+		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return result;
 	}
 	
-	/** 최서경
-	 * 관리자 회원 블랙리스트 등록
-	 */
-	public int blockMember(String[] list) {
-		
-		Connection conn = getConnection();
-		
-		int result = new MemberDao().blockMember(conn, list);
-		
-		if(result == list.length) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		return result;
-	}
 	
-	/** 최서경
-	 * 관리자 회원 블랙리스트 해제
-	 */
-	public int unblockMember(String[] list) {
-		
-		Connection conn = getConnection();
-		
-		int result = new MemberDao().unblockMember(conn, list);
-		
-		if(result == list.length) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		return result;
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -51,7 +51,7 @@
                     <br>
                     <div align="center">
                         <button type="submit" id=modify class="btn btn-primary" style="width:300px" onclick="return validate();">수정하기</button>
-                        <button type="button" onclick="location.href='<%=contextPath%>/views/member/memberLeaveForm.jsp'" class="btn btn-secondary">회원탈퇴</button>
+                        <button type="button" onclick="location.href='<%=contextPath%>/leave.me'" class="btn btn-secondary">회원탈퇴</button>
                     </div>          
                 </div>
             </form>

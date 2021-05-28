@@ -8,10 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
 
@@ -244,96 +242,18 @@ private Properties prop = new Properties();
 		return updateMem;
 	}
 	
-	/** 최서경
-	 * @return 총 회원수 조회
-	 */
-	public int selectListCount(Connection conn) {
-		
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return listCount;
-	}
-	
-	/** 최서경
-	 * @return 총 회원 목록 조회
-	 */
-	public ArrayList<Member> selectList(Connection conn, PageInfo pi){
-		
-		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		ArrayList<Member> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Member(rset.getInt("MEM_NO"),
-									rset.getString("MEM_ID"),
-									rset.getString("MEM_NAME"),
-									rset.getString("MEM_TEL"),
-									rset.getString("MEM_EMAIL"),
-									rset.getString("MEM_ADDRESS"),
-									rset.getString("MEM_BLOCK")));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
-	
-	/** 최서경
-	 * 관리자페이지에서 회원정보 수정
-	 */
-	public int adminUpdateMember(Connection conn, int memNo, String updateCol, String updateVal) {
-		
+	public int leaveMember(Connection conn, String checkbox, String memId, String memPwd) {
+		// update문
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "";
-		
-        switch (updateCol) {
-        case "MEM_ID": sql = prop.getProperty("adminUpdateMemberId"); break;
-        case "MEM_NAME": sql = prop.getProperty("adminUpdateMemberName"); break;
-        case "MEM_TEL": sql = prop.getProperty("adminUpdateMemberTel"); break;
-        case "MEM_EMAIL": sql = prop.getProperty("adminUpdateMemberEmail"); break;
-        case "MEM_ADDRESS": sql = prop.getProperty("adminUpdateMemberAddress"); break;
-    }
+		String sql = prop.getProperty("leaveMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, updateVal);
-			pstmt.setInt(2, memNo);
-			
+			pstmt.setString(1, checkbox);
+			pstmt.setString(2, memId);
+			pstmt.setString(3, memPwd);
+		
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -343,92 +263,8 @@ private Properties prop = new Properties();
 		}
 		
 		return result;
-		
 	}
 	
-	/** 최서경
-	 * 괸리자 회원 블랙리스트 등록
-	 */
-	public int blockMember(Connection conn, String[] list) {
-		
-		
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("blockMember");
-		
-		try {
-			
-			int num = 0;
-			pstmt = conn.prepareStatement(sql);
-			
-			for(int i=0; i < list.length; i++) {
-				
-				num = Integer.parseInt(list[i]);
-				
-				pstmt.setInt(1, num);
-				result += pstmt.executeUpdate();
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
 	
-	/** 최서경
-	 * 괸리자 회원 블랙리스트 해제
-	 */
-	public int unblockMember(Connection conn, String[] list) {
-		
-		
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("unblockMember");
-		
-		try {
-			
-			int num = 0;
-			pstmt = conn.prepareStatement(sql);
-			
-			for(int i=0; i < list.length; i++) {
-				
-				num = Integer.parseInt(list[i]);
-				
-				pstmt.setInt(1, num);
-				result += pstmt.executeUpdate();
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
-
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

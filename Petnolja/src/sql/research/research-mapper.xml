@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+
+
+	<!-- 메인페이지에 추천 펫시터 SELECT -->
+	<entry key="bestRecommend">
+		SELECT ROWNUM, S.*
+		FROM(SELECT SITTER_NO, MEM_NAME, SITTER_TITLE, FILE_PATH||CHANGE_NAME PATH, AVG(REV_RATING) AVGRATE
+		        FROM (  SELECT 
+		                SITTER_NO
+		                ,SITTER_TITLE ,MEM_NAME, FILE_PATH, CHANGE_NAME
+		                FROM SITTER
+		                JOIN MEMBER ON(SITTER_NO = MEM_NO)
+		                JOIN ATTACHMENT ON(SITTER_NO = AT_NO)
+		                WHERE SITTER_ACCESS ='Y'
+		                AND AT_CATEGORY='SITTER_PIC'
+		                AND PROMOTION_STATUS='Y'
+		                AND STOP_REASON IS NULL
+		                AND MEM_BLOCK='N'
+		                AND MEM_STATUS='Y'
+		                AND FILE_LEVEL=1)
+		                JOIN FEE USING(SITTER_NO)
+		                JOIN RESERV ON(SITTER_NO = MEM_NO)
+		                JOIN REVIEW USING(RES_NO)
+		                GROUP BY SITTER_NO, SITTER_TITLE, MEM_NAME,FILE_PATH, CHANGE_NAME
+		                HAVING SUM(FEE) > 0
+		                AND COUNT(REV_RATING)>=5
+		                ORDER BY AVG(REV_RATING) DESC) S
+					WHERE ROWNUM <![CDATA[ < ]]>=5
+	</entry>
+	
+	
+	<!-- 메인페이지에 베스트 리뷰 SELECT -->
+	<entry key ="bestReview">
+	
+		SELECT ROWNUM, R.*
+			FROM( SELECT MEM_NAME, REV_RATING, REV_CONTENT, FILE_PATH||CHANGE_NAME PATH
+			        FROM REVIEW
+			        JOIN RESERV USING(RES_NO)
+			        JOIN ATTACHMENT ON(AT_NO = REV_NO)
+			        JOIN MEMBER USING(MEM_NO)
+			        WHERE AT_CATEGORY='REVIEW_PIC'
+			        AND REV_STATUS='Y'
+			        AND REV_RATING >=4
+			        ORDER BY REV_RATING DESC, REV_DATE DESC)R
+			WHERE ROWNUM <![CDATA[ < ]]>=10
+
+	</entry>
+	
+	
+	
+	<entry key="searchListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM (
+		  SELECT SITTER_NO
+		    ,MEM_NAME
+		    ,SITTER_TITLE
+		    ,ADD_CONTENT
+		    ,FEE ONENIGHTFEE
+		    ,DAYFEE
+		    ,AVGRATING
+		    ,FILE_PATH||CHANGE_NAME PATH
+		    ,DATE_COUNT   
+		FROM SITTER
+		JOIN MEMBER ON(SITTER_NO=MEM_NO)
+		JOIN FEE USING(SITTER_NO)
+		JOIN (SELECT SITTER_NO, PET_CARE ONEDAY, FEE DAYFEE
+		        FROM FEE
+		        WHERE PET_SIZE ='소형'
+		        AND PET_CARE='1박') USING(SITTER_NO)
+		FULL JOIN(SELECT SITTER_NO, AVG(REV_RATING) AVGRATING 
+		        FROM REVIEW
+		        JOIN RESERV_SITTING USING(RES_NO)
+		        JOIN FEE USING(SITTING_NO)
+		        GROUP BY SITTER_NO) USING (SITTER_NO)
+		JOIN ATTACHMENT AT ON(AT_NO=SITTER_NO)
+		JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
+		        FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
+		        GROUP BY SITTER_NO) USING(SITTER_NO)
+		WHERE PET_CARE='데이'
+		AND AT_CATEGORY='SITTER_PIC'
+		AND FILE_LEVEL=1
+		AND AT.STATUS ='Y'
+		AND PET_SIZE='소형'
+		AND ADD_CONTENT LIKE ?
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		ORDER BY DATE_COUNT DESC	  
+		  )
+	</entry>
+	
+	
+	
+	
+	<!-- 검색창으로 검색시 노출되는 펫시터 리스트 입니다 -->
+	<entry key = "searchSitter">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		         FROM (
+		SELECT SITTER_NO
+		    ,MEM_NAME
+		    ,SITTER_TITLE
+		    ,ADD_CONTENT
+		    ,FEE ONENIGHTFEE
+		    ,DAYFEE
+		    ,AVGRATING
+		    ,FILE_PATH||CHANGE_NAME PATH
+		    ,DATE_COUNT   
+		    ,ROUND((GET_DISTANCE(
+		                 ?
+		                ,?
+		                ,MEM_LATITUDE
+		                ,MEM_LONGTITUDE
+		                )),1) "DISTANCE"
+		FROM SITTER
+		JOIN MEMBER ON(SITTER_NO=MEM_NO)
+		JOIN FEE USING(SITTER_NO)
+		JOIN (SELECT SITTER_NO, PET_CARE ONEDAY, FEE DAYFEE
+		        FROM FEE
+		        WHERE PET_SIZE ='소형'
+		        AND PET_CARE='1박') USING(SITTER_NO)
+		FULL JOIN(SELECT SITTER_NO, AVG(REV_RATING) AVGRATING 
+		        FROM REVIEW
+		        JOIN RESERV_SITTING USING(RES_NO)
+		        JOIN FEE USING(SITTING_NO)
+		        GROUP BY SITTER_NO) USING (SITTER_NO)
+		JOIN ATTACHMENT AT ON(AT_NO=SITTER_NO)
+		JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
+		        FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
+		        GROUP BY SITTER_NO) USING(SITTER_NO)
+		WHERE PET_CARE='데이'
+		AND AT_CATEGORY='SITTER_PIC'
+		AND FILE_LEVEL=1
+		AND AT.STATUS ='Y'
+		AND PET_SIZE='소형'
+		AND ADD_CONTENT LIKE ?
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		AND ADD_CONTENT LIKE ? 
+		ORDER BY DATE_COUNT DESC, DISTANCE) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+
+</properties>

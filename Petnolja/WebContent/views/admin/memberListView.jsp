@@ -107,9 +107,7 @@
         	<% for(Member m : list) { %>
         
             <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
+                <td><input type="checkbox"></td>
                 <td><%= m.getMemNo() %></td>
                 <td>
                     <p class="rowColumn" contenteditable="false" data-default="<%= m.getMemId()%>"><%=m.getMemId()%></p>
@@ -249,7 +247,11 @@
     	
     	// 펫 상세정보 보기
     	$(".petDetail").on("click", function(){
-    		location.href = "<%=contextPath%>/mempet.ad";
+    		
+    		var mno = $(this).parent().siblings().eq(1).text();
+    		var mname = $(this).parent().siblings().eq(3).children().text();
+    		    		
+    		location.href = "<%=contextPath%>/mempet.ad?mno=" + mno + "&name=" + mname;
     	});
     	
     </script>

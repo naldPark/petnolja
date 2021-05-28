@@ -133,7 +133,7 @@
         <li><a href="">게시판 관리</a>
             <ul>
                 <li><a href="">1:1문의내역</a></li>
-                <li><a href="">공지사항</a></li>
+                <li><a href="<%=contextPath%>/nlist.ad">공지사항</a></li>
             </ul>
         </li>
         <li><a href="">신고내역 관리</a></li>

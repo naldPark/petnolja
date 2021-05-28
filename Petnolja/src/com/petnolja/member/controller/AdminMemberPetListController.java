@@ -27,6 +27,13 @@ public class AdminMemberPetListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int memNo = Integer.parseInt(request.getParameter("mno"));
+		String memName = request.getParameter("name");
+		
+		// 회원 번호 사용해서 펫정보 조회, 화면에 뿌리기.
+		System.out.println(memNo);
+		System.out.println(memName);
+		
 		request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
 	
 		
