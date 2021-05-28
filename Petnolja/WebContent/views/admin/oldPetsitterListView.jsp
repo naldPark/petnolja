@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter, java.time.*"%>
+	
+<%
+	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기존 펫시터 목록</title>
 
 
 <style>
@@ -91,289 +95,54 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>001</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">banan</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="N">
-							N</p>
-					</td>
-					<td>10개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">BANANA</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">-</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<p>001</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="jieun1010a">jieun1010a</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="3">
-							3</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="자차픽업,목욕,약물복용,노견,병원">자차픽업,목욕,약물복용,노견,병원</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false"
-							data-default="관리사,행동교정사">관리사,행동교정사</p>
-					</td>
-					<td>
-						<p class="rowColumn" contenteditable="false" data-default="Y">
-							Y</p>
-					</td>
-					<td>1년3개월</td>
-					<td>2021-05-25</td>
-				</tr>
-
-
-
-
+			
+				<% if(list.isEmpty()) { %>
+				
+					<td colspan="9">조회 결과가 없습니다.</td>	
+				
+				<% }else { %>
+					<% for(Petsitter n: list) {%>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><%= n.getSitterNo()%></td>
+							<td>
+								<p class="rowColumn" contenteditable="false"
+									data-default="n.getMemID()"><%= n.getMemID()%></p>
+							</td>
+							<td>
+								<p class="rowColumn" contenteditable="false" data-default="n.getPetNo()">
+								<%= n.getPetNo()%>마리</p>
+							</td>
+							<td>
+								<p class="rowColumn" contenteditable="false"
+									data-default="n.getAdditions()"><%= n.getAdditions()%></p>
+							</td>
+							<td>
+								<p class="rowColumn" contenteditable="false"
+									data-default="n.getLicense()"><%= n.getLicense()%></p>
+							</td>
+							<td>
+								<p class="rowColumn" contenteditable="false" data-default="Y">
+									<% if(n.getExperience().equals(null)) {%>
+										Y	
+									<%}else { %>
+										N
+									<% } %>
+									</p>
+							</td>
+							<td>
+								<!-- 날짜 차이 계산하는 구문 -->
+								<% 
+									LocalDate pDay = n.getpDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+									Period p = pDay.until(LocalDate.now()); 
+								%>
+								<%= p.getYears() %>년 <%= p.getMonths() %>월 <%= p.getDays() %>일
+							</td>
+							<td><%= n.getpDate() %></td>
+						</tr>
+					<% } %>
+				<% } %>
+					
 			</tbody>
 		</table>
 
@@ -395,10 +164,6 @@
 	<br>
 	<br>
 	<br>
-
-
-
-
 
 
 
@@ -509,8 +274,6 @@
                             content.textContent = content.dataset.default;
 
                         } else {
-
-
 
                             // @details 내용의 수정이 완료되었다면 data 태그의 기본값도 바꿔준다.
                             content.dataset.default = content.textContent;

@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter"%>
+    
+<%
+	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신규 지원자 목록</title>
 
 <style>
     .outer {
@@ -56,7 +60,7 @@
 </head>
 <body>
 
-<%@include file="adminMenubar.jsp" %>
+<%@ include file="adminMenubar.jsp" %>
 
 <div class="outer" align="center">
     <div id="filter" align="left">
@@ -78,112 +82,40 @@
                 <th width="450px">지원서 상세내용</th>
                 <th width="100px">처리여부</th>
                 <th width="100px">처리결과</th>
-
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>승인</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>거절</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>승인</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>승인</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>승인</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>N</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>승인</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>N</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>N</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>001</td>
-                <td>jieun1010</td>
-                <td align="center"><button class="btn btn-info">조회</button></td>
-                <td>Y</td>
-                <td>거절</td>
-            </tr>
-
-
+            <% if(list.isEmpty()) { %>
+				
+				<td colspan="6">조회 결과가 없습니다.</td>	
+				
+			<% }else { %>
+				<% for(Petsitter n: list) {%>
+					<tr>
+		                <td>
+		                    <input type="checkbox">
+		                </td>
+		                <td><%= n.getSitterNo()%></td>
+		                <td><%= n.getMemID()%></td>
+		                <td align="center"><button class="btn btn-info">조회</button></td>
+		                <td>
+		                	<% if (n.getpDate().equals(null)) { %>
+		                		N
+		                	<%} else { %>
+		                		Y
+		                	<% } %>
+		                </td>
+		                <td>
+		                	<% if (n.getpStatus() == 'Y') { %>
+		                		승인
+		                	<%} else { %>
+		                		거절
+		                	<% } %>
+		                </td>
+            		</tr>
+				<% } %>
+			<% } %>            
+            
 
         </tbody>
     </table>
