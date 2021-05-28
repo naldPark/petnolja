@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, com.petnolja.member.model.vo.Member, java.util.ArrayList" %>    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,24 +62,9 @@
 
     #member-list p{margin: 0;}
 
-
-
 </style>
 
-
-
-
-
-
-
-
-
-
 </head>
-
-
-
-
 
 <body>
 
@@ -79,11 +73,11 @@
 <div class="outer" align="center">
     <div class="top" id="search" align="left">
         <input type="search" id="member-search-box" class="form-control-sm" placeholder="고객ID" style="font-size: 14px;">
-        <!--  <button type="button" class="btn btn-primary btn-sm">조회</button> -->
     </div>
     <div class="top" id="buttons" align="right">
-        <button class="btn btn-dark btn-sm">차단</button>
-        <!-- <button class="btn btn-success btn-sm">저장</button> -->
+        <button class="btn btn-dark btn-sm" onclick="blockMember();">차단</button>
+        <button class="btn btn-success btn-sm" onclick="unblockMember();">해제</button>
+        
         <button class="btn btn-warning btn-sm">삭제</button>
     </div>
 
@@ -103,292 +97,162 @@
             </tr>
         </thead>
         <tbody>
+        
+        <% if(list.isEmpty()){ %>
+        	<tr>
+        		<td colspan="9">회원이 존재하지 않습니다.<td>
+        	</tr>
+        <% } else { %>
+        
+        	<% for(Member m : list) { %>
+        
             <tr>
                 <td>
                     <input type="checkbox">
                 </td>
+                <td><%= m.getMemNo() %></td>
                 <td>
-                    001
+                    <p class="rowColumn" contenteditable="false" data-default="<%= m.getMemId()%>"><%=m.getMemId()%></p>
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010a">jieun1010a</p>
+                    <p class="rowColumn" contenteditable="false" data-default="<%=m.getMemName()%>"><%=m.getMemName()%></p>
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
+                    <p class="rowColumn" contenteditable="false" data-default="<%=m.getMemTel()%>"><%=m.getMemTel()%></p>
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
+                    <p class="rowColumn" contenteditable="false" data-default="<%=m.getMemEmail()%>"><%=m.getMemEmail()%></p>
                 </td>
                 <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
+                    <p class="rowColumn" contenteditable="false" data-default="<%=m.getMemAddress()%>"><%=m.getMemAddress()%></p>
                 </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
+                <td align="center"><button class="btn btn-primary petDetail">상세조회</button></td>
+                <td><%=m.getMemBlock()%></td>
             </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    002
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010b">jieun1010b</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    003
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010c">jieun1010c</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    004
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    005
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    006
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    007
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    008
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    009
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    010
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieun1010">jieun1010</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="이지은">이지은</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="010-1111-2222">010-1111-2222</p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="jieum11@maver.com">jieum11@maver.com
-                    </p>
-                </td>
-                <td>
-                    <p class="rowColumn" contenteditable="false" data-default="경기도 수원시 영통구">경기도 수원시 영통구</p>
-                </td>
-                <td align="center"><button class="btn btn-primary">상세조회</button></td>
-                <td>Y</td>
-            </tr>
+        	<% } %>
+        <% } %>
+        
         </tbody>
     </table>
 
     <!-- 페이징바 -->
                     
     <div id="paging-area">
-        <button class="btn btn-outline-primary btn-sm">&lt;</button>
-        <button class="btn btn-outline-primary btn-sm">1</button>
-        <button class="btn btn-outline-primary btn-sm">2</button>
-        <button class="btn btn-outline-primary btn-sm">3</button>
-        <button class="btn btn-outline-primary btn-sm">4</button>
-        <button class="btn btn-outline-primary btn-sm">5</button>
-        <button class="btn btn-outline-primary btn-sm">&gt;</button>
+    
+    
+    	<% if(currentPage != 1){ %>
+        <button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
+    	<% } %>
+    	<% for(int p=startPage; p<endPage; p++) { %>
+    		
+    		<% if(p != currentPage) { %>
+	    		<button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
+    			
+    		<% } else { %>
+    			<button disabled><%=p %></button>
+    		<% } %>
+    	<% } %>
+        
+        <% if(currentPage != maxPage) { %>
+        	<button onclick="location.href='<%=contextPath%>/memlist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
+        <% } %>
+
+
+
     </div>
 </div>
 
 <br><br><br><br><br>
+
+    <script>
+    
+    	//블랙리스트 등록
+    	function blockMember(){
+    		//console.log("되나?");
+
+    		var memNoArr = [];
+    		$("input[type=checkbox]:checked").each(function(){
+    		    memNoArr.push($(this).parent().siblings().eq(0).text());
+    		});
+    		
+    	    var memNoList = memNoArr.join(",");
+
+    		
+    		//console.log(memNoArr);  체크된 회원 번호
+    		
+			if(confirm("선택한 회원을 차단하시겠습니까?")){
+				
+				$.ajax({
+					url:"memblock.ad",
+					data:{memNoList:memNoList},
+					type:"post",
+					success:function(result){
+						
+						if(result == memNoArr.length){
+							alert("성공적으로 처리되었습니다.");
+						
+							$("input[type=checkbox]:checked").each(function(){
+								$(this).parent().siblings().eq(7).html('Y');
+								$(":checkbox").prop("checked", false);
+							});
+						
+						}
+						
+					}, error:function(){
+						console.log("블랙리스트 등록 ajax통신 실패");
+					}
+				});
+			} else {
+				$(":checkbox").prop("checked", false);
+			} 		
+    	}
+    	
+    	
+    	// 블랙리스트 해제
+    	function unblockMember(){
+    		//console.log("되나?");
+
+    		var memNoArr = [];
+    		$("input[type=checkbox]:checked").each(function(){
+    		    memNoArr.push($(this).parent().siblings().eq(0).text());
+    		});
+    		
+    	    var memNoList = memNoArr.join(",");
+    		
+			if(confirm("선택한 회원의 차단을 해제하시겠습니까?")){
+				
+				$.ajax({
+					url:"memunblock.ad",
+					data:{memNoList:memNoList},
+					type:"post",
+					success:function(result){
+						
+						if(result == memNoArr.length){
+							alert("성공적으로 처리되었습니다.");
+						
+							$("input[type=checkbox]:checked").each(function(){
+								$(this).parent().siblings().eq(7).html('N');
+								$(":checkbox").prop("checked", false);
+							});
+						
+						}
+						
+					}, error:function(){
+						console.log("블랙리스트 해제 ajax통신 실패");
+					}
+				});
+			} else {
+				$(":checkbox").prop("checked", false);
+			} 		
+    	}
+
+    	
+    	// 펫 상세정보 보기
+    	$(".petDetail").on("click", function(){
+    		location.href = "<%=contextPath%>/mempet.ad";
+    	});
+    	
+    </script>
 
 
 <script type="text/javascript">
@@ -510,31 +374,90 @@
 
                         content.style.border = "0px";
 
-                        var memNo = $(this).parent().siblings().eq(1).children().text();
+                        var memNo = $(this).parent().siblings().eq(1).text();
                         var updateValue = content.dataset.default;
                         var updateCol = "";
 
                         switch ($(this).parent().index()) {
-                            case 2: updateCol = "userId"; break;
-                            case 3: updateCol = "userName"; break;
-                            case 4: updateCol = "phone"; break;
-                            case 5: updateCol = "email"; break;
-                            case 6: updateCol = "address"; break;
+                            case 2: updateCol = "MEM_ID"; break;
+                            case 3: updateCol = "MEM_NAME"; break;
+                            case 4: updateCol = "MEM_TEL"; break;
+                            case 5: updateCol = "MEM_EMAIL"; break;
+                            case 6: updateCol = "MEM_ADDRESS"; break;
                         }
 
-
-                        console.log(memNo);         // 변경이 발생한 고객의 고객번호
-                        console.log(updateValue);   // 변경된 값
-                        console.log(updateCol);     // 변경이 발생한 컬럼
+						// controller에 넘기는 값들 확인용
+                        //console.log(memNo);         // 변경이 발생한 고객의 고객번호
+                        //console.log(updateValue);   // 변경된 값
+                        //console.log(updateCol);     // 변경이 발생한 컬럼
 
                         //location.href = "update.me?mno="+memNo+"&"+updateCol+"="+updateValue;
-                        // 이렇게 서블릿 호출해서 값 넘기면 되지 않을까?
+                        // 이렇게 서블릿 호출해서 값 넘기면 되지 않을까? -- ajax쓰라고 하심ㅎ 공부해야디..
                         // 화면 우측 상단 저장 버튼은 없애야 함. (-- 없앴음)
-                        // 근데 엔터키 두개 중에서 하나만 먹힘. 왜그럴까,,,?
-
-
-
-
+                        // 근데 엔터키 두개 중에서 하나만 먹힘. 왜그럴까,,,? -- 보람샘이 코드상 문제 없다고 하셨음! 그냥 진행ㄱㄱ
+                        
+                        
+                        // 회원정보 수정 함수
+                    	/*function adminUpdateMember(){*/
+                        	
+                        	$.ajax({
+                        		url:"memupdate.ad",
+                        		data:{
+                        			memNo:memNo,
+                        			updateCol:updateCol,
+                        			updateVal:updateValue
+                        		},
+                        		type:"post",
+                        		success:function(result){
+                        			if(result > 0){
+                        				
+                        				var val = '<td><p class="rowColumn" contenteditable="false" data-default="' + updateValue + '">' + updateValue + '</p></td>'
+                        				
+                        				$(this).parent().html(val);
+                        			}
+                        			
+                        		}, error:function(){
+                        			console.log("회원정보 수정 ajax통신 실패");
+                        		}
+                        	});
+                        
+                    	
+                    	// 일케하면 안됨*^ㅁ^*
+                    	/*}
+                        
+                        adminUpdateMeber();
+                        
+                       // 갱신된 회원정보 조회하는 함수
+                        /*function selectNewMemList(){
+                        	
+                        	$.ajax({
+                        		url:"newmemlist.ad",
+                        		type:"post",
+                        		success:function(list){
+                        			
+                        			var result = "";
+                        			
+                        			for(var i in list){
+                        				result += '<tr>'
+		                                        + '<td><input type="checkbox"></td>'
+		                                        + '<td>' + list[i].memNo + '</td>'
+		                                        + '<td><p class="rowColumn" contenteditable="false" data-default="' + list[i].memId + '">' + list[i].memId + '</p></td>'
+		                                        + '<td><p class="rowColumn" contenteditable="false" data-default="' + list[i].memName + '">' + list[i].memName + '</p></td>'
+		                                        + '<td><p class="rowColumn" contenteditable="false" data-default="' + list[i].memTel + '">' + list[i].memTel + '</p></td>'
+		                                        + '<td><p class="rowColumn" contenteditable="false" data-default="' + list[i].memEmail + '">' + list[i].memEmail + '</p></td>'
+		                                        + '<td><p class="rowColumn" contenteditable="false" data-default="' + list[i].memAddress + '">' + list[i].memAddress + '</p></td>'
+		                                        + '<td align="center"><button class="btn btn-primary">상세조회</button></td>'
+		                                        + '<td>' + list[i].memBlock + '</td>'
+		                                        + '</tr>';
+                        			}
+                        			$("#member-list tbody").html(result);
+                        		}, error:function(){
+                        			console.log("ajax통신 실패");
+                        		}
+                        		
+                        	})
+                        }*/
+                        
 
                     } else {
                         content.textContent = content.dataset.default;
@@ -550,9 +473,10 @@
         });
 
     });
+    
 
-    // 아이디로 검색  // 조회버튼 필요없음
 
+    // 아이디로 필터링
     $(document).ready(function () {
         $("#member-search-box").on("keyup", function () {
             var value = $(this).val().toLowerCase();

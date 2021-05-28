@@ -98,6 +98,24 @@ public class Member {
 		this.memLongtitude = memLongtitude;
 	}
 
+	
+
+
+	/**
+	 * 관리자 회원목록에 사용
+	 */
+	public Member(int memNo, String memId, String memName, String memTel, String memEmail, String memAddress,
+			String memBlock) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memName = memName;
+		this.memTel = memTel;
+		this.memEmail = memEmail;
+		this.memAddress = memAddress;
+		this.memBlock = memBlock;
+	}
+
 
 
 	public int getMemNo() {

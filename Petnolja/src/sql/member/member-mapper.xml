@@ -117,4 +117,93 @@
 		   AND MEM_STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT 
+		  FROM MEMBER
+		 WHERE MEM_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+	                SELECT
+	                	  MEM_NO
+	             	    , MEM_ID
+	              	    , MEM_NAME
+	              	    , MEM_TEL
+  	              	    , MEM_EMAIL
+	              	    , MEM_ADDRESS
+	              	    , MEM_BLOCK
+	        		FROM MEMBER
+	       		   WHERE MEM_STATUS = 'Y'
+	       		   ORDER
+	      		      BY MEM_NO
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="adminUpdateMemberId">
+		UPDATE
+        	MEMBER
+	       SET 
+        	MEM_ID = ?
+         WHERE
+         	MEM_NO = ?
+	</entry>
+	<entry key="adminUpdateMemberName">
+		UPDATE
+        	MEMBER
+	       SET 
+        	MEM_NAME = ?
+         WHERE
+         	MEM_NO = ?
+	</entry>
+	<entry key="adminUpdateMemberTel">
+		UPDATE
+        	MEMBER
+	       SET 
+        	MEM_TEL = ?
+         WHERE
+         	MEM_NO = ?
+	</entry>
+	<entry key="adminUpdateMemberEmail">
+		UPDATE
+        	MEMBER
+	       SET 
+        	MEM_EMAIL = ?
+         WHERE
+         	MEM_NO = ?
+	</entry>
+	<entry key="adminUpdateMemberAddress">
+		UPDATE
+        	MEMBER
+	       SET 
+        	MEM_ADDRESS = ?
+         WHERE
+         	MEM_NO = ?
+	</entry>
+	
+	<entry key="blockMember">
+		UPDATE
+			MEMBER
+		   SET
+		    MEM_BLOCK = 'Y'
+		 WHERE
+		    MEM_NO = ?
+	</entry>
+
+	<entry key="unblockMember">
+		UPDATE
+			MEMBER
+		   SET
+		    MEM_BLOCK = 'N'
+		 WHERE
+		    MEM_NO = ?
+	</entry>
+		
+	
 </properties>

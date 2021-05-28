@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String contextPath = request.getContextPath();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,7 +122,7 @@
 <div class="menubar">
 
     <ul id="menu">
-        <li><a href="">회원 관리</a></li>
+        <li><a href="<%=contextPath %>/memlist.ad?currentPage=1">회원 관리</a></li>
         <li>
             <a href="">펫시터 관리</a>
             <ul>
@@ -141,8 +146,8 @@
         </li>
         <li style="width:450px;">
                 <div class="menu-etc" style="width: 50%; text-align: right; line-height: 35px; font-size: 15px;">관리자계정1</div>
-                <div class="menu-etc" style="width: 25%;"><a href="" id="logout-btn" style="color: black; font-size: 15px;">로그아웃</a></div>
-                <div class="menu-etc" style="width: 25%;"><a href="" id="site-btn" style="color: black; font-size: 15px;">펫놀자사이트</a></div>
+                <div class="menu-etc" style="width: 25%;"><a href="<%=contextPath %>/logout.ad" id="logout-btn" style="color: black; font-size: 15px;">로그아웃</a></div>
+                <div class="menu-etc" style="width: 25%;"><a href="<%=contextPath %>" id="site-btn" style="color: black; font-size: 15px;">펫놀자사이트</a></div>
         </li>
     </ul>
 </div>
