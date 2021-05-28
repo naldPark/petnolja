@@ -250,7 +250,7 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, String.join(",", checkbox));
+			pstmt.setString(1, checkbox);
 			pstmt.setString(2, memId);
 			pstmt.setString(3, memPwd);
 		
