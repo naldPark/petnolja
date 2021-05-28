@@ -51,7 +51,6 @@ public class SearchSitterDetailController extends HttpServlet {
 		request.setAttribute("sitterInfo", sitterInfo);	
 		request.getRequestDispatcher("views/research/searchPetsitterDetail.jsp").forward(request, response);
 		
-
 	}
 
 	/**

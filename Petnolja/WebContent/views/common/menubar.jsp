@@ -50,7 +50,7 @@
                     <a class="nav-link" href="<%=contextPath%>/searchSitter.mem">펫시터조회</a>
                   </li>
                   <!--펫시터만 보여지는 메뉴-->
-                  <!-- //if(loginUser != null && ...)) { -->
+                 <% if(loginUser != null && loginUser.getAuthSitter()!=null && loginUser.getAuthSitter().equals("Y")){%>  
                       <li class="nav-item">
                         <a class="nav-link" href="#">예약관리</a>
                       </li>
@@ -58,7 +58,7 @@
                       <li class="nav-item">
                           <a class="nav-link" href="#">펫시팅관리</a>
                         </li>
-                      <!--}-->
+                   <%} %>
                     <!--펫시터만 보여지는 메뉴 끝-->
                 </ul>
                 <% if(loginUser != null){%>
@@ -80,7 +80,7 @@
                         window.alert("로그인 후 이용 가능합니다");
                       });
                     </script>
-                    <%}%>
+                  <%}%>
                </div> 
         </div>       
         <hr>

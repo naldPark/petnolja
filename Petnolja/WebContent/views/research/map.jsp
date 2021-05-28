@@ -28,7 +28,7 @@
     var geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('경기도 안양시 달안로 110', function(result, status) {
+    geocoder.addressSearch('<%=sitterInfo.getAddress()%>', function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === kakao.maps.services.Status.OK) {

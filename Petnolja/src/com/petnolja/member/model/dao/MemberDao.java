@@ -64,7 +64,8 @@ private Properties prop = new Properties();
 				rset.getString("MEM_DEL_DETAIL"),
 				rset.getString("MEM_ADS"),
 				rset.getString("MEM_BLOCK"),
-				rset.getString("MEM_REPORT")
+				rset.getString("MEM_REPORT"),
+				rset.getString("SITTER_ACCESS")		
 				);	
 			}
 		} catch (SQLException e) {

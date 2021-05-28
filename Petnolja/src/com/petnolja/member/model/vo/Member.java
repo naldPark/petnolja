@@ -21,7 +21,7 @@ public class Member {
 	private String memAds;
 	private String memBlock;
 	private String memReport;
-	private String memMemo; //추가로 담길값이 있을때 임시로 사용하려고 만들었습니다.
+	private String authSitter; // 펫시터여부
 	
 	
 	public Member() {}
@@ -31,7 +31,7 @@ public class Member {
 	public Member(int memNo, String memId, String memName, String memPwd, String memTel, String memEmail,
 			String memAddress, String memDetailAddress, double memLatitude, double memLongtitude, Date memEnrollDate,
 			String memStatus, Date memDeleteDate, String memDeleteDetail, String memAds, String memBlock,
-			String memReport) {
+			String memReport, String authSitter) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -50,6 +50,7 @@ public class Member {
 		this.memAds = memAds;
 		this.memBlock = memBlock;
 		this.memReport = memReport;
+		this.authSitter = authSitter; // 펫시터여부
 	}
 
 
@@ -321,14 +322,14 @@ public class Member {
 	}
 	
 
-	public String getMemMemo() {
-		return memMemo;
+	public String getAuthSitter() {
+		return authSitter;
 	}
 
 
 
-	public void setMemMemo(String memMemo) {
-		this.memMemo = memMemo;
+	public void setAuthSitter(String authSitter) {
+		this.authSitter = authSitter;
 	}
 
 
@@ -340,9 +341,12 @@ public class Member {
 				+ memDetailAddress + ", memLatitude=" + memLatitude + ", memLongtitude=" + memLongtitude
 				+ ", memEnrollDate=" + memEnrollDate + ", memStatus=" + memStatus + ", memDeleteDate=" + memDeleteDate
 				+ ", memDeleteDetail=" + memDeleteDetail + ", memAds=" + memAds + ", memBlock=" + memBlock
-				+ ", memReport=" + memReport + "]";
+				+ ", memReport=" + memReport + ", authSitter=" + authSitter + "]";
 	}
 
+
+
+	
 
 
 	

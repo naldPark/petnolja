@@ -57,8 +57,9 @@ public class SearchSitterController extends HttpServlet {
 			m.setMemAddress(loginUser.getMemAddress());
 			m.setMemLatitude(loginUser.getMemLatitude());
 			m.setMemLongtitude(loginUser.getMemLongtitude());
-		}
 			// 주소 선택했다면 선택한 주소를 담고
+		}
+			
 		if(request.getParameter("address")!=null&&request.getParameter("address")!="") {
 			setAddress = "Y";  // jsp돌아갔을때 주소 설정을 했는지 파악하기 위한 변수
 			m.setMemAddress(request.getParameter("address"));
@@ -66,10 +67,12 @@ public class SearchSitterController extends HttpServlet {
 			m.setMemLongtitude(Double.parseDouble(request.getParameter("longtitude")));
 			// 주소를 선택하지 않았다면 유저 개인정보의 주소를 담음
 		} else {
+			if(request.getSession().getAttribute("loginUser") == null) {
 			// 로그인도 안하고 주소도 선택 안했으면 일단 DEFAULT로 본사
 			m.setMemAddress("서울 강남구 테헤란로14길 6");
 			m.setMemLatitude(37.4989966363357);
 			m.setMemLongtitude(127.032848249971);
+			}
 		}
 		
 		// 날짜 선택시 선택한 날짜로 조건 지정
