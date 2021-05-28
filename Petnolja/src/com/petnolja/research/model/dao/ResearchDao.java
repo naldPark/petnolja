@@ -44,11 +44,11 @@ public class ResearchDao {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				list.add(new Sitter(rset.getInt("SITTER_NO"),
+				list.add(new Sitter(rset.getInt("MEM_NO"),
 						rset.getString("MEM_NAME"),
 						rset.getString("SITTER_TITLE"),
 					    rset.getString("PATH"),
-					    rset.getInt("AVGRATE")));
+					    rset.getInt("AVGRATING")));
 					    }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -149,12 +149,12 @@ public class ResearchDao {
 			pstmt.setInt(11, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				list.add(new Research(rset.getInt("SITTER_NO"),
+				list.add(new Research(rset.getInt("MEM_NO"),
 						rset.getString("MEM_NAME"),
 						rset.getString("SITTER_TITLE"),
 					    rset.getString("ADDITIONS"),
-					    String.format("%,d",rset.getInt("ONENIGHTFEE")),
-					    String.format("%,d",rset.getInt("DAYFEE")),
+					    String.format("%,d",rset.getInt("OSMALL")),
+					    String.format("%,d",rset.getInt("DSMALL")),
 					    rset.getInt("AVGRATING"),
 					    rset.getString("PATH"),
 					    rset.getInt("DATE_COUNT"),
@@ -211,11 +211,11 @@ public class ResearchDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(sitterInfo);
 		return sitterInfo;
 		
 	}
 	
+	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
 	public ArrayList<Pet> memPetInfo(Connection conn, int sitterNo, int userNo) {
 		ArrayList<Pet> list = new ArrayList<>();
 		ResultSet rset = null;

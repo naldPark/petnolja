@@ -2,13 +2,11 @@ package com.petnolja.research.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.petnolja.member.model.vo.Member;
 import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.research.model.service.ResearchService;
@@ -36,11 +34,11 @@ public class SearchSitterDetailController extends HttpServlet {
 		
 		
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
-		System.out.println("시터이름"+sitterNo);
 		Research sitterInfo = new ResearchService().searchSitterDetail(sitterNo);
 		for (int i = sitterInfo.getPath().split(",").length; i < 4; i++) {
 			sitterInfo.setPath(sitterInfo.getPath()+",resources/images/member/welcome.png");
 		}		
+		
 		String[] sitterPic = sitterInfo.getPath().split(",");
 		
 		if(request.getSession().getAttribute("loginUser") != null) {

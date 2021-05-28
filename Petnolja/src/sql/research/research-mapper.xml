@@ -3,33 +3,21 @@
 <properties>
 
 
-
-
 	<!-- 메인페이지에 추천 펫시터 SELECT -->
 	<entry key="bestRecommend">
-		SELECT ROWNUM, S.*
-		FROM(SELECT SITTER_NO, MEM_NAME, SITTER_TITLE, FILE_PATH||CHANGE_NAME PATH, AVG(REV_RATING) AVGRATE
-		        FROM (  SELECT 
-		                SITTER_NO
-		                ,SITTER_TITLE ,MEM_NAME, FILE_PATH, CHANGE_NAME
-		                FROM SITTER
-		                JOIN MEMBER ON(SITTER_NO = MEM_NO)
-		                JOIN ATTACHMENT ON(SITTER_NO = AT_NO)
-		                WHERE SITTER_ACCESS ='Y'
-		                AND AT_CATEGORY='SITTER_PIC'
-		                AND PROMOTION_STATUS='Y'
-		                AND STOP_REASON IS NULL
-		                AND MEM_BLOCK='N'
-		                AND MEM_STATUS='Y'
-		                AND FILE_LEVEL=1)
-		                JOIN FEE USING(SITTER_NO)
-		                JOIN RESERV ON(SITTER_NO = MEM_NO)
-		                JOIN REVIEW USING(RES_NO)
-		                GROUP BY SITTER_NO, SITTER_TITLE, MEM_NAME,FILE_PATH, CHANGE_NAME
-		                HAVING SUM(FEE) > 0
-		                AND COUNT(REV_RATING)>=5
-		                ORDER BY AVG(REV_RATING) DESC) S
-					WHERE ROWNUM <![CDATA[ < ]]>=5
+   		SELECT ROWNUM, S.*
+           FROM(SELECT MEM_NO
+                      ,MEM_NAME
+                      ,SITTER_TITLE
+                      ,FILE_PATH||CHANGE_NAME PATH
+                      ,AVGRATING
+                  FROM VW_SITTER 
+                  JOIN ATTACHMENT AT ON(AT_NO = MEM_NO)
+                  WHERE AT_CATEGORY = 'SITTER_PIC'
+                  AND FILE_LEVEL =1
+                  AND AT.STATUS='Y' 
+                  ORDER BY AVGRATING DESC) S
+          WHERE ROWNUM BETWEEN 1 AND 5
 	</entry>
 	
 	
@@ -46,110 +34,64 @@
 			        AND REV_STATUS='Y'
 			        AND REV_RATING >=4
 			        ORDER BY REV_RATING DESC, REV_DATE DESC)R
-			WHERE ROWNUM <![CDATA[ < ]]>=10
+			WHERE ROWNUM BETWEEN 1 AND 10
 
 	</entry>
 	
-	
-	
+	<!-- 검색창으로 검색시 노출되는 펫시터 리스트 총 갯수 조회입니다 -->
 	<entry key="searchListCount">
-		SELECT
-		       COUNT(*) COUNT
-		  FROM (
-		  SELECT SITTER_NO
-		    ,MEM_NAME
-		    ,SITTER_TITLE
-		    ,ADDITIONS
-		    ,FEE ONENIGHTFEE
-		    ,DAYFEE
-		    ,AVGRATING
-		    ,FILE_PATH||CHANGE_NAME PATH
-		    ,DATE_COUNT   
-		FROM SITTER
-		JOIN MEMBER ON(SITTER_NO=MEM_NO)
-		JOIN FEE USING(SITTER_NO)
-		JOIN (SELECT SITTER_NO, PET_CARE ONEDAY, FEE DAYFEE
-		        FROM FEE
-		        WHERE PET_SIZE ='소형'
-		        AND PET_CARE='1박') USING(SITTER_NO)
-		FULL JOIN(SELECT SITTER_NO, AVG(REV_RATING) AVGRATING 
-		        FROM REVIEW
-		        JOIN RESERV_SITTING USING(RES_NO)
-		        JOIN FEE USING(SITTING_NO)
-		        GROUP BY SITTER_NO) USING (SITTER_NO)
-		JOIN ATTACHMENT AT ON(AT_NO=SITTER_NO)
-		JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
-		        FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
-		        GROUP BY SITTER_NO) USING(SITTER_NO)
-		WHERE PET_CARE='데이'
-		AND AT_CATEGORY='SITTER_PIC'
-		AND FILE_LEVEL=1
-		AND AT.STATUS ='Y'
-		AND PET_SIZE='소형'
-		AND ADDITIONS LIKE ?
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		ORDER BY DATE_COUNT DESC	  
-		  )
+	   SELECT
+	     COUNT(*) COUNT
+			  FROM (
+	              SELECT MEM_NO 
+	              FROM VW_SITTER
+	              JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
+	                      FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
+	                      GROUP BY SITTER_NO) ON(SITTER_NO=MEM_NO)
+	              WHERE ADDITIONS LIKE ?
+	              AND ADDITIONS LIKE ?
+	              AND ADDITIONS LIKE ?
+	              AND ADDITIONS LIKE ?
+	              AND ADDITIONS LIKE ?  
+		 		  )
 	</entry>
-	
-	
-	
+
 	
 	<!-- 검색창으로 검색시 노출되는 펫시터 리스트 입니다 -->
 	<entry key = "searchSitter">
-		SELECT *
-		  FROM (
-		        SELECT ROWNUM RNUM, A.*
-		         FROM (
-		SELECT SITTER_NO
-		    ,MEM_NAME
-		    ,SITTER_TITLE
-		    ,ADDITIONS
-		    ,FEE ONENIGHTFEE
-		    ,DAYFEE
-		    ,AVGRATING
-		    ,FILE_PATH||CHANGE_NAME PATH
-		    ,DATE_COUNT   
-		    ,ROUND((GET_DISTANCE(
-		                 ?
-		                ,?
-		                ,MEM_LATITUDE
-		                ,MEM_LONGTITUDE
-		                )),1) "DISTANCE"
-		FROM SITTER
-		JOIN MEMBER ON(SITTER_NO=MEM_NO)
-		JOIN FEE USING(SITTER_NO)
-		JOIN (SELECT SITTER_NO, PET_CARE ONEDAY, FEE DAYFEE
-		        FROM FEE
-		        WHERE PET_SIZE ='소형'
-		        AND PET_CARE='1박') USING(SITTER_NO)
-		FULL JOIN(SELECT SITTER_NO, AVG(REV_RATING) AVGRATING 
-		        FROM REVIEW
-		        JOIN RESERV_SITTING USING(RES_NO)
-		        JOIN FEE USING(SITTING_NO)
-		        GROUP BY SITTER_NO) USING (SITTER_NO)
-		JOIN ATTACHMENT AT ON(AT_NO=SITTER_NO)
-		JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
-		        FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
-		        GROUP BY SITTER_NO) USING(SITTER_NO)
-		WHERE PET_CARE='데이'
-		AND AT_CATEGORY='SITTER_PIC'
-		AND FILE_LEVEL=1
-		AND AT.STATUS ='Y'
-		AND PET_SIZE='소형'
-		AND ADDITIONS LIKE ?
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		AND ADDITIONS LIKE ? 
-		ORDER BY DATE_COUNT DESC, DISTANCE) A
-		        )
+           SELECT *
+             FROM (
+                SELECT ROWNUM RNUM, A.*
+                     FROM (
+                        SELECT MEM_NO
+                            ,MEM_NAME
+                            ,SITTER_TITLE
+                            ,ADDITIONS
+                            ,OSMALL
+                            ,DSMALL
+                            ,AVGRATING
+                            ,DATE_COUNT   
+                            ,ROUND((GET_DISTANCE(? ,? ,MEM_LATITUDE ,MEM_LONGTITUDE )),1) "DISTANCE"
+                            ,FILE_PATH||CHANGE_NAME PATH
+                        FROM VW_SITTER
+                        JOIN (SELECT SITTER_NO, COUNT(DATE_PERIOD) DATE_COUNT
+                                FROM (SELECT SITTER_NO, DATE_PERIOD FROM ABLE_DATE WHERE DATE_PERIOD BETWEEN ? AND ?)
+                                GROUP BY SITTER_NO) ON(SITTER_NO=MEM_NO)
+                        JOIN ATTACHMENT AT ON(AT_NO = MEM_NO)
+                        WHERE ADDITIONS LIKE ?
+   		                AND ADDITIONS LIKE ?
+                        AND ADDITIONS LIKE ?
+                        AND ADDITIONS LIKE ?
+                        AND ADDITIONS LIKE ?
+                        AND AT_CATEGORY = 'SITTER_PIC'
+                        AND FILE_LEVEL =1
+                        AND AT.STATUS='Y'        
+                        ORDER BY DATE_COUNT DESC, DISTANCE) A
+                )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<!-- 검색한 특정 펫시터의 정보 -->
 	<entry key= "searchSitterDetail">
 		SELECT MEM_NO
 		,MEM_NAME
@@ -174,8 +116,8 @@
 		join(
 	        SELECT AT_NO, LISTAGG(FILE_PATH||CHANGE_NAME,',') WITHIN GROUP(ORDER BY FILE_LEVEL) AS FILE_LIST
 	        FROM ATTACHMENT
-	        GROUP BY AT_NO, AT_CATEGORY
-	        HAVING AT_CATEGORY='SITTER_PIC') on (AT_NO = SITTER_NO)
+	        GROUP BY AT_NO, AT_CATEGORY, STATUS
+	        HAVING AT_CATEGORY='SITTER_PIC' AND STATUS='Y') on (AT_NO = SITTER_NO)
 	    where mem_no=?
 	</entry>
 	
@@ -189,5 +131,5 @@
 	
 	</entry>
 	
-
-</properties>
+  </properties>
+  

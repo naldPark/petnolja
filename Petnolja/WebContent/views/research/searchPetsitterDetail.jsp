@@ -183,7 +183,7 @@
                     </div> 
 
                     <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 강보람님의 댓글</b><br>
+                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
                         좋은 후기 남겨주셔서 감사합니당 !!
                         강아지가 너무 순하고 착해서 맡는 동안 행복했어요
                         앞으로도 위탁할 일 있으면 꼭 찾아주세요
@@ -203,7 +203,7 @@
                     </div> 
 
                     <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 강보람님의 댓글</b><br>
+                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
                         좋은 후기 남겨주셔서 감사합니당 !!
                         강아지가 너무 순하고 착해서 맡는 동안 행복했어요
                         앞으로도 위탁할 일 있으면 꼭 찾아주세요
@@ -223,7 +223,7 @@
                     </div> 
 
                     <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 강보람님의 댓글</b><br>
+                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
                         좋은 후기 남겨주셔서 감사합니당 !!
                         강아지가 너무 순하고 착해서 맡는 동안 행복했어요
                         앞으로도 위탁할 일 있으면 꼭 찾아주세요

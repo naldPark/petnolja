@@ -86,8 +86,20 @@
 
         </div> 
         <div style="text-align:right;padding-bottom: 20px; padding-right: 30px;">
-	        <h5><%=s.getSmallNightFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-	        <h5><%=s.getSmallDayFee()%> 원&nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
+	        <h5>
+	        <%if(s.getSmallNightFee().equals("0")){ %>
+	        	정보없음
+	        <%}else{ %>
+	        	<%=s.getSmallNightFee()%> 원
+	        <%} %>
+	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
+	        <h5>
+	        <%if(s.getSmallDayFee().equals("0")){ %>
+	        	정보없음
+	        <%}else{ %>
+	        	<%=s.getSmallDayFee()%> 원
+     	    <%} %>
+	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
 	      	 소형견 기준<br>
 	      	<span style="align:right">후기 평균별점 :
 		       <span id="starList">

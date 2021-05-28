@@ -3,8 +3,6 @@ package com.petnolja.research.model.service;
 import static com.petnolja.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.Member;
 import com.petnolja.pet.model.vo.Pet;
@@ -70,7 +68,7 @@ public class ResearchService {
 		return sitterInfo;
 	}
 	
-	//searchPetsitterDetail.jsp에 보여줄 화면에서 유저와 펫의 정보
+	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
 	public ArrayList<Pet> memPetInfo(int sitterNo, int userNo) {
 		Connection conn = getConnection();
 		
