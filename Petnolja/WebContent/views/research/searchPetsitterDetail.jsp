@@ -275,7 +275,7 @@
             <div style="text-align: left;">
             <h6>예약 하기</h6><br></div>
                 <h6>체크인날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 체크아웃날짜</h6>
-                <div><%@ include file = "../member/ableShownDate.jsp" %></div>
+                <div><%@ include file = "ableShownDate.jsp" %></div>
                 <br>
                     <div style="float: left; margin-left:45px;">
                       위탁할시간<br>

@@ -15,9 +15,9 @@
     .double div {float: left;}
     /* .-disabled-{background: lightgrey}; */
     .datepicker--cell:not(.-disabled-) {
-        background: rgb(0, 123, 255) !important; 
+        background: rgb(210, 235, 250) !important; 
         border-radius: 0em; 
-        color:white;
+        color:darkgrey;
     }
     .datepicker--day-name{color:black;}
     </style>
@@ -26,8 +26,8 @@
 <body>
 
     <div class="double">
-        <input id="datepicker1" type="text" style="width: 100px; border:1px solid lightgray"> -
-        <input id="datepicker2" type="text" style="width: 100px; border:1px solid lightgray">
+        <input id="datepicker1" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;"> -
+        <input id="datepicker2" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;">
     </div>
 
     <script>
@@ -36,25 +36,28 @@
         function datePickerSet(sDate, eDate, flag) {
                 var sDay = sDate.val(); //시작달력
                 var eDay = eDate.val(); //끝달력
-
+                
                 // 날짜차단하기 시작
-                var disabled_days = ["2021-5-2", "2021-5-8", "2016-6-20"]; //차단할 날짜를 적으면 됨
+          
+                var abled_days = '<%=sitterInfo.getAbleDate()%>'.split(","); //차단할 날짜
                 $('#datepicker1, #datepicker2').datepicker({
                     language: 'ko',
                     onRenderCell: function (date, cellType) {
-                        pretty_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-                        var disabled = false
-                        if  (cellType == 'day')    
-                            disabled = disabled_days.indexOf(pretty_date) != -1
-                        return {disabled: disabled}
+                        pretty_date = date.getFullYear() + '-' + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2); //date날짜 두자리로 출력
+                        var abled = false
+                        if  (cellType == 'day') {   
+                            abled = abled_days.indexOf(pretty_date) == -1}
+                        return {disabled: abled}
                     }
                 });
                 // 날짜차단하기 끝
 
+                
+
                 sDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
-                //   minDate: new Date('2021-05-03'.replace(/-/g, "/"))
+                eDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
                 eDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
-                // eDate.datepicker({maxDate: new Date('2021-05-20'.replace(/-/g, "/")) });
+                sDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
 
 
 
