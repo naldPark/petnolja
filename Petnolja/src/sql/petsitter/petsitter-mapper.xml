@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectPetsittereList">
+		SELECT
+    		MEM_ID
+		    ,SITTER_NO
+		    ,SITTER_ACCESS
+		    ,PET_PERIOD
+		    ,PET_NO
+		    ,LICENSE
+		    ,EXPERIENCE
+		    ,MOTIVE
+		    ,PROMOTION_STATUS
+		    ,PROMOTION_DATE
+		    ,STOP_REASON
+		    ,STOP_CONTENT
+		    ,PENALTY_COUNT
+		    ,ADDITIONS
+		FROM SITTER
+		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+		ORDER 
+			BY SITTER.PROMOTION_DATE DESC
+	</entry>
+	
+</properties>
