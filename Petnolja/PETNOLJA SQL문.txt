@@ -1,6 +1,7 @@
 -- 관리자계정에서 아래와 같이 계정 및 계정권한 부여해주세요
 --CREATE USER PETNOLJA IDENTIFIED BY PETNOLJA;
 --GRANT CONNECT, RESOURCE TO PETNOLJA;
+--GRANT CREATE VIEW TO PETNOLJA;
 --이거 다 하고 나서 각 테이블 오른쪽 키 - 데이터임포트로 엑셀파일 불러오기
 
 DROP TABLE FAVORITE;
