@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter" %>
     
 <%
 	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");

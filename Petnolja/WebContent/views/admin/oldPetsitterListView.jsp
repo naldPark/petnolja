@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter, java.time.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter, java.time.*" %>
 	
 <%
 	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
@@ -98,7 +98,7 @@
 			
 				<% if(list.isEmpty()) { %>
 				
-					<td colspan="9">조회 결과가 없습니다.</td>	
+					<td colspan="9"> 조회 결과가 없습니다.</td>	
 				
 				<% }else { %>
 					<% for(Petsitter n: list) {%>
