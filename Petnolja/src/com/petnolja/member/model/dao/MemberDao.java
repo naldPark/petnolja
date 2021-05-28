@@ -8,15 +8,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.FindMember;
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.petsitter.model.vo.Sitter;
+
 
 public class MemberDao {
 	
 private Properties prop = new Properties();
-	
+
 	public MemberDao() {
 		
 		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
@@ -28,7 +32,8 @@ private Properties prop = new Properties();
 		}
 		
 	}
-	
+
+	// 회원 로그인
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		
 		Member m = null;
@@ -74,7 +79,7 @@ private Properties prop = new Properties();
 		
 	}
 	
-	
+	// 회원 아이디 찾기 본인검증 및 찾아오기
 	public String findId(Connection conn, Member m) {
 		String findId = null;
 		ResultSet rset = null;
@@ -96,9 +101,10 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return findId;
-
+	
 	}
 	
+	// 회원 비밀번호 재설정을 위한 본인 검증
 	public FindMember findPwd1(Connection conn, String userId, String userName) {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -128,6 +134,7 @@ private Properties prop = new Properties();
 		
 	}
 	
+	// 회원 비밀번호 재설정
 	public int findPwd2(Connection conn, int userNo, String userPwd, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -147,7 +154,96 @@ private Properties prop = new Properties();
 		
 		return result;
 	}
-
+	
+	// 회원이 본인의 즐겨찾기를 조회할때 목록 갯수 뽑기
+	public int favoriteListCount(Connection conn, int userNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("favoriteListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
+	
+	// 회원이 본인의 즐겨찾기를 조회
+	public ArrayList<Sitter> favoriteList(Connection conn, PageInfo pi, int userNo){
+		
+		ArrayList<Sitter> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("favoriteList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Sitter(rset.getInt("SITTER_NO"),
+									rset.getString("SITTER_TITLE"),
+								    rset.getString("MEM_NAME"),
+								    rset.getString("PATH")));
+			}
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;	
+	}
+	
+	public int favoriteChange(Connection conn, int userNo, int sitterNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("favoriteInsert");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, sitterNo);
+			pstmt.setInt(3, userNo);
+			pstmt.setInt(4, sitterNo);
+			result = pstmt.executeUpdate();
+			if (result == 0) {
+				close(pstmt);
+				sql = prop.getProperty("favoriteDelete");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, sitterNo);
+				result = pstmt.executeUpdate() + 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	
+	}
+	
+	// 회원가입 insert입니다
 	public int insertMember(Connection conn, Member m) {
 		// insert문
 		int result = 0;
@@ -177,7 +273,7 @@ private Properties prop = new Properties();
 		return result;
 		
 	}
-	
+		
 	public int updateMember(Connection conn, Member m) {
 		// update문
 		int result = 0;
@@ -265,6 +361,175 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	/** 최서경
+	 * @return 총 회원수 조회
+	 */
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	/** 최서경
+	 * @return 총 회원 목록 조회
+	 */
+	public ArrayList<Member> selectList(Connection conn, PageInfo pi){
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEM_NO"),
+									rset.getString("MEM_ID"),
+									rset.getString("MEM_NAME"),
+									rset.getString("MEM_TEL"),
+									rset.getString("MEM_EMAIL"),
+									rset.getString("MEM_ADDRESS"),
+									rset.getString("MEM_BLOCK")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
-}
+	/** 최서경
+	 * 관리자페이지에서 회원정보 수정
+	 */
+	public int adminUpdateMember(Connection conn, int memNo, String updateCol, String updateVal) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		
+        switch (updateCol) {
+        case "MEM_ID": sql = prop.getProperty("adminUpdateMemberId"); break;
+        case "MEM_NAME": sql = prop.getProperty("adminUpdateMemberName"); break;
+        case "MEM_TEL": sql = prop.getProperty("adminUpdateMemberTel"); break;
+        case "MEM_EMAIL": sql = prop.getProperty("adminUpdateMemberEmail"); break;
+        case "MEM_ADDRESS": sql = prop.getProperty("adminUpdateMemberAddress"); break;
+    }
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updateVal);
+			pstmt.setInt(2, memNo);
+			result = pstmt.executeUpdate();
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+			
+			return result;
+			
+		}
+		
+		/** 최서경
+		 * 괸리자 회원 블랙리스트 등록
+		 */
+		public int blockMember(Connection conn, String[] list) {
+			
+			
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("blockMember");
+			
+			try {
+				
+				int num = 0;
+				pstmt = conn.prepareStatement(sql);
+				
+				for(int i=0; i < list.length; i++) {
+					
+					num = Integer.parseInt(list[i]);
+					
+					pstmt.setInt(1, num);
+					result += pstmt.executeUpdate();
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+			
+		}
+		
+		/** 최서경
+		 * 괸리자 회원 블랙리스트 해제
+		 */
+		public int unblockMember(Connection conn, String[] list) {
+			
+			
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("unblockMember");
+			
+			try {
+				
+				int num = 0;
+				pstmt = conn.prepareStatement(sql);
+				
+				for(int i=0; i < list.length; i++) {
+					
+					num = Integer.parseInt(list[i]);
+					
+					pstmt.setInt(1, num);
+					result += pstmt.executeUpdate();
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+			
+		}
+
+		
+	}
+
+	
+	
+
