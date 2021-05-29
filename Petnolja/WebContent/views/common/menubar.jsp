@@ -69,7 +69,7 @@
                 <% if(loginUser != null){%>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="<%=contextPath%>/views/member/memberUpdateForm.jsp">회원정보수정</a>
-                  <a class="dropdown-item" href="<%=contextPath%>/views/memreserve/reserveList.jsp">예약내역</a>
+                  <a class="dropdown-item" href="<%=contextPath%>/reserveList.mem">예약내역</a>
                   <a class="dropdown-item" href="<%=contextPath%>/views/pet/daliyLog.jsp">일지보기</a>
                   <a class="dropdown-item" href="<%=contextPath%>/views/pet/petList.jsp">반려견등록</a>
                   <a class="dropdown-item" href="<%=contextPath%>/favoriteList.mem?currentPage=1">즐겨찾기조회</a>

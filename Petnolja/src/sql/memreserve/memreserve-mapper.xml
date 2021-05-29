@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="reserveList">
+	
+	SELECT SITTER_NO
+	     , SITTER_TITLE
+	     , MEM_NAME
+	     , RES_NO
+	     , RES_DATE
+	     , RES_CHECKIN
+	     , RES_CHECKOUT
+	     , RES_STATUS
+	     , CANCEL_REASON
+	     , REV_STATUS
+	     , FILE_PATH||CHANGE_NAME PATH
+		FROM RESERV RE
+		JOIN REVIEW USING(RES_NO)
+		JOIN RESERV_SITTING USING(RES_NO)
+		JOIN FEE USING(SITTING_NO)
+		JOIN SITTER USING(SITTER_NO)
+		JOIN MEMBER M ON(SITTER_NO = M.MEM_NO)
+		JOIN ATTACHMENT AT ON(SITTER_NO = AT_NO)
+		WHERE FILE_LEVEL=1
+		AND AT_CATEGORY='SITTER_PIC'
+		AND AT.STATUS = 'Y'
+		AND RE.MEM_NO = ?
+	
+	</entry>
+	
+</properties>

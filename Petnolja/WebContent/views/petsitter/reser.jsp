@@ -66,7 +66,7 @@
     <%@ include file="../common/menubar.jsp" %>
       <div class="container">
        <br>
-       <%@ include file="../sitter/re-menu.jsp" %>
+       <%@ include file="../petsitter/re-menu.jsp" %>
         
         <!-- MIDDLE -->
         <div class="middle">
