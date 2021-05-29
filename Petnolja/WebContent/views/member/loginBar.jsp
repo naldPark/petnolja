@@ -47,8 +47,9 @@
              <input type="text" id="search_addr" class="form-control" placeholder="지역설정" readonly onclick="findAddr()" value="" name="address"style="cursor: pointer;" >
              <span class="input-group-text" style="background-color: white; cursor: pointer;" onclick="findAddr()"><img src="<%=contextPath %>/resources/images/member/search.png" style="height: 20px;"></span>
              <input type="hidden" name="latitude" required value="" id="latitude">
-    	       <input type="hidden" name="longtitude" required value="" id="longtitude">
+    	     <input type="hidden" name="longtitude" required value="" id="longtitude">
              <input type="hidden" name="searchPage" required value="1" id="searchPage">
+             <input type="hidden" name="searchArray" value="recommend" id="searchArray">
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
              <input type="text" name="chooseDate" data-range="true" data-multiple-dates-separator=" - " data-language="ko" readonly placeholder="날짜선택" class="datepicker-here form-control" style="cursor: pointer;">
              <span class="input-group-text " style="background-color: white;cursor: pointer;" onclick="chooseDate()"><img src="<%=contextPath %>/resources/images/member/calendar.png" style="height: 20px;"></span>

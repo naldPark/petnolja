@@ -37,6 +37,7 @@
         }
         .recommendList:hover{background-color: rgb(245, 245, 245);}
         #starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
+        .checkSearchArray:hover{cursor: pointer; font-weight: bold;}
 </style>
 
 </head>
@@ -53,12 +54,12 @@
       <br>
 
       <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
-          <a href="" style="text-decoration: none; color:gray">별점순</a> | 
-          <a href="" style="text-decoration: none; color:gray">가격순</a> | 
+          <span style="text-decoration: none; color:gray" class="checkSearchArray" id="starArray">별점순</span> | 
+          <span  style="text-decoration: none; color:gray" class="checkSearchArray" id="priceArray">가격순</span> | 
           <% if(!us.getSetAddress().equals("N")) { %>
-          <a href="" style="text-decoration: none; color:gray">거리순</a> | 
+          <span style="text-decoration: none; color:gray" class="checkSearchArray" id="distanceArray">거리순</span> | 
           <% } %>
-          <a href="" style="text-decoration: none; color:gray">이용가능일순</a>
+          <span style="text-decoration: none; color:gray" class="checkSearchArray" id="dateArray">이용가능일순</span>
       </div>
       <br>
             <!-- 펫시터 소개 박스 -->
@@ -156,7 +157,13 @@
       $("#searchSubmitBtn").click();
     })
 
+	$(".checkSearchArray").click(function(){
+		var array =$(this).attr("id");
+    console.log(array);
+    $("#searchArray").val(array);
+    $("#searchSubmitBtn").click();
 
+	})
 
 
     <%if(us!=null){%> 

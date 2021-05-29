@@ -37,6 +37,7 @@ public class SearchSitterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		String array = request.getParameter("searchArray");	
 		Member loginUser= null;
 		String setAddress = "N"; // jsp로 돌아갔을때 주소를 설정했는지 확인 하기 위한 변수
 		String setDate = "N"; // jsp로 돌아갔을때 날짜를 설정했는지 확인 하기 위한 변수
@@ -111,7 +112,7 @@ public class SearchSitterController extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		// 값을 가져오기 위해 service로 보냄
-		ArrayList<Research> searchlist = new ResearchService().searchSitter(m, startDate, endDate, options, pi);
+		ArrayList<Research> searchlist = new ResearchService().searchSitter(m, startDate, endDate, options, pi, array);
 		// list: 시터no, 시터이름, 시터제목, 옵션, 1박비용, 당일비용, 평균별점, 사진경로, 검색한날짜중이용가능한날짜수, 검색한곳과의 거리(km)
 		
 		// ===========================================================

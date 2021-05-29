@@ -46,10 +46,10 @@ public class ResearchService {
 	}
 	
 	//검색시 보여줄 시터리스트
-	public ArrayList<Research> searchSitter(Member m, String startDate, String endDate, String[] options, PageInfo pi) {
+	public ArrayList<Research> searchSitter(Member m, String startDate, String endDate, String[] options, PageInfo pi, String array) {
 		Connection conn = getConnection();
 		
-		ArrayList<Research> list = new ResearchDao().searchSitter(conn, m, startDate, endDate, options, pi);
+		ArrayList<Research> list = new ResearchDao().searchSitter(conn, m, startDate, endDate, options, pi, array);
 		
 		close(conn);
 	

@@ -40,7 +40,6 @@ public class AddpetInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			System.out.println("안녕");
 			// 전송용량제한
 			int maxSize = 10 * 1024 * 1024;
 			

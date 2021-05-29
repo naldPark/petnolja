@@ -50,7 +50,7 @@
     <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
         <div class="petBox"> 
-            <div class="petImg"><img src="../../resources/images/temp/dog1.jpg" style="height: 130px;"></div>
+            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
             <div style="float:left;">
                 <br>
                 <h6><b>개똥이</b></h6><br>
@@ -63,7 +63,7 @@
             </div>
         </div><br>
         <div class="petBox"> 
-            <div class="petImg"><img src="../../resources/images/temp/dog1.jpg" style="height: 130px;"></div>
+            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
             <div style="float:left;">
                 <br>
                 <h6><b>개똥이</b></h6><br>
@@ -76,7 +76,7 @@
             </div>
         </div><br>
         <div class="petBox"> 
-            <div class="petImg"><img src="../../resources/images/temp/dog1.jpg" style="height: 130px;"></div>
+            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
             <div style="float:left;">
                 <br>
                 <h6><b>개똥이</b></h6><br>
