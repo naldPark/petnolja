@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key= "">
+		INSERT
+		   INTO PET
+		  (
+		     PET_NO
+		   , MEM_NO
+		   , PER_NAME
+		   , PET_GENDER
+		   , PET_BREED
+		   , PET_BIRTH
+		   , PET_WEIGHT
+		   , NEUTERED
+		   , CHIP
+		   , VACCINE
+		   , CAUTION
+		   , NOTE
+		   , HOSPI
+		   , HOSPI_TEL
+		   )
+		   VALUES
+		   (
+		     SEQ_PNO.NEXTVAL
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		   )
+	</entry>	
+	
+</properties>
