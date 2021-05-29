@@ -2,6 +2,23 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<entry key="selectOldListCount">
+		SELECT
+    		COUNT(*) COUNT
+    		FROM SITTER
+    		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+    		WHERE PROMOTION_STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="selectNewListCount">
+		SELECT
+    		COUNT(*) COUNT
+    		FROM SITTER
+			JOIN MEMBER ON(SITTER_NO = MEM_NO)
+	
+	</entry>
+
 	<entry key="selectOldPetsittereList">
 		SELECT
     		MEM_ID

@@ -1,5 +1,6 @@
 package com.petnolja.petsitter.model.dao;
 
+import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import static com.petnolja.common.JDBCTemplate.*;
 
@@ -28,8 +29,58 @@ public class PetsitterDao {
 		
 	}
 	
+	public int selectOldListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOldListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
 	
-	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn){
+	public int selectNewListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNewListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
+	
+	
+	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn, PageInfo pi){
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -37,6 +88,13 @@ public class PetsitterDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -69,7 +127,7 @@ public class PetsitterDao {
 	}
 	
 	
-	public ArrayList<Petsitter> selectNewPetsitterList(Connection conn){
+	public ArrayList<Petsitter> selectNewPetsitterList(Connection conn, PageInfo pi){
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -77,6 +135,13 @@ public class PetsitterDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

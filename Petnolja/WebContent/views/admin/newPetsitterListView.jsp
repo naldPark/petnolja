@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter" %>
-    
+    pageEncoding="UTF-8" %> 
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter" %>
+
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -123,13 +130,23 @@
     <!-- 페이징바 -->
 
     <div id="paging-area">
-        <button class="btn btn-outline-primary btn-sm">&lt;</button>
-        <button class="btn btn-outline-primary btn-sm">1</button>
-        <button class="btn btn-outline-primary btn-sm">2</button>
-        <button class="btn btn-outline-primary btn-sm">3</button>
-        <button class="btn btn-outline-primary btn-sm">4</button>
-        <button class="btn btn-outline-primary btn-sm">5</button>
-        <button class="btn btn-outline-primary btn-sm">&gt;</button>
+        <% if(currentPage != 1){ %>
+            	<button onclick="location.href='<%=contextPath%>/newlist.ad?currentPage=<%=currentPage-1%>';"> &lt; </button>
+		<% } %>
+
+        <% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            <% if(p != currentPage){ %>
+	            	<button onclick="location.href='<%=contextPath%>/newlist.ad?currentPage=<%= p %>';"><%= p %></button>
+	        <% }else { %>
+	            	<button disabled><%= p %></button>
+            <% } %>
+            	
+        <% } %>
+
+		<% if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/newlist.ad?currentPage=<%=currentPage+1%>';"> &gt; </button>
+		<% } %>
     </div>
 </div>
 
