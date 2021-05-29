@@ -12,7 +12,7 @@ public class PetService {
 	public int insertPet(Pet p) {
 		Connection conn = getConnection();
 		int result = new PetDao().insertPet(conn, p);
-		System.out.println(result);
+		
 		if(result > 0) {
 			commit(conn);
 		}else {

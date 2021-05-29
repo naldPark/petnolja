@@ -85,7 +85,7 @@ public class AddpetInsertController extends HttpServlet {
 			p.setNote(multiRequest.getParameter("textarea"));
 			p.setHospi(multiRequest.getParameter("hospi"));
 			p.setHospiTel(multiRequest.getParameter("hospitel"));
-			System.out.println(p);
+			
 			int result = new PetService().insertPet(p);
 			
 			

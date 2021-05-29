@@ -51,7 +51,7 @@ public class PetDao {
 			pstmt.setString(15, p.getPetImg());
 			
 			result = pstmt.executeUpdate();
-		System.out.println(result);	
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
