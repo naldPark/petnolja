@@ -178,7 +178,6 @@ public class ResearchDao {
 				close(pstmt);
 			}
 			
-			System.out.println(list);
 			return list;
 
 			
