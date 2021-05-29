@@ -1,6 +1,5 @@
 package com.petnolja.member.model.vo;
 
-import java.sql.Date;
 
 public class FindMember {
 	
