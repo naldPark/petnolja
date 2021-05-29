@@ -37,7 +37,11 @@ public class SearchSitterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String array = request.getParameter("searchArray");	
+		String array = "recommend";
+		if(request.getParameter("searchArray")!=null) {
+		array = request.getParameter("searchArray");	
+		}
+				
 		Member loginUser= null;
 		String setAddress = "N"; // jsp로 돌아갔을때 주소를 설정했는지 확인 하기 위한 변수
 		String setDate = "N"; // jsp로 돌아갔을때 날짜를 설정했는지 확인 하기 위한 변수
@@ -48,6 +52,7 @@ public class SearchSitterController extends HttpServlet {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, +3);
 		String endDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());  // 3개월 뒤 날짜까지
+		
 		
 		// 로그인을 했다면 
 		if(request.getSession().getAttribute("loginUser") != null) {
