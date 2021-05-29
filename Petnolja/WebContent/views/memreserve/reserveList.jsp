@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.memreserve.vo.MemReserve"%>
+<%  ArrayList<MemReserve> reserveList = (ArrayList<MemReserve>)request.getAttribute("reserveList");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,56 +87,29 @@
           <hr>
 
        <!-- 예약된 리스트 시작-->
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter1.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
-            <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>펫시터: 고길동</span><br>
-            <span>예약완료</span>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="reserveListDetail.jsp"><span>자세히보기</span></a><br>
-            <a href="writeReview.jsp" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
-            <a href="cancelReservation.jsp" onclick="openCancelPopup(); return false;"><span>예약취소</span></a>
-        </div>
-      </div>
-
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter2.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
-            <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>펫시터: 고길동</span><br>
-            <span>예약완료</span>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="reserveListDetail.jsp"><span>자세히보기</span></a><br>
-            <a href="writeReview.jsp" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
-            <a href="cancelReservation.jsp" onclick="openCancelPopup(); return false;"><span>예약취소</span></a>
-        </div>
-      </div>
-
-      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter3.jpg" style="height: 150px;"></div>
-        <div style="float:left;">
-            <br>
-            <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
-            <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>펫시터: 고길동</span><br>
-            <span>예약완료</span>
-        </div>
-        <div id="linkList" style="padding-left:800px; text-align: center;">
-            <br>
-            <a href="reserveListDetail.jsp"><span>자세히보기</span></a><br>
-            <a href="writeReview.jsp" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
-            <a href="cancelReservation.jsp" onclick="openCancelPopup(); return false;"><span>예약취소</span></a>
-        </div>
-      </div>
+    	  <% if(reserveList.isEmpty()){ %>
+      		<br>조회된 리스트가 없습니다.<br><br><br>
+            		
+    	   <% }else { %>
+       	      <% for(MemReserve mr : reserveList){ %>
+			      <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
+			        <div class="reserveImg"><img src="<%=contextPath%>/<%=mr.getPath()%>" style="height: 150px;"></div>
+			        <div style="float:left;">
+			            <br>
+			            <h6><b><%=mr.getSitterTitle()%></b></h6>
+			            <span>예약일 : <%=mr.getCheckinDate()%> ~ <%=mr.getCheckoutDate()%></span><br>
+			            <span>펫시터: <%=mr.getMemName()%></span><br>
+			            <span><%=mr.getReviewStatus()%></span>
+			        </div>
+			        <div id="linkList" style="padding-left:800px; text-align: center;">
+			            <br>
+			            <a href='<%=contextPath%>/searchSitterDetail.mem?sno=<%=mr.getSitterNo()%>'><span>자세히보기</span></a><br>
+			            <a href="writeReview.jsp" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
+			            <a href="cancelReservation.jsp" onclick="openCancelPopup(); return false;"><span>예약취소</span></a>
+			        </div>
+			      </div>
+  		 	 <% } %>
+ 
 
       <!-- 예약된 리스트 끝-->
       
@@ -146,6 +120,7 @@
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
               </ul>
+       <% } %>
 
   </div> 
 

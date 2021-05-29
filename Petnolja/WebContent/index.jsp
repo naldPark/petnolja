@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page  import ="java.util.HashMap, java.util.ArrayList, 
+<%@ page  import ="java.util.ArrayList, 
 	com.petnolja.research.model.vo.Review, com.petnolja.petsitter.model.vo.Sitter" %>
 <%
 	ArrayList<Sitter>sitterList = (ArrayList<Sitter>)session.getAttribute("sitterList");
