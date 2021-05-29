@@ -28,14 +28,21 @@ public class MemReserveDao {
 
 	}
 	
-	public ArrayList<MemReserve> reserveList(Connection conn, int userNo) {
+	public ArrayList<MemReserve> reserveList(Connection conn, int userNo, String startDate, String endDate) {
 		ArrayList<MemReserve> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("reserveList");
+		System.out.println(startDate);
+		System.out.println(endDate);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
+			pstmt.setString(2, startDate);
+			pstmt.setString(3, endDate);
+			pstmt.setString(4, startDate);
+			pstmt.setString(5, endDate);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				list.add(new MemReserve(
@@ -58,7 +65,7 @@ public class MemReserveDao {
 			close(pstmt);
 		}
 		
-		
+		System.out.println(list);
 		return list;
 	
 	}

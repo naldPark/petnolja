@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.memreserve.vo.MemReserve"%>
-<%  ArrayList<MemReserve> reserveList = (ArrayList<MemReserve>)request.getAttribute("reserveList");%>
+<%  
+	ArrayList<MemReserve> reserveList = (ArrayList<MemReserve>)request.getAttribute("reserveList");
+	String startDate = (String)request.getAttribute("startDate");
+	String endDate = (String)request.getAttribute("endDate");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +58,7 @@
         <h3>예약리스트</h3>   
         <br><br>
         <!--검색조회기능-->
-        <form>
+        <form action="<%=contextPath %>/reserveList.mem" method="post">
             <div class="input-group mb-3 input-group-sm">
                 <button type="button" class="btn btn-outline-primary btn-sm searchBtn" style="margin-right:8px;" id="findAll">전체</button> 
                 <button type="button"class="btn btn-outline-primary btn-sm searchBtn" style="margin-right:8px;" id="1">최근1개월</button>
@@ -62,24 +67,34 @@
                 <span class="input-group-text" style="background-color: white; border: hidden; padding-right: 100px;"></span>
                <span class="input-group-text">상세검색</span>
               </div>
-              <input type="date" class="form-control" style="height:36px;" id="startDate" value="">
+              <input type="date" class="form-control" name="startDate" style="height:36px;" id="startDate">
               <span class="input-group-text" style="background-color: white; border: hidden;">~</span>
-              <input type="date"  max="" id="endDate"  class="form-control" style="height:36px; margin-right: 8px;">
-              <button type="button" class="btn btn-primary btn-sm">&nbsp;조회&nbsp;</button>
+              <input type="date"  id="endDate" name="endDate" class="form-control" style="height:36px; margin-right: 8px;">
+              <button type="submit" id="searchSubmitBtn" class="btn btn-primary btn-sm">&nbsp;조회&nbsp;</button>
             </div>
        </form>
        <script>
+		    $(document).ready(function(){
+
+			   <% if(startDate!=null && endDate!=null){ %>
+			    	$("#startDate").val("<%=startDate%>");     
+			    	$("#endDate").val("<%=endDate%>");  
+			   <%}%>
+		    })
             $(".searchBtn").click(function(){
+ 
             var temp=0;
             if($(this).attr('id')==$("#findAll").attr('id')){
-            temp=new Date('2001-01-01'); //가입일을 넣어버리자
+           	$("#startDate").val(null);  
+           	$("#endDate").val(null); 
             } else{
             var months =$(this).attr("id");
             temp= new Date(new Date().setMonth(new Date().getMonth()-months));
-            }
             temp=temp.toISOString().substring(0,10);
             $("#startDate").val(temp);          
             $("#endDate").val(new Date().toISOString().substring(0,10));
+            }
+            $("#searchSubmitBtn").click();
             });      
             
        </script>

@@ -10,9 +10,9 @@ import com.petnolja.memreserve.vo.MemReserve;
 public class MemReserveService {
 	
 	
-	public ArrayList<MemReserve> reserveList(int userNo) {
+	public ArrayList<MemReserve> reserveList(int userNo, String startDate, String endDate) {
 		Connection conn = getConnection();
-		ArrayList<MemReserve> list = new MemReserveDao().reserveList(conn, userNo);
+		ArrayList<MemReserve> list = new MemReserveDao().reserveList(conn, userNo, startDate, endDate);
 		
 		close(conn);
 		return list;

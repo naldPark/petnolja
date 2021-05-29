@@ -36,8 +36,8 @@
 			MEM_ID
 		  FROM MEMBER
 		 WHERE MEM_NAME = ?
-		   AND MEM_EMAIL = ?
-		   OR MEM_TEL = ?
+		   AND (MEM_EMAIL = ?
+		  		 OR MEM_TEL = ?)
 		   AND MEM_STATUS = 'Y'
 		   AND MEM_BLOCK = 'N'
 	</entry>

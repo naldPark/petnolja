@@ -55,7 +55,7 @@
       <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
           <a href="" style="text-decoration: none; color:gray">별점순</a> | 
           <a href="" style="text-decoration: none; color:gray">가격순</a> | 
-          <% if(us.getSetDate().equals("Y")) { %>
+          <% if(!us.getSetAddress().equals("N")) { %>
           <a href="" style="text-decoration: none; color:gray">거리순</a> | 
           <% } %>
           <a href="" style="text-decoration: none; color:gray">이용가능일순</a>
@@ -82,7 +82,7 @@
 				  <% } else if(s.getDateCount()>0){ %>
       				   &nbsp;&nbsp;- 선택하신 <%=us.getCountDay()%>일 중 <%=s.getDateCount()%>일만 예약가능합니다
 				  <% } %>
-              <br><br>
+              <br><br>         
 
         </div> 
         <div style="text-align:right;padding-bottom: 20px; padding-right: 30px;">

@@ -34,7 +34,20 @@ public class ReserveListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member loginUser= (Member)request.getSession().getAttribute("loginUser");
-		ArrayList<MemReserve> reserveList = new MemReserveService().reserveList(loginUser.getMemNo());
+		String startDate = "1900-01-01";
+		String endDate = "2999-12-31";
+		
+		
+		if(request.getParameter("startDate")!=null&&!request.getParameter("startDate").equals("")) {
+		startDate = request.getParameter("startDate");
+		request.setAttribute("startDate", startDate);}
+		
+		if(request.getParameter("endDate")!=null&&!request.getParameter("endDate").equals("")) {
+		endDate = request.getParameter("endDate");
+		request.setAttribute("endDate", endDate);}
+
+		
+		ArrayList<MemReserve> reserveList = new MemReserveService().reserveList(loginUser.getMemNo(), startDate, endDate);
 		request.setAttribute("reserveList", reserveList);
 		request.getRequestDispatcher("views/memreserve/reserveList.jsp").forward(request, response);
 		
