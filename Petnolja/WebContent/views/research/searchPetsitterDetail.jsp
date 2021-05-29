@@ -130,11 +130,11 @@
       <!--자격 현황-->
       <div style="text-align:left; margin-bottom:30px;  padding-left:20px; border:1px solid gray;" > 
         <br>
-        <h4>자격 현황</h4><br>
+        <h4>펫시터 경력</h4><br>
             <ul id="">
-                <li>펫시터 전문가 교육</li><br>
-                <li>ㅇㅇㅇㅇㅇㅇㅇㅇ 교육</li><br>
-                <br>
+                <li>교육: <%=sitterInfo.getLicense()%></li><br>
+                <li>반려견 케어 기간: <%=sitterInfo.getPetPeriod()%></li><br>
+                <li>펫시터 활동 기간: <%=sitterInfo.getExperience()%></li><br>
             </ul>
       </div> 
 
@@ -244,8 +244,14 @@
         <div style="text-align: center;">
             <br><br><br>
             
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();"><div id="likeImgDiv"><img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가</div></button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl"><img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기</button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();">
+            <div id="likeImgDiv" value=<%=sitterInfo.getSitterNo()%>>
+              <img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가
+            </div>
+          </button><br>
+          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
+            <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
+          </button><br>
           <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
         </div>
         <br><br>
@@ -327,18 +333,47 @@
       </div>
 
 
-    <script>
-          //즐겨찾기 하트 바꾸기
-          var temp=0;
-          function like(){
-            if(temp==0){
-              $("#likeImgDiv").html('<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨');
-              temp++;
-            }else{
-              $("#likeImgDiv").html('<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가');
-              temp--;
+	<script>
+      var favor = <%=sitterInfo.getFavor()%>;
+			var likeS = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨'
+			var unlikeS = '<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가'
+      $(document).ready(function(){
+       if(favor!=0){
+        $("#likeImgDiv").html(likeS);
+       } else {
+        $("#likeImgDiv").html(unlikeS);
+       }
+     })
+
+		function like(){
+      <%if(loginUser!=null){%>
+          $.ajax({
+            url:"changeFavorite.mem",
+            data:{
+              sitterNo:$("#likeImgDiv").attr("value")
+            },
+            type:"post",
+            success:function(result){			
+              if(result>1){
+                $("#likeImgDiv").html(unlikeS);
+              }else{
+                $("#likeImgDiv").html(likeS);
+              }
+            },error:function(){
+              console.log("ajax통신 실패");
             }
-          }
+          });
+            
+      <%}else{%>
+        window.alert("로그인 후 이용 가능합니다");
+      <%}%>
+      };
+
+	</script>
+
+
+    <script>
+
           //공유하기 url복사
           var obShareUrl = document.getElementById("ShareUrl");
           obShareUrl.value = window.document.location.href; 

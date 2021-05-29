@@ -32,17 +32,21 @@ public class SearchSitterDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		int userNo=-1;
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
-		Research sitterInfo = new ResearchService().searchSitterDetail(sitterNo);
+		
+		if(request.getSession().getAttribute("loginUser") != null) {
+		userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();	
+		}
+		
+		Research sitterInfo = new ResearchService().searchSitterDetail(sitterNo, userNo);
 		for (int i = sitterInfo.getPath().split(",").length; i < 4; i++) {
 			sitterInfo.setPath(sitterInfo.getPath()+",resources/images/member/welcome.png");
 		}		
 		
 		String[] sitterPic = sitterInfo.getPath().split(",");
 		
-		if(request.getSession().getAttribute("loginUser") != null) {
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+		if(userNo != -1) {
 		ArrayList<Pet> petList = new ResearchService().memPetInfo(sitterNo, userNo);
 		request.setAttribute("petList", petList);
 		}

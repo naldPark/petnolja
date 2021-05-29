@@ -7,6 +7,8 @@ public class Research {
 	private String sitterName;
 	private String address;
 	private String license;
+	private String petPeriod;
+	private String experience;
 	private String sitterTitle;
 	private String sitterContent;
 	private String additions;
@@ -23,6 +25,7 @@ public class Research {
 	private String path;
 	private int dateCount; //검색기간 중 이용가능한 일자입니다
 	private Double distance;
+	private int favor;
 	
 	public Research() {}
 
@@ -72,15 +75,17 @@ public class Research {
 
 	
 
-	public Research(int sitterNo, String sitterName, String address, String license, String sitterTitle,
+	public Research(int sitterNo, String sitterName, String address, String license, String petPeriod, String experience, String sitterTitle,
 			String sitterContent, String additions, String smallNightFee, String midNightFee, String bigNightFee,
 			String smallDayFee, String midDayFee, String bigDayFee, int avgRating, int checkin, int checkout,
-			String ableDate, String path) {
+			String ableDate, String path, int favor) {
 		super();
 		this.sitterNo = sitterNo;
 		this.sitterName = sitterName;
 		this.address = address;
 		this.license = license;
+		this.petPeriod=petPeriod;
+		this.experience=experience;
 		this.sitterTitle = sitterTitle;
 		this.sitterContent = sitterContent;
 		this.additions = additions;
@@ -95,6 +100,8 @@ public class Research {
 		this.checkout = checkout;
 		this.ableDate = ableDate;
 		this.path = path;
+		this.favor = favor;
+		
 	}
 
 	public int getSitterNo() {
@@ -255,6 +262,31 @@ public class Research {
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+	
+
+	public String getPetPeriod() {
+		return petPeriod;
+	}
+
+	public void setPetPeriod(String petPeriod) {
+		this.petPeriod = petPeriod;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+	public int getFavor() {
+		return favor;
+	}
+
+	public void setFavor(int favor) {
+		this.favor = favor;
 	}
 
 	@Override

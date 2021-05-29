@@ -58,10 +58,10 @@ public class ResearchService {
 	}
 	
 	//searchPetsitterDetail.jsp에 보여줄 화면 구성
-	public Research searchSitterDetail(int sitterNo) {
+	public Research searchSitterDetail(int sitterNo, int memNo) {
 		Connection conn = getConnection();
 		
-		Research sitterInfo = new ResearchDao().searchSitterDetail(conn, sitterNo);
+		Research sitterInfo = new ResearchDao().searchSitterDetail(conn, sitterNo, memNo);
 
 		close(conn);
 		

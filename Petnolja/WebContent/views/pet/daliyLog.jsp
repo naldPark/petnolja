@@ -51,7 +51,7 @@
       
       <!--예약된 리스트 글-->
       <div style="margin-bottom:30px; padding-top:15px; background-color:rgb(224, 224, 255); height:230px;">
-          <div class="dogImg" style="padding-left:550px;"><img src="../../resources/images/temp/dog5.jpg" style="height:180px;"></div>
+          <div class="dogImg" style="padding-left:550px;"><img src="<%=contextPath%>/resources/images/temp/dog5.jpg" style="height:180px;"></div>
           <div style="float:left; padding-left:70px;">
             <br>
               <h6><b>펫시터 강개순</b></h6><br>
@@ -66,7 +66,7 @@
       <hr>
 
       <div style="margin-bottom:30px; padding-top:15px; background-color:rgb(224, 224, 255); height:230px;">
-        <div class="dogImg" style="padding-left:550px;"><img src="../../resources/images/temp/dog5.jpg" style="height:180px;"></div>
+        <div class="dogImg" style="padding-left:550px;"><img src="<%=contextPath%>/resources/images/temp/dog5.jpg" style="height:180px;"></div>
         <div style="float:left; padding-left:70px;">
           <br>
             <h6><b>펫시터 강개순</b></h6><br>
@@ -81,7 +81,7 @@
     <hr>
 
     <div style="margin-bottom:30px; padding-top:15px; background-color:rgb(224, 224, 255); height:230px;">
-        <div class="dogImg" style="padding-left:550px;"><img src="../../resources/images/temp/dog5.jpg" style="height:180px;"></div>
+        <div class="dogImg" style="padding-left:550px;"><img src="<%=contextPath%>/resources/images/temp/dog5.jpg" style="height:180px;"></div>
         <div style="float:left; padding-left:70px;">
           <br>
             <h6><b>펫시터 강개순</b></h6><br>

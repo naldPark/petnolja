@@ -23,16 +23,16 @@
   <div class="container">
     <div class="row text-center d-flex justify-content-center pt-3 mb-1" id="footer-link">
       <div class="col-md-2 mb-3">
-          <a href="<%=contextPath%>/views/board/memnotice.jsp">공지사항</a>
+          <a href="<%=contextPath%>/memNotice.mem">공지사항</a>
       </div>
       <div class="col-md-2 mb-3">
-          <a href="<%=contextPath%>/views/common/private.jsp">개인정보처리방침</a>
+          <a href="<%=contextPath%>/private.mem">개인정보처리방침</a>
       </div>
       <div class="col-md-2 mb-3">
-          <a href="<%=contextPath%>/views/common/agreement.jsp">이용약관</a>
+          <a href="<%=contextPath%>/agreement.mem">이용약관</a>
       </div>
       <div class="col-md-2 mb-3">
-        <a href="<%=contextPath%>/views/board/memservice.jsp">고객센터</a>
+        <a href="<%=contextPath%>/memService.mem">고객센터</a>
       </div>
     </div>
     <br>

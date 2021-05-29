@@ -70,7 +70,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="<%=contextPath%>/updateMemberPath.mem">회원정보수정</a>
                   <a class="dropdown-item" href="<%=contextPath%>/reserveList.mem">예약내역</a>
-                  <a class="dropdown-item" href="<%=contextPath%>/views/pet/daliyLog.jsp">일지보기</a>
+                  <a class="dropdown-item" href="<%=contextPath%>/dailyLog.mem">일지보기</a>
                   <a class="dropdown-item" href="<%=contextPath%>/petListPath.mem">반려견목록</a>
                   <a class="dropdown-item" href="<%=contextPath%>/favoriteList.mem?currentPage=1">즐겨찾기조회</a>
                   <a class="dropdown-item" href="<%=contextPath%>/logout.mem">로그아웃</a>

@@ -185,7 +185,7 @@ public class ResearchDao {
 	
 	
 	//searchPetsitterDetail.jsp에 보여줄 화면 구성
-	public Research searchSitterDetail(Connection conn, int sitterNo) {
+	public Research searchSitterDetail(Connection conn, int sitterNo, int memNo) {
 		
 		Research sitterInfo = null;
 		ResultSet rset = null;
@@ -193,13 +193,17 @@ public class ResearchDao {
 		String sql = prop.getProperty("searchSitterDetail");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, sitterNo);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, sitterNo);
+			pstmt.setInt(3, sitterNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				sitterInfo =new Research(rset.getInt("MEM_NO"),
 						rset.getString("MEM_NAME"),
 						rset.getString("MEM_ADDRESS"),
 					    rset.getString("LICENSE"),
+					    rset.getString("PET_PERIOD"),
+					    rset.getString("EXPERIENCE"),
 					    rset.getString("SITTER_TITLE"),
 					    rset.getString("SITTER_CONTENT"),
 					    rset.getString("ADDITIONS"),
@@ -213,7 +217,8 @@ public class ResearchDao {
 					    rset.getInt("SITTER_CHECKIN"),
 					    rset.getInt("SITTER_CHECKOUT"),
 					    rset.getString("ABLE_DATE"),
-					    rset.getString("FILE_LIST")
+					    rset.getString("FILE_LIST"),
+					    rset.getInt("FAVOR")
 						);
 					    }
 	
