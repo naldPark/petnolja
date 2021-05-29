@@ -33,9 +33,6 @@ public class MemReserveDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("reserveList");
-		System.out.println(startDate);
-		System.out.println(endDate);
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
@@ -65,7 +62,6 @@ public class MemReserveDao {
 			close(pstmt);
 		}
 		
-		System.out.println(list);
 		return list;
 	
 	}
