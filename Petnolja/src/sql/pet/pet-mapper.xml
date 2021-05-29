@@ -2,28 +2,32 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key= "">
+	<entry key= "insertPet">
 		INSERT
 		   INTO PET
 		  (
 		     PET_NO
 		   , MEM_NO
-		   , PER_NAME
+		   , PET_NAME
 		   , PET_GENDER
 		   , PET_BREED
 		   , PET_BIRTH
 		   , PET_WEIGHT
 		   , NEUTERED
+		   , PET_SIZE
 		   , CHIP
 		   , VACCINE
 		   , CAUTION
 		   , NOTE
 		   , HOSPI
 		   , HOSPI_TEL
+		   , PET_IMG
 		   )
 		   VALUES
 		   (
 		     SEQ_PNO.NEXTVAL
+		   , ?
+		   , ?
 		   , ?
 		   , ?
 		   , ?

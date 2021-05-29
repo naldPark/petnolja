@@ -47,7 +47,7 @@
     반려동물을 추가하지 않으면 예약이 진행되지 않습니다<br><br>
     <!--검색조회기능-->
     <div align="right">
-    <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/pet/addPet.jsp'"> 반려동물 추가</button></div><br>
+    <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
         <div class="petBox"> 
             <div class="petImg"><img src="../../resources/images/temp/dog1.jpg" style="height: 130px;"></div>
