@@ -87,7 +87,7 @@
 
        <!-- 예약된 리스트 시작-->
       <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter1.jpg" style="height: 150px;"></div>
+        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter1.jpg" style="height: 150px;"></div>
         <div style="float:left;">
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
@@ -104,7 +104,7 @@
       </div>
 
       <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter2.jpg" style="height: 150px;"></div>
+        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter2.jpg" style="height: 150px;"></div>
         <div style="float:left;">
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
@@ -121,7 +121,7 @@
       </div>
 
       <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
-        <div class="reserveImg"><img src="../../resources/images/temp/petsitter3.jpg" style="height: 150px;"></div>
+        <div class="reserveImg"><img src="<%=contextPath%>/resources/images/temp/petsitter3.jpg" style="height: 150px;"></div>
         <div style="float:left;">
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
