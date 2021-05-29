@@ -92,7 +92,7 @@
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
             <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>고객: 고길동</span><br>
+            <span>펫시터: 고길동</span><br>
             <span>예약완료</span>
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
@@ -109,7 +109,7 @@
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
             <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>고객: 고길동</span><br>
+            <span>펫시터: 고길동</span><br>
             <span>예약완료</span>
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
@@ -126,7 +126,7 @@
             <br>
             <h6><b>정성을 다해 사랑으로 돌봐드려요</b></h6>
             <span>예약일 : 2020-01-01 ~ 2020-01-02</span><br>
-            <span>고객: 고길동</span><br>
+            <span>펫시터: 고길동</span><br>
             <span>예약완료</span>
         </div>
         <div id="linkList" style="padding-left:800px; text-align: center;">
