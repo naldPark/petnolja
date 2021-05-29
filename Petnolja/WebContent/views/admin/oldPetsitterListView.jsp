@@ -83,7 +83,7 @@
 			<input type="search" id="petsitter-search-box" class="form-control-sm" placeholder="펫시터ID" style="font-size: 14px;">
 		</div>
 		<div class="top" id="buttons" align="right">
-			<button class="btn btn-warning btn-sm">삭제</button>
+			<button onclick="location.href='<%=contextPath%>/oldlistDelete.ad';" class="btn btn-warning btn-sm">삭제</button>
 		</div>
 
 		<br> <br>
@@ -110,7 +110,7 @@
 				<% }else { %>
 					<% for(Petsitter n: list) {%>
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="oldList" value="<%= n.getSitterNo()%>"></td>
 							<td><%= n.getSitterNo()%></td>
 							<td>
 								<p class="rowColumn" contenteditable="false"
@@ -182,13 +182,20 @@
 	<br>
 	<br>
 	<br>
-
-
+	
+	
+	<!-- 체크박스에 체크한것만 값 전달하는 스크립트 -->
+	<script>
+		var chk_arr = [];
+		$("input[name=oldList]:checked").each(function(){
+			var chk = $(this).val();
+			chk_arr.push(chk);
+		})
+		
+	</script>
 
 
 	<script type="text/javascript">
-
-
 
     // @breif contenteditable 속성을 가진경우
 

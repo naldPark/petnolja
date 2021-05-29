@@ -37,7 +37,7 @@
 		    ,ADDITIONS
 		FROM SITTER
 		JOIN MEMBER ON(SITTER_NO = MEM_NO)
-		WHERE PROMOTION_STATUS = 'Y'
+		WHERE PROMOTION_STATUS = 'Y' AND SITTER_ACCESS = 'Y'
 		ORDER 
 			BY SITTER.PROMOTION_DATE DESC
 	</entry>
@@ -75,6 +75,13 @@
 		JOIN MEMBER ON(SITTER_NO = MEM_NO)
 		ORDER 
 			BY SITTER.SITTER_NO DESC
+	</entry>
+	
+	<entry key="deleteOldPetsitter">
+		UPDATE
+        SITTER
+    SET PROMOTION_STATUS = 'N'
+    WHERE SITTER_NO = ?
 	</entry>
 	
 </properties>

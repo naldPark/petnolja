@@ -206,6 +206,27 @@ public class PetsitterDao {
 		
 	}
 
-	
+	public int deleteOldPetsitter(Connection conn, String[] petsitterNo) {
+		// update문 => 처리된 행수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteOldPetsitter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=1; i<=petsitterNo.length; i++) {
+				pstmt.setInt(1, Integer.parseInt(petsitterNo[i]));
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }

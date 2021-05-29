@@ -56,4 +56,18 @@ public class PetsitterService {
 		return p;		
 	}
 	
+	
+	public int deleteOldPetsitter(String[] petsitterNo) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().deleteOldPetsitter(conn, petsitterNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 }
