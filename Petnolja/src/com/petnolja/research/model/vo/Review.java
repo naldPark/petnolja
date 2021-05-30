@@ -6,7 +6,8 @@ public class Review{
 	
 
 	private int reserveNo;
-	private String reserveStatus;
+	private int memNo;
+	private int sitterNo;
 	private int reviewNo;
 	private int reviewRating;
 	private String reviewContent;
@@ -16,22 +17,23 @@ public class Review{
 	private String memName;
 	private String path;
 	
-	
 	public Review() {}
-	
-	public Review(int reserveNo, String reserveStatus, int reviewNo, int reviewRating, String reviewContent,
-			Date reviewDate, String reviewReplyContent, Date reviewReplyTime) {
+
+	public Review(int reserveNo, int memNo, int sitterNo, int reviewNo, int reviewRating, String reviewContent,
+			Date reviewDate, String reviewReplyContent, Date reviewReplyTime, String memName, String path) {
 		super();
 		this.reserveNo = reserveNo;
-		this.reserveStatus = reserveStatus;
+		this.memNo = memNo;
+		this.sitterNo = sitterNo;
 		this.reviewNo = reviewNo;
 		this.reviewRating = reviewRating;
 		this.reviewContent = reviewContent;
 		this.reviewDate = reviewDate;
 		this.reviewReplyContent = reviewReplyContent;
 		this.reviewReplyTime = reviewReplyTime;
+		this.memName = memName;
+		this.path = path;
 	}
-	
 	
 	
 
@@ -51,12 +53,20 @@ public class Review{
 		this.reserveNo = reserveNo;
 	}
 
-	public String getReserveStatus() {
-		return reserveStatus;
+	public int getMemNo() {
+		return memNo;
 	}
 
-	public void setReserveStatus(String reserveStatus) {
-		this.reserveStatus = reserveStatus;
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+	public int getSitterNo() {
+		return sitterNo;
+	}
+
+	public void setSitterNo(int sitterNo) {
+		this.sitterNo = sitterNo;
 	}
 
 	public int getReviewNo() {
@@ -106,9 +116,6 @@ public class Review{
 	public void setReviewReplyTime(Date reviewReplyTime) {
 		this.reviewReplyTime = reviewReplyTime;
 	}
-	
-	
-	
 
 	public String getMemName() {
 		return memName;
@@ -128,15 +135,12 @@ public class Review{
 
 	@Override
 	public String toString() {
-		return "Review [reserveNo=" + reserveNo + ", reserveStatus=" + reserveStatus + ", reviewNo=" + reviewNo
-				+ ", reviewRating=" + reviewRating + ", reviewContent=" + reviewContent + ", reviewDate=" + reviewDate
-				+ ", reviewReplyContent=" + reviewReplyContent + ", reviewReplyTime=" + reviewReplyTime + "]";
+		return "Review [reserveNo=" + reserveNo + ", memNo=" + memNo + ", sitterNo=" + sitterNo + ", reviewNo="
+				+ reviewNo + ", reviewRating=" + reviewRating + ", reviewContent=" + reviewContent + ", reviewDate="
+				+ reviewDate + ", reviewReplyContent=" + reviewReplyContent + ", reviewReplyTime=" + reviewReplyTime
+				+ ", memName=" + memName + ", path=" + path + "]";
 	}
 	
-	
-	
-	
-	
-	
+
 
 }

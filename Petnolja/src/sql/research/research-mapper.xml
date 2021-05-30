@@ -272,6 +272,19 @@
 	
 	</entry>
 	
+	
+	<entry key = "reviewList">
+	select mem_no, sitter_no, mem_name, REV_RATING, rev_content, REV_DATE, file_path||change_name path, rev_co_content
+		from review
+		join reserv using(res_no)
+		join reserv_sitting using(res_no)
+		join member using(mem_no)
+		join attachment on(at_no = rev_no)
+		join fee using(sitting_no)
+        WHERE REV_STATUS='Y'
+		where sitter_no= ?	
+	</entry>
+	
 
   </properties>
   

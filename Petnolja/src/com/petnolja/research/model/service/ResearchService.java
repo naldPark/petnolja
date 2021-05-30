@@ -82,6 +82,20 @@ public class ResearchService {
 	}
 	
 	
+	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
+	public ArrayList<Review> sitterReview(int sitterNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> sitterReview = new ResearchDao().sitterReview(conn, sitterNo);
+		
+		
+		close(conn);
+		
+		return petList;
+		
+	}
+	
+	
 	
 
 }

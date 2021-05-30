@@ -11,6 +11,7 @@ import com.petnolja.member.model.vo.Member;
 import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.research.model.service.ResearchService;
 import com.petnolja.research.model.vo.Research;
+import com.petnolja.research.model.vo.Review;
 
 /**
  * Servlet implementation class SearchSitterDetailController
@@ -50,7 +51,9 @@ public class SearchSitterDetailController extends HttpServlet {
 		ArrayList<Pet> petList = new ResearchService().memPetInfo(sitterNo, userNo);
 		request.setAttribute("petList", petList);
 		}
-
+		
+		Review sitterReview = new ResearchService().sitterReview(sitterNo);
+		
 		request.setAttribute("sitterPic", sitterPic);	
 		request.setAttribute("sitterInfo", sitterInfo);	
 		request.getRequestDispatcher("views/research/searchPetsitterDetail.jsp").forward(request, response);

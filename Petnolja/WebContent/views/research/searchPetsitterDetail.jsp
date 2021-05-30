@@ -121,9 +121,9 @@
             <h4>시팅 금액</h4><br>
                 <ul id="weight">
                     <li style="list-style-type:none; color:gray"><br>1박케어<br>데이케어</li>
-                    <li>소형견<br><%=sitterInfo.getSmallNightFee()%>원<br><%=sitterInfo.getSmallDayFee()%>원</li>
-                    <li>중형견<br><%=sitterInfo.getMidNightFee()%>원<br><%=sitterInfo.getMidDayFee()%>원</li>
-                    <li>대형견<br><%=sitterInfo.getBigNightFee()%>원<br><%=sitterInfo.getBigDayFee()%>원</li>
+                    <li>소형견<br><span><%=sitterInfo.getSmallNightFee()%>원</span><br><span><%=sitterInfo.getSmallDayFee()%>원</span></li>
+                    <li>중형견<br><span><%=sitterInfo.getMidNightFee()%>원</span><br><span><%=sitterInfo.getMidDayFee()%>원</span></li>
+                    <li>대형견<br><span><%=sitterInfo.getBigNightFee()%>원</span><br><span><%=sitterInfo.getBigDayFee()%>원</span></li>
                 </ul>
       </div> 
 
@@ -334,6 +334,14 @@
 
 
 	<script>
+
+      $("#weight li span").each(function(index){
+            if($(this).text()=="0원"){
+              $(this).text("시팅불가");
+          }
+       })
+
+
       var favor = <%=sitterInfo.getFavor()%>;
 			var likeS = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨'
 			var unlikeS = '<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가'
@@ -343,6 +351,8 @@
        } else {
         $("#likeImgDiv").html(unlikeS);
        }
+       
+
      })
 
 		function like(){
