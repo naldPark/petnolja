@@ -81,6 +81,10 @@ public class PetsitterDao {
 	
 	
 	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn, PageInfo pi){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -88,10 +92,6 @@ public class PetsitterDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -128,6 +128,10 @@ public class PetsitterDao {
 	
 	
 	public ArrayList<Petsitter> selectNewPetsitterList(Connection conn, PageInfo pi){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		ArrayList<Petsitter> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -135,9 +139,6 @@ public class PetsitterDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -206,18 +207,18 @@ public class PetsitterDao {
 		
 	}
 
-	public int deleteOldPetsitter(Connection conn, String[] petsitterNo) {
+	public int[] deleteOldPetsitter(Connection conn, String[] petsitterNo) {
 		// update문 => 처리된 행수
-		int result = 0;
+		int result[] = new int[petsitterNo.length];
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteOldPetsitter");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			for(int i=1; i<=petsitterNo.length; i++) {
+			for(int i=0; i<petsitterNo.length; i++) {
 				pstmt.setInt(1, Integer.parseInt(petsitterNo[i]));
-				result = pstmt.executeUpdate();
+				result[i] = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {

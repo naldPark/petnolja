@@ -10,6 +10,7 @@ import static com.petnolja.common.JDBCTemplate.*;
 
 public class PetsitterService {
 
+	// 기존 펫시터 리스트 카운트
 	public int selectOldListCount() {
 		
 		Connection conn = getConnection();
@@ -20,6 +21,7 @@ public class PetsitterService {
 		
 	}
 	
+	// 새로운 펫시터 리스트 카운트
 	public int selectNewListCount() {
 		
 		Connection conn = getConnection();
@@ -30,6 +32,7 @@ public class PetsitterService {
 		
 	}
 	
+	// 기존 펫시터 리스트
 	public ArrayList<Petsitter> selectOldPetsitterList(PageInfo pi){
 		
 		Connection conn = getConnection();
@@ -40,6 +43,7 @@ public class PetsitterService {
 		
 	}
 	
+	// 새로운 펫시터 리스트
 	public ArrayList<Petsitter> selectNewPetsitterList(PageInfo pi){
 		
 		Connection conn = getConnection();
@@ -49,6 +53,7 @@ public class PetsitterService {
 		return list;
 	}
 	
+	// 지원서 상세내용
 	public Petsitter selectNewPetsitter(int sitterNo) {
 		Connection conn = getConnection();
 		Petsitter p = new PetsitterDao().selectNewPetsitter(conn, sitterNo);
@@ -57,15 +62,22 @@ public class PetsitterService {
 	}
 	
 	
-	public int deleteOldPetsitter(String[] petsitterNo) {
+	//기존 펫시터 삭제
+	public int[] deleteOldPetsitter(String[] petsitterNo) {
 		Connection conn = getConnection();
-		int result = new PetsitterDao().deleteOldPetsitter(conn, petsitterNo);
+		int[] result = new PetsitterDao().deleteOldPetsitter(conn, petsitterNo);
 		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
+		
+		for(int i=0; i<petsitterNo.length; i++) {
+			if(result[i] < 0) {
+				rollback(conn);
+				close(conn);
+				return result;
+			}
 		}
+		
+		commit(conn);
+		
 		close(conn);
 		
 		return result;

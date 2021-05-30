@@ -29,17 +29,22 @@ public class OldListDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Boolean success = true;
+		
 		String petsitterNo[] = request.getParameterValues("chk");
 		
-		int result = new PetsitterService().deleteOldPetsitter(petsitterNo);
+		int[] result = new PetsitterService().deleteOldPetsitter(petsitterNo);
 	
-		if(result > 0) {
-			
-			response.sendRedirect(request.getContextPath() + "/oldlist.ad?currentPage=1");			
-			
-		}else {
-			
+		for(int i=0; i<petsitterNo.length; i++) {
+			if(result[i] <= 0) {
+				success = false;
+				request.setAttribute("errorMsg", "삭제 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);			
+			}
 		}
+		
+		if(success == true)
+			response.sendRedirect(request.getContextPath() + "/oldlist.ad?currentPage=1");
 		
 	}
 

@@ -19,7 +19,7 @@
 	
 	</entry>
 
-	<entry key="selectOldPetsittereList">
+	<entry key="selectOldPetsitterList">
 		SELECT
     		MEM_ID
 		    ,SITTER_NO
@@ -42,7 +42,7 @@
 			BY SITTER.PROMOTION_DATE DESC
 	</entry>
 	
-	<entry key="selectNewPetsittereList">
+	<entry key="selectNewPetsitterList">
 		SELECT
     		MEM_ID
 		    ,SITTER_NO
