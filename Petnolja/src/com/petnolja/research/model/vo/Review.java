@@ -37,6 +37,19 @@ public class Review{
 	
 	
 
+	public Review(int memNo, int sitterNo, String memName, int reviewRating, String reviewContent, Date reviewDate,
+			String path, String reviewReplyContent) {
+		super();
+		this.memNo = memNo;
+		this.sitterNo = sitterNo;
+		this.reviewRating = reviewRating;
+		this.reviewContent = reviewContent;
+		this.reviewDate = reviewDate;
+		this.reviewReplyContent = reviewReplyContent;
+		this.memName = memName;
+		this.path = path;
+	}
+
 	public Review(String memName, int reviewRating, String reviewContent, String path) {
 		super();
 		this.reviewRating = reviewRating;

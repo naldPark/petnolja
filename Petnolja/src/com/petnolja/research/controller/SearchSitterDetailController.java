@@ -52,7 +52,7 @@ public class SearchSitterDetailController extends HttpServlet {
 		request.setAttribute("petList", petList);
 		}
 		
-		Review sitterReview = new ResearchService().sitterReview(sitterNo);
+		ArrayList<Review> rwList = new ResearchService().sitterReview(sitterNo);
 		
 		request.setAttribute("sitterPic", sitterPic);	
 		request.setAttribute("sitterInfo", sitterInfo);	

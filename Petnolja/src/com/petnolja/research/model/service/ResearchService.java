@@ -91,7 +91,7 @@ public class ResearchService {
 		
 		close(conn);
 		
-		return petList;
+		return sitterReview;
 		
 	}
 	

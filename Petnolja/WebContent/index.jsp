@@ -64,7 +64,6 @@
           margin-right: 50px;
        }
         .recommendTitle{width:250px; height:55px; overflow: hidden; word-break:break-all; float: left;  margin-inline: 15px;}
-      
 </style>
 
 </head>
@@ -144,7 +143,6 @@
             <p><%=reviewList.get(i).getReviewContent()%></p> 
         </div>
         <% } %>
-     <% } %>
        
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
           <span><img src="resources/images/member/left-arrow.png" width="70"></span>
@@ -154,7 +152,7 @@
         </a>
       </div>
     </div>
-    
+    <% } %>  
   </div>
 
      <!-- 펫놀자 후기 끝 -->
