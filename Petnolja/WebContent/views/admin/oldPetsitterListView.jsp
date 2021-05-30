@@ -114,22 +114,22 @@
 							<td><%= n.getSitterNo()%></td>
 							<td>
 								<p class="rowColumn" contenteditable="false"
-									data-default="n.getMemID()"><%= n.getMemID()%></p>
+									data-default="<%= n.getMemID()%>"><%= n.getMemID()%></p>
 							</td>
 							<td>
-								<p class="rowColumn" contenteditable="false" data-default="n.getPetNo()">
+								<p class="rowColumn" contenteditable="false" data-default="<%= n.getPetNo()%>">
 								<%= n.getPetNo()%>마리</p>
 							</td>
 							<td>
 								<p class="rowColumn" contenteditable="false"
-									data-default="n.getAdditions()"><%= n.getAdditions()%></p>
+									data-default="<%= n.getAdditions()%>"><%= n.getAdditions()%></p>
 							</td>
 							<td>
 								<p class="rowColumn" contenteditable="false"
-									data-default="n.getLicense()"><%= n.getLicense()%></p>
+									data-default="<%= n.getLicense()%>"><%= n.getLicense()%></p>
 							</td>
 							<td>
-								<p class="rowColumn" contenteditable="false" data-default="Y">
+								<p class="rowColumn" contenteditable="false" data-default="<% if(n.getExperience().equals(null)) {%>N<%}else { %>Y<% } %>">
 									<% if(n.getExperience().equals(null)) {%>
 										N	
 									<%}else { %>
@@ -157,13 +157,13 @@
 
 		<div id="paging-area">
 			<% if(currentPage != 1){ %>
-            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary btn-sm"> &lt; </button>
 			<% } %>
 
             <% for(int p=startPage; p<=endPage; p++){ %>
             	
             	<% if(p != currentPage){ %>
-	            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%= p %>';"><%= p %></button>
+	            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%= p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
 	            <% }else { %>
 	            	<button disabled><%= p %></button>
             	<% } %>
@@ -171,7 +171,7 @@
             <% } %>
 
 			<% if(currentPage != maxPage){ %>
-            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
 			<% } %>
 			
 		</div>

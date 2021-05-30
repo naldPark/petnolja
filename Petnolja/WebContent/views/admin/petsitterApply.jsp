@@ -137,7 +137,7 @@
             <div class="bottom" id="buttons" align="right">
                 <button type="button" class="btn btn-success btn-sm">승인</button>
                 <button type="button" class="btn btn-warning btn-sm">거절</button>
-                <button type="button" class="btn btn-info btn-sm" onClick="location.href='<%=contextPath%>/newPetsitterView.jsp'">목록으로</button>
+                <button type="button" class="btn btn-info btn-sm" onClick="location.href='<%=contextPath%>/newlist.ad?currentPage=1'">목록으로</button>
             </div>
         </div>
     </div>

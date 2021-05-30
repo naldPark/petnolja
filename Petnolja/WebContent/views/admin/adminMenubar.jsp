@@ -136,7 +136,7 @@
                 <li><a href="<%=contextPath%>/nlist.ad">공지사항</a></li>
             </ul>
         </li>
-        <li><a href="">신고내역 관리</a></li>
+        <li><a href="<%=contextPath%>/reportlist.ad?currentPage=1">신고내역 관리</a></li>
         <li>
             <a href="">거래내역</a>
             <ul>

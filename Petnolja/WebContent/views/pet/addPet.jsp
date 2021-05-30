@@ -119,21 +119,21 @@
 					<input type="checkbox" name="Cauti" id="allergy" value="음식알러지">
 					<label for="allergy"><b>음식알러지</b></label>
 
-					<input type="checkbox" name="Cauti" id="colona" value="약물복용">
-					<label for="colona"><b>약물복용</b></label>
+					<input type="checkbox" name="Cauti" id="drug" value="약물복용">
+					<label for="drug"><b>약물복용</b></label>
 
-					<input type="checkbox" name="Cauti" id="dogFire" value="분리불안">
-					<label for="dogFire"><b>분리불안</b></label>
+					<input type="checkbox" name="Cauti" id="separation" value="분리불안">
+					<label for="separation"><b>분리불안</b></label>
 
 					<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" name="Cauti" id="kennel" value="지병">
-					<label for="kennel"><b>지병</b></label> 
+					<input type="checkbox" name="Cauti" id="chronic" value="지병">
+					<label for="chronic"><b>지병</b></label> 
 					
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" name="Cauti" id="heart" value="기타">
-					<label for="heart"><b>기타</b></label>				
+					<input type="checkbox" name="Cauti" id="etc1" value="기타">
+					<label for="etc1"><b>기타</b></label>				
 			</div>
 
 			<br><br>
@@ -266,6 +266,8 @@
 
 		}
 	</script>
+	
+	
 
 
 	

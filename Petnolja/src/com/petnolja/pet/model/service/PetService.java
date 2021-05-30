@@ -3,6 +3,7 @@ package com.petnolja.pet.model.service;
 import static com.petnolja.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.petnolja.pet.model.dao.PetDao;
 import com.petnolja.pet.model.vo.Pet;
@@ -24,5 +25,16 @@ public class PetService {
 		return result;
 		
 	}
+	
+	public Pet selectPet(int petNo){
+		Connection conn = getConnection();
+		Pet p = new PetDao().selectPet(conn, petNo);
+		close(conn);
+		return p;
+	}
+	
+	
+	
+	
 	
 }

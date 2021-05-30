@@ -62,6 +62,27 @@ public class Pet {
 		this.favorite = favorite;
 	}
 
+	
+	public Pet(int petNo, String petName, String petBirth, double petWeight, String petGender, String petBreed,
+			String petImg, String vaccine, String caution, String note, String hospi, String hospiTel, String neutered,
+			String chip) {
+		super();
+		this.petNo = petNo;
+		this.petName = petName;
+		this.petBirth = petBirth;
+		this.petWeight = petWeight;
+		this.petGender = petGender;
+		this.petBreed = petBreed;
+		this.petImg = petImg;
+		this.vaccine = vaccine;
+		this.caution = caution;
+		this.note = note;
+		this.hospi = hospi;
+		this.hospiTel = hospiTel;
+		this.neutered = neutered;
+		this.chip = chip;
+	}
+
 	public int getPetNo() {
 		return petNo;
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,7 @@
             </div>
             <div id="linkList" style="padding-left:750px; text-align: center;">
                 <button type="button" class="btn btn-outline-primary btn-block">자세히보기</button>
-                <button type="button" class="btn btn-outline-secondary btn-block">수정</button>
+                <button type="submit" class="btn btn-outline-secondary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=6';">수정</button>
                 <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
             </div>
         </div><br>
