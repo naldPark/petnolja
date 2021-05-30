@@ -272,17 +272,74 @@
 	
 	</entry>
 	
+	<entry key = "reviewListCount">
+	
+		select count(*) count
+			from review
+			join reserv using(res_no)
+			join reserv_sitting using(res_no)
+			join fee using(sitting_no)
+	        WHERE REV_STATUS='Y'
+			and sitter_no= ?
+	</entry>
+	
 	
 	<entry key = "reviewList">
-	select mem_no, sitter_no, mem_name, REV_RATING, rev_content, REV_DATE, file_path||change_name path, rev_co_content
-		from review
-		join reserv using(res_no)
-		join reserv_sitting using(res_no)
-		join member using(mem_no)
-		join attachment on(at_no = rev_no)
-		join fee using(sitting_no)
-        WHERE REV_STATUS='Y'
-		where sitter_no= ?	
+           SELECT *
+     FROM (
+        SELECT ROWNUM RNUM, R.*
+             FROM (
+                    select mem_no, sitter_no, mem_name, REV_RATING, rev_content, TO_CHAR(REV_DATE,'YYYY-MM-DD') rev_date, file_path||change_name path, rev_co_content
+                    from review
+                    join reserv using(res_no)
+                    join reserv_sitting using(res_no)
+                    join member using(mem_no)
+                    FULL join attachment on(at_no = rev_no)
+                    join fee using(sitting_no)
+                    WHERE REV_STATUS='Y'
+                    and sitter_no= ?
+                    order by rev_date desc)R
+                  )
+		    WHERE RNUM BETWEEN 1 AND 3
+	</entry>
+	
+	
+		<entry key = "reviewListStarArray">
+           SELECT *
+     FROM (
+        SELECT ROWNUM RNUM, R.*
+             FROM (
+                    select mem_no, sitter_no, mem_name, REV_RATING, rev_content, TO_CHAR(REV_DATE,'YYYY-MM-DD') rev_date, file_path||change_name path, rev_co_content
+                    from review
+                    join reserv using(res_no)
+                    join reserv_sitting using(res_no)
+                    join member using(mem_no)
+                    FULL join attachment on(at_no = rev_no)
+                    join fee using(sitting_no)
+                    WHERE REV_STATUS='Y'
+                    and sitter_no= ?
+                    order by REV_RATING desc)R
+                  )
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+		<entry key = "reviewListAjax">
+           SELECT *
+     FROM (
+        SELECT ROWNUM RNUM, R.*
+             FROM (
+                    select mem_no, sitter_no, mem_name, REV_RATING, rev_content, TO_CHAR(REV_DATE,'YYYY-MM-DD') rev_date, file_path||change_name path, rev_co_content
+                    from review
+                    join reserv using(res_no)
+                    join reserv_sitting using(res_no)
+                    join member using(mem_no)
+                    FULL join attachment on(at_no = rev_no)
+                    join fee using(sitting_no)
+                    WHERE REV_STATUS='Y'
+                    and sitter_no= ?
+                    order by rev_date desc)R
+                  )
+		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 

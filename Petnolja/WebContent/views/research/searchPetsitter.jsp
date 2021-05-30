@@ -36,7 +36,7 @@
           height: 270px;
         }
         .recommendList:hover{background-color: rgb(245, 245, 245);}
-        #starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
+        .starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
         .checkSearchArray:hover{cursor: pointer; font-weight: bold;}
 </style>
 
@@ -103,7 +103,7 @@
 	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
 	      	 소형견 기준<br>
 	      	<span style="align:right">후기 평균별점 :
-		       <span id="starList">
+		       <span class="starList">
               	  <% for(int i=0 ; i<s.getAvgRating(); i++){ %>
                		 &#9733;
 				  <% } %>

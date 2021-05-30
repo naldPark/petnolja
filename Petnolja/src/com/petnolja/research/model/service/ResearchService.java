@@ -80,20 +80,41 @@ public class ResearchService {
 		return petList;
 		
 	}
+
 	
-	
-	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
-	public ArrayList<Review> sitterReview(int sitterNo) {
+	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰 갯수
+	public int reviewListCount(int sitterNo) {
 		Connection conn = getConnection();
-		
-		ArrayList<Review> sitterReview = new ResearchDao().sitterReview(conn, sitterNo);
-		
+		int result = new ResearchDao().reviewListCount(conn, sitterNo);
 		
 		close(conn);
 		
-		return sitterReview;
-		
+		return result;
 	}
+	
+	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보
+		public ArrayList<Review> sitterReview(int sitterNo) {
+			Connection conn = getConnection();
+			
+			ArrayList<Review> sitterReview = new ResearchDao().sitterReview(conn, sitterNo);
+
+			close(conn);
+			
+			return sitterReview;
+			
+		}
+		
+		//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보(ajax)
+		public ArrayList<Review> sitterReviewAjax(int sitterNo, int startRow, int endRow) {
+			Connection conn = getConnection();
+			
+			ArrayList<Review> sitterReview = new ResearchDao().sitterReviewAjax(conn, sitterNo, startRow, endRow);
+
+			close(conn);
+			
+			return sitterReview;
+			
+		}
 	
 	
 	
