@@ -44,4 +44,26 @@
 		   )
 	</entry>	
 	
+	<entry key="">
+		SELECT
+		       PET_NO
+		     , PET_NAME
+		     , PET_GENDER
+		     , PET_BREED
+		     , PET_BIRTH
+		     , PET_WEIGHT
+		     , NEUTERED
+		     , CHIP
+		     , VACCINE
+		     , CAUTION
+		     , NOTE
+		     , HOSPI
+		     , HOSPI_TEL
+		     , PET_IMG
+		  FROM PET
+		 WHERE MEM_NO = ?
+		   AND PET_NO = ?
+		   AND PET_STATUS = 'Y'
+	</entry>
+	
 </properties>
