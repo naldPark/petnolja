@@ -44,25 +44,24 @@
 		   )
 	</entry>	
 	
-	<entry key="">
+	<entry key="selectPet">
 		SELECT
 		       PET_NO
 		     , PET_NAME
-		     , PET_GENDER
-		     , PET_BREED
 		     , PET_BIRTH
 		     , PET_WEIGHT
-		     , NEUTERED
-		     , CHIP
+		     , PET_GENDER
+		     , PET_BREED
+		     , PET_IMG
 		     , VACCINE
 		     , CAUTION
 		     , NOTE
 		     , HOSPI
 		     , HOSPI_TEL
-		     , PET_IMG
+		     , NEUTERED
+		     , CHIP
 		  FROM PET
-		 WHERE MEM_NO = ?
-		   AND PET_NO = ?
+		 WHERE PET_NO = ?
 		   AND PET_STATUS = 'Y'
 	</entry>
 	

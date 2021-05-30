@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.pet.model.vo.Pet"%>
+<%
+	Pet p = (Pet)request.getAttribute("p");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +26,7 @@
 	<div class="outer">	
 		<form action="<%=contextPath%>/" method="post">
 		<div id="dog">
-			<h2>반려동물을 추가해보세요</h2><br>
-			<span><b>반려동물을 추가하지 않으면 예약이 진행되지 않습니다.</b></span>
+			<h2>반려동물 정보 수정</h2><br>
 			<br>
 			<table>
 				<td>	
@@ -40,14 +42,14 @@
 			<!--이름-->
 			<span>
 				<b>이름</b> &nbsp;&nbsp;
-				<input type="text" name="petName" id="petName" placeholder="예)댕댕이" required>
+				<input type="text" name="petName" value="<%=p.getPetName()%>"id="petName" placeholder="예)댕댕이" required>
 			</span>
 			<br><br>
 
 			<!--성별-->
 			<span>
 				<b>성별</b> &nbsp;&nbsp;
-				<input type="radio" name="gender" value="M" id="male" checked> <label for="male"><b>남자아이</b></label> &nbsp;
+				<input type="radio" name="gender" value="M" id="male"> <label for="male"><b>남자아이</b></label> &nbsp;
 				<input type="radio" name="gender" value="F" id="female"> <label for="female"><b>여자아이</b></label>
 			</span>
 			<br><br>
@@ -55,28 +57,28 @@
 			<!--견종-->
 			<span>
 				<b>견종</b> &nbsp;&nbsp;
-				<input type="text" name="dogBreed" placeholder="예)시베리안허스키" required>
+				<input type="text" name="dogBreed" value="<%=p.getPetBreed()%>"placeholder="예)시베리안허스키" required>
 			</span>
 			<br><br>
 
 			<!--생일-->
 			<span>
 				<b>생일</b> &nbsp;&nbsp;
-				<input type="text" name="birth" id="birth" placeholder="-포함해서 입력하시오." required>
+				<input type="text" name="birth" id="birth" value="<%=p.getPetBirth()%>" placeholder="-포함해서 입력하시오." required>
 			</span>
 			<br><br>
 
 			<!--몸무게-->
 			<span>
 				<b>몸무게</b> &nbsp;&nbsp;
-				<input type="text" name="weight" size="3" required>&nbsp;<label for="weight"><b>kg<b></b></label>
+				<input type="text" name="weight" size="3" value="<%=p.getPetWeight()%>" required>&nbsp;<label for="weight"><b>kg<b></b></label>
 			</span>
 			<br><br>
 
 			<!--중성화-->
 			<span>
 				<b>중성화</b> &nbsp;&nbsp;
-				<input type="radio" name="middle" value="Y" id="neuDo" checked> <label for="neuDo"><b>했어요</b></label> &nbsp;
+				<input type="radio" name="middle" value="Y" id="neuDo"> <label for="neuDo"><b>했어요</b></label> &nbsp;
 				<input type="radio" name="middle" value="N" id="neuNot"> <label for="neuNot"><b>안했어요</b></label> &nbsp;
 			</span>
 			<br><br>
@@ -84,7 +86,7 @@
 			<!--반려견등록-->
 			<span>
 				<b>반려견등록</b> &nbsp;&nbsp;
-				<input type="radio" name="dogAdd" value="내장형" id="builtIn" checked> <label for="builtIn"><b>내장형</b></label> &nbsp;
+				<input type="radio" name="dogAdd" value="내장형" id="builtIn"> <label for="builtIn"><b>내장형</b></label> &nbsp;
 				<input type="radio" name="dogAdd" value="외장형" id="external"> <label for="external"><b>외장형</b></label> &nbsp;
 				<input type="radio" name="dogAdd" value="등록인식표" id="registration"> <label for="registration"><b>등록인식표</b></label> &nbsp;
 				<input type="radio" name="dogAdd" value="하지않음" id="Never"> <label for="Never"><b>하지않음</b></label> &nbsp;
@@ -92,7 +94,7 @@
 			<br><br>
 
 			<!--예방접종-->
-			<div>
+			<div id="nation">
 				<b>예방접종</b> &nbsp;
 					<input type="checkbox" name="Vacci" id="dhppl" value="종합백신">
 					<label for="dhppl"><b>종합백신(DHPPL)</b></label>
@@ -115,7 +117,7 @@
 			<hr>
 
 			<!--주의사항-->
-			<div>
+			<div id="Preca">
 				<b>주의사항</b> &nbsp;
 					<input type="checkbox" name="Cauti" id="allergy" value="음식알러지">
 					<label for="allergy"><b>음식알러지</b></label>
@@ -142,7 +144,7 @@
 			<!--돌봄시 참고사항-->
 			<span>
 				<b>돌봄시 참고사항(주의사항에 체크하신 경우 해당 란에 상세하게 적어주세요)</b> <br>
-				<textarea name="textarea" cols="100" rows="7" placeholder="예)우리집강아지는 실외배변만 해요."></textarea>
+				<textarea name="textarea" cols="100" rows="7" placeholder="예)우리집강아지는 실외배변만 해요."><%=p.getNote()%></textarea>
 			</span>
 
 			<br>
@@ -150,9 +152,9 @@
 			<span>
 				<b>우리아이가 자주 다니는 동물병원을 입력 해 주세요. 위급시에 사용 됩니다.</b> <br><br>
 				<b>병원명</b> &nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="text" name="hospi" placeholder="예)kh동물병원(논현동)" required> <br><br>
+				<input type="text" name="hospi" value="<%=p.getHospi()%>" placeholder="예)kh동물병원(논현동)" required> <br><br>
 				<b>전화번호</b> &nbsp; 
-				<input type="text" name="hospitel" id="phone" placeholder="-포함하여 입력하시오."> <br><br>
+				<input type="text" name="hospitel" value="<%=p.getHospiTel()%>" id="phone" placeholder="-포함하여 입력하시오."> <br><br>
 				<input class="form-inputPop" type="checkbox" id="check" name="agree" value="1"> <label for="check"><b>사실과 다른 기재로 문제가 발생한 경우 책임은 의뢰인에게 있습니다.</b></label>				
 			</span>
 
@@ -268,7 +270,62 @@
 		}
 	</script>
 
-			
+	<script>
+
+         $(function(){
+        	 	 // 성별(라디오버튼 체크)
+	        	 var gen = "<%=p.getPetGender()%>"; 
+	             if(gen=='M'){
+	                $("#male").attr("checked", true);
+	             }else{
+	             $("#female").attr("checked", true);
+	          };     
+	
+	
+	       
+                 // 중성화(라디오버튼 체크)
+		         var neu = "<%=p.getNeutered()%>"; 
+		         if(neu=='Y'){
+		            $("#neuDo").attr("checked", true);
+		         }else{
+		         $("#neuNot").attr("checked", true);
+		      };     
+		
+		      // 반려견등록(라디오버튼 체크)
+			     var dag = "<%=p.getChip()%>";
+			     
+			     if(dag =='내장형'){
+			    	 $("#builtIn").attr("checked", true);
+			     }else if(dag == '외장형'){
+			    	 $("#external").attr("checked", true);
+			     }else if(dag == '등록인식표'){
+			    	 $("#registration").attr("checked", true);
+			     }else{
+			    	 $("#Never").attr("checked", true);
+			     };     
+               
+		      
+		      
+         
+        	 // 예방접종(체크박스)
+        	 var nation = "<%=p.getVaccine()%>";
+                  $("#nation input[type=checkbox]").each(function(){
+                     if(nation.search($(this).val()) != -1){
+                        $(this).attr("checked", true);
+                     }
+                });   
+                  
+        	 //	주의사항(체크박스)
+             var Preca = "<%=p.getCaution()%>"; 
+                  $("#Preca input[type=checkbox]").each(function(){
+                     if(Preca.search($(this).val()) != -1){
+                        $(this).attr("checked", true);
+                     }
+                });    
+               
+         });      
+
+         </script>
 
 
 	

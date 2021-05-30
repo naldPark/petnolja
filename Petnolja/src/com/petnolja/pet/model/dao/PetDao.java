@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.petnolja.pet.model.vo.Pet;
@@ -59,6 +61,47 @@ public class PetDao {
 		}
 		
 		return result;
+	}
+	
+	public Pet selectPet(Connection conn, int petNo){
+		// select문 => ResultSet (여러행)
+		Pet p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			
+			rset = pstmt.executeQuery();
+			
+		if(rset.next()) {
+			p = new Pet(rset.getInt("pet_No"),
+						rset.getString("pet_Name"),
+						rset.getString("pet_Birth"),
+						rset.getDouble("pet_Weight"),
+						rset.getString("pet_Gender"),
+						rset.getString("pet_Breed"),
+						rset.getString("pet_Img"),
+						rset.getString("vaccine"),
+						rset.getString("caution"),
+						rset.getString("note"),
+						rset.getString("hospi"),
+						rset.getString("hospi_Tel"),
+					    rset.getString("neutered"),
+						rset.getString("chip"));
+		}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
 	}
 	
 	
