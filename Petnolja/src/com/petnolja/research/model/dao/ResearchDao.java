@@ -314,7 +314,6 @@ public class ResearchDao {
 				close(rset);
 				close(pstmt);
 			}
-			System.out.println(list);
 			return list;
 		}
 		
@@ -347,7 +346,6 @@ public class ResearchDao {
 				close(rset);
 				close(pstmt);
 			}
-			System.out.println(list);
 
 			return list;
 		}
