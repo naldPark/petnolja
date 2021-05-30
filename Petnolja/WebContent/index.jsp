@@ -11,6 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico" type="image/x-icon" />
 <title>펫놀자</title>
 <style>
         .wrap>*{
