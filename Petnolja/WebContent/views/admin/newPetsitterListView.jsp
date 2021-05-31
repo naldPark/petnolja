@@ -104,7 +104,7 @@
 		                </td>
 		                <td><%= n.getSitterNo()%></td>
 		                <td><%= n.getMemID()%></td>
-		                <td align="center"><button class="btn btn-info">조회</button></td>
+		                <td align="center"><button onclick="location.href='<%=contextPath%>/petsitterApply.ad?sno=<%=n.getSitterNo()%>';" class="btn btn-info">조회</button></td>
 		                <td>
 		                	<% if (n.getpDate().equals(null)) { %>
 		                		N
@@ -163,23 +163,6 @@
             });
         });
     });
-</script>
-
-<!-- 클릭시 지원서 상세로 넘어가는 스크립트 -->
-<script>
-   	$(function(){
-    	$(".table>tbody>tr>td>button").click(function(){
-    		//console.log("클릭됨");
-    		var sno = $(this).parent().eq(1).text();
-    		//console.log(nno);
-    			
-    		// 요청할url?키=밸류&키=밸류    => 요청시전달값(?키=밸류) == 쿼리스트링
-    		// /jsp/detail.no?nno=클릭했을때의글번호
-    		location.href = '<%=contextPath%>/petsitterApply.ad?sno=' + sno;
-    			
-    	})
-    })
-    	
 </script>
 
 </body>

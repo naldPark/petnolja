@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.Pet,com.petnolja.research.model.vo.Research" %>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.Pet,com.petnolja.research.model.vo.*" %>
   <%
     Research sitterInfo = (Research)request.getAttribute("sitterInfo");
- 	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
- 	String[] sitterPic = (String[])request.getAttribute("sitterPic");
+ 	  ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
+ 	  String[] sitterPic = (String[])request.getAttribute("sitterPic");
+ 	  int maxPage = (Integer)request.getAttribute("maxPage");
+  	ArrayList<Review> rwList = (ArrayList<Review>)request.getAttribute("rwList");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,18 +57,18 @@
             width:750px;
             background:rgb(210, 235, 250);
             border-radius: 10px;
+            white-space:pre-line; 
+            padding: 0 0 30px 30px;
         }
-        .balloon:after {
-            border-top:15px solid rgb(210, 235, 250);
-            border-left: 15px solid transparent;
-            border-right: 0px solid transparent;
-            border-bottom: 0px solid transparent;
-            content:"";
-            position:absolute;
-            top:10px;
-            left:-15px;
+
+        .balloonNo {
+          position:relative;
+            margin: 15px;
+            margin-left: 230px;
+            width:750px;
+            white-space:pre-line; 
+            padding: 0 0 30px 30px;
         }
-        /* .carousel-inner img {width: 30%; height: 300px; padding: 20px;} */
         .carousel-item h3{color:black!important;  text-align: left; font-size:17pt;}
         .carousel-item p{color:gray!important; text-align: left; font-size:14pt;}
         .sitterImg{
@@ -78,7 +80,10 @@
         input[type="checkbox"]:checked + label{          
           background-color: rgb(236, 249, 253);
           }
-          #starList{font-size: 12pt; font-weight: bold; letter-spacing :2px;} 
+        .starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
+        .reviewImg{height: 170px; width: 170px; float: left; padding:15px;}
+      .reviewDate{text-align: right; white-space:pre-line;  padding-right: 30px;}
+      .reviewContent{white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;}
 
  
 </style>
@@ -163,75 +168,34 @@
       <!--펫놀자 후기-->
            <div style="text-align:left; margin-bottom:30px; padding-left:20px;" > 
                 <br>
-                <h4 style="float:left;">후기 4개</h4>
+                <h4 style="float:left;">후기 <%=rwList.size()%>개</h4>
                 <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
                     <a href="" style="text-decoration: none; color:gray">추천순</a> | 
                     <a href="" style="text-decoration: none; color:gray">별점순</a> | 
                     <a href="" style="text-decoration: none; color:gray">최신순</a>
                 </div>
                 <br>
+                <% for(Review rw : rwList){ %>
                 <div> 
-                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
+                    <%if(rw.getPath()==null){%>
+                    <img src="<%=contextPath%>/resources/images/member/welcome.png" class="reviewImg" > 
+                    <%}else{%>
+                    <img src="<%=contextPath%>/<%=rw.getPath()%>" class="reviewImg" >
+                    <% }%>
                     <br>
-                    <span style="float:left"><b>논현동 강개순 님</b></span>
-                    <div id="starList"> &nbsp;&nbsp;
-                      <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                      </div>
-                    <div style="text-align: right; white-space:pre-line;  padding-right: 30px;">2021-05-02 작성</div>
-                    <div style="white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;" > 
-                        진짜 너무너무 맡기길 잘한거 같아요 !!
-                    </div> 
+                    <span style="float:left"><b><%=rw.getMemName()%> 님</b></span>
+                    <div class="starList"> &nbsp;&nbsp;<% for(int i=0 ; i<rw.getReviewRating(); i++){ %>&#9733;<%}%></div>
+                    <div class ="reviewDate"><%=rw.getReviewDate()%> 작성</div>
+                    <div class="reviewContent"><%=rw.getReviewContent()%></div>
+			       	     	<% if(rw.getReviewReplyContent()!=null){%>
+                    <div class="balloon"><br><b>펫시터 <%=sitterInfo.getSitterName()%> 님의 댓글</b><br><%=rw.getReviewReplyContent()%></div>
+                    <%} else{%><div class="balloonNo"></div>
+                    <%} %>                  
+                </div>               
+                <%} %>
 
-                    <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
-                        좋은 후기 남겨주셔서 감사합니당 !!
-                        강아지가 너무 순하고 착해서 맡는 동안 행복했어요
-                        앞으로도 위탁할 일 있으면 꼭 찾아주세요
-                    </div>
-        
-                </div>
-                <div> 
-                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
-                    <br>
-                    <span style="float:left"><b>논현동 강개순 님</b></span>
-                    <div id="starList"> &nbsp;&nbsp;
-                      <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                      </div>
-                    <div style="text-align: right; white-space:pre-line;  padding-right: 30px;">2021-05-02 작성</div>
-                    <div style="white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;" > 
-                        진짜 너무너무 맡기길 잘한거 같아요 !!
-                    </div> 
-
-                    <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
-                        좋은 후기 남겨주셔서 감사합니당 !!
-                        강아지가 너무 순하고 착해서 맡는 동안 행복했어요
-                        앞으로도 위탁할 일 있으면 꼭 찾아주세요
-                    </div>
-        
-                </div>
-                <div> 
-                    <img src="<%=contextPath%>/resources/images/temp/dog3.jpg" style="height: 170px; width: 170px; float: left; padding:15px;" >
-                    <br>
-                    <span style="float:left"><b>논현동 강개순 님</b></span>
-                    <div id="starList"> &nbsp;&nbsp;
-                      <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
-                      </div>
-                    <div style="text-align: right; white-space:pre-line;  padding-right: 30px;">2021-05-02 작성</div>
-                    <div style="white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;" > 
-                        진짜 너무너무 맡기길 잘한거 같아요 !!
-                    </div> 
-
-                    <div class="balloon" style="white-space:pre-line; padding: 0 0 30px 30px;">
-                        <b>펫시터 <%=sitterInfo.getSitterName()%>님의 댓글</b><br>
-                        좋은 후기 남겨주셔서 감사합니당 !!
-                        강아지가 너무 순하고 착해서 맡는 동안 행복했어요
-                        앞으로도 위탁할 일 있으면 꼭 찾아주세요
-                    </div>
-                </div>
-                <BR>
-                <div style="text-align:center">
-                <button type="button" class="btn btn-secondary" style="width:30%;">후기 더 보기</button></div>
+                <div style="text-align:center" id="resultEnd"><br>
+                <button type="button" class="btn btn-secondary" style="width:30%;" id="moreReview">후기 더 보기</button></div>
                   <!-- 펫놀자 후기 끝 -->
                   <br clear="both">
           </div> 
@@ -334,6 +298,49 @@
 
 
 	<script>
+    var page = 2;
+    var no = <%=sitterInfo.getSitterNo()%>;
+$("#moreReview").click(function(){ 
+      $.ajax({
+        url:"moreReview.mem",
+        data:{
+          sitterNo:no,
+          currentPage:page
+        },
+        type:"post",
+        success:function(list){
+          page++;          
+          var result = ""; 
+					for(var i=0; i<list.length; i++){
+            var star = "";
+            var balloon = "";
+            for(var j=0 ; j <list[i].reviewRating; j++){star += "&#9733";}
+            if(list[i].path==null){list[i].path="resources/images/member/welcome.png"}
+            if(list[i].reviewReplyContent!=null){
+              balloon ="<div class='balloon'><br><b>펫시터 <%=sitterInfo.getSitterName()%> 님의 댓글</b><br>"
+                      +list[i].reviewReplyContent+"</div>"
+            } else {
+              balloon ="<div class='balloonNo'><br></div>"
+            }
+
+          result += "<div>"
+                       +"<img src='<%=contextPath%>/" + list[i].path + "' class='reviewImg'>"
+                      + "<br><span style='float:left'><b>"+ list[i].memName+ "님</b></span>"
+                      + "<div class='starList'> &nbsp;&nbsp; " + star +"</div>"
+                      + "<div class ='reviewDate'>"+list[i].reviewDate+" 작성</div>"
+                      + "<div class='reviewContent'>"+list[i].reviewContent+"</div>"
+                      +balloon
+                      +"</div>"
+                }
+                $(result).insertBefore("#resultEnd");
+                if(<%=maxPage%>==page){
+                $("#moreReview").hide();
+                }
+        },error:function(){
+          console.log("ajax통신 실패");
+        }
+      });
+    })
 
       $("#weight li span").each(function(index){
             if($(this).text()=="0원"){

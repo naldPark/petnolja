@@ -15,7 +15,7 @@
     <div id="addressDiv">
     <input id="member_post" required type="text" placeholder="우편번호" readonly onclick="findAddr()" class="form-control" value="" style="background-color:white!important; float: left; width: 420px">
     <button type="button"  class="btn btn-secondary" style="width: 148px; margin-left:10px"  onclick="findAddr()">우편번호 찾기</button>
-    <input id="member_addr" name="address" required id="address" type="text" placeholder="주소" readonly class="form-control"  onclick="findAddr()" style="background-color:white!important;" value="">
+    <input name="address" required id="address" type="text" placeholder="주소" readonly class="form-control"  onclick="findAddr()" style="background-color:white!important;" value="">
     <input type="text" name="address2" required id="address2" placeholder="상세주소" class="form-control" >
     <input type="hidden" name="latitude" required value="" id="latitude">
     <input type="hidden" name="longtitude" required value="" id="longtitude">
@@ -30,14 +30,14 @@
     
                 document.getElementById('member_post').value = data.zonecode;
                 if(roadAddr !== ''){
-                    document.getElementById("member_addr").value = roadAddr;
+                    document.getElementById("address").value = roadAddr;
                 } 
                 else if(jibunAddr !== ''){
-                    document.getElementById("member_addr").value = jibunAddr;
+                    document.getElementById("address").value = jibunAddr;
                 }
 
                 var geocoder = new kakao.maps.services.Geocoder();
-                    geocoder.addressSearch($("#member_addr").val(), function(result, status) {
+                    geocoder.addressSearch($("#address").val(), function(result, status) {
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     $("#latitude").val(result[0].y);
                     $("#longtitude").val(result[0].x);

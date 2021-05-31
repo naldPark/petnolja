@@ -232,7 +232,7 @@ public class ResearchDao {
 		
 	}
 	
-	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보
+	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
 	public ArrayList<Pet> memPetInfo(Connection conn, int sitterNo, int userNo) {
 		ArrayList<Pet> list = new ArrayList<>();
 		ResultSet rset = null;
@@ -263,8 +263,31 @@ public class ResearchDao {
 		return list;
 	}
 	
+	public int reviewListCount(Connection conn, int sitterNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("reviewListCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+		
+	}
+		
 	
-	//searchPetsitterDetail.jsp에서 특정 펫시터를 검색한 유저와 펫의 정보
+	
+	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보
 		public ArrayList<Review> sitterReview(Connection conn, int sitterNo) {
 			ArrayList<Review> list = new ArrayList<>();
 			ResultSet rset = null;
@@ -280,8 +303,40 @@ public class ResearchDao {
 							rset.getString("mem_name"),
 							rset.getInt("REV_RATING"),
 						    rset.getString("rev_content"),
-						    rset.getDate("REV_DATE"),
-						    rset.getString("file_path||change_name path"),
+						    rset.getString("REV_DATE"),
+						    rset.getString("path"),
+						    rset.getString("rev_co_content")
+							));
+						    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+		
+		//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보Ajax
+		public ArrayList<Review> sitterReviewAjax(Connection conn, int sitterNo, int startRow, int endRow) {
+			ArrayList<Review> list = new ArrayList<>();
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("reviewListAjax");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, sitterNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);	
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Review(rset.getInt("MEM_NO"),
+							rset.getInt("sitter_no"),
+							rset.getString("mem_name"),
+							rset.getInt("REV_RATING"),
+						    rset.getString("rev_content"),
+						    rset.getString("REV_DATE"),
+						    rset.getString("path"),
 						    rset.getString("rev_co_content")
 							));
 						    }

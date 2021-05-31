@@ -146,7 +146,6 @@
 			var sitterLike = $(this);
 			var like = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png">'
 			var unlike = '<img src="<%=contextPath%>/resources/images/member/justHeart.png">'
-			console.log(sitterLike.attr("value"));
 			$.ajax({
 				url:"changeFavorite.mem",
 				data:{

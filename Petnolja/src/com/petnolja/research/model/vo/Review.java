@@ -11,16 +11,17 @@ public class Review{
 	private int reviewNo;
 	private int reviewRating;
 	private String reviewContent;
-	private Date reviewDate;
+	private String reviewDate;
 	private String reviewReplyContent;
 	private Date reviewReplyTime;
 	private String memName;
 	private String path;
+	private String max; //현재 불러온 review가 끝인지 확인
 	
 	public Review() {}
 
 	public Review(int reserveNo, int memNo, int sitterNo, int reviewNo, int reviewRating, String reviewContent,
-			Date reviewDate, String reviewReplyContent, Date reviewReplyTime, String memName, String path) {
+			String reviewDate, String reviewReplyContent, Date reviewReplyTime, String memName, String path) {
 		super();
 		this.reserveNo = reserveNo;
 		this.memNo = memNo;
@@ -37,17 +38,18 @@ public class Review{
 	
 	
 
-	public Review(int memNo, int sitterNo, String memName, int reviewRating, String reviewContent, Date reviewDate,
+	public Review(int memNo, int sitterNo, String memName, int reviewRating, String reviewContent, String reviewDate,
 			String path, String reviewReplyContent) {
 		super();
 		this.memNo = memNo;
 		this.sitterNo = sitterNo;
+		this.memName = memName;
 		this.reviewRating = reviewRating;
 		this.reviewContent = reviewContent;
 		this.reviewDate = reviewDate;
-		this.reviewReplyContent = reviewReplyContent;
-		this.memName = memName;
 		this.path = path;
+		this.reviewReplyContent = reviewReplyContent;
+
 	}
 
 	public Review(String memName, int reviewRating, String reviewContent, String path) {
@@ -106,11 +108,11 @@ public class Review{
 		this.reviewContent = reviewContent;
 	}
 
-	public Date getReviewDate() {
+	public String getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(Date reviewDate) {
+	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 
