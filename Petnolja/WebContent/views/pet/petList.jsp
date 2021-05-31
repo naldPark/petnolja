@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="java.util.ArrayList, com.petnolja.pet.model.vo.Pet" %>    
+<%
+	ArrayList<Pet> plist = (ArrayList<Pet>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,47 +53,26 @@
     <div align="right">
     <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
+          <% if(plist.isEmpty()){ %>
+      	<br>조회된 리스트가 없습니다.<br><br><br>
+            		
+       <% }else { %>
+	      	 <% for(Pet p : plist){ %>
         <div class="petBox"> 
-            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
+            <div class="petImg"><img src="<%=contextPath %>/<%=p.getPetImg()%>"> style="height: 130px;"></div>
             <div style="float:left;">
                 <br>
-                <h6><b>개똥이</b></h6><br>
-                <span>푸들 / 3세 / 남아 / 1.3kg(소형) </span><br>
+                <h6><b></b></h6><br>
+                <span><%=p.getPetName()%> / <%=p.getPetBirth()%> / <%=p.getPetGender()%> / <%=p.getPetWeight()%>kg(<%=p.getPetBreed()%>) </span><br>
             </div>
-            <div id="linkList" style="padding-left:750px; text-align: center;">
+            <div class="linkList" style="padding-left:750px; text-align: center;">
                 <button type="button" class="btn btn-outline-primary btn-block">자세히보기</button>
-                <button type="submit" class="btn btn-outline-secondary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=6';">수정</button>
+                <button type="submit" class="btn btn-outline-secondary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=<%=p.getPetNo()%>';">수정</button>
                 <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
             </div>
         </div><br>
-        <div class="petBox"> 
-            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
-            <div style="float:left;">
-                <br>
-                <h6><b>개똥이</b></h6><br>
-                <span>푸들 / 3세 / 남아 / 1.3kg(소형) </span><br>
-            </div>
-            <div id="linkList" style="padding-left:750px; text-align: center;">
-                <button type="button" class="btn btn-outline-primary btn-block">자세히보기</button>
-                <button type="button" class="btn btn-outline-secondary btn-block">수정</button>
-                <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
-            </div>
-        </div><br>
-        <div class="petBox"> 
-            <div class="petImg"><img src="<%=contextPath %>/resources/images/temp/dog1.jpg" style="height: 130px;"></div>
-            <div style="float:left;">
-                <br>
-                <h6><b>개똥이</b></h6><br>
-                <span>푸들 / 3세 / 남아 / 1.3kg(소형) </span><br>
-            </div>
-            <div id="linkList" style="padding-left:750px; text-align: center; ">
-                <button type="button" class="btn btn-outline-primary btn-block" >자세히보기</button>
-                <button type="button" class="btn btn-outline-secondary btn-block">수정</button>
-                <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
-            </div>
-        </div><br>
-
-
+	<% } %>
+	<% } %>
       <!-- 뭉뭄이 리스트 끝-->
 
 
