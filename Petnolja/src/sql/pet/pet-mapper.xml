@@ -68,7 +68,6 @@
 	<entry key="petList">
 		select 
 		    pet_no
-		    ,mem_no
 		    ,pet_name
 		    ,pet_birth
 		    ,pet_weight
@@ -77,7 +76,7 @@
 		    ,pet_breed
 		    ,pet_img
 		from pet
-		where pet_no=?
+		where mem_no=?
 		and pet_status='Y'
 	</entry>
 	

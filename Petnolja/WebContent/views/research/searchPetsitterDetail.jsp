@@ -6,7 +6,7 @@
  	  String[] sitterPic = (String[])request.getAttribute("sitterPic");
  	  int maxPage = (Integer)request.getAttribute("maxPage");
   	ArrayList<Review> rwList = (ArrayList<Review>)request.getAttribute("rwList");
-%>
+  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,18 +76,17 @@
           width: 33%; height: 300px; padding: 20px;
         }
         .carousel-item{text-align: center; margin:auto;}
-        .plusPet:hover, .minusPet:hover{cursor: pointer; opacity:0.7; }
         input[type="checkbox"]:checked + label{          
           background-color: rgb(236, 249, 253);
           }
         .starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
         .reviewImg{height: 170px; width: 170px; float: left; padding:15px;}
-      .reviewDate{text-align: right; white-space:pre-line;  padding-right: 30px;}
-      .reviewContent{white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;}
+        .reviewDate{text-align: right; white-space:pre-line;  padding-right: 30px;}
+        .reviewContent{white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;}
 
  
 </style>
-
+  
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
@@ -255,46 +254,42 @@
                       찾아올시간<br>
                       <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" ><%=sitterInfo.getCheckout()%>시</div>
                     </div>
-            </div>
+    	  </div>
+           <br>
+        <div style="text-align:center;"><hr>
+              <div style="text-align: left;">
+              <h6>맡기시는 반려동물</h6><br></div>
 
-
-              <br>
-            
-          
-            <div style="line-height:190%">
-                <h6>맡기시는 반려동물</h6><br>
-                <div style="float:left;  margin: 0px 40px 0px 60px; ">
-                소형견<br>
-                중형견<br>
-                대형견<br>
+              <% if(petList.isEmpty()){ %>    
+              <% }else { %>
+                   <% for(Pet p : petList){ %>
+              <div style="height: 60px; border:1px solid red">	
+                <div style="float:left; padding-left: 10px;">
+                <input type="checkbox" class="largerCheckbox">  
+                <img src="<%=contextPath%>/resources/images/temp/dog5.jpg" style="height:60px; padding-left:20px;"></div>
+                <div style="padding-left:20px;">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span><%=p.getPetName()%></span><br>
+                  <span>소형 / 여 / 3살</span>
                 </div>
-                <div style="text-align: center; margin-bottom: 10px;">
-                
-                    <h4 style="display: inline;"><span class="badge badge-primary minusPet"><b>−</b></span></h4>&nbsp;&nbsp;
-                    <span style="padding-top: 2px;" id="">0</span>&nbsp;&nbsp;
-                    <h4 style="display: inline;"><span class="badge badge-primary plusPet"><b>+</b></span></h4><br>
-          
-                    <h4 style="display: inline;"><span class="badge badge-primary minusPet"><b>−</b></span></h4>&nbsp;&nbsp;
-                    <span style="padding-top: 2px;" id="">0</span>&nbsp;&nbsp;
-                    <h4 style="display: inline;"><span class="badge badge-primary plusPet"><b>+</b></span></h4><br>
-     
-  
-                    <h4 style="display: inline;"><span class="badge badge-primary minusPet"><b>−</b></span></h4>&nbsp;&nbsp;
-                    <span style="padding-top: 2px;" id="">0</span>&nbsp;&nbsp;
-                    <h4 style="display: inline;"><span class="badge badge-primary plusPet"><b>+</b></span></h4>
-                <br><br>
-                
-               
-                <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
+                <br>
               </div>
-            </div>
-          <hr>
-          <!--지도 area-->
-          <div style="text-align: left;">
-            <h6>펫시터님의 위치</h6><br>
-            <%@ include file = "map.jsp" %>   
-          </div>
-      </div>
+              <% } %>
+              <br>
+              <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
+     
+               
+              <% } %>
+
+            </div><hr>
+        
+        <!--지도 area-->
+        <div style="line-height:190%; padding-right:20px; padding-left:20px">
+        <h6>펫시터님의 위치</h6><br>
+               <%@ include file = "map.jsp" %>
+        </div>	
+
+    </div>
 
 
 	<script>
@@ -401,19 +396,6 @@ $("#moreReview").click(function(){
           alert("URL이 클립보드에 복사되었습니다"); 
            }
 
-        $(function(){
-            var count = 0;
-          $(".plusPet").click(function(){
-            count = Number($(this).parent().prev('span').text())+1;
-            $(this).parent().prev('span').text(count);
-          });
-          $(".minusPet").click(function(){
-            count = Number($(this).parent().next('span').text())-1;
-            if(count>=0){
-            $(this).parent().next('span').text(count);
-            }
-          });
-        })
 
     </script>
    <br clear="both">
