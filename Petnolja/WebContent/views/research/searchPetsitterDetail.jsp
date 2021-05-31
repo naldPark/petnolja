@@ -301,8 +301,6 @@
     var page = 2;
     var no = <%=sitterInfo.getSitterNo()%>;
 $("#moreReview").click(function(){ 
-   console.log(page);
-   console.log(no);
       $.ajax({
         url:"moreReview.mem",
         data:{
@@ -313,7 +311,6 @@ $("#moreReview").click(function(){
         success:function(list){
           page++;          
           var result = ""; 
-          console.log(list);
 					for(var i=0; i<list.length; i++){
             var star = "";
             var balloon = "";
@@ -339,8 +336,6 @@ $("#moreReview").click(function(){
                 if(<%=maxPage%>==page){
                 $("#moreReview").hide();
                 }
-          console.log("result"+result);
-          console.log("page"+page);
         },error:function(){
           console.log("ajax통신 실패");
         }
