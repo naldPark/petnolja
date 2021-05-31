@@ -203,91 +203,103 @@
 
     <!--오른쪽 면-->
     <div class="wrap wrap3">
-        <!--즐겨찾기, 공유, 하트-->
-        <div style="text-align: center;">
-            <br><br><br>
-            
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();">
-            <div id="likeImgDiv" value=<%=sitterInfo.getSitterNo()%>>
-              <img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가
-            </div>
-          </button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
-            <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
-          </button><br>
-          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
-        </div>
-        <br><br>
-         <!-- 공유하기 버튼 클릭시 모달 실행 -->
-      <div class="modal" id="copyUrl">
-        <div class="modal-dialog">
-          <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-            <div class="modal-body input-group mb-3">
-              <input type="text" id = "ShareUrl" class="form-control">
-              <button OnClick="CopyUrlToClipboard()" class="btn btn-primary">URL 복사</button>
-            </div>
-          </div>
-        </div>
-      </div>
+	        <!--즐겨찾기, 공유, 하트-->
+	        <div style="text-align: center;">
+	            <br><br><br>
+	            
+	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();">
+	            <div id="likeImgDiv" value=<%=sitterInfo.getSitterNo()%>>
+	              <img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가
+	            </div>
+	          </button><br>
+	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
+	            <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
+	          </button><br>
+	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
+	        </div>
+	        <br><br>
+	         <!-- 공유하기 버튼 클릭시 모달 실행 -->
+	      <div class="modal" id="copyUrl">
+	        <div class="modal-dialog">
+	          <div class="modal-content">
+	              <!-- Modal Header -->
+	              <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	              </div>
+	            <div class="modal-body input-group mb-3">
+	              <input type="text" id = "ShareUrl" class="form-control">
+	              <button OnClick="CopyUrlToClipboard()" class="btn btn-primary">URL 복사</button>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
 
         <!--예약달력확인--><br>
           <h6>예약 가능 날짜</h6>
-          <div style="border:1px solid lightgray;"><%@ include file = "ableDate.jsp" %></div>
-        
-        <br>
+          <div style="border:1px solid lightgray;"><%@ include file = "ableDate.jsp" %></div><br>
+
         <!--예약 area-->
-          <div style="text-align:center;"><hr>
-            <div style="text-align: left;">
-            <h6>예약 하기</h6><br></div>
-                <h6>체크인날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 체크아웃날짜</h6>
-                <div><%@ include file = "ableShownDate.jsp" %></div>
-                <br>
+          
+	         <% if(loginUser==null||petList.isEmpty()){ %>
+	            <div style="text-align:center;"><hr><br>
+		            <div style="text-align: center;">
+		            	<h6>로그인 후 예약가능합니다</h6><br>
+		            </div>  
+	            	<button class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>'">로그인 하러 가기</button>
+	            </div>
+	         <% }else { %>
+		         <div style="text-align:center;"><hr>
+		            <div style="text-align: left;">
+		            	<h6>예약 하기</h6><br>
+		            </div>
+	                <h6>체크인날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 체크아웃날짜</h6>
+	                <div><%@ include file = "ableShownDate.jsp" %></div>
+	                <br>
                     <div style="float: left; margin-left:45px;">
-                      위탁할시간<br>
+                      			위탁할시간<br>
                       <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px;width:100px;" ><%=sitterInfo.getCheckin()%>시</div>
                     </div>          
                     <div class="form-group" style="margin-left:160px; text-align: left;">&nbsp;
-                      찾아올시간<br>
+                     			 찾아올시간<br>
                       <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" ><%=sitterInfo.getCheckout()%>시</div>
                     </div>
-    	  </div>
-           <br>
-        <div style="text-align:center;"><hr>
-              <div style="text-align: left;">
-              <h6>맡기시는 반려동물</h6><br></div>
-
-              <% if(petList.isEmpty()){ %>    
-              <% }else { %>
-                   <% for(Pet p : petList){ %>
-              <div style="height: 60px;">	
-                <div style="float:left; padding-left: 10px;">
-                <input type="checkbox" class="largerCheckbox">  
-                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;"></div>
-                <div style="padding-left:20px;">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span><%=p.getPetName()%></span><br>
-                  <span>소형 / 여 / 3살</span>
-                </div> 
-              </div>
-              <br>
+		    	  </div>
+	              <br>
+	           
+	
+			        <div style="text-align:center;">
+			              <div style="text-align: left;"><hr>
+			              	<h6>맡기시는 반려동물</h6><br>
+			              </div>
+			
+			              <% for(Pet p : petList){ %>
+				              <div style="height: 60px;">	
+					                <div style="float:left; padding-left: 10px;">
+						                <input type="checkbox" class="largerCheckbox">  
+						                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;">
+					                </div>
+					                <div style="padding-left:20px;">
+					                  &nbsp;&nbsp;&nbsp;&nbsp;
+					                  <span><%=p.getPetName()%></span><br>
+					                  <span><%=p.getPetSize()%> / <%=p.getPetGender()%> / <%=p.getPetBirth()%></span>
+					                </div> 
+				              </div><br>
+			
+			              <% } %>
+			              <br>
+			              <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
+              		</div>
               <% } %>
-              <br>
-              <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
-     
-               
-              <% } %>
 
-            </div><hr>
+         <hr>
         
+
         <!--지도 area-->
-        <div style="line-height:190%; padding-right:20px; padding-left:20px">
-        <h6>펫시터님의 위치</h6><br>
+
+            <div style="text-align: left;">
+            <h6>펫시터님의 위치</h6><br>
                <%@ include file = "map.jsp" %>
-        </div>	
+      		</div>	
 
     </div>
 

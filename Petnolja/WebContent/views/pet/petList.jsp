@@ -53,7 +53,7 @@
     <div align="right">
     <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
-          <% if(plist.isEmpty()){ %>
+          <% if(loginUser==null||plist.isEmpty()){ %>
       	<br>조회된 리스트가 없습니다.<br><br><br>
             		
        <% }else { %>
