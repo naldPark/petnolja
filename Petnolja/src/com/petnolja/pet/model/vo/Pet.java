@@ -82,6 +82,21 @@ public class Pet {
 		this.neutered = neutered;
 		this.chip = chip;
 	}
+	
+	
+
+	public Pet(int petNo, String petName, String petBirth, double petWeight, String petGender, String petSize,
+			String petBreed, String petImg) {
+		super();
+		this.petNo = petNo;
+		this.petName = petName;
+		this.petBirth = petBirth;
+		this.petWeight = petWeight;
+		this.petGender = petGender;
+		this.petSize = petSize;
+		this.petBreed = petBreed;
+		this.petImg = petImg;
+	}
 
 	public int getPetNo() {
 		return petNo;

@@ -104,5 +104,34 @@ public class PetDao {
 		return p;
 	}
 	
-	
+	public ArrayList<Pet> petList(Connection conn, int userNo) {
+		ArrayList<Pet> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("petList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Pet(
+					rset.getInt("pet_no"),
+					rset.getString("pet_name"),			
+					rset.getString("pet_birth"),
+					rset.getDouble("pet_weight"),
+					rset.getString("pet_gender"),
+					rset.getString("pet_size"),
+					rset.getString("pet_breed"),
+					rset.getString("pet_img")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
 }
