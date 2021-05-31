@@ -52,6 +52,7 @@ public class SearchSitterDetailController extends HttpServlet {
 		if(userNo != -1) {
 		ArrayList<Pet> petList = new ResearchService().memPetInfo(sitterNo, userNo);
 		request.setAttribute("petList", petList);
+		System.out.println(petList);
 		}
 		
 		// 하단의 리뷰리스트를 가져온다

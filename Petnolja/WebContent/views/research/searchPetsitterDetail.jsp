@@ -266,7 +266,7 @@
               <div style="height: 60px; border:1px solid red">	
                 <div style="float:left; padding-left: 10px;">
                 <input type="checkbox" class="largerCheckbox">  
-                <img src="<%=contextPath%>/resources/images/temp/dog5.jpg" style="height:60px; padding-left:20px;"></div>
+                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; padding-left:20px;"></div>
                 <div style="padding-left:20px;">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <span><%=p.getPetName()%></span><br>

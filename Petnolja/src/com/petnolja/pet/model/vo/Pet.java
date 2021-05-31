@@ -51,7 +51,7 @@ public class Pet {
 	}
 	
 	
-	public Pet(int petNo, int memNo, String petName, String petBirth, String petGender, String petSize, String favorite) {
+	public Pet(int petNo, int memNo, String petName, String petBirth, String petGender, String petSize, String favorite, String petImg) {
 		super();
 		this.petNo = petNo;
 		this.memNo = memNo;
@@ -60,6 +60,7 @@ public class Pet {
 		this.petGender = petGender;
 		this.petSize = petSize;
 		this.favorite = favorite;
+		this.petImg = petImg;
 	}
 
 	
