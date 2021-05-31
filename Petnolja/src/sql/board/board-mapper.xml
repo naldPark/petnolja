@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectReportListCount">
+		SELECT
+    		COUNT(*) COUNT
+    		FROM REPORT
+	
+	</entry>
+	
+	<entry key="selectReportList">
+		SELECT
+    		REPORT_NO,
+    		REPORT_SORT,
+    		ORIGIN_NO,
+    		REPORTED_DATE,
+    		DONE,
+    		MEM_NO
+		FROM REPORT
+	</entry>
+
+</properties>
