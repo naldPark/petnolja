@@ -327,7 +327,7 @@ $("#moreReview").click(function(){
                        +"<img src='<%=contextPath%>/" + list[i].path + "' class='reviewImg'>"
                       + "<br><span style='float:left'><b>"+ list[i].memName+ "님</b></span>"
                       + "<div class='starList'> &nbsp;&nbsp; " + star +"</div>"
-                      + "<div class ='reviewDate'>"+list[i].reviewDate+"작성</div>"
+                      + "<div class ='reviewDate'>"+list[i].reviewDate+" 작성</div>"
                       + "<div class='reviewContent'>"+list[i].reviewContent+"</div>"
                       +balloon
                       +"</div>"
