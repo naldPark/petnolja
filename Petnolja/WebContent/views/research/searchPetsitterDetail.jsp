@@ -247,7 +247,7 @@
 		            </div>  
 	            	<button class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>'">로그인 하러 가기</button>
 	            </div>
-	         <% else if(petList.isEmpty()){ %>
+	         <% } else if(petList.isEmpty()){ %>
 	         	<div style="text-align:center;"><hr><br>
 		            <div style="text-align: center;">
 		            	<h6>반려견 등록 후 예약가능합니다</h6><br>
