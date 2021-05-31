@@ -24,13 +24,14 @@
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<div class="outer">	
-		<form action="<%=contextPath%>/" method="post">
+		<form action="<%=contextPath%>/updatePet2.me" method="post">
+		<input type="hidden" name="petNo" value="<%=p.getPetNo()%>">
 		<div id="dog">
 			<h2>반려동물 정보 수정</h2><br>
 			<br>
 			<table>
 				<td>	
-				<img id="titleImg" width=250 height=170px>
+				<img src="<%=contextPath%>/<%=p.getPetImg()%>" id="titleImg" width=250 height=170px>
 				</td>
 			</table>
 			<div id="file-area">
