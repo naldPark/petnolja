@@ -46,8 +46,9 @@ public class Petsitter {
 		this.additions = additions;
 	}
 	
+
 	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
-			String experience, String motive, char pStatus, Date pDate, String additions) {
+			String experience, char pStatus, Date pDate, String additions) {
 		super();
 		this.memID = memID;
 		this.sitterNo = sitterNo;
@@ -56,12 +57,10 @@ public class Petsitter {
 		this.petNo = petNo;
 		this.license = license;
 		this.experience = experience;
-		this.motive = motive;
 		this.pStatus = pStatus;
 		this.pDate = pDate;
 		this.additions = additions;
 	}
-	
 
 	public Petsitter(String memID, int sitterNo, String petPeriod, String petNo, String license, String experience,
 			String motive, String addContent, String additions) {

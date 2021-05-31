@@ -1,8 +1,9 @@
 package com.petnolja.petsitter.model.dao;
 
+import static com.petnolja.common.JDBCTemplate.close;
+
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.petsitter.model.vo.Petsitter;
-import static com.petnolja.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -153,7 +154,6 @@ public class PetsitterDao {
 									rset.getString("pet_no"),
 									rset.getString("license"),
 									rset.getString("experience"),
-									rset.getString("motive"),
 									rset.getString("promotion_status").charAt(0),
 									rset.getDate("promotion_date"),
 									rset.getString("additions")));
