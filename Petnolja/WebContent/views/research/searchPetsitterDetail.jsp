@@ -15,7 +15,7 @@
 <style>
 
         #outer{
-          width:1400px;
+          width:1400px;	
           margin:auto;
           position:relative;
           box-sizing:border-box;
@@ -263,17 +263,17 @@
               <% if(petList.isEmpty()){ %>    
               <% }else { %>
                    <% for(Pet p : petList){ %>
-              <div style="height: 60px; border:1px solid red">	
+              <div style="height: 60px;">	
                 <div style="float:left; padding-left: 10px;">
                 <input type="checkbox" class="largerCheckbox">  
-                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; padding-left:20px;"></div>
+                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;"></div>
                 <div style="padding-left:20px;">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <span><%=p.getPetName()%></span><br>
                   <span>소형 / 여 / 3살</span>
-                </div>
-                <br>
+                </div> 
               </div>
+              <br>
               <% } %>
               <br>
               <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
