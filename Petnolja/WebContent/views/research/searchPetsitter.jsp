@@ -36,8 +36,9 @@
           height: 270px;
         }
         .recommendList:hover{background-color: rgb(245, 245, 245);}
-        .starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px;} 
+        .starList{font-size: 16pt; color: rgb(254,187,2); letter-spacing:-3px; padding-right:10px;} 
         .checkSearchArray:hover{cursor: pointer; font-weight: bold;}
+        
 </style>
 
 </head>
@@ -72,8 +73,8 @@
           <h3><%=s.getSitterTitle()%></h3>
           <hr width="900px"> 
 
-          <div style="text-align:left; margin-bottom:30px; float:left; color: rgb(95, 95, 95);" > 
-              <span><%=s.getAdditions()%><br></span>
+          <div style="text-align:left; margin-bottom:30px; width: 440px;float:left; color: rgb(95, 95, 95);" > 
+              <span><%=s.getAdditions()%></span><br>
                   <% if(!us.getSetAddress().equals("N")) { %>
                   	<br>&nbsp;&nbsp;- 회원님과의 거리는 <%=s.getDistance()%> km 입니다 
                   <% } %><br>
@@ -83,10 +84,10 @@
 				  <% } else if(s.getDateCount()>0){ %>
       				   &nbsp;&nbsp;- 선택하신 <%=us.getCountDay()%>일 중 <%=s.getDateCount()%>일만 예약가능합니다
 				  <% } %>
-              <br><br>         
-
+				  <br><br>
         </div> 
-        <div style="text-align:right;padding-bottom: 20px; padding-right: 30px;">
+        
+        <div style="text-align:right;padding-bottom: 20px; padding-right: 20px;">
 	        <h5>
 	        <%if(s.getSmallNightFee().equals("0")){ %>
 	        	정보없음
@@ -102,7 +103,7 @@
      	    <%} %>
 	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
 	      	 소형견 기준<br>
-	      	<span style="align:right">후기 평균별점 :
+	      	<span style="align:right">평균별점 :
 		       <span class="starList">
               	  <% for(int i=0 ; i<s.getAvgRating(); i++){ %>
                		 &#9733;
