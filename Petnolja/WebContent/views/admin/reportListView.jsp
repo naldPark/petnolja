@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter %>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.board.model.vo.Report" %>
 
 <% PageInfo pi=(PageInfo)request.getAttribute("pi"); 
-    ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+    ArrayList<Report> list = (ArrayList<Report>)request.getAttribute("list");
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -101,6 +101,25 @@
                 </tr>
             </thead>
             <tbody>
+            	<% if(list.isEmpty()){ %>
+            		<tr>
+            			<td colspan="7">조회된 결과가 없습니다.</td>
+            		</tr>
+            	<% }else { %>
+            		<% for(Report r : list){ %>
+		                <tr>
+		                	<td>
+                        		<input type="checkbox">
+                    		</td>
+		                    <td><%= r.getReportNo() %></td>
+		                    <td><%= r.getCategory() %></td>
+		                    <td><%= r.getBoardTitle() %></td>
+		                    <td><%= r.getBoardWriter() %></td>
+		                    <td><%= r.getCount() %></td>
+		                    <td><%= r.getReportedDate() %></td>
+		                </tr>
+                	<% } %>
+                <% } %>
                 <tr>
                     <td>
                         <input type="checkbox">
@@ -112,105 +131,7 @@
                     <td>cucumber11</td>
                     <td>2021-05-25</td>
                 </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>002</td>
-                    <td>오이 펫시터님 덕분에 휴가 잘 보냈어요^^</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>광고광고~~~~~제목~~~~~~~~</td>
-                    <td>adadman</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
+                
             </tbody>
         </table>
 
