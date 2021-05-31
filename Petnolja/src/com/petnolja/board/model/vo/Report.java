@@ -10,6 +10,10 @@ public class Report {
 	private Date reportedDate;
 	private char done;
 	private int memNo;
+	private String;	// 제목
+	private String ; // 작성자
+	private String; // 신고자
+	
 	
 	public Report() {}
 	

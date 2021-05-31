@@ -1,12 +1,16 @@
 package com.petnolja.petsitter.model.service;
 
+import static com.petnolja.common.JDBCTemplate.close;
+import static com.petnolja.common.JDBCTemplate.commit;
+import static com.petnolja.common.JDBCTemplate.getConnection;
+import static com.petnolja.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.vo.Petsitter;
-import static com.petnolja.common.JDBCTemplate.*;
 
 public class PetsitterService {
 
