@@ -100,7 +100,7 @@
         
         <% if(list.isEmpty()){ %>
         	<tr>
-        		<td colspan="9">회원이 존재하지 않습니다.<td>
+        		<td colspan="9">회원이 존재하지 않습니다.</td>
         	</tr>
         <% } else { %>
         

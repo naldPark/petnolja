@@ -1,25 +1,23 @@
-package com.petnolja.admin.controller;
+package com.petnolja.notice.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AdminLogoutController
+ * Servlet implementation class AdminNoticeErollPageController
  */
-@WebServlet("/logout.ad")
-public class AdminLogoutController extends HttpServlet {
+@WebServlet("/nenroll.ad")
+public class AdminNoticeErollPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminLogoutController() {
+    public AdminNoticeErollPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +27,8 @@ public class AdminLogoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession s = request.getSession();
-		s.invalidate();
-		response.sendRedirect(request.getContextPath() + "/admin.ad");
+		request.getRequestDispatcher("views/admin/noticeEnrollPageView.jsp").forward(request, response);
+	
 	}
 
 	/**

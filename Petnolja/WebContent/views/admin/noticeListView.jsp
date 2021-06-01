@@ -85,8 +85,8 @@
             <input type="search" id="notice-search-box" class="form-control-sm" placeholder="공지사항 제목" style="font-size: 14px; width: 300px;">
         </div>
         <div id="buttons" align="right">
-            <button class="btn btn-primary btn-sm">작성하기</button>
-            <button class="btn btn-warning btn-sm">삭제</button>
+            <button onclick="location.href='<%=contextPath %>/nenroll.ad';" class="btn btn-primary btn-sm">작성하기</button>
+            <button onclick="deleteNotice();" class="btn btn-warning btn-sm">삭제</button>
         </div>
 
         <br><br>
@@ -159,6 +159,20 @@
 	            });
 	        });
 	    });
+	    
+	    
+	    
+	    // 공지사항 삭제
+	    function deleteNotice(){
+	    	$("input[type=checkbox]:checked").each(function(){
+	    		if(confirm("선택한 공지사항을 삭제하시겠습니까?")){
+	    			
+	    		} else {
+	    			$(":checkbox").prop("checked", false);
+	    		}
+	    		
+	    	});
+	    }
 	</script>
 
 

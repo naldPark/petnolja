@@ -44,7 +44,7 @@
 
 
     <div id="logo">
-        <img src="../../resources/images/logo.png" alt="">
+        <img src="resources/images/logo.png" alt="">
 
     </div>
 </div>

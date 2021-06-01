@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.admin.model.vo.Admin"%>
+    
     
 <%
 	String contextPath = request.getContextPath();
-
+	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -118,6 +120,17 @@
 </head>
 
 <body>
+
+	<script>
+	
+		var alertMsg = "<%= alertMsg %>";
+		
+		if (alertMsg != "null"){
+			alert(alertMsg);
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	</script>
+		
 <br><br>
 <div class="menubar">
 
@@ -145,7 +158,7 @@
             </ul>
         </li>
         <li style="width:450px;">
-                <div class="menu-etc" style="width: 50%; text-align: right; line-height: 35px; font-size: 15px;">관리자계정1</div>
+                <div class="menu-etc" style="width: 50%; text-align: right; line-height: 35px; font-size: 15px;"><%=loginAdmin.getAdminId() %></div>
                 <div class="menu-etc" style="width: 25%;"><a href="<%=contextPath%>/logout.ad" id="logout-btn" style="color: black; font-size: 15px;">로그아웃</a></div>
                 <div class="menu-etc" style="width: 25%;"><a href="<%=contextPath%>" id="site-btn" style="color: black; font-size: 15px;">펫놀자사이트</a></div>
         </li>

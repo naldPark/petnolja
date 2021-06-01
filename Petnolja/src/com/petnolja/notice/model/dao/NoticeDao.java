@@ -77,7 +77,7 @@ public class NoticeDao {
 			
 			while(rset.next()) {
 				list.add(new Notice(rset.getInt("NOTICE_NO"),
-									rset.getString("NOTICE_WRITER"),
+									rset.getString("ADMIN_ID"),
 									rset.getString("NOTICE_TITLE"),
 									rset.getDate("CREATE_DATE"),
 									rset.getInt("NOTICE_COUNT")));

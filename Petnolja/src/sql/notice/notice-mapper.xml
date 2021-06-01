@@ -11,14 +11,15 @@
 
 	<entry key="selectList">
 		SELECT 
-	        NOTICE_NO
-	      , NOTICE_WRITER
-	      , NOTICE_TITLE
-	      , CREATE_DATE
-	      , NOTICE_COUNT
-	  FROM NOTICE
-	 WHERE NOTICE_STATUS = 'Y'
-	 ORDER BY CREATE_DATE DESC
+		        NOTICE_NO
+		      , ADMIN_ID
+		      , NOTICE_TITLE
+		      , CREATE_DATE
+		      , NOTICE_COUNT
+		  FROM NOTICE
+		  JOIN ADMIN ON(NOTICE_WRITER = ADMIN_NO)
+		 WHERE NOTICE_STATUS = 'Y'
+		 ORDER BY CREATE_DATE DESC
 	</entry>
 
 

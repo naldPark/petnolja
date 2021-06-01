@@ -7,19 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.petnolja.admin.model.service.AdminService;
+import com.petnolja.admin.model.vo.Admin;
 
 /**
- * Servlet implementation class AdminLogoutController
+ * Servlet implementation class AdminLoginController
  */
-@WebServlet("/logout.ad")
-public class AdminLogoutController extends HttpServlet {
+@WebServlet("/login.ad")
+public class AdminLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminLogoutController() {
+    public AdminLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +30,25 @@ public class AdminLogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
 		
-		HttpSession s = request.getSession();
-		s.invalidate();
-		response.sendRedirect(request.getContextPath() + "/admin.ad");
+		String adminId = request.getParameter("adminId");
+		String adminPwd = request.getParameter("adminPwd");
+		
+		Admin loginAdmin = new AdminService().adminLogin(adminId, adminPwd);
+		
+		if(loginAdmin == null) {
+			
+			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		} else {
+			
+			request.getSession().setAttribute("loginAdmin", loginAdmin);
+			request.getRequestDispatcher("views/admin/adminMainPage.jsp").forward(request,response);
+		}
+		
 	}
 
 	/**

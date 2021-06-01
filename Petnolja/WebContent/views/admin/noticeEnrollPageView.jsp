@@ -46,12 +46,13 @@
 <body>
 	<%@include file="adminMenubar.jsp" %>
     <div class="outer" align="center">
-        <form style="margin-top: 20px;">
+        <form action="<%=contextPath %>/ninsert.ad" method="post" style="margin-top: 20px;">
             <!-- 내용:  db에서 가져온게 null이면 placeholder, null이 아니면 그 값 보여줌 -->
             <div class="top" align="left">
                 <table id="noticeTitle">
-                    <td style="width: 45%;"><input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요." style="width: 100%"></td>
-                    <td style="width: 35%;"><input type="file" style="width: 300px; margin-left: 10px;"></td>
+                	<!-- input hidden으로 로그인 된 관리자 id넣기 -->
+                    <td style="width: 45%;"><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요." style="width: 100%"></td>
+                    <td style="width: 35%;"><input name="file" type="file" style="width: 300px; margin-left: 10px;"></td>
                     <th style="text-align: right;">작성자 : 관리자1</th>
                 </table>
             </div>
