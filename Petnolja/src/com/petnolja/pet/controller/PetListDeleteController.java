@@ -1,5 +1,6 @@
 package com.petnolja.pet.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -36,11 +37,10 @@ public class PetListDeleteController extends HttpServlet {
 		int result = new PetService().deletePet(petNo, petImg);
 		
 		if(result > 0) {
-			
+			new File(request.getSession().getServletContext().getRealPath("/")+petImg).delete();
+			request.getSession().setAttribute("alertMsg", "삭제가 완료되었습니다.");
 			request.getRequestDispatcher("/petList.mem").forward(request, response);
-			
 		}else {
-			
 			request.setAttribute("errorMsg", "글 삭제에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}

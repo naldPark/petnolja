@@ -66,8 +66,8 @@
                 <span><%=p.getPetName()%> / <%=p.getPetBirth()%> / <%=p.getPetGender()%> / <%=p.getPetWeight()%>kg(<%=p.getPetBreed()%>) </span><br>
             </div>
             <div class="linkList" style="padding-left:750px; text-align: center;">
-                <button type="button" class="btn btn-outline-primary btn-block">자세히보기</button>
-                <button type="submit" class="btn btn-outline-secondary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=<%=p.getPetNo()%>';">수정</button>
+                <br>
+                <button type="submit" class="btn btn-outline-primary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=<%=p.getPetNo()%>';">수정</button>
                 <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#delete<%=p.getPetNo()%>">삭제</button><br>
             </div>
         </div><br>
