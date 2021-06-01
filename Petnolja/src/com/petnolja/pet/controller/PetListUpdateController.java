@@ -2,7 +2,6 @@ package com.petnolja.pet.controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,29 +37,6 @@ public class PetListUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-<<<<<<< Updated upstream
-	      
-		if(ServletFileUpload.isMultipartContent(request)) {
-			
-		  int maxSize = 10 * 1024 * 1024;
-		  
-		  String savePath = request.getSession().getServletContext().getRealPath("resources/upfiles/pet_upfiles/");
-		  	
-		  MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-		  
-	      Pet p = new Pet();
-	      
-	      HttpSession session = request.getSession();
-	      p.setPetNo(Integer.parseInt(multiRequest.getParameter("petNo")));
-	      p.setPetName(multiRequest.getParameter("petName"));
-	      p.setPetGender(multiRequest.getParameter("gender"));
-	      p.setPetBreed(multiRequest.getParameter("dogBreed"));
-	      p.setPetBirth(multiRequest.getParameter("birth"));
-	      p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
-	      p.setNeutered(multiRequest.getParameter("middle"));
-	      p.setChip(multiRequest.getParameter("dogAdd"));
-	      p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getFilesystemName("file1"));
-=======
 		Pet p = new Pet();
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -83,7 +59,6 @@ public class PetListUpdateController extends HttpServlet {
 		    	new File(request.getSession().getServletContext().getRealPath("/")+multiRequest.getParameter("originImgSrc")).delete();
 		    }
 
->>>>>>> Stashed changes
 	      
 	      if(p.getPetWeight()>=15.0){
 	    	  	p.setPetSize("대형견");
@@ -106,7 +81,6 @@ public class PetListUpdateController extends HttpServlet {
 	      p.setHospiTel(multiRequest.getParameter("hospitel"));
 	      
 	      int result = new PetService().updatePet(p);
-	      
 	      if(result > 0) {
 	         request.getSession().setAttribute("alertMsg", "반려견 추가에 성공하셨습니다.");
 	         request.getRequestDispatcher("/petList.mem").forward(request, response);
@@ -115,10 +89,6 @@ public class PetListUpdateController extends HttpServlet {
 	         request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	      }
 	      
-<<<<<<< Updated upstream
-	      
-=======
->>>>>>> Stashed changes
 		}
 	}
 

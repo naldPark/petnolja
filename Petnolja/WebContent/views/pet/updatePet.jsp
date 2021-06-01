@@ -35,11 +35,7 @@
 				</td>
 			</table>
 			<div id="file-area">
-<<<<<<< Updated upstream
-			<input type="file" id="file1" name="file1" value="<%=p.getPetImg()%>" onchange="checkSize(this); loadImg(this, 1);"> 
-=======
 			<input type="file" id="file1" name="file1" value="" onchange="checkSize(this); loadImg(this, 1);"> 
->>>>>>> Stashed changes
 			<input type="hidden" name ="originImgSrc" value="<%=p.getPetImg()%>">
 			</div>
 			<br>
@@ -237,6 +233,7 @@
 	
 	<!--생년 월일 제한 기능(년월까지)-->
 	<script>
+		
 		function validate(){
 
 
@@ -251,7 +248,7 @@
 			}
 
 			 // 전화번호 검증
-	         var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+	         regExp =/^\d{2,3}-\d{3,4}-\d{4}$/;
 	         if(!regExp.test(phone.value)){
 	            alert("유효한 전화번호를 입력 해 주세요.")
 	            phone.select();
