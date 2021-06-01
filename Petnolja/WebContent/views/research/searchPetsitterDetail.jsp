@@ -235,7 +235,7 @@
 	      </div>
 
         <!--예약달력확인--><br>
-          <h6>예약 가능 날짜</h6>
+          <h6>예약 가능 날짜</h6><br>
           <div style="border:1px solid lightgray;"><%@ include file = "ableDate.jsp" %></div><br>
 
         <!--예약 area-->
