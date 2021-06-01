@@ -80,4 +80,41 @@
 		and pet_status='Y'
 	</entry>
 	
+	<entry key="selectPetList">
+		SELECT 
+		        PET_NO
+		      , PET_NAME
+		  FROM PET
+		 WHERE PET_STATUS = 'Y'
+		   AND MEM_NO = ?
+		   ORDER BY PET_NO
+	
+	</entry>
+	
+	<entry key="selectAdminPetDetail">
+		SELECT
+	        PET_BIRTH
+	      , PET_WEIGHT
+	      , PET_GENDER
+	      , PET_SIZE
+	      , PET_BREED
+	      , PET_IMG
+	      , VACCINE
+	      , CAUTION
+	      , NOTE
+	      , HOSPI
+	      , HOSPI_TEL
+	      , NEUTERED
+	      , CHIP
+	  FROM PET
+	 WHERE PET_NO = ?
+	</entry>
+	
+	<entry key="adminDeletePet">
+		UPDATE
+			PET
+		   SET
+		    PET_STATUS = 'N'
+		    
+	</entry>
 </properties>

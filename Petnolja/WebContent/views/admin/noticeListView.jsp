@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.notice.model.vo.Notice" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +36,12 @@
 
         }
 
+		<% if(!list.isEmpty()){%>
         #notice-list>tbody>tr:hover{
             background-color: rgb(255, 254, 190);
             cursor: pointer;
         }
+        <% }%>
 
         #notice-list td{height: 60px; border: none;}
 
@@ -90,128 +102,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        001
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        002
-                    </td>
-                    <td>사이트 정기점검관련 공지입니다</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        003
-                    </td>
-                    <td>여름맞이 이벤트!</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        004
-                    </td>
-                    <td>[QNA] 예약 취소는 어떻게 하나요?</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        005
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        006
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        007
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        008
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        009
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        010
-                    </td>
-                    <td>이용약관 개정관련 공지사항</td>
-                    <td>관리자3</td>
-                    <td>2021-05-25</td>
-                    <td>103</td>
-                </tr>
-
-
+            	<%if(list.isEmpty()) { %>
+            	<tr>
+            		<td colspan="6">공지사항이 존재하지 않습니다.</td>
+            	</tr>
+            	<% } else { %>
+            		<% for(Notice n : list) { %>
+		                <tr>
+		                    <td>
+		                        <input type="checkbox">
+		                    </td>
+		                    <td><%= n.getNoticeNo() %></td>
+		                    <td><%= n.getNoticeTitle() %></td>
+		                    <td><%= n.getNoticeWriter() %></td>
+		                    <td><%= n.getCreateDate() %></td>
+		                    <td><%=n.getNoticeCount() %></td>
+		                </tr>            			
+            		<% } %>
+            	<% } %>
 
 
             </tbody>
@@ -220,13 +128,21 @@
         <!-- 페이징바 -->
                         
         <div id="paging-area">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <button class="btn btn-outline-primary btn-sm">1</button>
-            <button class="btn btn-outline-primary btn-sm">2</button>
-            <button class="btn btn-outline-primary btn-sm">3</button>
-            <button class="btn btn-outline-primary btn-sm">4</button>
-            <button class="btn btn-outline-primary btn-sm">5</button>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
+        
+    	<% if(currentPage != 1){ %>
+        	<button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
+		<% } %>
+		<% for(int p=startPage; p<endPage; p++) {%>
+			<% if(p != currentPage) { %>
+		        <button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
+			<% } else { %>
+				<buton disabled><%=p %></buton>
+			<% } %>
+		<% } %>
+
+		<% if(currentPage != maxPage && !list.isEmpty()) { %>
+            <button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm">&gt;</button>
+        <% } %>
         </div>
     </div>
 

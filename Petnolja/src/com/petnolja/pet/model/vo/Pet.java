@@ -86,6 +86,28 @@ public class Pet {
 	
 	
 
+	/** 최서경
+	 * 특정 회원의 펫 상세 조회시 사용
+	 */
+	public Pet(String petBirth, double petWeight, String petGender, String petSize,
+			String petBreed, String petImg, String vaccine, String caution, String note, String hospi, String hospiTel,
+			String neutered, String chip) {
+		super();
+		this.petBirth = petBirth;
+		this.petWeight = petWeight;
+		this.petGender = petGender;
+		this.petSize = petSize;
+		this.petBreed = petBreed;
+		this.petImg = petImg;
+		this.vaccine = vaccine;
+		this.caution = caution;
+		this.note = note;
+		this.hospi = hospi;
+		this.hospiTel = hospiTel;
+		this.neutered = neutered;
+		this.chip = chip;
+	}
+
 	public Pet(int petNo, String petName, String petBirth, double petWeight, String petGender, String petSize,
 			String petBreed, String petImg) {
 		super();
@@ -98,6 +120,17 @@ public class Pet {
 		this.petBreed = petBreed;
 		this.petImg = petImg;
 	}
+
+	/** 최서경
+	 * 특정 회원의 펫 목록 조회시 사용
+	 */
+	public Pet(int petNo, String petName) {
+		super();
+		this.petNo = petNo;
+		this.petName = petName;
+	}
+	
+	
 
 	public int getPetNo() {
 		return petNo;

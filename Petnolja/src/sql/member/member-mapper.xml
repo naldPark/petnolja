@@ -258,9 +258,23 @@
 		UPDATE
 			MEMBER
 		   SET
-		    MEM_BLOCK = 'N'
-		 WHERE
-		    MEM_NO = ?
-		    </entry>
+			MEM_BLOCK = 'N'
+    </entry>
+    
+    <entry key="adminDeleteMember">
+    	UPDATE
+    		MEMBER
+    	   SET
+    	    MEM_STATUS = 'N'
+    </entry>
 	
 </properties>
+
+
+
+
+
+
+
+
+

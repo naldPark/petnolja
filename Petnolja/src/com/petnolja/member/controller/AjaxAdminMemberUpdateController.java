@@ -31,7 +31,7 @@ public class AjaxAdminMemberUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
 		
 		
 		int memNo = Integer.parseInt(request.getParameter("memNo"));

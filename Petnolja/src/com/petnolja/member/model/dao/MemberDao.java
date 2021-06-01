@@ -417,8 +417,7 @@ private Properties prop = new Properties();
 									rset.getString("MEM_TEL"),
 									rset.getString("MEM_EMAIL"),
 									rset.getString("MEM_ADDRESS"),
-									rset.getString("MEM_BLOCK")
-									));
+									rset.getString("MEM_BLOCK")));
 			}
 			
 		} catch (SQLException e) {
@@ -463,7 +462,7 @@ private Properties prop = new Properties();
 		}
 		
 		/** 최서경
-		 * 괸리자 회원 블랙리스트 등록
+		 * 괸리자 회원 블랙리스트 등록(방법1. for문 방법)
 		 */
 		public int blockMember(Connection conn, String[] list) {
 			
@@ -496,7 +495,7 @@ private Properties prop = new Properties();
 		}
 		
 		/** 최서경
-		 * 괸리자 회원 블랙리스트 해제
+		 * 괸리자 회원 블랙리스트 해제 (방법2. 동적 sql방법)
 		 */
 		public int unblockMember(Connection conn, String[] list) {
 			
@@ -505,19 +504,13 @@ private Properties prop = new Properties();
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("unblockMember");
 			
+			sql += "WHERE MEM_NO IN (" + String.join(",", list) + ")";
+			
 			try {
 				
-				int num = 0;
 				pstmt = conn.prepareStatement(sql);
-				
-				for(int i=0; i < list.length; i++) {
-					
-					num = Integer.parseInt(list[i]);
-					
-					pstmt.setInt(1, num);
-					result += pstmt.executeUpdate();
-				}
-				
+				result = pstmt.executeUpdate();
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -525,9 +518,30 @@ private Properties prop = new Properties();
 			}
 			
 			return result;
-			
 		}
-
+		
+		/** 최서경
+		 * 관리자 회원 삭제
+		 */
+		public int adminDeleteMember(Connection conn, String[] list) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("adminDeleteMember");
+			
+			sql += "WHERE MEM_NO IN (" + String.join(",", list) + ")";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
 		
 	}
 

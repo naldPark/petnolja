@@ -1,4 +1,4 @@
-package com.petnolja.member.controller;
+package com.petnolja.pet.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,18 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.member.model.service.MemberService;
+import com.petnolja.member.model.vo.Member;
+import com.petnolja.pet.model.service.PetService;
+import com.petnolja.pet.model.vo.Pet;
 
 /**
- * Servlet implementation class AjaxAdminMemberBlockController
+ * Servlet implementation class AdminMemberPetListController
  */
-@WebServlet("/memblock.ad")
-public class AjaxAdminMemberBlockController extends HttpServlet {
+@WebServlet("/mempet.ad")
+public class AdminMemberPetListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxAdminMemberBlockController() {
+    public AdminMemberPetListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +34,17 @@ public class AjaxAdminMemberBlockController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.setContentType("application/json; charset=utf-8");
-		
-		String memNoList = request.getParameter("memNoList");
-		String[] list = memNoList.split(",");
-		
-		//회원번호 잘 넘어왔음
-		//System.out.println(memNoList);
-		
-		int result = new MemberService().blockMember(list);
-		
-		response.getWriter().print(result);
+		int memNo = Integer.parseInt(request.getParameter("mno"));
 
 		
+		Member m = new MemberService().selectMember(memNo);
+		ArrayList<Pet> petList = new PetService().selectPetList(memNo);
+		
+		request.setAttribute("m", m);
+		request.setAttribute("petList", petList);
+		
+		
+		request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
 	
 	}
 

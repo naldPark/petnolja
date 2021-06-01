@@ -29,7 +29,7 @@ public class AjaxAdminMemberUnblockController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
 		
 		String memNoList = request.getParameter("memNoList");
 		String[] list = memNoList.split(",");
