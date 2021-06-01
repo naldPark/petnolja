@@ -162,7 +162,6 @@ public class ResearchDao {
 						}
 						pstmt.setInt(10, startRow);
 						pstmt.setInt(11, endRow);				
-						System.out.println(sql);
 						rset = pstmt.executeQuery();
 						while(rset.next()) {
 							list.add(new Research(rset.getInt("MEM_NO"),
