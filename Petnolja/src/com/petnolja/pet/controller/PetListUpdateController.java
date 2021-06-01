@@ -1,6 +1,7 @@
 package com.petnolja.pet.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.petnolja.common.MyFileRenamePolicy;
 import com.petnolja.pet.model.service.PetService;
 import com.petnolja.pet.model.vo.Pet;
 
@@ -33,18 +38,26 @@ public class PetListUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 	      
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+		  int maxSize = 10 * 1024 * 1024;
+		  
+		  String savePath = request.getSession().getServletContext().getRealPath("resources/upfiles/pet_upfiles/");
+		  	
+		  MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		  
 	      Pet p = new Pet();
 	      
 	      HttpSession session = request.getSession();
-	      p.setPetNo(Integer.parseInt(request.getParameter("petNo")));
-	      p.setPetName(request.getParameter("petName"));
-	      p.setPetGender(request.getParameter("gender"));
-	      p.setPetBreed(request.getParameter("dogBreed"));
-	      p.setPetBirth(request.getParameter("birth"));
-	      p.setPetWeight(Double.parseDouble(request.getParameter("weight")));
-	      p.setNeutered(request.getParameter("middle"));
-	      p.setChip(request.getParameter("dogAdd"));
-	      p.setPetImg("resources/upfiles/pet_upfiles/"+ request.getParameter("file1"));
+	      p.setPetNo(Integer.parseInt(multiRequest.getParameter("petNo")));
+	      p.setPetName(multiRequest.getParameter("petName"));
+	      p.setPetGender(multiRequest.getParameter("gender"));
+	      p.setPetBreed(multiRequest.getParameter("dogBreed"));
+	      p.setPetBirth(multiRequest.getParameter("birth"));
+	      p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
+	      p.setNeutered(multiRequest.getParameter("middle"));
+	      p.setChip(multiRequest.getParameter("dogAdd"));
+	      p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getParameter("file1"));
 	      
 	      if(p.getPetWeight()>=15.0){
 	         p.setPetSize("대형견");
@@ -54,18 +67,20 @@ public class PetListUpdateController extends HttpServlet {
 	         p.setPetSize("소형견");
 	         }
 	      
-	      if(request.getParameterValues("Vacci")!=null) {
-	         p.setVaccine(String.join(",", request.getParameter("Vacci")));
+	      if(multiRequest.getParameterValues("Vacci")!=null) {
+	         p.setVaccine(String.join(",", multiRequest.getParameter("Vacci")));
 	      }
 	      
-	      if(request.getParameterValues("Cauti")!=null) {
-	         p.setCaution(String.join(",", request.getParameter("Cauti")));
+	      if(multiRequest.getParameterValues("Cauti")!=null) {
+	         p.setCaution(String.join(",", multiRequest.getParameter("Cauti")));
 	      }
 	      
-	      p.setNote(request.getParameter("textarea"));
-	      p.setHospi(request.getParameter("hospi"));
-	      p.setHospiTel(request.getParameter("hospitel"));
+	      p.setNote(multiRequest.getParameter("textarea"));
+	      p.setHospi(multiRequest.getParameter("hospi"));
+	      p.setHospiTel(multiRequest.getParameter("hospitel"));
+	      
 	      int result = new PetService().updatePet(p);
+	      
 	      if(result > 0) {
 	         request.getSession().setAttribute("alertMsg", "반려견 추가에 성공하셨습니다.");
 	         request.getRequestDispatcher("/petList.mem").forward(request, response);
@@ -74,7 +89,8 @@ public class PetListUpdateController extends HttpServlet {
 	         request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	      }
 	      
-		 
+	      
+		}
 	}
 
 	/**

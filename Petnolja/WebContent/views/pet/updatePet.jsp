@@ -24,7 +24,7 @@
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<div class="outer">	
-		<form action="<%=contextPath%>/updatePet2.me" method="post">
+		<form action="<%=contextPath%>/updatePet2.me" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="petNo" value="<%=p.getPetNo()%>">
 		<div id="dog">
 			<h2>반려동물 정보 수정</h2><br>
@@ -35,7 +35,8 @@
 				</td>
 			</table>
 			<div id="file-area">
-			<input type="file" id="file1" name="file1" onchange="checkSize(this); loadImg(this, 1);" required> 
+			<input type="file" id="file1" name="file1" value="<%=p.getPetImg()%>" onchange="checkSize(this); loadImg(this, 1);"> 
+			<input type="hidden" name ="originImgSrc" value="<%=p.getPetImg()%>">
 			</div>
 			<br>
 
@@ -234,11 +235,6 @@
 	<script>
 		function validate(){
 
-			if($("#file1").val()==""){
-				window.alert("사진을 첨부해주세요");
-				return false;
-               
-                }
 
 			var birth = document.getElementById("birth");
 

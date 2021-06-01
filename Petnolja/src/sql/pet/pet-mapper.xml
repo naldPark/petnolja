@@ -120,9 +120,9 @@
 	
 	<entry key="updatePet">
       UPDATE
-            PET
+             PET
          SET PET_NAME = ?
-          , PET_GENDER = ?
+           , PET_GENDER = ?
            , PET_BREED = ?
            , PET_BIRTH = ?
            , PET_WEIGHT = ?
