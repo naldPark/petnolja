@@ -185,8 +185,8 @@ public class PetsitterDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				p = new Petsitter(rset.getString("sitter_no"),
-								rset.getInt("mem_id"),
+				p = new Petsitter(rset.getInt("sitter_no"),
+								rset.getString("mem_id"),
 								rset.getString("pet_period"),
 								rset.getString("pet_no"),
 								rset.getString("license"),
@@ -229,5 +229,42 @@ public class PetsitterDao {
 		
 		return result;
 	}
+	
+	
+	public int sitterAccept(Connection conn, int sitterNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("sitterAccept");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			result = pstmt.executeUpdate();
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+			
+			return result;	
+	}
+	
+	public int sitterDeny(Connection conn, int sitterNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("sitterDeny");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sitterNo);
+			result = pstmt.executeUpdate();
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+			
+			return result;	
+	}	
 	
 }

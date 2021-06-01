@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.vo.Petsitter;
 
@@ -82,6 +83,39 @@ public class PetsitterService {
 		
 		commit(conn);
 		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	public int sitterAccept(int sitterNo) {
+		
+		Connection conn = getConnection();
+
+		int result = new PetsitterDao().sitterAccept(conn, sitterNo);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int sitterDeny(int sitterNo) {
+		
+		Connection conn = getConnection();
+
+		int result = new PetsitterDao().sitterDeny(conn, sitterNo);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		close(conn);
 		
 		return result;

@@ -104,7 +104,7 @@
 		                </td>
 		                <td><%= n.getSitterNo()%></td>
 		                <td><%= n.getMemID()%></td>
-		                <td align="center"><button onclick="location.href='<%=contextPath%>/petsitterApply.ad?sno=<%=n.getSitterNo()%>';" class="btn btn-info">조회</button></td>
+		                <td align="center"><button onclick="location.href='<%=contextPath%>/petsitterApply.ad?sno=<%= n.getSitterNo()%>';" class="btn btn-info">조회</button></td>
 		                <td>
 		                	<% if (n.getpDate().equals(null)) { %>
 		                		N
@@ -126,6 +126,9 @@
 
         </tbody>
     </table>
+    
+    <!-- 클릭시 지원서 상세로 넘어가는 스크립트 -->
+	
 
     <!-- 페이징바 -->
 
