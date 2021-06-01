@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.Pet,com.petnolja.research.model.vo.*" %>
   <%
-    Research sitterInfo = (Research)request.getAttribute("sitterInfo");
+      Research sitterInfo = (Research)request.getAttribute("sitterInfo");
  	  ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
  	  String[] sitterPic = (String[])request.getAttribute("sitterPic");
  	  int maxPage = (Integer)request.getAttribute("maxPage");
-  	ArrayList<Review> rwList = (ArrayList<Review>)request.getAttribute("rwList");
+ 	  int rwCount = (Integer)request.getAttribute("listCount");
+  	  ArrayList<Review> rwList = (ArrayList<Review>)request.getAttribute("rwList");
+  	  String array = (String)request.getAttribute("array");
   %>
 <!DOCTYPE html>
 <html>
@@ -83,7 +85,7 @@
         .reviewImg{height: 170px; width: 170px; float: left; padding:15px;}
         .reviewDate{text-align: right; white-space:pre-line;  padding-right: 30px;}
         .reviewContent{white-space:pre-line; text-align:left; margin-bottom:30px; padding-left:180px;}
-
+          .userPetList:hover {cursor:pointer; opacity:0.7;}
  
 </style>
   
@@ -167,11 +169,10 @@
       <!--펫놀자 후기-->
            <div style="text-align:left; margin-bottom:30px; padding-left:20px;" > 
                 <br>
-                <h4 style="float:left;">후기 <%=rwList.size()%>개</h4>
+                <h4 style="float:left;">후기 <%=rwCount%>개</h4>
                 <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
-                    <a href="" style="text-decoration: none; color:gray">추천순</a> | 
-                    <a href="" style="text-decoration: none; color:gray">별점순</a> | 
-                    <a href="" style="text-decoration: none; color:gray">최신순</a>
+                    <a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=sitterInfo.getSitterNo()%>&rw=star" style="text-decoration: none; color:gray">별점순</a> | 
+                    <a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=sitterInfo.getSitterNo()%>&rw=recent" style="text-decoration: none; color:gray">최신순</a>
                 </div>
                 <br>
                 <% for(Review rw : rwList){ %>
@@ -194,7 +195,10 @@
                 <%} %>
 
                 <div style="text-align:center" id="resultEnd"><br>
-                <button type="button" class="btn btn-secondary" style="width:30%;" id="moreReview">후기 더 보기</button></div>
+                	<%if(rwCount>3){ %>
+                	<button type="button" class="btn btn-secondary" style="width:30%;" id="moreReview">후기 더 보기</button>
+                	<%} %>
+                </div>
                   <!-- 펫놀자 후기 끝 -->
                   <br clear="both">
           </div> 
@@ -205,34 +209,35 @@
     <div class="wrap wrap3">
 	        <!--즐겨찾기, 공유, 하트-->
 	        <div style="text-align: center;">
-	            <br><br><br>
-	            
-	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();">
-	            <div id="likeImgDiv" value=<%=sitterInfo.getSitterNo()%>>
-	              <img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가
-	            </div>
-	          </button><br>
-	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
-	            <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
-	          </button><br>
-	          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'"><img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기</button><br>
+	              <br><br><br>
+		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="like();">
+		            <div id="likeImgDiv" value=<%=sitterInfo.getSitterNo()%>>
+		          	    <img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가
+		            </div>
+		          </button><br>
+		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
+		         	  <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
+		          </button><br>
+		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'">
+		          		<img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기
+		          </button><br>
 	        </div>
 	        <br><br>
 	         <!-- 공유하기 버튼 클릭시 모달 실행 -->
-	      <div class="modal" id="copyUrl">
-	        <div class="modal-dialog">
-	          <div class="modal-content">
-	              <!-- Modal Header -->
-	              <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal">&times;</button>
-	              </div>
-	            <div class="modal-body input-group mb-3">
-	              <input type="text" id = "ShareUrl" class="form-control">
-	              <button OnClick="CopyUrlToClipboard()" class="btn btn-primary">URL 복사</button>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
+	       <div class="modal" id="copyUrl">
+	         <div class="modal-dialog">
+	           <div class="modal-content">
+	               <!-- Modal Header -->
+	               <div class="modal-header">
+	                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+	               </div>
+	               <div class="modal-body input-group mb-3">
+		               <input type="text" id = "ShareUrl" class="form-control">
+		               <button OnClick="CopyUrlToClipboard()" class="btn btn-primary">URL 복사</button>
+	               </div>
+	           </div>
+	         </div>
+	       </div>
 
         <!--예약달력확인--><br>
           <h6>예약 가능 날짜</h6><br>
@@ -248,63 +253,61 @@
 	            	<button class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>'">로그인 하러 가기</button>
 	            </div>
 	         <% } else if(petList.isEmpty()){ %>
-	         	<div style="text-align:center;"><hr><br>
+		         <div style="text-align:center;"><hr><br>
 		            <div style="text-align: center;">
 		            	<h6>반려견 등록 후 예약가능합니다</h6><br>
 		            </div>  
 	            	<button class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/petList.mem'">반려견 목록 보기</button>
-	            </div>
+		          </div>
 	         <% }else { %>
-		         <div style="text-align:center;"><hr>
-		            <div style="text-align: left;">
-		            	<h6>예약 하기</h6><br>
-		            </div>
-	                <h6>체크인날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 체크아웃날짜</h6>
-	                <div><%@ include file = "ableShownDate.jsp" %></div>
-	                <br>
-                    <div style="float: left; margin-left:45px;">
-                      			위탁할시간<br>
-                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px;width:100px;" ><%=sitterInfo.getCheckin()%>시</div>
-                    </div>          
-                    <div class="form-group" style="margin-left:160px; text-align: left;">&nbsp;
-                     			 찾아올시간<br>
-                      <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" ><%=sitterInfo.getCheckout()%>시</div>
+            <form action="<%=contextPath%>/reserveProceed.mem" method="post">
+                  <div style="text-align:center;"><hr>
+                      <div style="text-align: left;">
+                          <h6>예약 하기</h6><br>
+                      </div>
+                      <h6>체크인날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 체크아웃날짜</h6>
+                      <div><%@ include file = "ableShownDate.jsp" %></div><br>
+                      <div style="float: left; margin-left:45px;">
+                            위탁할시간<br>
+                           <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px;width:100px;" ><%=sitterInfo.getCheckin()%>시</div>
+                      </div>          
+                      <div class="form-group" style="margin-left:160px; text-align: left;">&nbsp;
+                            찾아올시간<br>
+                            <div style="border:1px solid lightgray; padding:5px 20px 5px 20px; text-align: center; margin-top:10px; width:100px;" ><%=sitterInfo.getCheckout()%>시</div>
+                      </div>
+                  </div><br>
+        
+                  <div style="text-align:center;">
+                      <div style="text-align: left;"><hr>
+                        <h6>맡기시는 반려동물</h6><br>
+                      </div>
+                        <% for(Pet p : petList){ %>
+                          <div style="height: 60px;" class="userPetList">	
+                              <div style="float:left; padding-left: 10px;">
+                                  <input type="checkbox" class="largerCheckbox" name=petNo id="pet<%=p.getPetNo()%>" value="<%=p.getPetNo()%>">  
+                                  <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;">
+                              </div>
+                              <div style="padding-left:20px;"><label for="pet<%=p.getPetNo()%>">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <span><%=p.getPetName()%></span><br>
+                                  <span><%=p.getPetSize()%> / <%=p.getPetGender()%> / <%=p.getPetBirth()%></span></label>
+                              </div> 
+                          </div><br>
+        
+                        <% } %>
+                        <br>
+                        <input type="hidden" name="sitterNo" value="<%=sitterInfo.getSitterNo()%>">
+                        <button type="submit" class="btn btn-danger" style="width:200px;margin-bottom:5px">&nbsp;&nbsp;&nbsp;예약하기</button><br>
                     </div>
-		    	  </div>
-	              <br>
-	           
-	
-			        <div style="text-align:center;">
-			              <div style="text-align: left;"><hr>
-			              	<h6>맡기시는 반려동물</h6><br>
-			              </div>
-			
-			              <% for(Pet p : petList){ %>
-				              <div style="height: 60px;">	
-					                <div style="float:left; padding-left: 10px;">
-						                <input type="checkbox" class="largerCheckbox">  
-						                <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;">
-					                </div>
-					                <div style="padding-left:20px;">
-					                  &nbsp;&nbsp;&nbsp;&nbsp;
-					                  <span><%=p.getPetName()%></span><br>
-					                  <span><%=p.getPetSize()%> / <%=p.getPetGender()%> / <%=p.getPetBirth()%></span>
-					                </div> 
-				              </div><br>
-			
-			              <% } %>
-			              <br>
-			              <button type="button" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/research/reserveProceed.jsp'">&nbsp;&nbsp;&nbsp;예약하기</button><br>
-              		</div>
+                </form>
               <% } %>
 
-         <hr>
+       		<hr>
         
-
-        <!--지도 area-->
+        	<!--지도 area-->
 
             <div style="text-align: left;">
-            <h6>펫시터님의 위치</h6><br>
+            	<h6>펫시터님의 위치</h6><br>
                <%@ include file = "map.jsp" %>
       		</div>	
 
@@ -314,47 +317,49 @@
 	<script>
     var page = 2;
     var no = <%=sitterInfo.getSitterNo()%>;
-$("#moreReview").click(function(){ 
-      $.ajax({
-        url:"moreReview.mem",
-        data:{
-          sitterNo:no,
-          currentPage:page
-        },
-        type:"post",
-        success:function(list){
-          page++;          
-          var result = ""; 
-					for(var i=0; i<list.length; i++){
-            var star = "";
-            var balloon = "";
-            for(var j=0 ; j <list[i].reviewRating; j++){star += "&#9733";}
-            if(list[i].path==null){list[i].path="resources/images/member/welcome.png"}
-            if(list[i].reviewReplyContent!=null){
-              balloon ="<div class='balloon'><br><b>펫시터 <%=sitterInfo.getSitterName()%> 님의 댓글</b><br>"
-                      +list[i].reviewReplyContent+"</div>"
-            } else {
-              balloon ="<div class='balloonNo'><br></div>"
-            }
-
-          result += "<div>"
-                       +"<img src='<%=contextPath%>/" + list[i].path + "' class='reviewImg'>"
-                      + "<br><span style='float:left'><b>"+ list[i].memName+ "님</b></span>"
-                      + "<div class='starList'> &nbsp;&nbsp; " + star +"</div>"
-                      + "<div class ='reviewDate'>"+list[i].reviewDate+" 작성</div>"
-                      + "<div class='reviewContent'>"+list[i].reviewContent+"</div>"
-                      +balloon
-                      +"</div>"
-                }
-                $(result).insertBefore("#resultEnd");
-                if(<%=maxPage%>==page){
-                $("#moreReview").hide();
-                }
-        },error:function(){
-          console.log("ajax통신 실패");
-        }
-      });
-    })
+    var ary = "<%=array%>";
+	$("#moreReview").click(function(){ 
+	      $.ajax({
+	        url:"moreReview.mem",
+	        data:{
+	          sitterNo:no,
+	          currentPage:page,
+	          array: ary
+	        },
+	        type:"post",
+	        success:function(list){
+	          page++;          
+	          var result = ""; 
+						for(var i=0; i<list.length; i++){
+	            var star = "";
+	            var balloon = "";
+	            for(var j=0 ; j <list[i].reviewRating; j++){star += "&#9733";}
+	            if(list[i].path==null){list[i].path="resources/images/member/welcome.png"}
+	            if(list[i].reviewReplyContent!=null){
+	              balloon ="<div class='balloon'><br><b>펫시터 <%=sitterInfo.getSitterName()%> 님의 댓글</b><br>"
+	                      +list[i].reviewReplyContent+"</div>"
+	            } else {
+	              balloon ="<div class='balloonNo'><br></div>"
+	            }
+	
+	          result += "<div>"
+	                       +"<img src='<%=contextPath%>/" + list[i].path + "' class='reviewImg'>"
+	                      + "<br><span style='float:left'><b>"+ list[i].memName+ "님</b></span>"
+	                      + "<div class='starList'> &nbsp;&nbsp; " + star +"</div>"
+	                      + "<div class ='reviewDate'>"+list[i].reviewDate+" 작성</div>"
+	                      + "<div class='reviewContent'>"+list[i].reviewContent+"</div>"
+	                      +balloon
+	                      +"</div>"
+	                }
+	                $(result).insertBefore("#resultEnd");
+	                if(<%=maxPage%>==page){
+	                $("#moreReview").hide();
+	                }
+	        },error:function(){
+	          console.log("ajax통신 실패");
+	        }
+	      });
+	    })
 
       $("#weight li span").each(function(index){
             if($(this).text()=="0원"){
@@ -367,37 +372,36 @@ $("#moreReview").click(function(){
 			var likeS = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨'
 			var unlikeS = '<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가'
       $(document).ready(function(){
-       if(favor!=0){
-        $("#likeImgDiv").html(likeS);
-       } else {
-        $("#likeImgDiv").html(unlikeS);
-       }
+	        if(favor!=0){
+	        $("#likeImgDiv").html(likeS);
+	       } else {
+	        $("#likeImgDiv").html(unlikeS);
+	       }
        
 
      })
 
-		function like(){
-      <%if(loginUser!=null){%>
-          $.ajax({
-            url:"changeFavorite.mem",
-            data:{
-              sitterNo:$("#likeImgDiv").attr("value")
-            },
-            type:"post",
-            success:function(result){			
-              if(result>1){
-                $("#likeImgDiv").html(unlikeS);
-              }else{
-                $("#likeImgDiv").html(likeS);
-              }
-            },error:function(){
-              console.log("ajax통신 실패");
-            }
-          });
-            
-      <%}else{%>
-        window.alert("로그인 후 이용 가능합니다");
-      <%}%>
+	  function like(){
+        <%if(loginUser!=null){%>
+	          $.ajax({
+	            url:"changeFavorite.mem",
+	            data:{
+	              sitterNo:$("#likeImgDiv").attr("value")
+	            },
+	            type:"post",
+	            success:function(result){			
+	              if(result>1){
+	                $("#likeImgDiv").html(unlikeS);
+	              }else{
+	                $("#likeImgDiv").html(likeS);
+	              }
+	            },error:function(){
+	              console.log("ajax통신 실패");
+	            }
+	          });   
+        <%}else{%>
+          window.alert("로그인 후 이용 가능합니다");
+        <%}%>
       };
 
 	</script>
@@ -409,10 +413,10 @@ $("#moreReview").click(function(){
           var obShareUrl = document.getElementById("ShareUrl");
           obShareUrl.value = window.document.location.href; 
           function CopyUrlToClipboard(){
-          obShareUrl.select();
-          document.execCommand("copy");
-          obShareUrl.blur();
-          alert("URL이 클립보드에 복사되었습니다"); 
+	          obShareUrl.select();
+	          document.execCommand("copy");
+	          obShareUrl.blur();
+	          alert("URL이 클립보드에 복사되었습니다"); 
            }
 
 

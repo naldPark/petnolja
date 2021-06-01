@@ -106,7 +106,6 @@ public class SearchSitterController extends HttpServlet {
 		int listCount = new ResearchService().searchListCount(startDate, endDate, options);
 		int currentPage = 1;
 		if(request.getParameter("searchPage")!=null) {currentPage = Integer.parseInt(request.getParameter("searchPage"));}
-		System.out.println(currentPage);
 		int pageLimit = 10;
 		int boardLimit = 5;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	

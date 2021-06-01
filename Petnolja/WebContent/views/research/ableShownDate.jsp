@@ -11,6 +11,7 @@
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.1.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/datepicker.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/datepicker.ko.js"></script>
+    
     <style>
     .double div {float: left;}
     /* .-disabled-{background: lightgrey}; */
@@ -26,8 +27,8 @@
 <body>
 
     <div class="double">
-        <input id="datepicker1" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;"> -
-        <input id="datepicker2" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;">
+        <input id="datepicker1" name="reserveStart" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;"> -
+        <input id="datepicker2" name="reserveEnd" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;">
     </div>
 
     <script>
@@ -68,11 +69,12 @@
                     var edp = eDate.datepicker().data("datepicker");
                     edp.selectDate(new Date(eDay.replace(/-/g, "/")));  
                 }
-                if (!isValidStr(eDay)) {
-                    sDate.datepicker({
-                        maxDate: new Date(eDay.replace(/-/g, "/"))
+                if (!isValidStr(eDay)) {  //만약 2번쨰 달력에 값이 있다면 
+                    sDate.datepicker({     // 첫번쨰 달력의 맥스는
+                        maxDate: new Date(eDay.replace(/-/g, "/"))   // 2번째달력의 값
                     });
                 }
+                
                 sDate.datepicker({
                     language: 'ko',
                     autoClose: true,
@@ -81,11 +83,30 @@
                     }
                 });
 
+               
                 if (!isValidStr(sDay)) {
-                    eDate.datepicker({
-                        minDate: new Date(sDay.replace(/-/g, "/"))
-                    });
+                    var index =  abled_days.indexOf(sDay, 1); 
+                    var checkDate= new Date(abled_days[index].replace(/-/g, "/"));  // 유저가 선택한 날짜(sDate값)
+                    var count = 0;
+                    var result = "";
+                    for(var i =index ; i<abled_days.length ; i++){
+                        var a = new Date(abled_days[i].replace(/-/g, "/")).getTime();
+                        var b= new Date(checkDate.setDate(checkDate.getDate()+ count)).getTime();
+                        
+                        if(a!=b){
+                            result=  new Date(abled_days[i-1].replace(/-/g, "/"));
+                            break;
+                        }
+                        count=1;
+                    }
+                    eDate.datepicker({minDate: new Date(sDay.replace(/-/g, "/"))}); // 2번쨰달력 최소값: 유저가 선택한 날짜
+                    if(new Date(new Date().setMonth(new Date().getMonth() + 3)).getTime()<result.getTime()){
+                        result = new Date(new Date().setMonth(new Date().getMonth() + 3));
+                    }
+                    eDate.datepicker({maxDate: result}); 
+                    // 2번쨰달력 최대값: 오늘날짜로부터 3개월뒤 또는 유저가 선택한 날짜로부터 펫시터가 예약가능한 이어지는 마지막날짜중 가까운 날짜로 설정
                 }
+
                 eDate.datepicker({
                     language: 'ko',
                     autoClose: true,

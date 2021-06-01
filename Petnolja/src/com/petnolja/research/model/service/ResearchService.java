@@ -93,10 +93,10 @@ public class ResearchService {
 	}
 	
 	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보
-		public ArrayList<Review> sitterReview(int sitterNo) {
+		public ArrayList<Review> sitterReview(int sitterNo, String array) {
 			Connection conn = getConnection();
 			
-			ArrayList<Review> sitterReview = new ResearchDao().sitterReview(conn, sitterNo);
+			ArrayList<Review> sitterReview = new ResearchDao().sitterReview(conn, sitterNo, array);
 
 			close(conn);
 			
@@ -105,10 +105,10 @@ public class ResearchService {
 		}
 		
 		//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보(ajax)
-		public ArrayList<Review> sitterReviewAjax(int sitterNo, int startRow, int endRow) {
+		public ArrayList<Review> sitterReviewAjax(int sitterNo, int startRow, int endRow, String array) {
 			Connection conn = getConnection();
 			
-			ArrayList<Review> sitterReview = new ResearchDao().sitterReviewAjax(conn, sitterNo, startRow, endRow);
+			ArrayList<Review> sitterReview = new ResearchDao().sitterReviewAjax(conn, sitterNo, startRow, endRow, array);
 
 			close(conn);
 			

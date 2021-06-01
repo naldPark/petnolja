@@ -68,54 +68,58 @@
       <br>
             <!-- 펫시터 소개 박스 -->
 	  <% for(Research s : list){ %>
-      <div class="recommendList" onclick="location.href='<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>'"> 
-
-        <br>
-          <img src="<%=contextPath%>/<%=s.getPath()%>" style="height: 230px; width: 300px; float: left; padding:15px; margin-bottom: 30px;" >
-          <br>
-          <h3><%=s.getSitterTitle()%></h3>
-          <hr width="900px"> 
-
-          <div style="text-align:left; margin-bottom:30px; width: 440px;float:left; color: rgb(95, 95, 95);" > 
-              <span><%=s.getAdditions()%></span><br>
-                  <% if(!us.getSetAddress().equals("N")) { %>
-                  	<br>&nbsp;&nbsp;- 회원님과의 거리는 <%=s.getDistance()%> km 입니다 
-                  <% } %><br>
-                  <% if(us.getCountDay() ==-1) { %>
-				  <% } else if(us.getCountDay() ==s.getDateCount()) { %>
-				      &nbsp;&nbsp;- 선택하신 일자로 예약 가능합니다
-				  <% } else if(s.getDateCount()>0){ %>
-      				   &nbsp;&nbsp;- 선택하신 <%=us.getCountDay()%>일 중 <%=s.getDateCount()%>일만 예약가능합니다
-				  <% } %>
-				  <br><br>
-        </div> 
-        
-        <div style="text-align:right;padding-bottom: 20px; padding-right: 20px;">
-	        <h5>
-	        <%if(s.getSmallNightFee().equals("0")){ %>
-	        	정보없음
-	        <%}else{ %>
-	        	<%=s.getSmallNightFee()%> 원
-	        <%} %>
-	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 1 박 </span></h5>
-	        <h5>
-	        <%if(s.getSmallDayFee().equals("0")){ %>
-	        	정보없음
-	        <%}else{ %>
-	        	<%=s.getSmallDayFee()%> 원
-     	    <%} %>
-	        &nbsp;&nbsp;<span class="badge badge-pill badge-secondary"> 하루 </span></h5>
-	      	 소형견 기준<br>
-	      	<span style="align:right">평균별점 :
-		       <span class="starList">
-              	  <% for(int i=0 ; i<s.getAvgRating(); i++){ %>
-               		 &#9733;
-				  <% } %>
-		       </span>
-	        </span>
-        </div>
-      </div>
-      <br>
+	      <div class="recommendList" onclick="location.href='<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>&rw=star'"> 
+	
+	        <br>
+	          <img src="<%=contextPath%>/<%=s.getPath()%>" style="height: 230px; width: 300px; float: left; padding:15px; margin-bottom: 30px;" >
+	          <br>
+	          <h3><%=s.getSitterTitle()%></h3>
+	          <hr width="900px"> 
+	
+	          <div style="text-align:left; margin-bottom:30px; width: 440px;float:left; color: rgb(95, 95, 95);" > 
+	              <span><%=s.getAdditions()%></span><br>
+	                  <% if(!us.getSetAddress().equals("N")) { %>
+	                  	<br>&nbsp;&nbsp;- 회원님과의 거리는 <%=s.getDistance()%> km 입니다 
+	                  <% } %><br>
+	                  <% if(us.getCountDay() ==-1) { %>
+					  <% } else if(us.getCountDay() ==s.getDateCount()) { %>
+					      &nbsp;&nbsp;- 선택하신 일자로 예약 가능합니다
+					  <% } else if(s.getDateCount()>0){ %>
+	      				   &nbsp;&nbsp;- 선택하신 <%=us.getCountDay()%>일 중 <%=s.getDateCount()%>일만 예약가능합니다
+					  <% } %>
+					  <br><br>
+	        </div> 
+	        
+	        <div style="text-align:right;padding-bottom: 20px; padding-right: 20px;">
+		        <h5>
+			        <%if(s.getSmallNightFee().equals("0")){ %>
+			        	정보없음
+			        <%}else{ %>
+			        	<%=s.getSmallNightFee()%> 원
+			        <%} %>
+			       	 &nbsp;&nbsp;
+			       	 <span class="badge badge-pill badge-secondary"> 1 박 </span>
+		       	 </h5>
+		        <h5>
+			        <%if(s.getSmallDayFee().equals("0")){ %>
+			        	정보없음
+			        <%}else{ %>
+			        	<%=s.getSmallDayFee()%> 원
+		     	    <%} %>
+			        &nbsp;&nbsp;
+			        <span class="badge badge-pill badge-secondary"> 하루 </span>
+			    </h5>
+		      	 소형견 기준<br>
+		      	<span style="align:right">평균별점 :
+			       <span class="starList">
+	              	  <% for(int i=0 ; i<s.getAvgRating(); i++){ %>
+	               		 &#9733;
+					  <% } %>
+			       </span>
+		        </span>
+	        </div>
+	      </div>
+	      <br>
       <%}%>
       <br>
 
@@ -147,60 +151,59 @@
   </div>
   
    <script>
-	$(document).ready(function(){
-		console.log("<%=array%>");
-		var arrayCheck= "<%=array%>";
-		$("#searchArray").val(arrayCheck);
-		
-		$("#arrayDiv").children("span").each(function(){
-			if(arrayCheck==$(this).attr("id")){
-				$(this).css("font-weight","bolder");
-				$(this).css("text-decoration","underline");
-			}
+		$(document).ready(function(){
+			console.log("<%=array%>");
+			var arrayCheck= "<%=array%>";
+			$("#searchArray").val(arrayCheck);
+			
+			$("#arrayDiv").children("span").each(function(){
+				if(arrayCheck==$(this).attr("id")){
+					$(this).css("font-weight","bolder");
+					$(this).css("text-decoration","underline");
+				}
+			})
 		})
-	})
 
   
-    $(".page-link").click(function(){
-
-	      var page = $(this).text();
-	      if(page =="<"){
-	          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
-	      } else if(page==" >"){
-	        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
-	      } else {
-	        $("#searchPage").val(page);
-	      }
-	      $("#searchSubmitBtn").click();
-    })
-
-	$(".checkSearchArray").click(function(){
-	    $("#searchArray").val($(this).attr("id"));
-	    $("#searchSubmitBtn").click();
-
-	})
+	    $(".page-link").click(function(){
+	
+		      var page = $(this).text();
+		      if(page =="<"){
+		          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
+		      } else if(page==" >"){
+		        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
+		      } else {
+		        $("#searchPage").val(page);
+		      }
+		      $("#searchSubmitBtn").click();
+	    })
+	
+		$(".checkSearchArray").click(function(){
+		    $("#searchArray").val($(this).attr("id"));
+		    $("#searchSubmitBtn").click();
+	
+		})
 
 
     <%if(us!=null){%> 
 	      $(document).ready(function(){
-           // 주소를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
-	    	 	 <%if(us.getSetAddress().equals("Y")){%>
-		            $("#search_addr").val("<%=us.getAddress()%>");
-		            $("#latitude").val("<%=us.getLatitude()%>");
-		            $("#longtitude").val("<%=us.getLongtitude()%>");
+                 // 주소를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
+	    	 	<%if(us.getSetAddress().equals("Y")){%>
+			            $("#search_addr").val("<%=us.getAddress()%>");
+			            $("#latitude").val("<%=us.getLatitude()%>");
+			            $("#longtitude").val("<%=us.getLongtitude()%>");
 	            <%}%>
-            // 날짜를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
+                // 날짜를 유저가 지정했을 경우에는 지정한 값을 달력 input 화면에 노출
 		        <%if(us.getSetDate().equals("Y")){%>
-		           	$("input[name=chooseDate]").val("<%=us.getSearchStartDate()%>"+" - "+"<%=us.getSearchEndDate()%>");
+		      	     	$("input[name=chooseDate]").val("<%=us.getSearchStartDate()%>"+" - "+"<%=us.getSearchEndDate()%>");
 		        <%}%>
-            <%if(us.getOptions()!=null){%>
-         		   <%for(int i=0 ; i<us.getOptions().length; i++){%>
-         		  			$("#<%=us.getOptions()[i]%>").prop('checked', true);
-         		   <%}%>
-
-		    <%}%>
+           		<%if(us.getOptions()!=null){%>
+	         		   <%for(int i=0 ; i<us.getOptions().length; i++){%>
+	         		  		$("#<%=us.getOptions()[i]%>").prop('checked', true);
+	         		   <%}%>
+		       <%}%>
 	      })   
-     <%} %>   
+     <% } %>   
     </script>
 
 

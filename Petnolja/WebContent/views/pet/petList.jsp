@@ -73,7 +73,7 @@
         </div><br>
 
 
-        <div class="modal deletePet" id=delete<%=p.getPetNo()%>>
+        <div class="modal deletePet" id="delete<%=p.getPetNo()%>">
             <div class="modal-dialog">
               <div class="modal-content" style="width:400px">
                 <div class="modal-body" align="center"><br>

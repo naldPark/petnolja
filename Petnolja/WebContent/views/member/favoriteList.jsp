@@ -74,7 +74,7 @@
 			        </div>
 			        <div id="linkList" style="padding-left:800px; text-align: center;">
 			            <br>
-			            <a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>"><span>자세히보기</span></a><br><br>
+			            <a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>&rw=star"><span>자세히보기</span></a><br><br>
 			            <div class="likeImgDiv" value=<%=s.getSitterNo()%>><img src="<%=contextPath%>/resources/images/member/favoriteHeart.png"></div><br>
 			        </div>
 			      </div>

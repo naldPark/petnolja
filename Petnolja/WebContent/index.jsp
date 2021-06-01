@@ -90,7 +90,7 @@
             		
        <% }else { %>
 	      	 <% for(Sitter s : sitterList){ %>
-     			 <div class="recommend"><a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>"><img src="<%=s.getPath() %>"></a></div>
+     			 <div class="recommend"><a href="<%=contextPath%>/searchSitterDetail.mem?sno=<%=s.getSitterNo()%>&rw=star"><img src="<%=s.getPath() %>"></a></div>
 			 <% } %>
 			 <% for(Sitter s : sitterList){ %>
      			 <div class="recommendTitle" ><%=s.getSitterTitle() %></div>

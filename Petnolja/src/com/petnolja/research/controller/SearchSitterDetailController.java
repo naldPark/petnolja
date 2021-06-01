@@ -34,6 +34,7 @@ public class SearchSitterDetailController extends HttpServlet {
 		
 		int userNo=-1;
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
+		String array = request.getParameter("rw");
 		
 		// 로그인을 했다면 유저no를 담는다
 		if(request.getSession().getAttribute("loginUser") != null) {
@@ -55,13 +56,14 @@ public class SearchSitterDetailController extends HttpServlet {
 		}
 		
 		// 하단의 리뷰리스트를 가져온다
-		ArrayList<Review> rwList = new ResearchService().sitterReview(sitterNo);
+		ArrayList<Review> rwList = new ResearchService().sitterReview(sitterNo,array);
 		
 		// 리뷰리스트의 총 갯수확인
 		int listCount = new ResearchService().reviewListCount(sitterNo);
 		int maxPage = (int)Math.ceil((double)listCount / 3);
 		
-		
+		request.setAttribute("array", array);
+		request.setAttribute("listCount", listCount);	
 		request.setAttribute("rwList", rwList);	
 		request.setAttribute("sitterPic", sitterPic);	
 		request.setAttribute("sitterInfo", sitterInfo);	

@@ -36,11 +36,12 @@ public class SearchDetailReviewAjax extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String array = request.getParameter("array");
 		int startRow = currentPage==1 ?  1 : (currentPage*3)+1;	 
 		int endRow = startRow+2;		
 		
 		// 하단의 리뷰리스트를 가져온다
-		ArrayList<Review> rwList = new ResearchService().sitterReviewAjax(sitterNo, startRow, endRow);
+		ArrayList<Review> rwList = new ResearchService().sitterReviewAjax(sitterNo, startRow, endRow, array);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(rwList, response.getWriter());

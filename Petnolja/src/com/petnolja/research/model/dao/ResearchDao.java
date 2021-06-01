@@ -144,9 +144,6 @@ public class ResearchDao {
 						pstmt=conn.prepareStatement(sql);
 						int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 						int endRow = startRow + pi.getBoardLimit() - 1;
-						System.out.println("srateROw"+startRow);
-						System.out.println("endROw"+endRow);
-						
 						pstmt.setDouble(1, m.getMemLatitude()); //위도측정용
 						pstmt.setDouble(2, m.getMemLongtitude()); //경도측정용
 						pstmt.setString(3, startDate); //시작날짜
@@ -250,8 +247,8 @@ public class ResearchDao {
 			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				list.add(new Pet(rset.getInt("MEM_NO"),
-						rset.getInt("PET_NO"),
+				list.add(new Pet(rset.getInt("PET_NO"),
+						rset.getInt("MEM_NO"),
 						rset.getString("pet_name"),
 						rset.getString("pet_birth"),
 					    rset.getString("pet_gender"),
@@ -295,11 +292,16 @@ public class ResearchDao {
 	
 	
 	//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보
-		public ArrayList<Review> sitterReview(Connection conn, int sitterNo) {
+		public ArrayList<Review> sitterReview(Connection conn, int sitterNo, String array) {
 			ArrayList<Review> list = new ArrayList<>();
 			ResultSet rset = null;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("reviewList");
+			if(array.equals("recent")) {
+				sql+="order by rev_date desc) R )WHERE RNUM BETWEEN 1 AND 3";
+			} else {
+				sql+="order by REV_RATING desc) R )WHERE RNUM BETWEEN 1 AND 3";	
+			}
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, sitterNo);
@@ -325,11 +327,17 @@ public class ResearchDao {
 		}
 		
 		//searchPetsitterDetail.jsp에서 특정 펫시터의 리뷰정보Ajax
-		public ArrayList<Review> sitterReviewAjax(Connection conn, int sitterNo, int startRow, int endRow) {
+		public ArrayList<Review> sitterReviewAjax(Connection conn, int sitterNo, int startRow, int endRow, String array) {
 			ArrayList<Review> list = new ArrayList<>();
 			ResultSet rset = null;
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("reviewListAjax");
+			String sql = prop.getProperty("reviewList");
+			if(array.equals("recent")) {
+				sql+="order by rev_date desc";
+			} else {
+				sql+="order by REV_RATING desc";	
+			}
+			sql+=") R )WHERE RNUM BETWEEN ? AND ?";
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, sitterNo);
