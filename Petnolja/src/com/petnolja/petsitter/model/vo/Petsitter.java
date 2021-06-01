@@ -62,11 +62,11 @@ public class Petsitter {
 		this.additions = additions;
 	}
 
-	public Petsitter(String memID, int sitterNo, String petPeriod, String petNo, String license, String experience,
+	public Petsitter(int sitterNo, String memID, String petPeriod, String petNo, String license, String experience,
 			String motive, String addContent, String additions) {
 		super();
-		this.memID = memID;
 		this.sitterNo = sitterNo;
+		this.memID = memID;
 		this.petPeriod = petPeriod;
 		this.petNo = petNo;
 		this.license = license;

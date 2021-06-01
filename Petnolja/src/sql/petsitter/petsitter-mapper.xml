@@ -41,12 +41,13 @@
 							    ,ADDITIONS
 		                FROM SITTER
 						JOIN MEMBER ON(SITTER_NO = MEM_NO)
-		                WHERE PROMOTION_STATUS = 'Y' AND SITTER_ACCESS = 'Y'
 		                ORDER 
-			BY SITTER.PROMOTION_DATE DESC
+		                	BY SITTER.PROMOTION_DATE DESC
 		                ) A
 		        )
-		 WHERE RNUM BETWEEN ? AND ?
+		 WHERE (RNUM BETWEEN ? AND ?)
+		 AND (PROMOTION_STATUS = 'Y') 
+		 AND (SITTER_ACCESS = 'Y')
 
 	</entry>
 	
@@ -78,25 +79,42 @@
 	<entry key="selectNewPetsitter">
 		SELECT
 			SITTER_NO
-    		,MEM_ID
-		    ,PET_PERIOD
-		    ,PET_NO
-		    ,LICENSE
-		    ,EXPERIENCE
-		    ,MOTIVE
-		    ,ADD_CONTENT
-		    ,ADDITIONS
+			,MEM_ID
+			,PET_PERIOD
+			,PET_NO
+			,LICENSE
+			,EXPERIENCE
+			,MOTIVE
+			,ADD_CONTENT
+			,ADDITIONS
 		FROM SITTER
 		JOIN MEMBER ON(SITTER_NO = MEM_NO)
-		ORDER 
-			BY SITTER.SITTER_NO DESC
+		WHERE SITTER_NO = ?
 	</entry>
 	
 	<entry key="deleteOldPetsitter">
 		UPDATE
-        SITTER
-    SET PROMOTION_STATUS = 'N'
-    WHERE SITTER_NO = ?
+        	SITTER
+    	SET PROMOTION_STATUS = 'N'
+    	WHERE SITTER_NO = ?
+	</entry>
+	
+	<entry key="sitterAccept">
+		UPDATE
+        	SITTER
+	       SET 
+        	(PROMOTION_STATUS, SITTER_ACCESS) = ('Y', 'Y')
+         WHERE
+         	SITTER_NO = ?
+	</entry>
+	
+	<entry key="sitterDeny">
+		UPDATE
+        	SITTER
+	       SET 
+        	(PROMOTION_STATUS, SITTER_ACCESS) = ('N', 'N')
+         WHERE
+         	SITTER_NO = ?
 	</entry>
 	
 </properties>
