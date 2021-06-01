@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.member.model.vo.Member, com.petnolja.pet.model.vo.Pet, java.util.ArrayList" %>
 
 <%
-	int 
+	Member m = (Member)request.getAttribute("m");
+	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
 %>
 <!DOCTYPE html>
 <html>
@@ -75,6 +77,13 @@
             float: left;
             font-size: 13px;
         }
+        
+        <% if(!petList.isEmpty()) {%>
+        #pet-list>tbody>tr:hover{
+            background-color: rgb(255, 254, 190);
+            cursor:pointer;
+        }
+        <% } %>
 
         #petProfile>div {
             height: 100%;
@@ -137,12 +146,12 @@
     <div class="outer">
         <div id="petDetail1">
             <div class="top" id="mem-info" align="left">
-                <label>고객명 : 이지은</label>  
-                <label>ID : jieun1004</label>
+                <label>고객명 : <%=m.getMemName() %></label>  
+                <label>ID : <%=m.getMemId() %></label>
             </div>
             <div id="buttons">
-                <button class="btn btn-warning btn-sm" style="font-size: 14px;">삭제</button>
-                <button class="btn btn-primary btn-sm" style="font-size: 14px;">목록으로</button>
+                <button onclick="deletePet();" class="btn btn-warning btn-sm" style="font-size: 14px;">삭제</button>
+                <button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=1'" class="btn btn-primary btn-sm" style="font-size: 14px;">목록으로</button>
 
             </div>
         </div>
@@ -158,115 +167,60 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>001</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>002</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>003</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>004</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>005</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>006</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>007</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>008</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>009</td>
-                            <td>백구</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>010</td>
-                            <td>백구</td>
-                        </tr>
+                    <%if (petList.isEmpty()) { %>
+                    	<tr>
+                    		<td colspan="3">등록된 펫이 없습니다.</td>
+                    	</tr>
+                    <% } else { %>
+                    
+                    	<%for(Pet p : petList) {%>
+	                        <tr>
+	                            <td><input type="checkbox"></td>
+	                            <td><%=p.getPetNo() %></td>
+	                            <td><%=p.getPetName() %></td>
+	                        </tr>
+                        <% } %> 	
+                    <% } %>
+
                     </tbody>
                 </table>
             </div>
             <div id="petProfile">
                 <div id="pet-img">
-                    <img src="resources/img/symbol.png" width="250px" height="250px">
-                    <label>백구</label>
+                    <img src="resources/images/logo.png" width="250px" height="250px">
+                    <label id="petName"></label>
                 </div>
                 <div id="petInfo">
                     <table border="1px solid" class="table" id="pet-info">
                         <tr>
                             <th width="18%;">성별</th>
-                            <td width="23%;">F</td>
+                            <td id="gender" width="23%;"></td>
                             <th width="18%;">등록</th>
-                            <td width="42%;">내장형</td>
+                            <td id="chip" width="42%;"></td>
                         </tr>
                         <tr>
                             <th>견종</th>
-                            <td>시고르자브종</td>
+                            <td id="breed"></td>
                             <th>예방접종</th>
-                            <td>종합백신/코로나장염/광견병</td>
+                            <td id="vaccine" ></td>
                         </tr>
                         <tr>
                             <th>생일</th>
-                            <td>2018/05/15</td>
+                            <td id="birth" ></td>
                             <th>주의사항</th>
-                            <td>음식알러지/약물복용/분리불안/지병/기타</td>
+                            <td id="caution" ></td>
                         </tr>
                         <tr>
                             <th>몸무게</th>
-                            <td>3kg(소형)</td>
+                            <td id="size" ></td>
                             <th>참고사항</th>
-                            <td>부드러운사료만먹음.<br> 산책좋아함.</td>
+                            <td id="note" ></td>
                         </tr>
                         <tr>
                             <th>중성화</th>
-                            <td>Y/N</td>
-                            <th>병원정보</th>
-                            <td>병원명: 삐뽀삐뽀병원</td>
+                            <td id="neutered"></td>
+                            <th style="height:70px;">병원정보</th>
+                            <td id="hospital"></td>
                         </tr>
                     </table>
                 </div>
@@ -275,6 +229,74 @@
     </div>
 
     <br><br><br><br><br>
+    
+    <script>
+    
+    	$(function(){
+       		$("#pet-list>tbody>tr").on("click", function(){
+
+       			var petNo = $(this).children().eq(1).text();
+       			var petName = $(this).children().eq(2).text();
+       			
+      			$.ajax({
+      				url:"petdetail.ad",
+      				data:{petNo: petNo},
+      				type:"post",
+      				success:function(p){
+      					$("#petName").text(petName);
+						$("#gender").text(p.petGender);
+						$("#chip").text(p.chip);
+						$("#breed").text(p.petBreed);
+						$("#vaccine").text(p.vaccine);
+						$("#birth").text(p.petBirth);
+						$("#caution").text(p.caution);
+						$("#size").text(p.petWeight + "kg (" + p.petSize + ")");
+						$("#note").text(p.note);
+						$("#neutered").text(p.neutered);
+						$("#hospital").html(p.hospi + "<br>" + p.hospiTel);
+      					
+      				}, error : function(){
+      					console.log("회원 펫정보 상세조회 ajax통신 실패");
+      				}
+      			});
+       		});    		
+    	});
+    	
+    	function deletePet(){
+    		
+    		var petNoArr = [];
+    		$("input[type=checkbox]:checked").each(function(){
+	    		petNoArr.push($(this).parent().siblings().eq(0).text());
+    		});
+    		
+    		var petNoList = petNoArr.join(",");
+    		
+    		if(confirm("선택한 반려동물을 삭제하시겠습니까?")){
+    			
+	    		$.ajax({
+	    			url:"petdelete.ad",
+	    			data:{petNoList:petNoList},
+	    			type:"post",
+	    			success:function(result){
+	    				
+	    				if(result == petNoArr.length){
+	    					alert("성공적으로 처리되었습니다.");
+		    				$("input[type=checkbox]:checked").each(function(){
+		    					$(this).parents("tr").remove();
+		    				});
+	    				}
+	    			}, error:function(){
+	    				console.log("회원 펫정보 삭제 ajax통신 실패");
+	    			}
+	    		});
+    		} else {
+    			$(":checkbox").prop("checked", false);
+    		}
+    	}
+    	
+    
+
+    </script>
 
 
 </body>

@@ -27,6 +27,20 @@ public class Notice {
 		this.noticeStatus = noticeStatus;
 		this.noticeCount = noticeCount;
 	}
+	
+	
+
+	/** 최서경
+	 * 전체 공지사항 목록 조회용
+	 */
+	public Notice(int noticeNo, String noticeWriter, String noticeTitle, Date createDate, int noticeCount) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeWriter = noticeWriter;
+		this.noticeTitle = noticeTitle;
+		this.createDate = createDate;
+		this.noticeCount = noticeCount;
+	}
 
 	public int getNoticeNo() {
 		return noticeNo;

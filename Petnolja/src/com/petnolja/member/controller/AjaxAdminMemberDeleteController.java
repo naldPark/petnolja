@@ -1,23 +1,26 @@
 package com.petnolja.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.member.model.service.MemberService;
+
 /**
- * Servlet implementation class AdminMemberPetListController
+ * Servlet implementation class AjaxAdminMemberDeleteController
  */
-@WebServlet("/mempet.ad")
-public class AdminMemberPetListController extends HttpServlet {
+@WebServlet("/memdelete.ad")
+public class AjaxAdminMemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberPetListController() {
+    public AjaxAdminMemberDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,16 +30,15 @@ public class AdminMemberPetListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int memNo = Integer.parseInt(request.getParameter("mno"));
-		String memName = request.getParameter("name");
+		response.setContentType("application/json; charset=utf-8");
+
+		String memNoList = request.getParameter("memNoList");
+		String[] list = memNoList.split(",");
 		
-		// 회원 번호 사용해서 펫정보 조회, 화면에 뿌리기.
-		System.out.println(memNo);
-		System.out.println(memName);
+		int result = new MemberService().adminDeleteMember(list);
 		
-		request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
+		response.getWriter().print(result);
 	
-		
 	}
 
 	/**

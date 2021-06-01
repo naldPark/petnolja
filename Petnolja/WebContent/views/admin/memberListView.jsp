@@ -78,7 +78,7 @@
         <button class="btn btn-dark btn-sm" onclick="blockMember();">차단</button>
         <button class="btn btn-success btn-sm" onclick="unblockMember();">해제</button>
         
-        <button class="btn btn-warning btn-sm">삭제</button>
+        <button class="btn btn-warning btn-sm" onclick="deleteMember();">삭제</button>
     </div>
 
     <br><br>
@@ -151,7 +151,7 @@
     		<% } %>
     	<% } %>
         
-        <% if(currentPage != maxPage) { %>
+        <% if(currentPage != maxPage && !list.isEmpty()) { %>
         	<button onclick="location.href='<%=contextPath%>/memlist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
         <% } %>
 
@@ -164,7 +164,7 @@
 
     <script>
     
-    	//블랙리스트 등록
+    	//블랙리스트 등록 (방법1. for문 방법)
     	function blockMember(){
     		//console.log("되나?");
 
@@ -206,9 +206,8 @@
     	}
     	
     	
-    	// 블랙리스트 해제
+    	// 블랙리스트 해제 (방법2. 동적 sql방법)
     	function unblockMember(){
-    		//console.log("되나?");
 
     		var memNoArr = [];
     		$("input[type=checkbox]:checked").each(function(){
@@ -244,14 +243,47 @@
 			} 		
     	}
 
+    	// 회원 삭제
+    	function deleteMember(){
+
+    		var memNoArr = [];
+    		$("input[type=checkbox]:checked").each(function(){
+    		    memNoArr.push($(this).parent().siblings().eq(0).text());
+    		});
+    		
+    	    var memNoList = memNoArr.join(",");
+    		
+			if(confirm("선택한 회원을 삭제하시겠습니까?")){
+				
+				$.ajax({
+					url:"memdelete.ad",
+					data:{memNoList:memNoList},
+					type:"post",
+					success:function(result){
+						if(result == memNoArr.length){
+							alert("성공적으로 처리되었습니다.");
+							$("input[type=checkbox]:checked").each(function(){
+								$(this).parents("tr").remove();
+							});
+						}
+						
+					}, error:function(){
+						console.log("블랙리스트 해제 ajax통신 실패");
+					}
+				});
+			} else {
+				$(":checkbox").prop("checked", false);
+			} 		
+    	}
+
     	
     	// 펫 상세정보 보기
     	$(".petDetail").on("click", function(){
     		
     		var mno = $(this).parent().siblings().eq(1).text();
-    		var mname = $(this).parent().siblings().eq(3).children().text();
+    		//var mname = $(this).parent().siblings().eq(3).children().text();
     		    		
-    		location.href = "<%=contextPath%>/mempet.ad?mno=" + mno + "&name=" + mname;
+    		location.href = "<%=contextPath%>/mempet.ad?mno=" + mno;
     	});
     	
     </script>

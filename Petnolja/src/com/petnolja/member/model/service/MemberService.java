@@ -144,9 +144,7 @@ public class MemberService {
 		return result;
 	}
 
-	/**
-	 * 최서경
-	 * 
+	/** 최서경
 	 * @return 총 회원 수 (관리자)
 	 */
 	public int selectListCount() {
@@ -160,9 +158,7 @@ public class MemberService {
 
 	}
 
-	/**
-	 * 최서경
-	 * 
+	/** 최서경
 	 * @return 총 회원 목록 조회
 	 */
 	public ArrayList<Member> selectList(PageInfo pi) {
@@ -173,8 +169,8 @@ public class MemberService {
 		return list;
 	}
 
-	/**
-	 * 최서경 관리자 페이지에서 회원 정보 수정
+	/** 최서경
+ 	 * 관리자 페이지에서 회원 정보 수정
 	 */
 	public int adminUpdateMember(int memNo, String updateCol, String updateVal) {
 		Connection conn = getConnection();
@@ -190,8 +186,8 @@ public class MemberService {
 		return result;
 	}
 
-	/**
-	 * 최서경 관리자 회원 블랙리스트 등록
+	/** 최서경
+	 * 관리자 회원 블랙리스트 등록 (방법1. for문 방법)
 	 */
 	public int blockMember(String[] list) {
 		Connection conn = getConnection();
@@ -206,8 +202,8 @@ public class MemberService {
 		return result;
 	}
 
-	/**
-	 * 최서경 관리자 회원 블랙리스트 해제
+	/** 최서경
+	 * 관리자 회원 블랙리스트 해제 (방법2. 동적sql방법)
 	 */
 	public int unblockMember(String[] list) {
 		Connection conn = getConnection();
@@ -222,5 +218,35 @@ public class MemberService {
 
 		close(conn);
 		return result;
+	}
+	
+	/** 최서경
+	 * 관리자 회원 삭제
+	 */
+	public int adminDeleteMember(String[] list) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().adminDeleteMember(conn, list);
+		
+		if(result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	/** 최서경
+	 *  회원 번호를 이용하여 회원정보 조회
+	 */
+	public Member selectMember(int memNo) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectMember(conn, memNo);
+		
+		close(conn);
+		return m;
 	}
 }

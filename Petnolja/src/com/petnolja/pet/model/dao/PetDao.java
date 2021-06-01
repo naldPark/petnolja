@@ -28,6 +28,9 @@ public class PetDao {
 		}
 	}
 	
+	/**
+	 * 펫 등록
+	 */
 	public int insertPet(Connection conn, Pet p) {
 		// insert문
 		int result = 0;
@@ -63,6 +66,9 @@ public class PetDao {
 		return result;
 	}
 	
+	/**
+	 * 펫정보 조회
+	 */
 	public Pet selectPet(Connection conn, int petNo){
 		// select문 => ResultSet (여러행)
 		Pet p = null;
@@ -103,6 +109,109 @@ public class PetDao {
 		
 		return p;
 	}
+	
+	/** 최서경
+	 * 특정 회원의 펫 목록 조회
+	 */
+	public ArrayList<Pet> selectPetList(Connection conn, int memNo){
+		ArrayList<Pet> petList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPetList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				petList.add(new Pet(rset.getInt("pet_no"),
+									rset.getString("pet_name")));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return petList;
+	}
+	
+	/** 최서경
+	 * 회원의 펫 목록 -> 클릭하여 펫 상세정보 조회
+	 */
+	public Pet selectAdminPetDetail(Connection conn, int petNo) {
+		
+		Pet p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminPetDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Pet(rset.getString("pet_birth"),
+							rset.getInt("pet_weight"),
+							rset.getString("pet_gender"),
+							rset.getString("pet_size"),
+							rset.getString("pet_breed"),
+							rset.getString("pet_img"),
+							rset.getString("vaccine"),
+							rset.getString("caution"),
+							rset.getString("note"),
+							rset.getString("hospi"),
+							rset.getString("hospi_tel"),
+							rset.getString("neutered"),
+							rset.getString("chip"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
+	}
+
+	/** 최서경
+	 * 회원의 펫 목록 -> 펫정보 삭제
+	 */	
+	public int adminDeletePet(Connection conn, String[] petList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminDeletePet");
+		
+		sql += "WHERE PET_NO IN(" + String.join(",", petList) + ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.service.MemberService;
-import com.petnolja.member.model.vo.Member;
+import com.petnolja.notice.model.service.NoticeService;
+import com.petnolja.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class AdminNoticeListController
@@ -33,7 +34,8 @@ public class AdminNoticeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+		request.setCharacterEncoding("UTF-8");
+		
 		// ---------------- 페이징 처리 --------------------
 		int listCount; 		// 현재 총 게시글 갯수
 		int currentPage; 	// 현재 페이지(즉, 사용자가 요청한 페이지)
@@ -44,7 +46,7 @@ public class AdminNoticeListController extends HttpServlet {
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 		int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
 		
-		listCount = new MemberService().selectListCount();
+		listCount = new NoticeService().selectListCount();
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
@@ -64,10 +66,10 @@ public class AdminNoticeListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		//ArrayList<Notice> list = new BoardService().selectList(pi);
+		ArrayList<Notice> list = new NoticeService().selectList(pi);
 		
 		request.setAttribute("pi", pi);
-		//request.setAttribute("list", list);
+		request.setAttribute("list", list);
 
 		
 		request.getRequestDispatcher("views/admin/noticeListView.jsp").forward(request, response);
