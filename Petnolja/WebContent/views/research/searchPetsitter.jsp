@@ -55,7 +55,9 @@
     <div style="text-align:left; margin-bottom:30px; padding-left:20px; padding-right:20px;" > 
       <br>
 
-      <div style="text-align: right; padding-right: 20px;"><img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
+      <div style="text-align: right; padding-right: 20px;" id="arrayDiv">
+      	  <img src="<%=contextPath%>/resources/images/member/array.png" style="height: 13px"> &nbsp;정렬 &nbsp;&nbsp;
+		  <span style="text-decoration: none; color:gray" class="checkSearchArray" id="recommend">추천순</span> | 
           <span style="text-decoration: none; color:gray" class="checkSearchArray" id="starArray">별점순</span> | 
           <span  style="text-decoration: none; color:gray" class="checkSearchArray" id="priceArray">가격순</span> | 
           <% if(!us.getSetAddress().equals("N")) { %>
@@ -149,7 +151,13 @@
 		console.log("<%=array%>");
 		var arrayCheck= "<%=array%>";
 		$("#searchArray").val(arrayCheck);
-		console.log("지금값"+$("#searchArray").val());
+		
+		$("#arrayDiv").children("span").each(function(){
+			if(arrayCheck==$(this).attr("id")){
+				$(this).css("font-weight","bolder");
+				$(this).css("text-decoration","underline");
+			}
+		})
 	})
 
   
