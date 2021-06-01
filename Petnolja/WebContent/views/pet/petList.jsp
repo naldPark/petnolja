@@ -68,16 +68,18 @@
             <div class="linkList" style="padding-left:750px; text-align: center;">
                 <button type="button" class="btn btn-outline-primary btn-block">자세히보기</button>
                 <button type="submit" class="btn btn-outline-secondary btn-block" onclick="location.href='<%=contextPath%>/updatePet.me?pno=<%=p.getPetNo()%>';">수정</button>
-                <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
+                <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#delete<%=p.getPetNo()%>">삭제</button><br>
             </div>
         </div><br>
 
 
-        <div class="modal deletePet">
+        <div class="modal deletePet" id=delete<%=p.getPetNo()%>>
             <div class="modal-dialog">
               <div class="modal-content" style="width:400px">
                 <div class="modal-body" align="center"><br>
 	                <form action="<%=contextPath%>/deletePet.me" method="post">
+                        <input type="hidden" value="<%=p.getPetNo()%>">
+                        <input type="hidden" value="<%=p.getPetImg()%>">
 	                    <h4><b><%=p.getPetName()%> 삭제</b></h4><br>삭제 이후 복원이 불가합니다.<br>반려동물의 정보를 모두 삭제하시겠습니까?<br><br>
 	                    <button type="submit" class="btn btn-primary" class="deleteButton">삭제</button>
 	                    <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
