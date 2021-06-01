@@ -53,13 +53,13 @@
     <div align="right">
     <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
-          <% if(loginUser==null||plist.isEmpty()){ %>
+          <% if(loginUser==null||plist==null){ %>
       	<br>조회된 리스트가 없습니다.<br><br><br>
             		
        <% }else { %>
 	      	 <% for(Pet p : plist){ %>
         <div class="petBox"> 
-            <div class="petImg"><img src="<%=contextPath %>/<%=p.getPetImg()%>"> style="height: 130px;"></div>
+            <div class="petImg"><img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height: 130px;"></div>
             <div style="float:left;">
                 <br>
                 <h6><b></b></h6><br>

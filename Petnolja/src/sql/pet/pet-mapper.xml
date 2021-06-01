@@ -117,4 +117,25 @@
 		    PET_STATUS = 'N'
 		    
 	</entry>
+	
+	<entry key="updatePet">
+      UPDATE
+            PET
+         SET PET_NAME = ?
+          , PET_GENDER = ?
+           , PET_BREED = ?
+           , PET_BIRTH = ?
+           , PET_WEIGHT = ?
+           , NEUTERED = ?
+           , CHIP = ?
+           , PET_IMG = ?
+           , PET_SIZE = ?
+           , VACCINE = ?
+           , CAUTION = ?
+           , NOTE = ?
+           , HOSPI = ?
+           , HOSPI_TEL = ?
+       WHERE PET_NO = ?     
+   </entry>
+	
 </properties>

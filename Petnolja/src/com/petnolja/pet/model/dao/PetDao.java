@@ -235,5 +235,39 @@ public class PetDao {
 		return result;
 	}
 	
+	public int updatePet(Connection conn, Pet p) {
+	      // update문
+	      int result = 0;
+	      PreparedStatement pstmt = null;
+	      String sql = prop.getProperty("updatePet");
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, p.getPetName());
+	         pstmt.setString(2, p.getPetGender());
+	         pstmt.setString(3, p.getPetBreed());
+	         pstmt.setString(4, p.getPetBirth());
+	         pstmt.setDouble(5, p.getPetWeight());
+	         pstmt.setString(6, p.getNeutered());
+	         pstmt.setString(7, p.getChip());
+	         pstmt.setString(8, p.getPetImg());
+	         pstmt.setString(9, p.getPetSize());
+	         pstmt.setString(10, p.getVaccine());
+	         pstmt.setString(11, p.getCaution());
+	         pstmt.setString(12, p.getNote());
+	         pstmt.setString(13, p.getHospi());
+	         pstmt.setString(14, p.getHospiTel());
+	         pstmt.setInt(15, p.getPetNo());
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	   }
+	
 	
 }
