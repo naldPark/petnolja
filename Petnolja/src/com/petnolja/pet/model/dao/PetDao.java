@@ -270,6 +270,31 @@ public class PetDao {
 	      
 	      return result;
 	   }
+	/** 박정빈
+	 *  반려견 목록 삭제 기능
+	 */
+	public int deletePet(Connection conn, int petNo, String petImg) {
+		// update문
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deletePet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			pstmt.setString(2, petImg);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
-}
+}	
+	
+	

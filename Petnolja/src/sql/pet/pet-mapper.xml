@@ -138,4 +138,12 @@
        WHERE PET_NO = ?     
    </entry>
 	
+	<entry key="deletePet">
+		UPDATE
+		       PET
+		   SET PET_STATUS = 'N'
+		 WHERE PET_NO = ?
+		   AND PET_IMG = ?
+	</entry>
+	
 </properties>

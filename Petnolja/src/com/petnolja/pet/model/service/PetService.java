@@ -82,7 +82,9 @@ public class PetService {
 		return result;
 	}
 	
-	
+	/** 박정빈
+	 * 펫 정보 수정 관련
+	 */
 	public int updatePet(Pet p) {
 	      Connection conn = getConnection();
 	      int result = new PetDao().updatePet(conn, p);
@@ -98,5 +100,16 @@ public class PetService {
 	      return result;
 	   }
 	
+	public int deletePet(int petNo, String petImg) {
+		Connection conn = getConnection();
+		int result = new PetDao().deletePet(conn, petNo, petImg);
+		
+		close(conn);
+		return result;
+	}
+	
 	
 }
+	
+	
+

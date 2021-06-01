@@ -78,8 +78,8 @@
               <div class="modal-content" style="width:400px">
                 <div class="modal-body" align="center"><br>
 	                <form action="<%=contextPath%>/deletePet.me" method="post">
-                        <input type="hidden" value="<%=p.getPetNo()%>">
-                        <input type="hidden" value="<%=p.getPetImg()%>">
+                        <input type="hidden" name="petNo" value="<%=p.getPetNo()%>">
+                        <input type="hidden" name="petImg" value="<%=p.getPetImg()%>">
 	                    <h4><b><%=p.getPetName()%> 삭제</b></h4><br>삭제 이후 복원이 불가합니다.<br>반려동물의 정보를 모두 삭제하시겠습니까?<br><br>
 	                    <button type="submit" class="btn btn-primary" class="deleteButton">삭제</button>
 	                    <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
