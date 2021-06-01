@@ -1,5 +1,6 @@
 package com.petnolja.pet.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -37,6 +38,7 @@ public class PetListUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+<<<<<<< Updated upstream
 	      
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -58,13 +60,37 @@ public class PetListUpdateController extends HttpServlet {
 	      p.setNeutered(multiRequest.getParameter("middle"));
 	      p.setChip(multiRequest.getParameter("dogAdd"));
 	      p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getFilesystemName("file1"));
+=======
+		Pet p = new Pet();
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			int maxSize = 10 * 1024 * 1024;
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfiles/pet_upfiles/");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+
+		    p.setPetNo(Integer.parseInt(multiRequest.getParameter("petNo")));
+		    p.setPetName(multiRequest.getParameter("petName"));
+		    p.setPetGender(multiRequest.getParameter("gender"));
+		    p.setPetBreed(multiRequest.getParameter("dogBreed"));
+		    p.setPetBirth(multiRequest.getParameter("birth"));
+		    p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
+		    p.setNeutered(multiRequest.getParameter("middle"));
+		    p.setChip(multiRequest.getParameter("dogAdd"));
+		    p.setPetImg(multiRequest.getParameter("originImgSrc"));
+		    if(multiRequest.getFilesystemName("file1")!=null) {
+		    	p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getFilesystemName("file1"));
+		    	new File(request.getSession().getServletContext().getRealPath("/")+multiRequest.getParameter("originImgSrc")).delete();
+		    }
+
+>>>>>>> Stashed changes
 	      
 	      if(p.getPetWeight()>=15.0){
-	         p.setPetSize("대형견");
+	    	  	p.setPetSize("대형견");
 	         }else if(p.getPetWeight()>=7.0){
-	         p.setPetSize("중형견");
+	        	p.setPetSize("중형견");
 	         }else{
-	         p.setPetSize("소형견");
+	        	p.setPetSize("소형견");
 	         }
 	      
 	      if(multiRequest.getParameterValues("Vacci")!=null) {
@@ -89,7 +115,10 @@ public class PetListUpdateController extends HttpServlet {
 	         request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	      }
 	      
+<<<<<<< Updated upstream
 	      
+=======
+>>>>>>> Stashed changes
 		}
 	}
 

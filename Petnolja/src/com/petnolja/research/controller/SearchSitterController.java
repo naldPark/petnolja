@@ -106,6 +106,7 @@ public class SearchSitterController extends HttpServlet {
 		int listCount = new ResearchService().searchListCount(startDate, endDate, options);
 		int currentPage = 1;
 		if(request.getParameter("searchPage")!=null) {currentPage = Integer.parseInt(request.getParameter("searchPage"));}
+		System.out.println(currentPage);
 		int pageLimit = 10;
 		int boardLimit = 5;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
@@ -136,7 +137,7 @@ public class SearchSitterController extends HttpServlet {
 		}
 		// jsp에 보내서 검색한 값 그대로 보여주기 위함 (주소, 날짜, 옵션)
 		UserSetSearch us = new UserSetSearch(setDate, countDay, startDate, endDate, setAddress, m.getMemAddress(), m.getMemLatitude(), m.getMemLongtitude(), options);
-		
+		request.setAttribute("array", array);
 		request.setAttribute("searchlist", searchlist);	
 		request.setAttribute("userSet", us);
 		request.setAttribute("pi", pi);

@@ -35,7 +35,11 @@
 				</td>
 			</table>
 			<div id="file-area">
+<<<<<<< Updated upstream
 			<input type="file" id="file1" name="file1" value="<%=p.getPetImg()%>" onchange="checkSize(this); loadImg(this, 1);"> 
+=======
+			<input type="file" id="file1" name="file1" value="" onchange="checkSize(this); loadImg(this, 1);"> 
+>>>>>>> Stashed changes
 			<input type="hidden" name ="originImgSrc" value="<%=p.getPetImg()%>">
 			</div>
 			<br>

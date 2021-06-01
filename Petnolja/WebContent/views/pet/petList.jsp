@@ -71,53 +71,26 @@
                 <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target=".deletePet">삭제</button><br>
             </div>
         </div><br>
-	<% } %>
-	<% } %>
-      <!-- 뭉뭄이 리스트 끝-->
 
 
-        <div class="modal deletePet" id="deletePet">
+        <div class="modal deletePet">
             <div class="modal-dialog">
               <div class="modal-content" style="width:400px">
-                <div class="modal-body" align="center">
-                <br>
-                    <h4><b>개똥이 삭제</b></h4><br>삭제 이후 복원이 불가합니다.<br>반려동물의 정보를 모두 삭제하시겠습니까?<br><br>
-                    <button type="button" class="btn btn-primary" id="deleteButton">
-                        삭제
-                      </button>
-                    <button type="button" class="btn btn-secondary"  data-dismiss="modal">
-                        취소
-                      </button>
-                      <br><br>
+                <div class="modal-body" align="center"><br>
+	                <form action="<%=contextPath%>/deletePet.me" method="post">
+	                    <h4><b><%=p.getPetName()%> 삭제</b></h4><br>삭제 이후 복원이 불가합니다.<br>반려동물의 정보를 모두 삭제하시겠습니까?<br><br>
+	                    <button type="submit" class="btn btn-primary" class="deleteButton">삭제</button>
+	                    <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
+	               </form>
+                   <br><br>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="modal" id="finDeletePet">
-            <div class="modal-dialog">
-              <div class="modal-content" style="width:400px">
-                <div class="modal-body" align="center">
-                <br>
-                    <h4><b>개똥이 삭제</b></h4><br><br>삭제가 완료되었습니다.<br><br>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/pet/petList.jsp'" data-dismiss="modal">
-                        확인
-                      </button>
-                      <br><br>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <script>
+        </div>
+              <!-- 뭉뭄이 리스트 끝-->
+	<% } %>
+	<% } %>
     
-            $(function(){        
-                $("#deleteButton").click(function(){
-                    $("#deletePet").css("display","none");
-                    $("#finDeletePet").css("display","block");
-                });  
-            });       
-            </script>
   </div>
 
 

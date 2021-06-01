@@ -4,6 +4,7 @@
  	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Research> list = (ArrayList<Research>)request.getAttribute("searchlist");
  	UserSetSearch us = (UserSetSearch)request.getAttribute("userSet");
+ 	String array = (String)request.getAttribute("array");
 %>
 <!DOCTYPE html>
 <html>
@@ -142,27 +143,32 @@
       
     </div>
   </div>
-    
-  <script>
- 
+  
+   <script>
+	$(document).ready(function(){
+		console.log("<%=array%>");
+		var arrayCheck= "<%=array%>";
+		$("#searchArray").val(arrayCheck);
+		console.log("지금값"+$("#searchArray").val());
+	})
+
+  
     $(".page-link").click(function(){
 
-      var page = $(this).text();
-      if(page =="<"){
-          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
-      } else if(page==" >"){
-        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
-      } else {
-        $("#searchPage").val(page);
-      }
-      $("#searchSubmitBtn").click();
+	      var page = $(this).text();
+	      if(page =="<"){
+	          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
+	      } else if(page==" >"){
+	        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
+	      } else {
+	        $("#searchPage").val(page);
+	      }
+	      $("#searchSubmitBtn").click();
     })
 
 	$(".checkSearchArray").click(function(){
-		var array =$(this).attr("id");
-    console.log(array);
-    $("#searchArray").val(array);
-    $("#searchSubmitBtn").click();
+	    $("#searchArray").val($(this).attr("id"));
+	    $("#searchSubmitBtn").click();
 
 	})
 

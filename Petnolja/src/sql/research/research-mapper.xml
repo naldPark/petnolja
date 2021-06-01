@@ -85,9 +85,7 @@
                         AND AT_CATEGORY = 'SITTER_PIC'
                         AND FILE_LEVEL =1
                         AND AT.STATUS='Y'        
-                        ORDER BY avgrating desc, DATE_COUNT DESC) A
-                )
-		 WHERE RNUM BETWEEN ? AND ?
+
 	</entry>
 	
 	
