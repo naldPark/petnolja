@@ -28,8 +28,8 @@ public class PetDao {
 		}
 	}
 	
-	/**
-	 * 펫 등록
+	/** 박정빈
+	 *  반려견 등록
 	 */
 	public int insertPet(Connection conn, Pet p) {
 		// insert문
@@ -66,8 +66,8 @@ public class PetDao {
 		return result;
 	}
 	
-	/**
-	 * 펫정보 조회
+	/** 박정빈
+	 *  펫정보 조회
 	 */
 	public Pet selectPet(Connection conn, int petNo){
 		// select문 => ResultSet (여러행)
@@ -140,8 +140,8 @@ public class PetDao {
 			
 		}
 
-	/** 
-	 * 누가 작업하신거죠? 깃에 푸시할 때 제꺼랑 충돌나서 대충 정리했는데 작동 안되시면 말해주세요. -최서경
+	/** 박정빈
+	 *  알겠습니다.
 	 */
 	public ArrayList<Pet> petList(Connection conn, int userNo) {
 		ArrayList<Pet> list = new ArrayList<>();
@@ -234,7 +234,9 @@ public class PetDao {
 		}
 		return result;
 	}
-	
+	/** 박정빈
+	 * 반려견 목록 > 반려견 수정
+	 */
 	public int updatePet(Connection conn, Pet p) {
 	      // update문
 	      int result = 0;

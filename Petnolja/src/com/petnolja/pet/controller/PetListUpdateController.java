@@ -57,7 +57,7 @@ public class PetListUpdateController extends HttpServlet {
 	      p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
 	      p.setNeutered(multiRequest.getParameter("middle"));
 	      p.setChip(multiRequest.getParameter("dogAdd"));
-	      p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getParameter("file1"));
+	      p.setPetImg("resources/upfiles/pet_upfiles/"+ multiRequest.getFilesystemName("file1"));
 	      
 	      if(p.getPetWeight()>=15.0){
 	         p.setPetSize("대형견");
