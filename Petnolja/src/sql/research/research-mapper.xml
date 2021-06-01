@@ -264,7 +264,7 @@
 	
 	<!-- 상세검색한 유저와 펫의 정보 -->
 	<entry key ="memPetInfo">
-		SELECT mem_no, PET_NO, pet_name, pet_size, pet_gender, pet_birth, SITTER_NO FAVORITE
+		SELECT mem_no, PET_NO, pet_name, pet_size, pet_gender, pet_birth, SITTER_NO FAVORITE, pet_img
 		FROM pet
 		FULL JOIN (SELECT MEM_NO, SITTER_NO FROM FAVORITE WHERE SITTER_NO=?) USING(MEM_NO)
 		where pet_status='Y'

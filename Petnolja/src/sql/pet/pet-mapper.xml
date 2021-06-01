@@ -65,8 +65,19 @@
 		   AND PET_STATUS = 'Y'
 	</entry>
 	
-	<entry key="">
-	
+	<entry key="petList">
+		select 
+		    pet_no
+		    ,pet_name
+		    ,pet_birth
+		    ,pet_weight
+		    ,pet_gender
+		    ,pet_size
+		    ,pet_breed
+		    ,pet_img
+		from pet
+		where mem_no=?
+		and pet_status='Y'
 	</entry>
 	
 	<entry key="selectPetList">

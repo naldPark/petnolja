@@ -130,7 +130,6 @@ public class PetDao {
 									rset.getString("pet_name")));
 				
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -138,6 +137,41 @@ public class PetDao {
 			close(pstmt);
 		}
 		return petList;
+			
+		}
+
+	/** 
+	 * 누가 작업하신거죠? 깃에 푸시할 때 제꺼랑 충돌나서 대충 정리했는데 작동 안되시면 말해주세요. -최서경
+	 */
+	public ArrayList<Pet> petList(Connection conn, int userNo) {
+		ArrayList<Pet> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("petList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Pet(
+					rset.getInt("pet_no"),
+					rset.getString("pet_name"),			
+					rset.getString("pet_birth"),
+					rset.getDouble("pet_weight"),
+					rset.getString("pet_gender"),
+					rset.getString("pet_size"),
+					rset.getString("pet_breed"),
+					rset.getString("pet_img")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+
 	}
 	
 	/** 최서경
@@ -200,18 +234,6 @@ public class PetDao {
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

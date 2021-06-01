@@ -1,13 +1,8 @@
 package com.petnolja.pet.model.service;
 
-import static com.petnolja.common.JDBCTemplate.close;
-import static com.petnolja.common.JDBCTemplate.commit;
-import static com.petnolja.common.JDBCTemplate.getConnection;
-import static com.petnolja.common.JDBCTemplate.rollback;
-
+import static com.petnolja.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import com.petnolja.pet.model.dao.PetDao;
 import com.petnolja.pet.model.vo.Pet;
 
@@ -51,6 +46,21 @@ public class PetService {
 		
 		Pet p = new PetDao().selectAdminPetDetail(conn, petNo);
 		
+		close(conn);
+		return p;
+	}
+	
+	public ArrayList<Pet> petList(int userNo){
+		Connection conn = getConnection();
+		ArrayList<Pet> result = new PetDao().petList(conn, userNo);
+		
+		close(conn);
+		return result;
+	}
+	
+	public Pet selectPet(int petNo){
+		Connection conn = getConnection();
+		Pet p = new PetDao().selectPet(conn, petNo);
 		close(conn);
 		return p;
 	}

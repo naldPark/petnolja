@@ -250,7 +250,8 @@ public class ResearchDao {
 						rset.getString("pet_birth"),
 					    rset.getString("pet_gender"),
 					    rset.getString("pet_size"),
-					    rset.getString("FAVORITE")
+					    rset.getString("FAVORITE"),
+					    rset.getString("pet_img")
 						));
 					    }
 		} catch (SQLException e) {
