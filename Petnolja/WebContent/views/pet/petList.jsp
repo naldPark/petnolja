@@ -51,7 +51,7 @@
     반려동물을 추가하지 않으면 예약이 진행되지 않습니다<br><br>
     <!--검색조회기능-->
     <div align="right">
-    <button type=button class="btn btn-primary" onclick="location.href='<%=contextPath%>/addpet1.me'"> 반려동물 추가</button></div><br>
+    <button type=button class="btn btn-primary" onclick="return validate();">반려동물 추가</button></div><br>
    <!-- 뭉뭉이 리스트 시작-->
           <% if(loginUser==null||plist==null){ %>
       	<br>조회된 리스트가 없습니다.<br><br><br>
@@ -90,11 +90,19 @@
             </div>
         </div>
               <!-- 뭉뭄이 리스트 끝-->
+    	<% } %>
 	<% } %>
-	<% } %>
-    
-  </div>
 
+  </div>
+  <script>
+      function validate(){
+        if(<%=plist.size()%>==3){
+          alert("3마리를 초과하여 추가할 수 없습니다");
+          }else{
+            location.href='<%=contextPath%>/addpet1.me'
+          }
+      }      
+  </script>
 
 <br><br>
 <%@ include file = "../common/footer.jsp"%>

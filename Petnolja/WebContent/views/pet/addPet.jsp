@@ -8,13 +8,15 @@
 <style>
 	.outer{
 		width:1000px;
-		height:1400px;
+		height:1500px;
 		position:relative;
 		margin:auto;
 		margin-top:20px;
 		padding:70px;
 		border:1px solid lightgray;
 	}
+	#tablePetImg{background-image:url("resources/images/member/plus.png");background-repeat:no-repeat;background-position: center}
+
 </style>
 </head>
 <body>
@@ -26,11 +28,12 @@
 			<h2>반려동물을 추가해보세요</h2><br>
 			<span><b>반려동물을 추가하지 않으면 예약이 진행되지 않습니다.</b></span>
 			<br>
-			<table>
+			<table id="tablePetImg">
 				<td>	
 				<img id="titleImg" width=250 height=170px>
 				</td>
 			</table>
+			+버튼을 눌러 사진을 추가 해 주세요<br>
 			<div id="file-area">
 			<input type="file" id="file1" name="file1" onchange="checkSize(this); loadImg(this, 1);" required> 
 			</div>
@@ -157,14 +160,15 @@
 
 			<br>
 
-			<div align="center">
+			<div align="center"><br>
 			<button type="submit" id="submit" class="btn btn-primary" onclick="return validate();">등록하기</button>
 			</div>
 
 		</div>
 	</form>
-	</div>
 	
+	</div>
+	<br>
 	<!--이름 글자수 제한 기능-->
 	<script>
 		$(function(){
@@ -267,9 +271,6 @@
 		}
 	</script>
 	
-	
-
-
 	
 	<%@ include file = "../common/footer.jsp"%>
 </body>
