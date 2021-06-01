@@ -35,7 +35,7 @@
 				</td>
 			</table>
 			<div id="file-area">
-			<input type="file" id="file1" name="file1" onchange="checkSize(this); loadImg(this, 1);" required> 
+			<input type="file" id="file1" name="file1"  onchange="checkSize(this); loadImg(this, 1);" required> 
 			</div>
 			<br>
 
@@ -232,13 +232,9 @@
 	
 	<!--생년 월일 제한 기능(년월까지)-->
 	<script>
+		
 		function validate(){
 
-			if($("#file1").val()==""){
-				window.alert("사진을 첨부해주세요");
-				return false;
-               
-                }
 
 			var birth = document.getElementById("birth");
 
