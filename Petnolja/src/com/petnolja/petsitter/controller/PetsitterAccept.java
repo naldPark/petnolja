@@ -36,6 +36,8 @@ public class PetsitterAccept extends HttpServlet {
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
 		
 		int result = new PetsitterService().sitterAccept(sitterNo);
+		
+		response.getWriter().print(result);
 	}
 
 	/**

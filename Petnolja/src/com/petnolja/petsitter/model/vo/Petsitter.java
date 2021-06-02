@@ -23,12 +23,13 @@ public class Petsitter {
 	private String sitterCkIn; // 체크인
 	private String sitterCkOut; // 체크아웃
 	private String additions; // 추가서비스
+	private int duration;
 	
 	public Petsitter() {}
 	
 	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
 			String experience, String motive, char pStatus, Date pDate, String stopReason, String stopContent,
-			int penaltyCount, String additions) {
+			int penaltyCount, String additions, int duration) {
 		super();
 		this.memID = memID;
 		this.sitterNo = sitterNo;
@@ -44,6 +45,7 @@ public class Petsitter {
 		this.stopContent = stopContent;
 		this.penaltyCount = penaltyCount;
 		this.additions = additions;
+		this.duration = duration;
 	}
 	
 
@@ -228,6 +230,15 @@ public class Petsitter {
 	public void setAdditions(String additions) {
 		this.additions = additions;
 	}
+	
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
 
 	@Override
 	public String toString() {
@@ -236,7 +247,7 @@ public class Petsitter {
 				+ motive + ", addContent=" + addContent + ", pStatus=" + pStatus + ", pDate=" + pDate + ", stopReason="
 				+ stopReason + ", stopContent=" + stopContent + ", penaltyCount=" + penaltyCount + ", sitterTitle="
 				+ sitterTitle + ", sitterContent=" + sitterContent + ", sitterCkIn=" + sitterCkIn + ", sitterCkOut="
-				+ sitterCkOut + ", additions=" + additions + "]";
+				+ sitterCkOut + ", additions=" + additions + ", duration=" + duration + "]";
 	}
 
 }

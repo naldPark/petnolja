@@ -112,7 +112,8 @@ public class PetsitterDao {
 									rset.getString("stop_reason"),
 									rset.getString("stop_content"),
 									rset.getInt("penalty_count"),
-									rset.getString("additions")));
+									rset.getString("additions"),
+									rset.getInt("duration")));
 			}
 			
 		} catch (SQLException e) {
@@ -207,18 +208,24 @@ public class PetsitterDao {
 		
 	}
 
-	public int[] deleteOldPetsitter(Connection conn, String[] petsitterNo) {
-		// update문 => 처리된 행수
-		int result[] = new int[petsitterNo.length];
+	public int blockSitter(Connection conn, String[] list) {
+		
+		
+		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteOldPetsitter");
+		String sql = prop.getProperty("blockSitter");
 		
 		try {
+			
+			int num = 0;
 			pstmt = conn.prepareStatement(sql);
 			
-			for(int i=0; i<petsitterNo.length; i++) {
-				pstmt.setInt(1, Integer.parseInt(petsitterNo[i]));
-				result[i] = pstmt.executeUpdate();
+			for(int i=0; i < list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				result += pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
@@ -228,6 +235,35 @@ public class PetsitterDao {
 		}
 		
 		return result;
+		
+	}
+	
+	public int updateOldSitter(Connection conn, int sitterNo, String updateCol, String updateVal) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		
+        switch (updateCol) {
+        case "MEM_ID": sql = prop.getProperty("updateMemberId"); break;
+        case "PET_NO": sql = prop.getProperty("updatePetNo"); break;
+        case "ADDITIONS": sql = prop.getProperty("updateAdditions"); break;
+        case "LICENSE": sql = prop.getProperty("updateLicense"); break;
+        case "EXPERIENCE": sql = prop.getProperty("updateExperience"); break;
+    }
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updateVal);
+			pstmt.setInt(2, sitterNo);
+			result = pstmt.executeUpdate();
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			}
+			
+			return result;
+			
 	}
 	
 	

@@ -110,23 +110,19 @@
 				<% }else { %>
 					<% for(Petsitter n: list) {%>
 						<tr>
-							<td><input type="checkbox" name="oldList" value="<%= n.getSitterNo()%>"></td>
+							<td><input type="checkbox"></td>
 							<td><%= n.getSitterNo()%></td>
 							<td>
-								<p class="rowColumn" contenteditable="false"
-									data-default="<%= n.getMemID()%>"><%= n.getMemID()%></p>
+								<p class="rowColumn" contenteditable="false" data-default="<%= n.getMemID()%>"><%= n.getMemID()%></p>
 							</td>
 							<td>
-								<p class="rowColumn" contenteditable="false" data-default="<%= n.getPetNo()%>">
-								<%= n.getPetNo()%>마리</p>
+								<p class="rowColumn" contenteditable="false" data-default="<%= n.getPetNo()%>"><%= n.getPetNo()%>마리</p>
 							</td>
 							<td>
-								<p class="rowColumn" contenteditable="false"
-									data-default="<%= n.getAdditions()%>"><%= n.getAdditions()%></p>
+								<p class="rowColumn" contenteditable="false" data-default="<%= n.getAdditions()%>"><%= n.getAdditions()%></p>
 							</td>
 							<td>
-								<p class="rowColumn" contenteditable="false"
-									data-default="<%= n.getLicense()%>"><%= n.getLicense()%></p>
+								<p class="rowColumn" contenteditable="false" data-default="<%= n.getLicense()%>"><%= n.getLicense()%></p>
 							</td>
 							<td>
 								<p class="rowColumn" contenteditable="false" data-default="<% if(n.getExperience().equals(null)) {%>N<%}else { %>Y<% } %>">
@@ -138,12 +134,7 @@
 									</p>
 							</td>
 							<td>
-								<!-- 날짜 차이 계산하는 구문 -->
-								<% 
-									LocalDate pDay = n.getpDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-									Period p = pDay.until(LocalDate.now()); 
-								%>
-								<%= p.getYears() %>년 <%= p.getMonths() %>월 <%= p.getDays() %>일
+								<%= n.getDuration() %>개월
 							</td>
 							<td><%= n.getpDate() %></td>
 						</tr>
@@ -183,15 +174,45 @@
 	<br>
 	<br>
 	
-	
-	<!-- 체크박스에 체크한것만 값 전달하는 스크립트 -->
 	<script>
-		var chk_arr = [];
-		$("input[name=oldList]:checked").each(function(){
-			var chk = $(this).val();
-			chk_arr.push(chk);
-		})
-		
+		function blockPetsitter(){
+			//console.log("되나?");
+	
+			var memNoArr = [];
+			$("input[type=checkbox]:checked").each(function(){
+			    sitterNoArr.push($(this).parent().siblings().eq(0).text());
+			});
+			
+		    var sitterNoList = sitterNoArr.join(",");
+	
+			
+			//console.log(memNoArr);  체크된 펫시터 번호
+			
+			if(confirm("선택한 펫시터의 펫시터 권한을 차단하시겠습니까?")){
+				
+				$.ajax({
+					url:"sitterblock.ad",
+					data:{sitterNoList:sitterNoList},
+					type:"post",
+					success:function(result){
+						
+						if(result == sitterNoArr.length){
+							alert("성공적으로 처리되었습니다.");
+						
+							$("input[type=checkbox]:checked").each(function(){
+								$(this).parents("tr").remove();
+							});
+						
+						}
+						
+					}, error:function(){
+						console.log("펫시터 권한 차단 ajax통신 실패");
+					}
+				});
+			} else {
+				$(":checkbox").prop("checked", false);
+			} 		
+		}
 	</script>
 
 
@@ -315,11 +336,11 @@
                         var updateCol = "";
 
                         switch ($(this).parent().index()) {
-                            case 2: updateCol = "userId"; break;
-                            case 3: updateCol = "userName"; break;
-                            case 4: updateCol = "phone"; break;
-                            case 5: updateCol = "email"; break;
-                            case 6: updateCol = "address"; break;
+                            case 2: updateCol = "MEM_Id"; break;
+                            case 3: updateCol = "PET_NO"; break;
+                            case 4: updateCol = "ADDITIONS"; break;
+                            case 5: updateCol = "LICENSE"; break;
+                            case 6: updateCol = "EXPERIENCE"; break;
                         }
 
 
@@ -332,6 +353,26 @@
                         // 화면 우측 상단 저장 버튼은 없애야 함. (-- 없앴음)
                         // 근데 엔터키 두개 중에서 하나만 먹힘. 왜그럴까,,,?
 
+                        $.ajax({
+                    		url:"sitterupdate.ad",
+                    		data:{
+                    			sitterNo:sitterNo,
+                    			updateCol:updateCol,
+                    			updateVal:updateValue
+                    		},
+                    		type:"post",
+                    		success:function(result){
+                    			if(result > 0){
+                    				
+                    				var val = '<td><p class="rowColumn" contenteditable="false" data-default="' + updateValue + '">' + updateValue + '</p></td>'
+                    				
+                    				$(this).parent().html(val);
+                    			}
+                    			
+                    		}, error:function(){
+                    			console.log("펫시터정보 수정 ajax통신 실패");
+                    		}
+                    	});
 
 
                     } else {

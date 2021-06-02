@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.petsitter.model.service.PetsitterService;
 
+
 /**
- * Servlet implementation class PetsitterDeny
+ * Servlet implementation class OldListUpdateController
  */
-@WebServlet("/petsitterDeny.ad")
-public class PetsitterDeny extends HttpServlet {
+@WebServlet("/sitterupdate.ad")
+public class OldListUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetsitterDeny() {
+    public OldListUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +29,18 @@ public class PetsitterDeny extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
 		
 		
-		int sitterNo = Integer.parseInt(request.getParameter("sno"));
+		int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
+		String updateCol = request.getParameter("updateCol");
+		String updateVal = request.getParameter("updateVal");
 		
-		int result = new PetsitterService().sitterDeny(sitterNo);
+
+		int result = new PetsitterService().updateOldSitter(sitterNo, updateCol, updateVal);
 		
 		response.getWriter().print(result);
+	
 	}
 
 	/**
