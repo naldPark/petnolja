@@ -105,10 +105,9 @@ public class MemReserveDao {
 		} finally {
 			close(rset);
 			close(pstmt);
-
+		}
 		return list;
 
 	}
 	
-
 }

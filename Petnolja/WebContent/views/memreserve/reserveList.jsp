@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.memreserve.vo.MemReserve"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.memreserve.model.vo.MemReserve"%>
 <%  
 	ArrayList<MemReserve> reserveList = (ArrayList<MemReserve>)request.getAttribute("reserveList");
 	String startDate = (String)request.getAttribute("startDate");

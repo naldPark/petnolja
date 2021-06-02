@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.memreserve.service.MemReserveService;
-import com.petnolja.memreserve.vo.MemReserve;
+import com.petnolja.memreserve.model.service.MemReserveService;
+import com.petnolja.memreserve.model.vo.MemReserve;
+
 
 /**
  * Servlet implementation class reserveListController
