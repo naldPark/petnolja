@@ -19,5 +19,11 @@ public class MemReserveService {
 		
 		
 	}
+	
+	public void reserveProceed(int userNo, int sitterNo, String startDate, String endDate, int[] petList) {
+		
+		new MemReserveDao().reserveProceed(userNo, sitterNo, startDate, endDate, petList);
+		
+	}
 
 }
