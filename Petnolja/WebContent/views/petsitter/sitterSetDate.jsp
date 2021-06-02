@@ -39,8 +39,8 @@
         cell =row.insertCell();
         cnt = cnt + 1;
     }
-
-      var userAbleDate = ['2021-06-02', '2021-06-08', '2016-06-20'];   
+      // 여기에 이용가능한 일자를 적어줍니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      var userAbleDate = ['2021-06-02', '2021-06-08', '2016-6-20'];   
       
       for(i=1; i<=lastDate.getDate(); i++){
         cell =row.insertCell();
@@ -72,7 +72,7 @@
         </style>
   </head>
   <body>
-    <table id="calendar"  border="0" align="center" width="270" height="270" style="font-size:13pt;">
+    <table id="calendar"  border="0" align="center" width="500" height="500" style="font-size:13pt;">
       <tr>
         <td align ="center"> <label onclick="prevClaendar()"><</label> </td>
         <td colspan="5" align ="center" id="calendarYM">yyyy년 m월</td>

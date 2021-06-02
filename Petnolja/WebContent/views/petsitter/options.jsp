@@ -87,10 +87,8 @@
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="../petsitter/serv-menu.jsp" %>
       <div class="container">
-        <%@ include file="../sitter/op-menu.jsp" %>
-        
         
         
         <!-- MIDDLE -->
@@ -103,7 +101,7 @@
               <span style="float:left; width:80%">마지막 수정일은 YY년 MM월 DD일 00:00 오후 입니다.</span>
               <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
               <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/Abledate.sit'" align="right">
             </div>
           </div>
 
@@ -111,7 +109,7 @@
             <h2>시팅 금액 관리</h2><br>
             <div>
               <span style="float:left; width:80%">마지막 수정일은 YY년 MM월 DD일 00:00 오후 입니다.</span>
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/sitmoney.sit'" align="right">
             </div>
           </div>
 
@@ -119,7 +117,7 @@
             <h2>추가 서비스 관리</h2><br>
             <div>
               <span style="float:left; width:80%">현재 선택된 추가서비스는 [3]개 입니다.</span>
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/addservice.sit'" align="right">
             </div>
           </div>
           <div class="middle-right" style="padding: 20px;" >

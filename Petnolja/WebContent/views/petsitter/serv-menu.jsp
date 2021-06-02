@@ -46,11 +46,12 @@ li:hover > span::after {
   </style>
 </head>
 <body>
+  <%@ include file="../common/menubar.jsp" %>
   <br>
     <ul>
-    <li><span>옵션관리</span></li>
-    <li><span>서비스관리</span></li>
-    <li><span>서비스중지</span></li>
+    <li><span><a href="<%=contextPath%>/options.sit">옵션관리</a></span></li>
+    <li><span><a href="<%=contextPath%>/service.sit">서비스관리</a></span></li>
+    <li><span><a href="<%=contextPath%>/sitstop.sit">서비스중지</a></span></li>
   </ul>
     <br>
     <hr class="my-hr" style="margin-left:30px; margin-right: 30px;">

@@ -51,10 +51,10 @@
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="../petsitter/exa-menu.jsp" %><br>
       <div class="container">
        <br>
-       <%@ include file="../sitter/re-menu.jsp" %><br>
+       <br>
        <span style="font-size: 30px; font-weight:bold;">정산 금액 조회</span>
        <span style="font-size: 15px; color: #CFCFCF;">&nbsp;&nbsp;매월 1일부터 말일까지의 금액이 익월 N일에 지정하신 계좌로 입금됩니다.</span>
        
@@ -66,7 +66,7 @@
             <!--padding을 넣으면 위아래옆으로 네모안에 여유를 두고 글이 써짐-->
             <div style="padding:20px 50px 0px">3/15 정산 예정 금액</div>
             <span style="font-size:50px; padding:0px 50px">1,100,000원</span><br><hr class="my-hr2">
-            <%@ include file="../sitter/datepicker.jsp" %>
+            <%@ include file="../petsitter/datepicker.jsp" %>
             
             <div style="line-height:80%;font-size: 17px; padding: 10px;">
               <p class="word1">2021.03.16</p>

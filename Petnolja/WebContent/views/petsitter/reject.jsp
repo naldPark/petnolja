@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style>
     .container {
         width: 800px;
@@ -16,27 +18,19 @@
         padding: 40px;
         
     }
-    #btn1 {
-        border: 0px;
-        margin-right: 5px;
-        margin-left: 5px;
-        background-color: #3498DB;
-        color: white;
-        border-radius: 5px;
-        width: 50px;
-        height: 30px;
-      }
-      #btn2 {
-        border: 0px;
-        margin-right: 5px;
-        margin-left: 5px;
-        background-color: #E0E0E0;
-        color: white;
-        border-radius: 5px;
-        width: 50px;
-        height: 30px;
-      }
 </style>
+<script>
+    $(function(){
+  $("input[type='checkBox']").change(function(){
+    var len = $("input[type='checkBox']:checked").length;
+    if(len > 0)
+        $("input[type='submit']").removeAttr("disabled");
+    else
+      $("input[type='submit']").prop("disabled", true);
+  });
+  $("input[type='checkBox']").trigger('change');
+});
+</script>
 </head>
 <body>
     <div class="container">
@@ -55,7 +49,8 @@
     
     <input type="checkbox" name="reject" value="reason" checked>안내 사항을 확인하였으며 위의 내용이 사실과 틀림없음을 확인합니다.
     <br><br><br>
-    <div style="margin-left: 28%;"><button id="btn1">확인</button><button id="btn2">취소</button></div>
+    <div style="margin-left: 28%;">
+        <input type="submit" class="submitButton" th:value="Speichern" name="submit" disabled="disabled"/><button id="btn2">취소</button></div>
 </div>
 </div>
 </body>

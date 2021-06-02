@@ -87,9 +87,9 @@
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+    
+    <%@ include file="serv-menu.jsp" %>
       <div class="container">
-        <%@ include file="re-menu.jsp" %>
         
         
         <!-- MIDDLE -->
@@ -102,7 +102,7 @@
               <span style="float:left; width:80%">현재 [뿌꾸], [쪼꼬]를 시팅 중입니다.</span>
               <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
               <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="window.open('<%=contextPath%>/dailysit.sit?currentPage=1')" align="right">
             </div>
           </div>
 
@@ -110,7 +110,7 @@
             <h2>문의 내역 관리</h2><br>
             <div>
               <span style="float:left; width:80%">새로운 문의가 [3]건 있습니다. </span>
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="window.open('<%=contextPath%>/histInquiry.sit')" align="right">
             </div>
           </div>
           

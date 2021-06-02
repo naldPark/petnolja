@@ -63,11 +63,10 @@
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="../petsitter/re-menu.jsp" %>
       <div class="container">
        <br>
-       <%@ include file="../petsitter/re-menu.jsp" %>
-        
+       
         <!-- MIDDLE -->
         <div class="middle">
 

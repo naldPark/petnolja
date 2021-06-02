@@ -87,9 +87,8 @@
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="../petsitter/exa-menu.jsp" %>
       <div class="container">
-        <%@ include file="../sitter/exa-menu.jsp" %>
         
         
         <!-- MIDDLE -->
@@ -110,7 +109,7 @@
             <h2>정산 계좌 관리</h2><br>
             <div>
               <span style="float:left; width:80%">현재 등록된 정산 계좌는 [NNNN]입니다.</span>
-              <button id="btn1" align="right">더보기</button>
+              <button type="button" id="btn1" align="right">더보기</button>
             </div>
           </div>
           

@@ -46,9 +46,10 @@
   </style>
 </head>
 <body>
+  <%@ include file="../common/menubar.jsp" %>
   <br>
     <ul id="ul-menu">
-    <li id="li-menu"><span>예약내역조회</span></li>
+    <li id="li-menu"><span><a href="<%=contextPath%>/reserveList.sit">예약내역조회</a></span></li>
     <li id="li-menu"><span>정산관리</span></li>
   </ul>
     <br>

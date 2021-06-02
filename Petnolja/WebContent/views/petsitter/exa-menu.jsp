@@ -46,10 +46,11 @@ li:hover > span::after {
   </style>
 </head>
 <body>
+  <%@ include file="../common/menubar.jsp" %>
   <br>
     <ul>
     <li><span>예약내역조회</span></li>
-    <li><span>정산관리</span></li>
+    <li><span><a href="<%=contextPath%>/exact.sit">정산관리</a></span></li>
   </ul>
     <br>
     <hr class="my-hr" style="margin-left:30px; margin-right: 30px;">
