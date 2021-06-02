@@ -38,7 +38,7 @@
   <%@ include file = "findIdPwd.jsp" %>
      <!--검색창 시작-->
      <hr>
-     <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2>임시계정 유저(gesun/pass01) 펫시터(geddong/pass01)<br>
+     <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2> <a href="<%=contextPath %>/views/common/temp.jsp">임시 로그인계정 보기(클릭)</a><br>
      <div id="searchBar">
        <form action="<%=contextPath %>/searchSitter.mem" method="post" id="search-form"><br>
 
