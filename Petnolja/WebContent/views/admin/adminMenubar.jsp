@@ -5,7 +5,7 @@
 <%
 	String contextPath = request.getContextPath();
 	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
-	String alertMsg = (String)session.getAttribute("alertMsg");
+	String alertMsgAd = (String)session.getAttribute("alertMsgAd");
 %>
 <!DOCTYPE html>
 <html>
@@ -123,11 +123,11 @@
 
 	<script>
 	
-		var alertMsg = "<%= alertMsg %>";
+		var alertMsgAd = "<%= alertMsgAd %>";
 		
-		if (alertMsg != "null"){
-			alert(alertMsg);
-			<% session.removeAttribute("alertMsg"); %>
+		if (alertMsgAd != "null"){
+			alert(alertMsgAd);
+			<% session.removeAttribute("alertMsgAd"); %>
 		}
 	</script>
 		

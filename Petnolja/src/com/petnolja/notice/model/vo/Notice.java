@@ -41,6 +41,20 @@ public class Notice {
 		this.createDate = createDate;
 		this.noticeCount = noticeCount;
 	}
+	
+	
+
+	/** 최서경
+	 * 공지사항 상세조회, 공지사항 수정
+	 */
+	public Notice(int noticeNo, String noticeWriter, String noticeCategory, String noticeTitle, String noticeContent) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeWriter = noticeWriter;
+		this.noticeCategory = noticeCategory;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
 
 	public int getNoticeNo() {
 		return noticeNo;

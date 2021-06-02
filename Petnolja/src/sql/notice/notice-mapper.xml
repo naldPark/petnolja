@@ -10,17 +10,139 @@
 
 
 	<entry key="selectList">
-		SELECT 
-		        NOTICE_NO
-		      , ADMIN_ID
-		      , NOTICE_TITLE
-		      , CREATE_DATE
-		      , NOTICE_COUNT
-		  FROM NOTICE
-		  JOIN ADMIN ON(NOTICE_WRITER = ADMIN_NO)
-		 WHERE NOTICE_STATUS = 'Y'
-		 ORDER BY CREATE_DATE DESC
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+	                SELECT 
+		     		   NOTICE_NO
+		     		 , ADMIN_ID
+		     		 , NOTICE_TITLE
+		     		 , CREATE_DATE
+		     		 , NOTICE_COUNT
+				  FROM NOTICE
+				  JOIN ADMIN ON(NOTICE_WRITER = ADMIN_NO)
+				 WHERE NOTICE_STATUS = 'Y'
+				 ORDER
+				    BY CREATE_DATE DESC
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?		 
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT
+			INTO NOTICE 
+					(
+					  NOTICE_NO
+					, NOTICE_WRITER
+					, NOTICE_CATEGORY
+					, NOTICE_TITLE
+					, NOTICE_CONTENT
+					)
+			VALUES
+					(
+					SEQ_NNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				    )
 	</entry>
 
+	<entry key="insertAttachment">
+		INSERT
+			INTO ATTACHMENT
+					(
+					  FILE_NO
+					, AT_CATEGORY
+					, AT_NO
+					, ORIGIN_NAME
+					, CHANGE_NAME
+					, FILE_PATH
+					)
+			 VALUES
+			 		(
+			 		SEQ_CNO.NEXTVAL
+			  	  , '공지사항'
+				  , SEQ_NNO.CURRVAL
+				  , ?
+				  , ?
+				  , ?
+					)
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE
+			NOTICE
+		   SET
+		   NOTICE_STATUS = 'N'
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT
+			  NOTICE_NO
+			, ADMIN_ID
+			, NOTICE_CATEGORY
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+		  FROM NOTICE
+		  JOIN ADMIN ON (NOTICE_WRITER = ADMIN_NO)
+		 WHERE NOTICE_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT    
+			  FILE_NO  
+			, ORIGIN_NAME
+			, CHANGE_NAME
+			, FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE AT_CATEGORY = '공지사항'
+		   AND AT_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
 
+	<entry key="updateNotice">
+		UPDATE
+		    NOTICE 
+		   SET NOTICE_WRITER = ?
+		     , NOTICE_CATEGORY = ?
+		     , NOTICE_TITLE = ?
+		     , NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ?
+	</entry>
+
+	<entry key="updateAttachment">
+		UPDATE
+		    ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		     , UPLOAD_DATE = SYSDATE
+		 WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT
+		  INTO 
+			ATTACHMENT
+		  			  (
+						FILE_NO
+					  , AT_CATEGORY
+				  	  , AT_NO
+					  , ORIGIN_NAME
+					  , CHANGE_NAME
+					  , FILE_PATH
+		  			  )
+		VALUES
+		  	  (
+				SEQ_CNO.NEXTVAL
+			  , '공지사항'
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+		  	  )
+	</entry>
 </properties>

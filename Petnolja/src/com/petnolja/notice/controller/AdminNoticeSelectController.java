@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.admin.model.vo.Admin;
+import com.petnolja.common.Attachment;
+import com.petnolja.notice.model.service.NoticeService;
+import com.petnolja.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class AdminNoticeErollPageController
+ * Servlet implementation class AdminNoticeUpdatePageController
  */
-@WebServlet("/nenroll.ad")
-public class AdminNoticeErollPageController extends HttpServlet {
+@WebServlet("/nselect.ad")
+public class AdminNoticeSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeErollPageController() {
+    public AdminNoticeSelectController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,19 +31,19 @@ public class AdminNoticeErollPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//int pageNo = Integer.parseInt(request.getParameter("page"));
+		int nNo = Integer.parseInt(request.getParameter("nno"));
 		
-		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		Notice n = new NoticeService().selectNotice(nNo);
+		Attachment at = new NoticeService().selectAttachment(nNo);
 		
-		if(loginAdmin == null) {
-			
-			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
-		} else {
-			
-			request.getRequestDispatcher("views/admin/noticeEnrollPageView.jsp").forward(request, response);
-		}
+		//request.setAttribute("pageNo", pageNo);
+		request.setAttribute("n", n);
+		request.setAttribute("at", at);
 		
+		request.getRequestDispatcher("views/admin/noticeUpdatePageView.jsp").forward(request, response);
+	
 	
 	}
 

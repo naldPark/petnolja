@@ -151,7 +151,7 @@
             </div>
             <div id="buttons">
                 <button onclick="deletePet();" class="btn btn-warning btn-sm" style="font-size: 14px;">삭제</button>
-                <button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=1'" class="btn btn-primary btn-sm" style="font-size: 14px;">목록으로</button>
+                <button onclick="history.back();" class="btn btn-primary btn-sm" style="font-size: 14px;">목록으로</button>
 
             </div>
         </div>

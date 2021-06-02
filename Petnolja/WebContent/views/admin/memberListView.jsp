@@ -193,7 +193,8 @@
 								$(this).parent().siblings().eq(7).html('Y');
 								$(":checkbox").prop("checked", false);
 							});
-						
+						} else {
+							alert("회원 차단에 실패했습니다.");
 						}
 						
 					}, error:function(){
@@ -231,7 +232,8 @@
 								$(this).parent().siblings().eq(7).html('N');
 								$(":checkbox").prop("checked", false);
 							});
-						
+						} else {
+							alert("회원 차단 해제를 실패했습니다.");
 						}
 						
 					}, error:function(){
@@ -265,6 +267,8 @@
 							$("input[type=checkbox]:checked").each(function(){
 								$(this).parents("tr").remove();
 							});
+						} else {
+							alert("회원 삭제에 실패했습니다.");
 						}
 						
 					}, error:function(){

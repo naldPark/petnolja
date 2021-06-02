@@ -133,10 +133,11 @@
         	<button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
 		<% } %>
 		<% for(int p=startPage; p<endPage; p++) {%>
+		
 			<% if(p != currentPage) { %>
 		        <button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
 			<% } else { %>
-				<buton disabled><%=p %></buton>
+				<button disabled><%=p %></button>
 			<% } %>
 		<% } %>
 
@@ -151,6 +152,7 @@
 
 	<script>
 	
+		// 공지사항 제목으로 필터링
 	    $(document).ready(function () {
 	        $("#notice-search-box").on("keyup", function () {
 	            var value = $(this).val().toLowerCase();
@@ -164,15 +166,47 @@
 	    
 	    // 공지사항 삭제
 	    function deleteNotice(){
+	    	
+	    	var nNoArr = [];
+	    	
 	    	$("input[type=checkbox]:checked").each(function(){
-	    		if(confirm("선택한 공지사항을 삭제하시겠습니까?")){
-	    			
-	    		} else {
-	    			$(":checkbox").prop("checked", false);
-	    		}
-	    		
+	    		nNoArr.push($(this).parent().siblings().eq(0).text());
 	    	});
+	    	
+	    	var nNoList = nNoArr.join(",");
+	    	
+    		if(confirm("선택한 공지사항을 삭제하시겠습니까?")){
+    			$.ajax({
+    				url:"ndelete.ad",
+    				type:"post",
+    				data:{nNoList:nNoList},
+    				success:function(result){
+    					if(result == nNoArr.length){
+   							alert("성공적으로 처리되었습니다.");
+    						$("input[type=checkbox]:checked").each(function(){
+    							$(this).parents("tr").remove();
+    						});
+    					} else {
+    						alert("공지사항 삭제에 실패했습니다.");
+    					}
+    				}, erorr:function(){
+    					console.log("공지사항 삭제 ajax통신 실패");
+    				}
+    			});
+    			
+    		} else {
+    			$(":checkbox").prop("checked", false);
+    		}
+	    		
 	    }
+	    
+	    // 공지사항 조회
+	    
+	    $("#notice-list>tbody>tr").on("click", function(){
+	    	var nNo = $(this).children().eq(1).text();
+	    	location.href = "<%= contextPath %>/nselect.ad?page=<%=currentPage%>&nno=" + nNo;
+	    });
+	    
 	</script>
 
 

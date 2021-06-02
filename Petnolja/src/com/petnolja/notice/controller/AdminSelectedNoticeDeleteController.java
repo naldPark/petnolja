@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.admin.model.vo.Admin;
+import com.petnolja.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class AdminNoticeErollPageController
+ * Servlet implementation class AdminSelectedNoticeDeleteController
  */
-@WebServlet("/nenroll.ad")
-public class AdminNoticeErollPageController extends HttpServlet {
+@WebServlet("/ndeleteone.ad")
+public class AdminSelectedNoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeErollPageController() {
+    public AdminSelectedNoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +29,23 @@ public class AdminNoticeErollPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String nno = request.getParameter("nno");
 		
-		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		String[] nnoArr = nno.split(",");
 		
-		if(loginAdmin == null) {
-			
-			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
+		int result = new NoticeService().deleteNotice(nnoArr);
+		
+		if(result>0) {
+			request.getSession().setAttribute("alertMsgAd", "성공적으로 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/nlist.ad?currentPage=1");
 		} else {
-			
-			request.getRequestDispatcher("views/admin/noticeEnrollPageView.jsp").forward(request, response);
+			request.getSession().setAttribute("alertMsgAd", "게시물 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/nlist.ad?currentPage=1");
+
 		}
 		
-	
+		
 	}
 
 	/**
