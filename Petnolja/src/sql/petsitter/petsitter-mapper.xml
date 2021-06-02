@@ -39,6 +39,7 @@
 							    ,STOP_CONTENT
 							    ,PENALTY_COUNT
 							    ,ADDITIONS
+							    ,FLOOR(MONTHS_BETWEEN((SELECT SYSDATE FROM DUAL),	PROMOTION_DATE)) AS DURATION
 		                FROM SITTER
 						JOIN MEMBER ON(SITTER_NO = MEM_NO)
 		                ORDER 
@@ -92,11 +93,58 @@
 		WHERE SITTER_NO = ?
 	</entry>
 	
-	<entry key="deleteOldPetsitter">
+	<entry key="blockSitter">
 		UPDATE
         	SITTER
-    	SET PROMOTION_STATUS = 'N'
-    	WHERE SITTER_NO = ?
+    	SET 
+    		PROMOTION_STATUS = 'N'
+    	WHERE 
+    		SITTER_NO = ?
+	</entry>
+	
+	<entry key="updateMemberId">
+		UPDATE
+        	MEMBER
+	    SET 
+        	MEM_ID = ?
+        WHERE
+         	MEM_NO = ?
+	</entry>
+	
+	<entry key="updatePetNo">
+		UPDATE
+			SITTER
+		SET
+			PET_NO = ?
+		WHERE
+			SITTER_NO = ?
+	</entry>
+	
+	<entry key="updateAdditions">
+		UPDATE
+			SITTER
+		SET
+			ADDITIONS = ?
+		WHERE
+			SITTER_NO = ?
+	</entry>
+	
+	<entry key="updateLicense">
+		UPDATE
+			SITTER
+		SET
+			LICENSE = ?
+		WHERE
+			SITTER_NO = ?
+	</entry>
+	
+	<entry key="updateExperience">
+		UPDATE
+			SITTER
+		SET
+			EXPERIENCE = ?
+		WHERE
+			SITTER_NO = ?
 	</entry>
 	
 	<entry key="sitterAccept">

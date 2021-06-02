@@ -65,5 +65,17 @@ public class MemReserveDao {
 		return list;
 	
 	}
+	
+	
+	
+	public void reserveProceed(int userNo, int sitterNo, String startDate, String endDate, int[] petList) {
+		ArrayList<MemReserve> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reserveList");
+	}
+	
+	
+	
 
 }

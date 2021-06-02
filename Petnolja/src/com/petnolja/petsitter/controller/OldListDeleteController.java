@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.member.model.service.MemberService;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
  * Servlet implementation class OldListDeleteController
  */
-@WebServlet("/oldlistDelete.ad")
+@WebServlet("/sitterblock.ad")
 public class OldListDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,22 +30,14 @@ public class OldListDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Boolean success = true;
+		response.setContentType("application/json; charset=utf-8");
 		
-		String petsitterNo[] = request.getParameterValues("chk");
+		String sitterNoList = request.getParameter("sitterNoList");
+		String[] list = sitterNoList.split(",");
 		
-		int[] result = new PetsitterService().deleteOldPetsitter(petsitterNo);
-	
-		for(int i=0; i<petsitterNo.length; i++) {
-			if(result[i] <= 0) {
-				success = false;
-				request.setAttribute("errorMsg", "삭제 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);			
-			}
-		}
+		int result = new PetsitterService().blockSitter(list);
 		
-		if(success == true)
-			response.sendRedirect(request.getContextPath() + "/oldlist.ad?currentPage=1");
+		response.getWriter().print(result);
 		
 	}
 

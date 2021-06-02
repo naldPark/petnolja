@@ -34,6 +34,8 @@ public class PetsitterDeny extends HttpServlet {
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
 		
 		int result = new PetsitterService().sitterDeny(sitterNo);
+		
+		response.getWriter().print(result);
 	}
 
 	/**

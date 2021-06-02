@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
-import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.vo.Petsitter;
 
@@ -68,23 +67,32 @@ public class PetsitterService {
 	
 	
 	//기존 펫시터 삭제
-	public int[] deleteOldPetsitter(String[] petsitterNo) {
+	public int blockSitter(String[] list) {
 		Connection conn = getConnection();
-		int[] result = new PetsitterDao().deleteOldPetsitter(conn, petsitterNo);
-		
-		
-		for(int i=0; i<petsitterNo.length; i++) {
-			if(result[i] < 0) {
-				rollback(conn);
-				close(conn);
-				return result;
-			}
+		int result = new PetsitterDao().blockSitter(conn, list);
+
+		if (result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
-		
-		commit(conn);
-		
 		close(conn);
-		
+		return result;
+	}
+	
+	
+	// 기존 펫시터 정보 업데이트
+	public int updateOldSitter(int sitterNo, String updateCol, String updateVal) {
+		Connection conn = getConnection();
+
+		int result = new PetsitterDao().updateOldSitter(conn, sitterNo, updateCol, updateVal);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 	

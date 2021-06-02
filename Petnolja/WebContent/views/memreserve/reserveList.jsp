@@ -75,7 +75,7 @@
        </form>
        <script>
 		    $(document).ready(function(){
-
+                
 			   <% if(startDate!=null && endDate!=null){ %>
 			    	$("#startDate").val("<%=startDate%>");     
 			    	$("#endDate").val("<%=endDate%>");  
@@ -83,18 +83,19 @@
 		    })
             $(".searchBtn").click(function(){
  
-            var temp=0;
-            if($(this).attr('id')==$("#findAll").attr('id')){
-           	$("#startDate").val(null);  
-           	$("#endDate").val(null); 
-            } else{
-            var months =$(this).attr("id");
-            temp= new Date(new Date().setMonth(new Date().getMonth()-months));
-            temp=temp.toISOString().substring(0,10);
-            $("#startDate").val(temp);          
-            $("#endDate").val(new Date().toISOString().substring(0,10));
-            }
-            $("#searchSubmitBtn").click();
+                var temp=0;
+                if($(this).attr('id')==$("#findAll").attr('id')){
+                    $("#startDate").val(null);  
+                    $("#endDate").val(null); 
+                } else{
+                    var months =$(this).attr("id");
+                    temp= new Date(new Date().setMonth(new Date().getMonth()-months));
+                    // temp Date타입!!!! 
+                    temp=temp.toISOString().substring(0,10);
+                    $("#startDate").val(temp);          
+                    $("#endDate").val(new Date().toISOString().substring(0,10));
+                }
+                $("#searchSubmitBtn").click();
             });      
             
        </script>
