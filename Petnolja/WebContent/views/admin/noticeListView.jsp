@@ -162,8 +162,6 @@
 	        });
 	    });
 	    
-	    
-	    
 	    // 공지사항 삭제
 	    function deleteNotice(){
 	    	
@@ -197,14 +195,13 @@
     		} else {
     			$(":checkbox").prop("checked", false);
     		}
-	    		
 	    }
 	    
 	    // 공지사항 조회
 	    
 	    $("#notice-list>tbody>tr").on("click", function(){
 	    	var nNo = $(this).children().eq(1).text();
-	    	location.href = "<%= contextPath %>/nselect.ad?page=<%=currentPage%>&nno=" + nNo;
+	    	location.href = "<%= contextPath %>/nselect.ad?pno=<%=currentPage%>&nno=" + nNo;
 	    });
 	    
 	</script>

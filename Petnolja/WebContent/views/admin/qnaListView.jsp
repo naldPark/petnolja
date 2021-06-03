@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.qna.model.vo.Qna "%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
+	String answerStatus = "";
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,11 +36,13 @@
             background-color: white;
 
         }
-
+		
+		<% if(!list.isEmpty()){%>
         #qna-list>tbody>tr:hover{
             background-color: rgb(255, 254, 190);
             cursor: pointer;
         }
+        <% }%>
 
         #qna-list td{height: 60px; border: none;}
 
@@ -72,7 +85,7 @@
             </select>
         </div>
         <div id="buttons" align="right">
-            <button class="btn btn-warning btn-sm">삭제</button>
+            <button onclick="deleteqna();" class="btn btn-warning btn-sm">삭제</button>
         </div>
 
         <br><br>
@@ -91,143 +104,54 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>결제/취소/환불</td>
-                    <td>취소 확인은 어디서하나요?</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>002</td>
-                    <td>기타</td>
-                    <td>기타 자가자가장장</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>003</td>
-                    <td>이용관련</td>
-                    <td>할인쿠폰 이용하려면 어떻게 해야하나요?</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>004</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>005</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>006</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>007</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>008</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>N</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>009</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>Y</td>
-                    <td>관리자2</td>                
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>010</td>
-                    <td>결제/취소/환불</td>
-                    <td>제목</td>
-                    <td>jieun1004</td>
-                    <td>2021-05-25 12:05:30</td>
-                    <td>Y</td>
-                    <td>관리자2</td>                
-                </tr>
-
-
-
-
+            	<%if(list.isEmpty()) {%>
+            		<tr>
+            			<td colspan="8">등록된 문의내역이 없습니다.</td>
+            		</tr>
+            	<% } else {%>
+            
+	            	<%for(Qna q : list) { %>
+		                <tr>
+		                    <td><input type="checkbox"></td>
+		                    <td><%=q.getQnaNo() %></td>
+		                    <td><%=q.getqCategory() %></td>
+		                    <td><%=q.getqTitle() %></td>
+		                    <td><%=q.getqMemNo() %></td>
+		                    <td><%=q.getqCreateDate() %></td>
+		                    <% if(q.getaContent() != null ){ answerStatus = "Y"; } else { answerStatus = "N"; } %>
+		                    <td><%= answerStatus %></td>
+		                    <% if(q.getaWriter() != null) { %>
+		                    <td><%= q.getaWriter()%></td>
+		                    <% } else { %>
+		                    <td>-</td>
+		                    <% } %>
+		                                    
+		                </tr>
+		            <% } %>
+	            <% } %>
             </tbody>
         </table>
 
         <!-- 페이징바 -->
                         
         <div id="paging-area">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <button class="btn btn-outline-primary btn-sm">1</button>
-            <button class="btn btn-outline-primary btn-sm">2</button>
-            <button class="btn btn-outline-primary btn-sm">3</button>
-            <button class="btn btn-outline-primary btn-sm">4</button>
-            <button class="btn btn-outline-primary btn-sm">5</button>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
+        
+        <% if(currentPage != 1){ %>
+            <button onclick="location.href='<%=contextPath %>/qnalist.ad?currentPage=<%=currentPage -1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
+        <% } %>
+        <% for(int p=startPage; p< endPage; p++) {%>
+        
+        
+        	<%if(p !=currentPage) { %>
+            	<button onclick="location.href='<%=contextPath %>/qnalist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm">1</button>
+        	<% } else { %>
+	            <button class="btn btn-outline-primary btn-sm" disabled><%=p %></button>
+        	<% } %>
+        <% } %>
+        
+        <% if(currentPage != maxPage && !list.isEmpty()) { %>
+            <button onclick="location.href='<%=contextPath %>/qnalist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm">&gt;</button>
+        <% } %>    
         </div>
     </div>
 
@@ -236,8 +160,7 @@
 
 <script>
 
-    // 아이디로 검색  // 조회버튼 필요없음
-
+	// 답변여부로 필터링
     $(document).ready(function () {
         $("#qna-filter").on("change", function () {
             var value = $(this).val().toLowerCase();
@@ -245,6 +168,44 @@
                 $(this).toggle($(this).children().eq(6).text().toLowerCase().indexOf(value) > -1)
             });
         });
+    });
+    
+    // 삭제버튼
+    function deleteqna(){
+    	
+    	if(confirm("선택한 문의내역을 삭제하시겠습니까?")){
+    	var qnoArr = [];
+    	
+    	$("input[type=checkbox]:checked").each(function(){
+			qnoArr.push($(this).parent().siblings().eq(0).text());
+    	});
+    	
+		var qnoList = qnoArr.join(",");
+		
+		$.ajax({
+			url:"qdelete.ad",
+			type:"post",
+			data:{qnoList:qnoList},
+			success:function(){
+		    	$("input[type=checkbox]:checked").each(function(){
+		    		$(this).parents("tr").remove();
+		    		alert("문의내역이 정상적으로 삭제되었습니다.");
+		    	});
+			}, error:function(){
+				console.log("문의내역 삭제ajax 통신 실패");
+			}
+		});
+
+    	} else {
+    		$(":checkbox").prop("checked", false);
+    	}
+    }
+
+    
+    $("#qna-list>tbody>tr").on("click", function(){
+    	var qno = $(this).children().eq(1).text();
+		location.href = "<%=contextPath%>/qdetail.ad?pno=<%=currentPage%>&qno=" + qno;
+    	
     });
 </script>
 

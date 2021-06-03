@@ -1,4 +1,4 @@
-package com.petnolja.notice.controller;
+package com.petnolja.qna.controller;
 
 import java.io.IOException;
 
@@ -8,21 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.common.Attachment;
-import com.petnolja.notice.model.service.NoticeService;
-import com.petnolja.notice.model.vo.Notice;
+import com.petnolja.admin.model.vo.Admin;
+import com.petnolja.qna.model.service.QnaService;
+import com.petnolja.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class AdminNoticeUpdatePageController
+ * Servlet implementation class AjaxAdminQnaAnswerController
  */
-@WebServlet("/nselect.ad")
-public class AdminNoticeSelectController extends HttpServlet {
+@WebServlet("/answer.ad")
+public class AjaxAdminQnaAnswerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeSelectController() {
+    public AjaxAdminQnaAnswerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,21 @@ public class AdminNoticeSelectController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int nNo = Integer.parseInt(request.getParameter("nno"));
+		request.setCharacterEncoding("UTF-8");
 		
-		Notice n = new NoticeService().selectNotice(nNo);
-		Attachment at = new NoticeService().selectAttachment(nNo);
+		String answer = request.getParameter("answer");
+		int qno = Integer.parseInt(request.getParameter("qno"));
 		
-		request.setAttribute("pno", pno);
-		request.setAttribute("n", n);
-		request.setAttribute("at", at);
+		int aWriter = ((Admin)request.getSession().getAttribute("loginAdmin")).getAdminNo();
 		
-		request.getRequestDispatcher("views/admin/noticeUpdatePageView.jsp").forward(request, response);
-	
+		Qna q = new Qna();
+		q.setQnaNo(qno);
+		q.setaContent(answer);
+		q.setaWriter(String.valueOf(aWriter));
+		
+		int result = new QnaService().updateAnswer(q);
+		
+		response.getWriter().print(result);
 	
 	}
 
