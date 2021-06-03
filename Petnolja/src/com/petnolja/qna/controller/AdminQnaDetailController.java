@@ -1,7 +1,6 @@
-package com.petnolja.pet.controller;
+package com.petnolja.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.admin.model.vo.Admin;
-import com.petnolja.member.model.service.MemberService;
-import com.petnolja.member.model.vo.Member;
-import com.petnolja.pet.model.service.PetService;
-import com.petnolja.pet.model.vo.Pet;
+import com.petnolja.common.Attachment;
+import com.petnolja.qna.model.service.QnaService;
+import com.petnolja.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class AdminMemberPetListController
+ * Servlet implementation class AdminQnaDetailController
  */
-@WebServlet("/mempet.ad")
-public class AdminMemberPetListController extends HttpServlet {
+@WebServlet("/qdetail.ad")
+public class AdminQnaDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberPetListController() {
+    public AdminQnaDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,15 +41,18 @@ public class AdminMemberPetListController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		} else {
-			int memNo = Integer.parseInt(request.getParameter("mno"));
+			request.setCharacterEncoding("UTF-8");
 			
-			Member m = new MemberService().selectMember(memNo);
-			ArrayList<Pet> petList = new PetService().selectPetList(memNo);
+			int qno = Integer.parseInt(request.getParameter("qno"));
+			int pno = Integer.parseInt(request.getParameter("pno"));
 			
-			request.setAttribute("m", m);
-			request.setAttribute("petList", petList);
+			Qna q = new QnaService().selectQna(qno);
+			Attachment at = new QnaService().selectAttachment(qno);
 			
-			request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
+			request.setAttribute("pno", pno);
+			request.setAttribute("q", q);
+			request.setAttribute("at", at);
+			request.getRequestDispatcher("views/admin/qnaAnswerView.jsp").forward(request, response);
 		}
 	}
 

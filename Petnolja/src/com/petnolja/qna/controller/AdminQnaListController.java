@@ -1,4 +1,4 @@
-package com.petnolja.notice.controller;
+package com.petnolja.qna.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.admin.model.vo.Admin;
 import com.petnolja.common.model.vo.PageInfo;
-import com.petnolja.member.model.service.MemberService;
 import com.petnolja.notice.model.service.NoticeService;
-import com.petnolja.notice.model.vo.Notice;
+import com.petnolja.qna.model.service.QnaService;
+import com.petnolja.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class AdminNoticeListController
+ * Servlet implementation class AdminQnaListController
  */
-@WebServlet("/nlist.ad")
-public class AdminNoticeListController extends HttpServlet {
+@WebServlet("/qnalist.ad")
+public class AdminQnaListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeListController() {
+    public AdminQnaListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class AdminNoticeListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		
 		if(loginAdmin == null) {
@@ -43,7 +43,6 @@ public class AdminNoticeListController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		} else {
-			
 			// ---------------- 페이징 처리 --------------------
 			int listCount; 		// 현재 총 게시글 갯수
 			int currentPage; 	// 현재 페이지(즉, 사용자가 요청한 페이지)
@@ -54,7 +53,7 @@ public class AdminNoticeListController extends HttpServlet {
 			int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 			int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
 			
-			listCount = new NoticeService().selectListCount();
+			listCount = new QnaService().selectListCount();
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -74,15 +73,15 @@ public class AdminNoticeListController extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Notice> list = new NoticeService().selectList(pi);
+			ArrayList<Qna> list = new QnaService().selectList(pi);
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
-	
 			
-			request.getRequestDispatcher("views/admin/noticeListView.jsp").forward(request, response);
+			request.getRequestDispatcher("views/admin/qnaListView.jsp").forward(request, response);
 		}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

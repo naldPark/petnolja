@@ -143,16 +143,17 @@
                 <li><a href="<%=contextPath%>/newlist.ad?currentPage=1">신규 펫시터 관리</a></li>
             </ul>
         </li>
-        <li><a href="">게시판 관리</a>
+        <li><a href="<%=contextPath %>/qnalist.ad?currentPage=1">게시판 관리</a>
             <ul>
-                <li><a href="">1:1문의내역</a></li>
+                <li><a href="<%=contextPath%>/qnalist.ad?currentPage=1">1:1문의내역</a></li>
                 <li><a href="<%=contextPath%>/nlist.ad?currentPage=1">공지사항</a></li>
             </ul>
         </li>
         <li><a href="<%=contextPath%>/reportlist.ad?currentPage=1">신고내역 관리</a></li>
         <li>
-            <a href="">거래내역</a>
+            <a href="">거래내역 관리</a>
             <ul>
+                <li><a href="">거래내역</a></li>
                 <li><a href="">통계자료</a></li>
                 <li><a href="">펫시터 정산</a></li>
             </ul>

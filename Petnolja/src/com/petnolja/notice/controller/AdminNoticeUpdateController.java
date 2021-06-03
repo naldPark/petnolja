@@ -77,8 +77,9 @@ public class AdminNoticeUpdateController extends HttpServlet {
 			int result = new NoticeService().updateNotice(n, at);
 			
 			if(result > 0) {
+				int pno = Integer.parseInt(mr.getParameter("pno"));
 				request.getSession().setAttribute("alertMsgAd", "공지사항이 정상적으로 수정되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/nselect.ad?nno=" + nNo);
+				response.sendRedirect(request.getContextPath() + "/nselect.ad?nno=" + nNo + "&pno=" + pno);
 			} else {
 				request.getSession().setAttribute("alertMsgAd", "공지사항 수정에 실패했습니다.");
 				response.sendRedirect(request.getContextPath() + "/nselect.ad?nno=" + nNo);

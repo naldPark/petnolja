@@ -1,7 +1,6 @@
-package com.petnolja.pet.controller;
+package com.petnolja.qna.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.admin.model.vo.Admin;
-import com.petnolja.member.model.service.MemberService;
-import com.petnolja.member.model.vo.Member;
-import com.petnolja.pet.model.service.PetService;
-import com.petnolja.pet.model.vo.Pet;
+import com.petnolja.qna.model.service.QnaService;
+import com.petnolja.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class AdminMemberPetListController
+ * Servlet implementation class AjaxAdminQnaAnswerController
  */
-@WebServlet("/mempet.ad")
-public class AdminMemberPetListController extends HttpServlet {
+@WebServlet("/answer.ad")
+public class AjaxAdminQnaAnswerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberPetListController() {
+    public AjaxAdminQnaAnswerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,15 +40,21 @@ public class AdminMemberPetListController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		} else {
-			int memNo = Integer.parseInt(request.getParameter("mno"));
+			request.setCharacterEncoding("UTF-8");
 			
-			Member m = new MemberService().selectMember(memNo);
-			ArrayList<Pet> petList = new PetService().selectPetList(memNo);
+			String answer = request.getParameter("answer");
+			int qno = Integer.parseInt(request.getParameter("qno"));
 			
-			request.setAttribute("m", m);
-			request.setAttribute("petList", petList);
+			int aWriter = ((Admin)request.getSession().getAttribute("loginAdmin")).getAdminNo();
 			
-			request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
+			Qna q = new Qna();
+			q.setQnaNo(qno);
+			q.setaContent(answer);
+			q.setaWriter(String.valueOf(aWriter));
+			
+			int result = new QnaService().updateAnswer(q);
+			
+			response.getWriter().print(result);
 		}
 	}
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		  FROM QNA
+		 WHERE Q_SORT = 1
+		   AND QNA_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectList">
+		SELECT * 
+  		  FROM (
+	    	SELECT ROWNUM RNUM, A.*
+	          FROM (
+				SELECT
+				      QNA_NO
+				    , MEM_ID
+				    , Q_CATEGORY
+				    , Q_TITLE
+				    , Q_CREATE_DATE
+				    , A_CONTENT
+				    , ADMIN_ID
+				  FROM QNA
+				  JOIN MEMBER ON(Q_MEM_NO = MEM_NO)
+				  LEFT JOIN ADMIN ON(ADMIN_NO = A_WRITER)
+				 WHERE Q_SORT = 1
+				   AND QNA_STATUS = 'Y'
+				 ORDER BY Q_CREATE_DATE
+	               	) A
+	          	)
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="deleteQna">
+		UPDATE
+			QNA
+		   SET QNA_STATUS = 'N'
+	</entry>
+	
+	<entry key="selectQna">
+		SELECT 
+			  QNA_NO
+		    , Q_TITLE
+		    , Q_CONTENT
+		    , MEM_ID
+		    , A_CONTENT
+		    , ADMIN_ID
+		  FROM QNA
+		  JOIN MEMBER ON (Q_MEM_NO = MEM_NO)
+		  LEFT JOIN ADMIN ON(ADMIN_NO = A_WRITER)
+		 WHERE QNA_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+				SELECT    
+			  FILE_NO  
+			, ORIGIN_NAME
+			, CHANGE_NAME
+			, FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE AT_CATEGORY = 'QNA'
+		   AND AT_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateAnswer">
+		UPDATE 
+		    QNA 
+		   SET
+		      A_CONTENT = ?
+		    , A_WRITER = ?
+		    , A_CREATE_DATE = SYSDATE 
+		 WHERE QNA_NO = ?
+	</entry>
+	
+</properties>

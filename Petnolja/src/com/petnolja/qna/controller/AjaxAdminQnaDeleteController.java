@@ -1,4 +1,4 @@
-package com.petnolja.notice.controller;
+package com.petnolja.qna.controller;
 
 import java.io.IOException;
 
@@ -8,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.common.Attachment;
-import com.petnolja.notice.model.service.NoticeService;
-import com.petnolja.notice.model.vo.Notice;
+import com.petnolja.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class AdminNoticeUpdatePageController
+ * Servlet implementation class AjaxAdminQnaDeleteController
  */
-@WebServlet("/nselect.ad")
-public class AdminNoticeSelectController extends HttpServlet {
+@WebServlet("/qdelete.ad")
+public class AjaxAdminQnaDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeSelectController() {
+    public AjaxAdminQnaDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +29,26 @@ public class AdminNoticeSelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String qnoList = request.getParameter("qnoList");
+		
+		String[] list = qnoList.split(","); 
+		
+		int result = new QnaService().deleteQna(list);
+		
+		/*
+		if(result == list.length) {
+			request.getSession().setAttribute("alertMsgAd", "문의내역이 정상적으로 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/qnalist.ad?currentPage=1");
+			
+		} else {
+			request.getSession().setAttribute("alertMsgAd", "문의내역 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/qnalist.ad?currentPage=1");
 
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int nNo = Integer.parseInt(request.getParameter("nno"));
-		
-		Notice n = new NoticeService().selectNotice(nNo);
-		Attachment at = new NoticeService().selectAttachment(nNo);
-		
-		request.setAttribute("pno", pno);
-		request.setAttribute("n", n);
-		request.setAttribute("at", at);
-		
-		request.getRequestDispatcher("views/admin/noticeUpdatePageView.jsp").forward(request, response);
-	
+		}
+		*/
 	
 	}
 
