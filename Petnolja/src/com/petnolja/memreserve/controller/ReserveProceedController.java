@@ -5,15 +5,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.petnolja.member.model.vo.Member;
 import com.petnolja.memreserve.model.service.MemReserveService;
 import com.petnolja.memreserve.model.vo.ReserveContent;
 

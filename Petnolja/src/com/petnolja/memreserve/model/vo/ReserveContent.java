@@ -6,6 +6,7 @@ public class ReserveContent {
 	private int petNo;
 	private int memNo;
 	private int sitterNo;
+	private int sittingNo;
 	private String sitterName;
 	private String petName;
 	private String petBirth;
@@ -22,13 +23,14 @@ public class ReserveContent {
 
 	public ReserveContent() {}
 
-	public ReserveContent(int petNo, int memNo, int sitterNo, String sitterName, String petName, String petBirth,
+	public ReserveContent(int petNo, int memNo, int sitterNo, int sittingNo, String sitterName, String petName, String petBirth,
 			String petSize, String petGender, String checkinDate, String checkoutDate, int countDays,
 			int checkinTime, int checkoutTime, int price, String petImg) {
 		super();
 		this.petNo = petNo;
 		this.memNo = memNo;
 		this.sitterNo = sitterNo;
+		this.sittingNo = sittingNo;
 		this.sitterName = sitterName;
 		this.petName = petName;
 		this.petBirth = petBirth;
@@ -43,13 +45,14 @@ public class ReserveContent {
 		this.petImg = petImg;
 	}
 	
-	public ReserveContent(int petNo, int memNo, int sitterNo, String sitterName, String petName, String petBirth,
+	public ReserveContent(int petNo, int memNo, int sitterNo, int sittingNo, String sitterName, String petName, String petBirth,
 			String petSize, String petGender, String checkinDate, String checkoutDate,
 			int checkinTime, int checkoutTime, int price, String petImg) {
 		super();
 		this.petNo = petNo;
 		this.memNo = memNo;
 		this.sitterNo = sitterNo;
+		this.sittingNo = sittingNo;
 		this.sitterName = sitterName;
 		this.petName = petName;
 		this.petBirth = petBirth;
@@ -272,18 +275,28 @@ public class ReserveContent {
 		this.petImg = petImg;
 	}
 
+	
 
 
+
+	public int getSittingNo() {
+		return sittingNo;
+	}
+
+	public void setSittingNo(int sittingNo) {
+		this.sittingNo = sittingNo;
+	}
 
 	@Override
 	public String toString() {
-		return "ReserveContent [petNo=" + petNo + ", memNo=" + memNo + ", sitterNo=" + sitterNo + ", sitterName="
-				+ sitterName + ", petName=" + petName + ", petBirth=" + petBirth + ", petSize=" + petSize
-				+ ", petGender=" + petGender + ", checkinDate=" + checkinDate + ", checkoutDate=" + checkoutDate
-				+ ", countDays=" + countDays + ", checkinTime=" + checkinTime + ", checkoutTime=" + checkoutTime
-				+ ", price=" + price + ", petImg=" + petImg + "]";
+		return "ReserveContent [petNo=" + petNo + ", memNo=" + memNo + ", sitterNo=" + sitterNo + ", sittingNo="
+				+ sittingNo + ", sitterName=" + sitterName + ", petName=" + petName + ", petBirth=" + petBirth
+				+ ", petSize=" + petSize + ", petGender=" + petGender + ", checkinDate=" + checkinDate
+				+ ", checkoutDate=" + checkoutDate + ", countDays=" + countDays + ", checkinTime=" + checkinTime
+				+ ", checkoutTime=" + checkoutTime + ", price=" + price + ", petImg=" + petImg + "]";
 	}
 
+	
 
 	
 	

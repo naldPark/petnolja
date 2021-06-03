@@ -89,7 +89,7 @@
                   <div class="wrap" style="width:400px;padding:30px; border:1px solid lightgray; margin-left:40px">
                       <b> 별도 요청사항</b><br><br>
                       <div class="row">
-                        <textarea name="text" cols="45" rows="7" placeholder= " 예) 산책 중에 아무거나 잘 삼켜서 주의주셔야 해요." style="resize:none; border:1px solid lightgray"></textarea>
+                        <textarea name="text" id = "requestInput" cols="45" rows="7" placeholder= " 예) 산책 중에 아무거나 잘 삼켜서 주의주셔야 해요." style="resize:none; border:1px solid lightgray"></textarea>
                       </div>
                   </div><br>
                   <div class="wrap" style="padding:20px; border:1px solid lightgray; margin-left:40px">
@@ -134,6 +134,8 @@
   <script>
 
     var total=0;
+    var pet = [];
+    var sittingNo = [];
 
     $(function(){
       
@@ -141,6 +143,8 @@
     var mid = ["중형",0,0];
     var big = ["대형",0,0];
       <% for(ReserveContent rc : list){ %>
+        pet.push("<%=rc.getPetNo()%>");
+        sittingNo.push("<%=rc.getSittingNo()%>");
         if(mid[0]=="<%=rc.getPetSize()%>"){
           mid[1]+= 1;
           mid[2]+=<%=rc.getPrice()%>;
@@ -152,7 +156,6 @@
           big[2]+=<%=rc.getPrice()%>;
         }
       <%}%>
-      
       total = sm[2]+mid[2]+big[2];
 
       $("#totalPrice").text(priceToString(total+Math.floor(total*0.1))+"원");
@@ -165,40 +168,102 @@
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
   
-
+  var pay_method ="";
+  var payNo=0;
   $("#check_module").click(function () {
-      var IMP = window.IMP; // 생략가능
-      IMP.init('imp68132881'); 
-      IMP.request_pay({
-          pg: 'inicis',
-          pay_method: 'card',
-          merchant_uid: 'merchant_' + new Date().getTime(),
-          name: '펫놀자 결제페이지',
-          //amount: total+Math.floor(total*0.1), 
-          amount: 100, 
-          buyer_email: '<%=loginUser.getMemEmail()%>',  
-          buyer_name: '<%=loginUser.getMemName()%>',  
-          buyer_tel: '<%=loginUser.getMemTel()%>',   
-          buyer_addr: '<%=loginUser.getMemAddress()%>',
-          buyer_postcode: '12345',
-          m_redirect_url: 'http://petnolja.xyz'
-      }, function (rsp) {
-          console.log(rsp);
-          if (rsp.success) {
-              var msg = '결제가 완료되었습니다.<br>';
-              // msg += '고유ID : ' + rsp.imp_uid;
-              // msg += '상점 거래ID : ' + rsp.merchant_uid;
-              // msg += '결제 금액 : ' + rsp.paid_amount;
-              msg += '카드 승인번호 : ' + rsp.apply_num;
-              location.href='http://petnolja.xyz';
-          } else {
-              var msg = '결제에 실패하였습니다.';
-              msg += '에러내용 : ' + rsp.error_msg;
-          }
-          alert(msg);
-          //hidden form만들어서 여기서 서브밋
+    var IMP = window.IMP; 
+
+	  if($("#buyCard").prop("checked")){
+      console.log("buycard");
+    
+        IMP.init('imp68132881'); 
+        IMP.request_pay({
+            pg: 'inicis',
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '펫놀자 카드 결제페이지',
+            //amount: total+Math.floor(total*0.1), 
+            amount: 100, 
+            buyer_email: '<%=loginUser.getMemEmail()%>',  
+            buyer_name: '<%=loginUser.getMemName()%>',  
+            buyer_tel: '<%=loginUser.getMemTel()%>',   
+            buyer_addr: '<%=loginUser.getMemAddress()%>',
+            buyer_postcode: '12345'
+        }, function (rsp) {
+            console.log(rsp);
+            payNo=rsp.paid_at;
+            if (rsp.success) {
+                var msg = '결제가 완료되었습니다.<br>';
+                reserveInsertAjax('카드');
+                msg += '카드 승인번호 : ' + rsp.apply_num;
+                location.href = "<%=contextPath%>/reserveList.mem";
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+            //hidden form만들어서 여기서 서브밋
       });
+    
+    } else { 
+        IMP.init('imp40865699'); 
+        IMP.request_pay({
+            pg: 'danal',
+            pay_method: 'phone',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '펫놀자 휴대폰 결제 페이지',
+            amount: 100, 
+            buyer_email: '<%=loginUser.getMemEmail()%>',  
+            buyer_name: '<%=loginUser.getMemName()%>',  
+            buyer_tel: '<%=loginUser.getMemTel()%>',   
+            buyer_addr: '<%=loginUser.getMemAddress()%>',
+            buyer_postcode: '12345'
+        }, function (rsp) {
+            if (rsp.success) {
+                var msg = '결제가 완료되었습니다.';
+                reserveInsertAjax('휴대폰');
+                location.href = "<%=contextPath%>/reserveList.mem";
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+        });
+
+    }
+
+		  
+    
   });
+
+  var checkin = "<%=list.get(0).getCheckoutDate() %>";
+  var checkout = "<%=list.get(0).getCheckoutDate() %>";
+
+  function reserveInsertAjax(paymentWay){
+
+	      $.ajax({
+	        url:"reserveInsertAjax.mem",
+	        data:{
+	          checkin:checkin,
+	          checkout: checkout,
+            requestInput : $("#requestInput").val(),
+            payNo: payNo,
+            payMethod: paymentWay,
+            payAmount:total+Math.floor(total*0.1),
+            pet:pet.join(','),
+            sittingNo:sittingNo.join(',')
+	        },
+	        type:"post",
+	        success:function(resultmsg){
+            console.log(resultmsg);
+
+	        },error:function(resultmsg){
+            console.log(resultmsg);
+	        }
+	      });
+	    }
+
+
 </script>
         
 
