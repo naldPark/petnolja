@@ -109,9 +109,7 @@
             	<% } else { %>
             		<% for(Notice n : list) { %>
 		                <tr>
-		                    <td>
-		                        <input type="checkbox">
-		                    </td>
+		                    <td><input type="checkbox" onclick="event.stopPropagation()"></td>
 		                    <td><%= n.getNoticeNo() %></td>
 		                    <td><%= n.getNoticeTitle() %></td>
 		                    <td><%= n.getNoticeWriter() %></td>
@@ -181,9 +179,7 @@
     				success:function(result){
     					if(result == nNoArr.length){
    							alert("성공적으로 처리되었습니다.");
-    						$("input[type=checkbox]:checked").each(function(){
-    							$(this).parents("tr").remove();
-    						});
+   							location.reload();
     					} else {
     						alert("공지사항 삭제에 실패했습니다.");
     					}
@@ -197,7 +193,7 @@
     		}
 	    }
 	    
-	    // 공지사항 조회
+	    // 공지사항 상세 조회
 	    
 	    $("#notice-list>tbody>tr").on("click", function(){
 	    	var nNo = $(this).children().eq(1).text();

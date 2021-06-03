@@ -31,23 +31,31 @@ public class AjaxAdminQnaAnswerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
 		
-		String answer = request.getParameter("answer");
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		
-		int aWriter = ((Admin)request.getSession().getAttribute("loginAdmin")).getAdminNo();
-		
-		Qna q = new Qna();
-		q.setQnaNo(qno);
-		q.setaContent(answer);
-		q.setaWriter(String.valueOf(aWriter));
-		
-		int result = new QnaService().updateAnswer(q);
-		
-		response.getWriter().print(result);
-	
+		if(loginAdmin == null) {
+			
+			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		} else {
+			request.setCharacterEncoding("UTF-8");
+			
+			String answer = request.getParameter("answer");
+			int qno = Integer.parseInt(request.getParameter("qno"));
+			
+			int aWriter = ((Admin)request.getSession().getAttribute("loginAdmin")).getAdminNo();
+			
+			Qna q = new Qna();
+			q.setQnaNo(qno);
+			q.setaContent(answer);
+			q.setaWriter(String.valueOf(aWriter));
+			
+			int result = new QnaService().updateAnswer(q);
+			
+			response.getWriter().print(result);
+		}
 	}
 
 	/**

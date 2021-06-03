@@ -112,7 +112,7 @@
             
 	            	<%for(Qna q : list) { %>
 		                <tr>
-		                    <td><input type="checkbox"></td>
+		                    <td><input type="checkbox" onclick="event.stopPropagation()"></td>
 		                    <td><%=q.getQnaNo() %></td>
 		                    <td><%=q.getqCategory() %></td>
 		                    <td><%=q.getqTitle() %></td>
@@ -188,8 +188,8 @@
 			data:{qnoList:qnoList},
 			success:function(){
 		    	$("input[type=checkbox]:checked").each(function(){
-		    		$(this).parents("tr").remove();
 		    		alert("문의내역이 정상적으로 삭제되었습니다.");
+		    		location.reload();
 		    	});
 			}, error:function(){
 				console.log("문의내역 삭제ajax 통신 실패");

@@ -175,7 +175,7 @@
                     
                     	<%for(Pet p : petList) {%>
 	                        <tr>
-	                            <td><input type="checkbox"></td>
+	                            <td><input type="checkbox" onclick="event.stopPropagation();"></td>
 	                            <td><%=p.getPetNo() %></td>
 	                            <td><%=p.getPetName() %></td>
 	                        </tr>
@@ -281,9 +281,7 @@
 	    				
 	    				if(result == petNoArr.length){
 	    					alert("성공적으로 처리되었습니다.");
-		    				$("input[type=checkbox]:checked").each(function(){
-		    					$(this).parents("tr").remove();
-		    				});
+	    					location.reload();
 	    				}
 	    			}, error:function(){
 	    				console.log("회원 펫정보 삭제 ajax통신 실패");

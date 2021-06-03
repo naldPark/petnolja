@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.admin.model.vo.Admin;
 import com.petnolja.member.model.service.MemberService;
 import com.petnolja.member.model.vo.Member;
 import com.petnolja.pet.model.service.PetService;
@@ -33,19 +34,25 @@ public class AdminMemberPetListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int memNo = Integer.parseInt(request.getParameter("mno"));
-
 		
-		Member m = new MemberService().selectMember(memNo);
-		ArrayList<Pet> petList = new PetService().selectPetList(memNo);
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		
-		request.setAttribute("m", m);
-		request.setAttribute("petList", petList);
-		
-		
-		request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
-	
+		if(loginAdmin == null) {
+			
+			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		} else {
+			int memNo = Integer.parseInt(request.getParameter("mno"));
+			
+			Member m = new MemberService().selectMember(memNo);
+			ArrayList<Pet> petList = new PetService().selectPetList(memNo);
+			
+			request.setAttribute("m", m);
+			request.setAttribute("petList", petList);
+			
+			request.getRequestDispatcher("views/admin/petDetailView.jsp").forward(request, response);
+		}
 	}
 
 	/**

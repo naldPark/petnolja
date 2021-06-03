@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.admin.model.vo.Admin;
 import com.petnolja.common.Attachment;
 import com.petnolja.qna.model.service.QnaService;
 import com.petnolja.qna.model.vo.Qna;
@@ -32,20 +33,27 @@ public class AdminQnaDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		
-		int qno = Integer.parseInt(request.getParameter("qno"));
-		int pno = Integer.parseInt(request.getParameter("pno"));
-
-		
-		Qna q = new QnaService().selectQna(qno);
-		Attachment at = new QnaService().selectAttachment(qno);
-		
-		request.setAttribute("pno", pno);
-		request.setAttribute("q", q);
-		request.setAttribute("at", at);
-		request.getRequestDispatcher("views/admin/qnaAnswerView.jsp").forward(request, response);
-	
+		if(loginAdmin == null) {
+			
+			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		} else {
+			request.setCharacterEncoding("UTF-8");
+			
+			int qno = Integer.parseInt(request.getParameter("qno"));
+			int pno = Integer.parseInt(request.getParameter("pno"));
+			
+			Qna q = new QnaService().selectQna(qno);
+			Attachment at = new QnaService().selectAttachment(qno);
+			
+			request.setAttribute("pno", pno);
+			request.setAttribute("q", q);
+			request.setAttribute("at", at);
+			request.getRequestDispatcher("views/admin/qnaAnswerView.jsp").forward(request, response);
+		}
 	}
 
 	/**
