@@ -49,7 +49,6 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-    <%@ include file="../member/addReview.jsp" %>
     <%@ include file="cancelReservation.jsp" %>
 <br><br>
  <div id="outer">
@@ -121,7 +120,8 @@
 			        <div id="linkList" style="padding-left:800px; text-align: center;">
 			            <br>
 			            <a href='<%=contextPath%>/searchSitterDetail.mem?sno=<%=mr.getSitterNo()%>&rw=star'><span>자세히보기</span></a><br>
-			            <a href="writeReview.jsp" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
+			            <a href="" onclick="openPopup(); return false;"><span>후기작성</span></a><br>
+   						<%@ include file="addReview.jsp" %>
 			            <a href="cancelReservation.jsp" onclick="openCancelPopup(); return false;"><span>예약취소</span></a>
 			        </div>
 			      </div>

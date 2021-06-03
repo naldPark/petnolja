@@ -4,6 +4,7 @@ import static com.petnolja.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.petnolja.common.Attachment;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.dao.MemReserveDao;
 import com.petnolja.memreserve.model.vo.MemReserve;
@@ -57,6 +58,25 @@ public class MemReserveService {
 		close(conn);
 		return result;
 		
+	}
+	
+	public int reviewInsert(long reserveNo, int starCount, String comment, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new MemReserveDao().reviewInsert(conn, reserveNo, starCount, comment);
+		int result2 = 1;
+		if(at != null) {
+			result2 = new MemReserveDao().reviewInsertAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
 	}
 
 }

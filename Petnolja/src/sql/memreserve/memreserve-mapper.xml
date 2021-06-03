@@ -73,7 +73,8 @@
 	</entry>
 	
 	<entry key ="reserveInsertAjax">
-	INSERT INTO RESERV
+	 INSERT 
+	  INTO RESERV
 		VALUES(
 		SEQ_RESNO.NEXTVAL
 		, ?
@@ -89,6 +90,46 @@
 		,?
 		)
 	
+	</entry>
+	
+	<entry key = "reviewInsert">
+	
+	  INSERT 
+	   INTO REVIEW
+		VALUES(
+		 ?
+		,'Y'
+		,SEQ_REVNO.NEXTVAL
+		,?
+		,?
+		,SYSDATE
+		,null
+		,null
+		)
+	</entry>
+	
+	<entry key="reviewInsertAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		  (
+		    FILE_NO
+		  , AT_CATEGORY  
+		  , AT_NO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  , FILE_LEVEL
+		  )
+		  VALUES
+		  (
+		    SEQ_CNO.NEXTVAL
+		  , 'REVIEW_PIC'
+		  , SEQ_REVNO.CURRVAL
+		  , ?
+		  , ?
+		  , ?
+		  , 1
+		  )
 	</entry>
 	
 	

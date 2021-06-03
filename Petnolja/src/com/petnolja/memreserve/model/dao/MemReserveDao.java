@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.petnolja.memreserve.model.vo.ReserveContent;
+import com.petnolja.common.Attachment;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.vo.MemReserve;
 
@@ -234,6 +235,50 @@ public class MemReserveDao {
 		
 		return result;
 		
+	}
+	
+	public int reviewInsert(Connection conn, long reserveNo, int starCount, String comment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviewInsert");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reserveNo);
+			pstmt.setInt(2, starCount);
+			pstmt.setString(3, comment);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result; 
+	}
+	
+	public int reviewInsertAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviewInsertAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

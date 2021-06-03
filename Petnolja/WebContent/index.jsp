@@ -34,7 +34,7 @@
         background-position: center;
         }
         .wrap4{height:22%;}
-        .wrap>div{float:left; height:100%; text-align: center;}
+        .wrap>div{float:left; text-align: center;}
              
         .recommend{
         position:relative;
@@ -81,7 +81,7 @@
 
     <!-- 추천리스트 시작 -->
   <div class="wrap wrap2">
-    <br><hr><br>
+    <hr><br>
     <h2><b>&nbsp;&nbsp;펫놀자가 엄선한 추천리스트</b></h2><br>
     
     <div style="width:100%; height:80%;">
@@ -99,7 +99,7 @@
     </div> 
 
   </div>
-  <hr><br><br>
+  <hr><br>
       <!-- 추천리스트 끝 -->
       <!-- 펫시터지원광고 시작 -->
   <div class="wrap wrap3">
