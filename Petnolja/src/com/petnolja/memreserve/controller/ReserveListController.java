@@ -19,13 +19,13 @@ import com.petnolja.memreserve.model.vo.MemReserve;
  * Servlet implementation class reserveListController
  */
 @WebServlet("/reserveList.mem")
-public class reserveListController extends HttpServlet {
+public class ReserveListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public reserveListController() {
+    public ReserveListController() {
         super();
         // TODO Auto-generated constructor stub
     }
