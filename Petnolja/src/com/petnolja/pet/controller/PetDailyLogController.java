@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.memreserve.model.service.MemReserveService;
 import com.petnolja.pet.model.service.PetService;
 import com.petnolja.pet.model.vo.PetLogList;
 

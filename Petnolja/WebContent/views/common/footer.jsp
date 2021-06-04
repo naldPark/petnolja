@@ -23,7 +23,7 @@
   <div class="container">
     <div class="row text-center d-flex justify-content-center pt-3 mb-1" id="footer-link">
       <div class="col-md-2 mb-3">
-          <a href="<%=contextPath%>/memNotice.mem">공지사항</a>
+          <a href="<%=contextPath%>/memNotice.me?currentPage=1">공지사항</a>
       </div>
       <div class="col-md-2 mb-3">
           <a href="<%=contextPath%>/private.mem">개인정보처리방침</a>

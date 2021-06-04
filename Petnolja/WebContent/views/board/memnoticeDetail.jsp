@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.board.model.vo.MemNotice"%>
+<%
+	MemNotice n = (MemNotice)request.getAttribute("n");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,26 +35,26 @@
         <table class="table">
             <thead class="thead-light">
               <tr>
-                <th colspan="5">긴급점검 실시합니다</th>
+                <th colspan="5"><%=n.getNoticeTitle() %></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td width="70"><b>관리자</b></td>
+                <td width="70"><b>관리자</b><%=n.getNoticeWriter() %></td>
                 <td width="3">|</td>
-                <td width="100">2021-04-28</td>
+                <td width="100"><%=n.getCreateDate() %></td>
                 <td width="580"></td>
-                <td width="100">조회수 302</td>
+                <td width="100"><%=n.getCount() %></td>
               </tr>
             </tbody>
           </table>
         
           <div class="form-control" style=" height: 400px; white-space:pre;">
-            너구리는 맛있다  
+            <%=n.getNoticeContent() %>
           </div>
           <br>
           <div align="center">
-          <button type="submit" class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/board/memnotice.jsp'">목록가기</button>
+          <button type="submit" class="btn btn-primary" onclick="location.href='<%=contextPath%>/memNotice.me?currentPage=1'">목록가기</button>
           </div>
  </div>
  
