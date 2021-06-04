@@ -34,10 +34,10 @@
       <thead class="thead-light">
         <tr>
           <th width="100">글번호</th>
-          <th width="600">제목</th>
-          <th>작성자</th>
-          <th width="150">작성일시</th>
-          <th width="80">조회수</th>
+          <th width="500">제목</th>
+          <th width="100">작성자</th>
+          <th width="170">작성일시</th>
+          <th width="100">조회수</th>
         </tr>
       </thead>
       <tbody>

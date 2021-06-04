@@ -40,17 +40,18 @@
             </thead>
             <tbody>
               <tr>
-                <td width="70"><b>관리자</b><%=n.getNoticeWriter() %></td>
+                <td width="70"><%=n.getNoticeWriter() %></td>
                 <td width="3">|</td>
-                <td width="100"><%=n.getCreateDate() %></td>
-                <td width="580"></td>
-                <td width="100"><%=n.getCount() %></td>
+                <td width="120"><%=n.getCreateDate() %></td>
+                <td width="540"></td>
+                <td width="100">조회수 <%=n.getCount() %></td>
               </tr>
             </tbody>
           </table>
         
-          <div class="form-control" style=" height: 400px; white-space:pre;">
+          <div class="form-control" style="overflow:auto; height: 400px; white-space:normal;">
             <%=n.getNoticeContent() %>
+        
           </div>
           <br>
           <div align="center">
