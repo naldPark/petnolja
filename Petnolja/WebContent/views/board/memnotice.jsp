@@ -46,6 +46,8 @@
       	 <tr>
       	 	<td colspan="3">존재하는 공지사항이 없습니다.</td>
       	 <tr>
+      	 </tbody>
+      	 </div>
       <% }else { %>	
       	 <!-- 리스트가 비어있지 않을 경우 --> 
       	 <% for(MemNotice n : list) { %>
