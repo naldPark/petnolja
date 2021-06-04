@@ -13,9 +13,8 @@ import com.petnolja.board.model.service.ReportService;
 import com.petnolja.board.model.vo.Report;
 import com.petnolja.common.model.vo.PageInfo;
 
-
 /**
- * Servlet implementation class ReportListController
+ * Servlet implementation class ReviewReportListController
  */
 @WebServlet("/reportlist.ad")
 public class ReportListController extends HttpServlet {
@@ -33,107 +32,57 @@ public class ReportListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ---------------- 페이징 처리 ----------------
-				int listCount; 		// 현재 총 게시글 갯수 
-				int currentPage;	// 현재 페이지 (즉, 사용자가 요청한 페이지)
-				int pageLimit;		// 페이지 하단에 보여질 페이징바의 페이지 최대갯수 (몇개 단위씩)
-				int boardLimit;		// 한 페이지내에 보여질 게시글 최대갯수 (몇개 단위씩)
-				
-				int maxPage;		// 가장 마지막 페이지 (총 페이지 수)
-				int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
-				int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
-				
-				// * listCount : 총 게시글 갯수
-				listCount = new ReportService().selectReportListCount();
-				
-				// * currentPage : 현재 페이지 (즉, 사용자가 요청한  페이지)
-				currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				
-				// * pageLimit : 하단에 보여질 페이징바의 페이지 최대 갯수 (페이지 목록들 몇 개 단위)
-				pageLimit = 10;
-				
-				// * boardLimit : 한 페이지내에 보여질 게시글 최대 갯수 (게시글 몇 개 단위)
-				boardLimit = 10;
-				
-				// * maxPage : 제일 마지막 페이지 수 (총 페이지 수)
-				/*
-				 *   listCount, boardLimit에 영향을 받음
-				 *   
-				 *   ex) boardLimit : 10 이라는 가정 하에
-				 *   
-				 *   총 갯수   boardLimit 				maxPage
-				 *   100.0	/	10	=> 10.0			  10
-				 *   101.0	/	10	=> 10.1			  11
-				 *   105.0	/	10	=> 10.5			  11
-				 *   109.0	/	10	=> 10.9			  11
-				 *   110.0	/	10	=> 11.0			  11
-				 *   
-				 *   총게시글갯수(실수형) / boardLimit	=> 올림처리 => maxPage
-				 *   
-				 */
-				maxPage = (int)Math.ceil((double)listCount / boardLimit);
-				
-				
-				// * startPage : 페이지 하단에 보여질 페이징바의 시작 수 
-				/*
-				 *   pageLimit, currentPage에 영향을 받음
-				 *   
-				 *   ex) pageLimit : 10이라는 가정하에 
-				 *   	 startPage : 1, 11, 21, 31, ...		
-				 *   						=> n * pageLimit + 1
-				 *   
-				 *   currentPage  startPage
-				 *   	  1			  1		=> 0 * pageLimit + 1		=> n=0
-				 *   	  5			  1		=> 0 * pageLimit + 1		=> n=0
-				 *   	  10		  1		=> 0 * pageLimit + 1		=> n=0
-				 *   
-				 *   	  11		  11	=> 1 * pageLimit + 1		=> n=1
-				 *   	  15 		  11	=> 1 * pageLimit + 1		=> n=1
-				 *   	  20		  11 	=> 1 * pageLimit + 1		=> n=1
-				 *   
-				 *   	1~10	=> n=0
-				 *   	11~20	=> n=1
-				 *   	21~30	=> n=2
-				 *   
-				 *   						0~9		/	10		=>	0
-				 *   						10~19	/	10		=>	1
-				 *   			   n=(currentPage-1) / pageLimit
-				 *   
-				 *   startPage = n * pageLimit + 1 == (currentPage-1) / pageLimit * pageLimit + 1
-				 *   
-				 */
-				startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-				
-				// * endPage : 페이지 하단에 보여질 페이징바의 끝 수
-				/*
-				 *   startPage, pageLimit에 영향을 받음 (단, maxPage도 영향을 받긴함)
-				 *   
-				 *   ex) pageLimit : 10 이라는 가정하에
-				 *   
-				 *   startPage : 1	=> endPage : 10
-				 *   startPage : 11	=> endPage : 20
-				 *   startPage : 21 => endPage : 30
-				 *   
-				 */
-				endPage = startPage + pageLimit - 1;
-				
-				// startPage가 11이여서 endPage 20으로 됨  (근데 maxPage가  고작 13까지 밖에 안된다면?)
-				// => endPage를 maxPage로 변경
-				if(endPage > maxPage) {
-					endPage = maxPage;
-				}
-				
-				// 페이지 정보들을 하나의 공간에 담아서 보내자!!!!
-				// 1. 페이징 바 만들때 필요한 객체
-				PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-				
-				// 2. 현재 요청한  페이지(currentPage)에 보여질 게시글 리스트 조회해오기
-				ArrayList<Report> list = new ReportService().selectReportList(pi);
-				
-				request.setAttribute("pi", pi);
-				request.setAttribute("list", list);
-				
-				request.getRequestDispatcher("views/admin/reportListView.jsp").forward(request, response);
+		// 기존 펫시터 리스트 페이지 (oldPetsitterListView.jsp) 보여줌
+		// 페이징
+		int QNAListCount; 	// 현재 신고된 QNA 게시글 총 갯수 
+		int RevListCount;	// 현재 신고된 리뷰 게시글 총 갯수
+		int currentPage;	// 현재 페이지 (즉, 사용자가 요청한 페이지)
+		int pageLimit;		// 페이지 하단에 보여질 페이징바의 페이지 최대갯수 (몇개 단위씩)
+		int boardLimit;		// 한 페이지내에 보여질 게시글 최대갯수 (몇개 단위씩)
+		
+		int QmaxPage;		// QNA 가장 마지막 페이지 (총 페이지 수)
+		int RmaxPage;		// Review 가장 마지막 페이지 (총 페이지 수)
+		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
+		int QendPage;		// 페이지 하단에 보여질 페이징바의 끝수
+		int RendPage;
+		
+		QNAListCount = new ReportService().selectQNAListCount();
+		RevListCount = new ReportService().selectRevListCount();
+		
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		pageLimit = 5;
+		boardLimit = 10;
+		
+		QmaxPage = (int)Math.ceil((double)QNAListCount / boardLimit);
+		RmaxPage = (int)Math.ceil((double)RevListCount / boardLimit);
+		
+		
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		
+		QendPage = startPage + pageLimit - 1;
+		RendPage = startPage + pageLimit - 1;
+		
+		if(QendPage > QmaxPage) {
+			QendPage = QmaxPage;
+		}
+		
+		if(RendPage > RmaxPage) {
+			RendPage = RmaxPage;
+		}
+		
+		PageInfo Qpi = new PageInfo(QNAListCount, currentPage, pageLimit, boardLimit, QmaxPage, startPage, QendPage);
+		PageInfo Rpi = new PageInfo(RevListCount, currentPage, pageLimit, boardLimit, RmaxPage, startPage, RendPage);
+		
+		ArrayList<Report> Qlist = new ReportService().selectQNAList(Qpi);
+		ArrayList<Report> Rlist = new ReportService().selectRevList(Rpi);
+		
+		//request.setAttribute("Qpi", Qpi);
+		//request.setAttribute("Rpi", Rpi);
+		request.setAttribute("Qlist", Qlist);
+		request.setAttribute("Rlist", Rlist);
+		
+		request.getRequestDispatcher("views/admin/oldPetsitterListView.jsp").forward(request, response);			
 	}
 
 	/**

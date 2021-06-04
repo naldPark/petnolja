@@ -25,19 +25,19 @@ public class ReportDao {
 		}
 	}
 	
-	public int selectReportListCount(Connection conn) {
+	public int selectQNAListCount(Connection conn) {
 		// select문 => ResultSet객체 (한행)
-		int listCount = 0;
+		int QlistCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectReportListCount");
+		String sql = prop.getProperty("selectQNAListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				listCount = rset.getInt("count");
+				QlistCount = rset.getInt("count");
 			}
 			
 		} catch (SQLException e) {
@@ -47,16 +47,42 @@ public class ReportDao {
 			close(pstmt);
 		}
 		
-		return listCount;		
+		return QlistCount;		
 		
 	}
 	
-	public ArrayList<Report> selectReportList(Connection conn, PageInfo pi){
-		// select문 => ResultSet(여러행)
-		ArrayList<Report> list = new ArrayList<>();
+	public int selectRevListCount(Connection conn) {
+		// select문 => ResultSet객체 (한행)
+		int RlistCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectReportList");
+		String sql = prop.getProperty("selectRevListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				RlistCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return RlistCount;		
+		
+	}
+	
+	public ArrayList<Report> selectQNAList(Connection conn, PageInfo Qpi){
+		// select문 => ResultSet(여러행)
+		ArrayList<Report> Qlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQNAList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -69,8 +95,8 @@ public class ReportDao {
 			 * 시작값 = (currentPage - 1) * boardLimit + 1
 			 * 끝값 = 시작값 + boardLimit - 1
 			 */
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
+			int startRow = (Qpi.getCurrentPage() - 1) * Qpi.getBoardLimit() + 1;
+			int endRow = startRow + Qpi.getBoardLimit() - 1;
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -79,11 +105,11 @@ public class ReportDao {
 			
 			while(rset.next()) {
 				list.add(new Report(rset.getInt("report_no"),
-								   rset.getInt("report_sort"),
-								   rset.getInt("origin_no"),
-								   rset.getDate("reported_date"),
-								   rset.getString("done").charAt(0),
-								   rset.getInt("mem_no")));
+								   rset.getString("title"),
+								   rset.getString("writer_id"),
+								   rset.getDate("create_date"),
+								   rset.getString("reporter_Id"),
+								   rset.getDate("reported_date")));
 			}
 		
 		} catch (SQLException e) {
@@ -93,7 +119,52 @@ public class ReportDao {
 			close(pstmt);
 		}
 		
-		return list;	
+		return Qlist;	
+	}
+	
+	public ArrayList<Report> selectRevList(Connection conn, PageInfo Rpi){
+		// select문 => ResultSet(여러행)
+		ArrayList<Report> Rlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRevList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			/*
+			 * ex) boardLimit : 10 라는 가정하에
+			 * currentPage = 1	=> 시작값 : 1   끝값 : 10
+			 * currentPage = 2	=> 시작값 : 11 끝값 : 20
+			 * currentPage = 3	=> 시작값 : 21 끝값 : 30
+			 * 
+			 * 시작값 = (currentPage - 1) * boardLimit + 1
+			 * 끝값 = 시작값 + boardLimit - 1
+			 */
+			int startRow = (Rpi.getCurrentPage() - 1) * Rpi.getBoardLimit() + 1;
+			int endRow = startRow + Rpi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Report(rset.getInt("report_no"),
+								   rset.getString("title"),
+								   rset.getString("writer_id"),
+								   rset.getDate("create_date"),
+								   rset.getString("reporter_Id"),
+								   rset.getDate("reported_date")));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return Rlist;	
 	}
 
 }

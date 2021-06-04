@@ -7,7 +7,7 @@
     		COUNT(*) COUNT
     		FROM SITTER
     		JOIN MEMBER ON(SITTER_NO = MEM_NO)
-    		WHERE PROMOTION_STATUS = 'Y'
+    		WHERE SITTER_ACCESS = 'Y'
 	
 	</entry>
 	
@@ -97,7 +97,7 @@
 		UPDATE
         	SITTER
     	SET 
-    		PROMOTION_STATUS = 'N'
+    		SITTER_ACCESS = 'N'
     	WHERE 
     		SITTER_NO = ?
 	</entry>
