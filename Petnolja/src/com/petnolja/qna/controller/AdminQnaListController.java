@@ -43,6 +43,8 @@ public class AdminQnaListController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		} else {
+			
+			
 			// ---------------- 페이징 처리 --------------------
 			int listCount; 		// 현재 총 게시글 갯수
 			int currentPage; 	// 현재 페이지(즉, 사용자가 요청한 페이지)
@@ -73,7 +75,14 @@ public class AdminQnaListController extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Qna> list = new QnaService().selectList(pi);
+			String keyword = request.getParameter("key");
+			ArrayList<Qna> list = null;
+			if(keyword == null) {
+				list = new QnaService().selectList(pi);
+			} else {
+				list = new QnaService().selectList(pi, keyword);
+			}
+			
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);

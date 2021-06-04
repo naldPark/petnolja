@@ -15,7 +15,73 @@
 	   AND ADMIN_PWD = ?
 	   AND ADMIN_STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectDealListCount">
+		SELECT
+		    COUNT(*) COUNT
+		  FROM RESERV 
+		 WHERE RES_STATUS IN('확정', '취소')
+	</entry>
 
-
+	<entry key="selectDealList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+                SELECT 
+                      RES_NO
+                    , RES_DATE
+                    , MID
+                    , MEM_ID
+                    , PAY_AMOUNT
+                    , RES_CHECKIN
+                    , RES_STATUS
+                  FROM (SELECT 
+                              MEM_ID MID
+                            , RES_NO 
+                          FROM RESERV 
+                          JOIN MEMBER USING (MEM_NO)
+                        )
+                  JOIN RESERV USING(RES_NO)
+                  JOIN RESERV_SITTING USING(RES_NO)
+                  JOIN FEE F USING(SITTING_NO)
+                  JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
+                 WHERE RES_STATUS IN('확정', '취소')
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+		<entry key="selectKeyDateDealList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+                SELECT 
+                      RES_NO
+                    , RES_DATE
+                    , MID
+                    , MEM_ID
+                    , PAY_AMOUNT
+                    , RES_CHECKIN
+                    , RES_STATUS
+                  FROM (SELECT 
+                              MEM_ID MID
+                            , RES_NO 
+                          FROM RESERV 
+                          JOIN MEMBER USING (MEM_NO)
+                        )
+                  JOIN RESERV USING(RES_NO)
+                  JOIN RESERV_SITTING USING(RES_NO)
+                  JOIN FEE F USING(SITTING_NO)
+                  JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
+                 WHERE RES_STATUS IN('확정', '취소')
+                   AND TO_CHAR(RES_DATE, 'YYYY-MM-DD') = ?
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
 
 </properties>

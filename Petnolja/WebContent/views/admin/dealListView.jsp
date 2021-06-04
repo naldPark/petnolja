@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.admin.model.vo.Deal" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Deal> list = (ArrayList<Deal>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,13 +69,12 @@
 
 <%@include file="adminMenubar.jsp" %>
 
-
 <body>
 
     <div class="outer" align="center">
         <div id="search" align="left">
-            <input type="search" id="deal-search-box" class="form-control-sm" placeholder="거래번호"
-                style="font-size: 14px; width:200px;">
+            <input type="search" id="deal-search-box" class="form-control-sm" placeholder="거래번호를 정확히 입력해주세요"
+                style="font-size: 14px; width:250px;">
         </div>
         <div id="filter" align="right" style="font-size: 14px;">
             <span>거래발생일 : </span>
@@ -82,115 +90,52 @@
                     <th width="160px">이용자ID</th>
                     <th width="130px">펫시터ID</th>
                     <th width="150px">금액(원)</th>
-                    <th width="150px">서비스일</th>
+                    <th width="150px">서비스시작일</th>
                     <th width="120px">취소여부</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-18</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-05</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-10</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-21</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>20210525</td>
-                    <td>2021-05-25</td>
-                    <td>carrot042</td>
-                    <td>cucumber11</td>
-                    <td>50000</td>
-                    <td>2021-06-01</td>
-                    <td>N</td>
-                </tr>
-
+            	<% if(list.isEmpty()) {%>
+            	<tr>
+            		<td colspan="7">거래내역이 존재하지 않습니다.</td>
+            	</tr>
+            	<% } else { %>
+	            	<% for(Deal d:list){ %>
+	                <tr>
+	                    <td><%=d.getResNo() %></td>
+	                    <td><%=d.getResDate() %></td>
+	                    <td><%=d.getMemId() %></td>
+	                    <td><%=d.getSitterId() %></td>
+	                    <td><%=d.getPayAmount() %></td>
+	                    <td><%=d.getResCheckinDate() %></td>
+	                    <% String cancel = "";%>
+	                    <% if(d.getResStatus().equals("취소")){ %>
+	                    <% cancel = "Y"; %>
+	                    <% } else { cancel="N"; } %>
+	                    <td><%=cancel %></td>
+	                </tr>
+	                <% } %>
+            	<% } %>
             </tbody>
         </table>
 
         <!-- 페이징바 -->
 
         <div id="paging-area">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <button class="btn btn-outline-primary btn-sm">1</button>
-            <button class="btn btn-outline-primary btn-sm">2</button>
-            <button class="btn btn-outline-primary btn-sm">3</button>
-            <button class="btn btn-outline-primary btn-sm">4</button>
-            <button class="btn btn-outline-primary btn-sm">5</button>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
+        	<%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath %>/deallist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
+			<% } %>
+			<% for(int p=startPage; p<endPage; p++){ %>
+				<% if(p != currentPage) {%>
+		            <button onclick="location.href='<%=contextPath %>/deallist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
+				<% } else {%>
+		            <button disabled class="btn btn-outline-primary btn-sm"><%=p %></button>
+				<% } %>
+			<% } %>
+			
+			<%if(currentPage != maxPage && !list.isEmpty()) {%>
+	            <button onclick="location.href='<%=contextPath %>/deallist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm">&gt;</button>
+			<% } %>
         </div>
     </div>
 
@@ -198,7 +143,18 @@
 
 <script>
 
+// 정확한 거래번호 넣어야지만 조회 가능!
+	$(document).ready(function () {
+	    $("#deal-search-box").on("keyup", function () {
+	    	if(event.keyCode == "13"){
+	    		//alert("검색!");
+	    		var keyword = $(this).val().toLowerCase();
+	    		location.href="deallist.ad?currentPage=1&key=" + keyword;
+	    	}
+	    });
+	});
 
+/* 10개 조회 후 -> 필터링
     $(document).ready(function () {
         $("#deal-search-box").on("keyup", function () {
             var value = $(this).val().toLowerCase();
@@ -207,19 +163,23 @@
             });
         });
     });
-
-</script>
-
-<script>
+*/
 
     $(function () {
 
         $("#date-filter").on("change", function(){
-
-            var dateFilter = $(this).val();
+        	
+        		
+            var date = $(this).val();
+			
+            location.href="deallist.ad?currentPage=1&date=" + date;
+            
+            
+            /*
             $("#deal-list>tbody>tr").filter(function(){
                 $(this).toggle($(this).children().eq(1).text().indexOf(dateFilter)>-1)
             });
+            */
         });
     });
 

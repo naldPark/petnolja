@@ -160,13 +160,19 @@
 
 <script>
 
-	// 답변여부로 필터링
+	// 답변여부로 검색
     $(document).ready(function () {
         $("#qna-filter").on("change", function () {
-            var value = $(this).val().toLowerCase();
+        	var value = $(this).val();
+        	location.href = "qnalist.ad?currentPage=1&key=" + value;
+        	
+        	
+        	/*
+            var value = $(this).val();
             $("#qna-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(6).text().toLowerCase().indexOf(value) > -1)
+                $(this).toggle($(this).children().eq(6).text().indexOf(value) > -1)
             });
+            */
         });
     });
     

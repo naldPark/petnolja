@@ -15,10 +15,6 @@ import com.petnolja.common.Attachment;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.qna.model.vo.Qna;
 
-/**
- * @author ysl38
- *
- */
 public class QnaDao {
 	
 	private Properties prop = new Properties();
@@ -97,6 +93,50 @@ public class QnaDao {
 		}
 		return list;
 	}
+	
+	/** 최서경
+	 * qna 처리 상태로 검색 - 메소드 오버로딩
+	 */
+	public ArrayList<Qna> selectList(Connection conn, PageInfo pi, String keyword){
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		ArrayList<Qna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "";
+				
+		if(keyword.equals("Y")) {
+			sql = prop.getProperty("selectAnswerList");
+			
+		} else {
+			sql = prop.getProperty("selectNonanswerList");
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("qna_no")
+							   , rset.getString("mem_id")
+							   , rset.getString("q_category")
+							   , rset.getString("q_title")
+							   , rset.getDate("q_create_date")
+							   , rset.getString("a_content")
+							   , rset.getString("admin_id")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
 	
 	/** 최서경
 	 * qna 삭제

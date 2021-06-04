@@ -41,6 +41,18 @@ public class QnaService {
 	}
 	
 	/** 최서경
+	 * qna 제목으로 검색 - 메소드 오버로딩
+	 */
+	public ArrayList<Qna> selectList(PageInfo pi, String keyword){
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list = new QnaDao().selectList(conn, pi, keyword);
+		
+		close(conn);
+		return list;
+	}
+	
+	/** 최서경
 	 * qna 삭제
 	 */
 	public int deleteQna(String[] list) {
@@ -93,4 +105,6 @@ public class QnaService {
 		close(conn);
 		return result;
 	}
+	
+
 }

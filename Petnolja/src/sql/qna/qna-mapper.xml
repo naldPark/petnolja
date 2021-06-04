@@ -32,6 +32,57 @@
 		WHERE RNUM BETWEEN ? AND ?	
 	</entry>
 	
+	<entry key="selectAnswerList">
+			SELECT * 
+  		  FROM (
+	    	SELECT ROWNUM RNUM, A.*
+	          FROM (
+				SELECT
+				      QNA_NO
+				    , MEM_ID
+				    , Q_CATEGORY
+				    , Q_TITLE
+				    , Q_CREATE_DATE
+				    , A_CONTENT
+				    , ADMIN_ID
+				  FROM QNA
+				  JOIN MEMBER ON(Q_MEM_NO = MEM_NO)
+				  LEFT JOIN ADMIN ON(ADMIN_NO = A_WRITER)
+				 WHERE Q_SORT = 1
+				   AND QNA_STATUS = 'Y'
+			  	   AND A_CONTENT IS NOT NULL
+				 ORDER BY Q_CREATE_DATE
+	               	) A
+	          	)
+		WHERE RNUM BETWEEN ? AND ?	
+
+	</entry>
+	
+	<entry key="selectNonanswerList">
+			SELECT * 
+  		  FROM (
+	    	SELECT ROWNUM RNUM, A.*
+	          FROM (
+				SELECT
+				      QNA_NO
+				    , MEM_ID
+				    , Q_CATEGORY
+				    , Q_TITLE
+				    , Q_CREATE_DATE
+				    , A_CONTENT
+				    , ADMIN_ID
+				  FROM QNA
+				  JOIN MEMBER ON(Q_MEM_NO = MEM_NO)
+				  LEFT JOIN ADMIN ON(ADMIN_NO = A_WRITER)
+				 WHERE Q_SORT = 1
+				   AND QNA_STATUS = 'Y'
+			  	   AND A_CONTENT IS NULL
+				 ORDER BY Q_CREATE_DATE
+	               	) A
+	          	)
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
 	<entry key="deleteQna">
 		UPDATE
 			QNA
