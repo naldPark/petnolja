@@ -6,17 +6,17 @@
 <title>Insert title here</title>
 <meta charset="UTF-8">
 <style>
-ul { list-style:none; cursor:pointer; margin: 0%; }
-li { 
+#serveMenuBar { list-style:none; cursor:pointer; margin: 0%; }
+#serveMenuBar li { 
   float: left;
   margin-right:20px;
   transition:all .3s ease 
 }
-li:hover { color:lightgray; transition:all .3s ease }
-li > span { position:relative }
+#serveMenuBar li:hover { color:lightgray; transition:all .3s ease }
+#serveMenuBar li > span { position:relative }
 
 /*밑줄넣기 부분*/
-li > span::after {
+#serveMenuBar li > span::after {
   content: '';
   width: 0%;
   left: 50%;
@@ -27,7 +27,7 @@ li > span::after {
   border-bottom: 2px solid lightgray;
   transition:all .3s ease;
 }
-li:hover > span::after {
+#serveMenuBar li:hover > span::after {
   content: '';
   width: 100%;
   left: 0px;
@@ -48,7 +48,7 @@ li:hover > span::after {
 <body>
   <%@ include file="../common/menubar.jsp" %>
   <br>
-    <ul>
+    <ul id="serveMenuBar">
     <li><span><a href="<%=contextPath%>/options.sit">옵션관리</a></span></li>
     <li><span><a href="<%=contextPath%>/service.sit">서비스관리</a></span></li>
     <li><span><a href="<%=contextPath%>/sitstop.sit">서비스중지</a></span></li>
