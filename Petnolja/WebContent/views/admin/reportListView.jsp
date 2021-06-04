@@ -87,8 +87,8 @@
                 style="font-size: 14px; width: 300px;">
         </div>
         <div id="buttons" align="right">
-            <button class="btn btn-info btn-sm">복구</button>
-            <button class="btn btn-warning btn-sm">삭제</button>
+            <button class="btn btn-info btn-sm" onclick="undoReport()">복구</button>
+            <button class="btn btn-warning btn-sm" onclick="deleteReport()">삭제</button>
         </div>
     
         <br><br>
@@ -113,7 +113,7 @@
             		<% for(Report r : list){ %>
 		                <tr>
 		                	<td>
-                        		<input type="checkbox" onclick = "event.stopPropagation">
+                        		<input type="checkbox" onclick = "event.stopPropagation()">
                     		</td>
 		                    <td><%= r.getReportNo() %></td>
 		                    <td><%= r.getTitle() %></td>
@@ -220,6 +220,11 @@
     }
 	
 	
+	//상세 조회
+    $("#report-list>tbody>tr").on("click", function(){
+    	var rno = $(this).children().eq(1).text();
+    	location.href = "<%= contextPath %>/reportdetail.ad?pno=<%=currentPage%>&rno=" + rno;
+    });
 	
 	</script>
 

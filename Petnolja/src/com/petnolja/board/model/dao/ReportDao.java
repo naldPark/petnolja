@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import com.petnolja.board.model.vo.Report;
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.notice.model.vo.Notice;
 
 public class ReportDao {
 	
@@ -266,6 +267,114 @@ public class ReportDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int undoListDone(Connection conn, String[] list) {
+		int dresult = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("undoListDone");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				dresult += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return dresult;
+	}
+	
+	public int deleteListDone(Connection conn, String[] list) {
+		int dresult = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteListDone");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				dresult += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return dresult;
+	}
+	
+	public Report qnaReportDetail(Connection conn, int rno) {
+		Report r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("qnaReportDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Report(rset.getInt("report_no")
+							 , rset.getString("title")
+							 , rset.getString("reporter_id")
+							 , rset.getString("writer_id")
+							 , rset.getString("content"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+	}
+	
+	public Report revReportDetail(Connection conn, int rno) {
+		Report r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("revReportDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Report(rset.getInt("report_no")
+							 , rset.getString("title")
+							 , rset.getString("reporter_id")
+							 , rset.getString("writer_id")
+							 , rset.getString("content"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
 	}
 
 }

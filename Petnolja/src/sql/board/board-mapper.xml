@@ -5,7 +5,7 @@
 	<entry key="selectQNAListCount">
 		SELECT
 			COUNT(*) COUNT
-			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 1)) REP
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 1 AND DONE = 'N')) REP
 						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
                         JOIN QNA ON(QNA_NO = ORIGIN_NO)
 	</entry>
@@ -27,7 +27,9 @@
                         JOIN QNA Q ON (R.ORIGIN_NO = Q.QNA_NO)
                         JOIN MEMBER MQ ON(Q.Q_MEM_NO = MQ.MEM_NO)
                         JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
-                        WHERE REPORT_SORT = 1
+                        WHERE 
+                        	REPORT_SORT = 1
+                        	AND DONE = 'N'
 		                ORDER 
 		                	BY REPORTED_DATE DESC
 		                ) A
@@ -39,7 +41,7 @@
 	<entry key="selectRevListCount">
 		SELECT
 			COUNT(*) COUNT
-			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 2)) REP
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 2 AND DONE = 'N')) REP
 						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
                         JOIN REVIEW ON(REV_NO = ORIGIN_NO)
 	</entry>
@@ -62,7 +64,9 @@
                         JOIN RESERV RSV ON(REVIEW.RES_NO = RSV.RES_NO)
                         JOIN MEMBER RSVM ON(RSV.MEM_NO = RSVM.MEM_NO)
                         JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
-                        WHERE REPORT_SORT = 2
+                        WHERE 
+                        	REPORT_SORT = 2
+                        	AND DONE = 'N'
 		                ORDER 
 		                	BY REPORTED_DATE DESC
 		                ) A
@@ -144,6 +148,58 @@
             		REPORT_SORT = 2
             		AND REPORT_NO = ?
         	)	
+	</entry>
+	
+	
+	<entry key="undoListDone">
+		UPDATE
+			REPORT
+		SET
+			DONE = 'Y'
+		WHERE
+			REPORT_NO = ?
+	</entry>
+	
+	<entry key="deleteListDone">
+		UPDATE
+			REPORT
+		SET
+			DONE = 'Y'
+		WHERE
+			REPORT_NO = ?
+	</entry>
+	
+	<entry key="qnaReportDetail">
+		SELECT
+			REPORT_NO
+		    , Q_TITLE AS TITLE
+		    , MR.MEM_ID AS REPORTER_ID
+		    , MQ.MEM_ID AS WRITER_ID
+		    , Q_CONTENT AS CONTENT
+		FROM REPORT R
+		JOIN QNA ON (R.ORIGIN_NO = Q.QNA_NO)
+		JOIN MEMBER MQ ON(Q.Q_MEM_NO = MQ.MEM_NO)
+		JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
+		WHERE
+		    REPORT_SORT = 1
+		    AND REPORT_NO = ?
+	</entry>
+	
+	<entry key="revReportDetail">
+		SELECT
+			REPORT_NO
+		    , REV_CONTENT AS TITLE
+		    , MR.MEM_ID AS REPORTER_ID
+		    , RSVM.MEM_ID AS WRITER_ID
+		    , REV_CONTENT AS CONTENT
+		FROM REPORT R
+		JOIN REVIEW ON (R.ORIGIN_NO = REVIEW.REV_NO)
+		JOIN RESERV RSV ON(REVIEW.RES_NO = RSV.RES_NO)
+		JOIN MEMBER RSVM ON(RSV.MEM_NO = RSVM.MEM_NO)
+		JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
+		WHERE
+		    REPORT_SORT = 2
+		    AND REPORT_NO = ?
 	</entry>
 	
 </properties>
