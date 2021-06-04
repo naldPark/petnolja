@@ -1,16 +1,17 @@
 package com.petnolja.memreserve.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.petnolja.member.model.vo.Member;
-import com.petnolja.memreserve.service.MemReserveService;
+import com.petnolja.memreserve.model.service.MemReserveService;
+import com.petnolja.memreserve.model.vo.ReserveContent;
 
 /**
  * Servlet implementation class ReserveProceedController
@@ -32,25 +33,26 @@ public class ReserveProceedController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
 		String startDate = request.getParameter("reserveStart");
 		String endDate = request.getParameter("reserveEnd");
-		int[] petList = Arrays.asList(request.getParameterValues("petNo")).stream().mapToInt(Integer::parseInt).toArray();
+		String petList = String.join(",", request.getParameterValues("petNo"));
 		
-		System.out.println("유저넘버"+userNo);
-		System.out.println("시터넘버"+sitterNo);
-		System.out.println("예약시작"+startDate);
-		System.out.println("예약끝"+endDate);
-		for (int i = 0; i < petList.length; i++) {
+		// 당일/1박 위탁방식
+		String careDay = "데이";
+		if(!startDate.equals("endDate")) {careDay="1박";}
 
-			System.out.println(petList[i]);
-				
-		}
+		// 몇박인지 확인
+        LocalDate dBefore = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate dAfter = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        int countDay = (int) dBefore.until(dAfter,ChronoUnit.DAYS);
 		
-		new MemReserveService().reserveProceed(userNo, sitterNo, startDate, endDate, petList);
-		
+		ArrayList<ReserveContent> reserveList= new MemReserveService().reserveProceed(sitterNo, petList, careDay, startDate, endDate);
+
+		request.setAttribute("countDay",countDay);
+		request.setAttribute("reserveList", reserveList);
+		request.getRequestDispatcher("views/memreserve/reserveProceed.jsp").forward(request, response);
+
 		
 	}
 

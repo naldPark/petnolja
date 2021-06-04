@@ -83,7 +83,7 @@
 			<input type="search" id="petsitter-search-box" class="form-control-sm" placeholder="펫시터ID" style="font-size: 14px;">
 		</div>
 		<div class="top" id="buttons" align="right">
-			<button onclick="location.href='<%=contextPath%>/oldlistDelete.ad';" class="btn btn-warning btn-sm">삭제</button>
+			<button onclick="blockPetsitter()" class="btn btn-warning btn-sm">삭제</button>
 		</div>
 
 		<br> <br>
@@ -156,7 +156,7 @@
             	<% if(p != currentPage){ %>
 	            	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%= p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
 	            <% }else { %>
-	            	<button disabled><%= p %></button>
+	            	<button class="btn btn-outline-primary btn-sm" disabled><%= p %></button>
             	<% } %>
             	
             <% } %>
@@ -177,38 +177,30 @@
 	<script>
 		function blockPetsitter(){
 			//console.log("되나?");
-	
-			var memNoArr = [];
+			
+			var sitterNoArr = [];
 			$("input[type=checkbox]:checked").each(function(){
 			    sitterNoArr.push($(this).parent().siblings().eq(0).text());
 			});
 			
 		    var sitterNoList = sitterNoArr.join(",");
-	
-			
-			//console.log(memNoArr);  체크된 펫시터 번호
-			
-			if(confirm("선택한 펫시터의 펫시터 권한을 차단하시겠습니까?")){
-				
-				$.ajax({
+		    
+		    if(confirm("선택한 펫시터의 펫시터 권한을 차단하시겠습니까?")){
+			    $.ajax({
 					url:"sitterblock.ad",
-					data:{sitterNoList:sitterNoList},
 					type:"post",
+					data:{sitterNoList:sitterNoList},
 					success:function(result){
-						
 						if(result == sitterNoArr.length){
-							alert("성공적으로 처리되었습니다.");
-						
-							$("input[type=checkbox]:checked").each(function(){
-								$(this).parents("tr").remove();
-							});
-						
+					   		alert("문의내역이 정상적으로 삭제되었습니다.");
+					    	location.reload();
+						} else {
+							alert("회원 삭제에 실패했습니다.");
 						}
-						
-					}, error:function(){
-						console.log("펫시터 권한 차단 ajax통신 실패");
-					}
-				});
+				}, error:function(){
+					console.log("펫시터 권한 차단 ajax통신 실패");
+				}
+			});
 			} else {
 				$(":checkbox").prop("checked", false);
 			} 		

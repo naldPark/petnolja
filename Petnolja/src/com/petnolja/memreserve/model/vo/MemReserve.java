@@ -1,4 +1,4 @@
-package com.petnolja.memreserve.vo;
+package com.petnolja.memreserve.model.vo;
 
 import java.sql.Date;
 

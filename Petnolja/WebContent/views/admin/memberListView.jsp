@@ -264,9 +264,7 @@
 					success:function(result){
 						if(result == memNoArr.length){
 							alert("성공적으로 처리되었습니다.");
-							$("input[type=checkbox]:checked").each(function(){
-								$(this).parents("tr").remove();
-							});
+							location.reload();
 						} else {
 							alert("회원 삭제에 실패했습니다.");
 						}

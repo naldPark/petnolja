@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.admin.model.vo.Admin;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.petsitter.model.service.PetsitterService;
 import com.petnolja.petsitter.model.vo.Petsitter;
@@ -33,43 +34,53 @@ public class NewListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 기존 펫시터 리스트 페이지 (oldPetsitterListView.jsp) 보여줌
-		// 페이징
-		int listCount; 		// 현재 총 게시글 갯수 
-		int currentPage;	// 현재 페이지 (즉, 사용자가 요청한 페이지)
-		int pageLimit;		// 페이지 하단에 보여질 페이징바의 페이지 최대갯수 (몇개 단위씩)
-		int boardLimit;		// 한 페이지내에 보여질 게시글 최대갯수 (몇개 단위씩)
-				
-		int maxPage;		// 가장 마지막 페이지 (총 페이지 수)
-		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
-		int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
-				
-		listCount = new PetsitterService().selectNewListCount();
-				
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				
-		pageLimit = 5;
-		boardLimit = 10;
-				
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-				
-				
-		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-				
-		endPage = startPage + pageLimit - 1;
-				
-		if(endPage > maxPage) {
-			endPage = maxPage;
+Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		
+		if(loginAdmin == null) {
+			
+			request/*.getSession()*/.setAttribute("errorMsg", "접근이 불가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		} else {
+		
+			// 기존 펫시터 리스트 페이지 (oldPetsitterListView.jsp) 보여줌
+			// 페이징
+			int listCount; 		// 현재 총 게시글 갯수 
+			int currentPage;	// 현재 페이지 (즉, 사용자가 요청한 페이지)
+			int pageLimit;		// 페이지 하단에 보여질 페이징바의 페이지 최대갯수 (몇개 단위씩)
+			int boardLimit;		// 한 페이지내에 보여질 게시글 최대갯수 (몇개 단위씩)
+					
+			int maxPage;		// 가장 마지막 페이지 (총 페이지 수)
+			int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
+			int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
+					
+			listCount = new PetsitterService().selectNewListCount();
+					
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+					
+			pageLimit = 5;
+			boardLimit = 10;
+					
+			maxPage = (int)Math.ceil((double)listCount / boardLimit);
+					
+					
+			startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+					
+			endPage = startPage + pageLimit - 1;
+					
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+					
+			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+					
+			ArrayList<Petsitter> list = new PetsitterService().selectNewPetsitterList(pi);
+					
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+					
+			request.getRequestDispatcher("views/admin/newPetsitterListView.jsp").forward(request, response);	
 		}
-				
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-				
-		ArrayList<Petsitter> list = new PetsitterService().selectNewPetsitterList(pi);
-				
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-				
-		request.getRequestDispatcher("views/admin/newPetsitterListView.jsp").forward(request, response);	
 		
 	}
 

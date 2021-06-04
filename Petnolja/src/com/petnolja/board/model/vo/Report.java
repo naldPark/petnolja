@@ -5,27 +5,18 @@ import java.sql.Date;
 public class Report {
 	
 	private int reportNo;
+	private String title;	// 제목
+	private String writerId; // 작성자
 	private int reportSort;
 	private int originNo;
 	private Date reportedDate;
 	private char done;
 	private int memNo;
-	private String;	// 제목
-	private String ; // 작성자
-	private String; // 신고자
-	
-	
+	private String reporterId; // 신고자
+
 	public Report() {}
 	
-	public Report(int reportNo, int reportSort, int originNo, Date reportedDate, char done, int memNo) {
-		super();
-		this.reportNo = reportNo;
-		this.reportSort = reportSort;
-		this.originNo = originNo;
-		this.reportedDate = reportedDate;
-		this.done = done;
-		this.memNo = memNo;
-	}
+	
 
 	public int getReportNo() {
 		return reportNo;
@@ -74,13 +65,37 @@ public class Report {
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getWriterId() {
+		return writerId;
+	}
+
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+
+	public String getReporterId() {
+		return reporterId;
+	}
+
+	public void setReporterId(String reporterId) {
+		this.reporterId = reporterId;
+	}
 
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", reportSort=" + reportSort + ", originNo=" + originNo
-				+ ", reportedDate=" + reportedDate + ", done=" + done + ", memNo=" + memNo + "]";
+				+ ", reportedDate=" + reportedDate + ", done=" + done + ", memNo=" + memNo + ", title=" + title
+				+ ", writerId=" + writerId + ", reporterId=" + reporterId + "]";
 	}
-	
-	
+
 	
 }

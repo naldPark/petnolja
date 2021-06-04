@@ -32,13 +32,13 @@ public class AdminNoticeSelectController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//int pageNo = Integer.parseInt(request.getParameter("page"));
+		int pno = Integer.parseInt(request.getParameter("pno"));
 		int nNo = Integer.parseInt(request.getParameter("nno"));
 		
 		Notice n = new NoticeService().selectNotice(nNo);
 		Attachment at = new NoticeService().selectAttachment(nNo);
 		
-		//request.setAttribute("pageNo", pageNo);
+		request.setAttribute("pno", pno);
 		request.setAttribute("n", n);
 		request.setAttribute("at", at);
 		

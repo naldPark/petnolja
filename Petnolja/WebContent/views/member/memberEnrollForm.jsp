@@ -48,7 +48,7 @@
                 전화번호*
                 <input type="text" class="form-control" placeholder="-를 포함하여 입력 해 주세요"  id="userPhone" name="phone" required>
                 이메일*
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" placeholder="@를 포함하여 입력 해 주세요" name="email" required>
                 주소*<br>
                 <div><%@ include file = "address.jsp"%></div>   
                 <br>

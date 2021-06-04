@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.petnolja.notice.model.vo.Notice, com.petnolja.common.Attachment"%>
 <% 
-//int pageNo = (int)request.getAttribute("pageNo");
+int pno = (int)request.getAttribute("pno");
 Notice n = (Notice)request.getAttribute("n");
 Attachment at = (Attachment)request.getAttribute("at");
 %>
@@ -86,8 +86,9 @@ Attachment at = (Attachment)request.getAttribute("at");
             </div>
             <div class="bottom" id="buttons" align="right">
                 <button onclick="location.href='<%=contextPath %>/ndeleteone.ad?nno=<%=n.getNoticeNo() %>';" type="button" class="btn btn-warning btn-sm">삭제</button>
+                <input type="hidden" name="pno" value="<%=pno%>">
                 <button type="submit" class="btn btn-primary btn-sm">수정</button>
-                <button onclick="history.back();" type="button" class="btn btn-info btn-sm">목록으로</button>
+                <button onclick="location.href='<%=contextPath %>/nlist.ad?currentPage=<%=pno%>';" type="button" class="btn btn-info btn-sm">목록으로</button>
             </div>
         </form>
     </div>

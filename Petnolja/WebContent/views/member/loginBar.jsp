@@ -19,8 +19,8 @@
         color:rgb(95, 95, 95);
     }
       .largerCheckbox, #searchCheckbox label{cursor: pointer;}
-      #searchBar{width:78%; background-color: rgb(210, 235, 250); margin-right: 15px;}
-        .loginBar{width:20%; padding:5px;}
+      #searchBar{width:78%; background-color: rgb(210, 235, 250); margin-right: 15px;height: 280px;}
+        .loginBar{width:20%; padding:5px; height: 280px;}
         #searchCheckbox{width: 93%; height: 170px; background-color: white; margin:auto; padding-left:50px; text-align: left;}
         .largerCheckbox{
           width:20px;
@@ -30,11 +30,12 @@
            background-color: white!important; 
         }
         .wrap1{height:280px;}
-        .wrap1>div{float:left; height:100%; text-align: center;}
+        .wrap1>div{float:left; text-align: center;}
+        /* *{border:1px solid red} */
 </style>
 </head>
 <body>
- <div class="wrap wrap1">
+ <div class="wrap wrap1" style="height: 390px;">
   <%@ include file = "findIdPwd.jsp" %>
      <!--검색창 시작-->
      <hr>
@@ -73,7 +74,7 @@
            <span style="margin:20px;"></span>
            <input class="largerCheckbox" type="checkbox" name="option" id="hospital" value="병원">&nbsp;&nbsp;<label for="hospital">응급상황시 인근 병원 이동 가능
            <span><img src="<%=contextPath %>/resources/images/member/checkboxHospital.png" style="height: 30px"></span></label>
-           <br><br>
+           <br>
          </div>
    
       </form>
@@ -115,11 +116,9 @@
     </div>
      <% } %>
     <!--로그인 후에 보여지는 form 끝-->
-    
-    
-    
+
   </div>
-  <br clear="both"><br>
+  <br clear="both">
 
  <script>
  

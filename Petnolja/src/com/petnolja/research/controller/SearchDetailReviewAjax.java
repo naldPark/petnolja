@@ -8,10 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.Gson;
-import com.petnolja.common.model.vo.PageInfo;
-import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.research.model.service.ResearchService;
 import com.petnolja.research.model.vo.Review;
 

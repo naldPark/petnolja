@@ -27,8 +27,8 @@
 <body>
 
     <div class="double">
-        <input id="datepicker1" name="reserveStart" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;"> -
-        <input id="datepicker2" name="reserveEnd" type="text" style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;">
+        <input id="datepicker1" name="reserveStart" type="text" readonly style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;"> -
+        <input id="datepicker2" name="reserveEnd" type="text" readonly style="width: 100px; border:1px solid lightgray; color: rgb(114, 113, 113); text-align: center;">
     </div>
 
     <script>

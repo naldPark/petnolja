@@ -284,7 +284,7 @@
                         <% for(Pet p : petList){ %>
                           <div style="height: 60px;" class="userPetList">	
                               <div style="float:left; padding-left: 10px;">
-                                  <input type="checkbox" class="largerCheckbox" name=petNo id="pet<%=p.getPetNo()%>" value="<%=p.getPetNo()%>">  
+                                  <input type="checkbox" class="largerCheckbox petCheckbox" name=petNo id="pet<%=p.getPetNo()%>" value="<%=p.getPetNo()%>">  
                                   <img src="<%=contextPath %>/<%=p.getPetImg()%>" style="height:60px; width:120px; padding-left:20px;">
                               </div>
                               <div style="padding-left:20px;"><label for="pet<%=p.getPetNo()%>">
@@ -297,7 +297,7 @@
                         <% } %>
                         <br>
                         <input type="hidden" name="sitterNo" value="<%=sitterInfo.getSitterNo()%>">
-                        <button type="submit" class="btn btn-danger" style="width:200px;margin-bottom:5px">&nbsp;&nbsp;&nbsp;예약하기</button><br>
+                        <button type="submit" class="btn btn-danger" style="width:200px;margin-bottom:5px" onclick="return validate();">&nbsp;&nbsp;&nbsp;예약하기</button><br>
                     </div>
                 </form>
               <% } %>
@@ -409,15 +409,40 @@
 
     <script>
 
-          //공유하기 url복사
-          var obShareUrl = document.getElementById("ShareUrl");
-          obShareUrl.value = window.document.location.href; 
-          function CopyUrlToClipboard(){
-	          obShareUrl.select();
-	          document.execCommand("copy");
-	          obShareUrl.blur();
-	          alert("URL이 클립보드에 복사되었습니다"); 
-           }
+  function validate(){
+    if($("#datepicker1").val()==""){
+				window.alert("체크인 날짜를 선택 해 주세요");
+				return false;
+    }
+    if($("#datepicker2").val()==""){
+				window.alert("체크아웃 날짜를 선택 해 주세요");
+				return false;
+    }
+
+    // 필수사항 체크 검증
+    var petCheck=0;
+    $(".petCheckbox").each(function(){
+    if($(this).prop("checked")){
+      petCheck++;
+    }
+    console.log(petCheck);
+    })
+    if(petCheck==0){
+      window.alert("반려견을 선택 해 주세요");
+        return false;
+    }
+
+  }
+
+    //공유하기 url복사
+    var obShareUrl = document.getElementById("ShareUrl");
+    obShareUrl.value = window.document.location.href; 
+    function CopyUrlToClipboard(){
+      obShareUrl.select();
+      document.execCommand("copy");
+      obShareUrl.blur();
+      alert("URL이 클립보드에 복사되었습니다"); 
+      }
 
 
     </script>
