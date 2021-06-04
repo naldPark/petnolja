@@ -154,9 +154,6 @@
         <% if(currentPage != maxPage && !list.isEmpty()) { %>
         	<button onclick="location.href='<%=contextPath%>/memlist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
         <% } %>
-
-
-
     </div>
 </div>
 

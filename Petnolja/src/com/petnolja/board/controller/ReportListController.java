@@ -82,7 +82,7 @@ public class ReportListController extends HttpServlet {
 		request.setAttribute("Qlist", Qlist);
 		request.setAttribute("Rlist", Rlist);
 		
-		request.getRequestDispatcher("views/admin/oldPetsitterListView.jsp").forward(request, response);			
+		request.getRequestDispatcher("views/admin/reportListView.jsp").forward(request, response);			
 	}
 
 	/**

@@ -305,6 +305,40 @@ public class NoticeDao {
 		return result;
 	}
 	
+	/** 최서경
+	 * @return 공지사항 제목으로 검색
+	 */
+	public ArrayList<Notice> selectKeyList(Connection conn, PageInfo pi, String keyword) {
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Notice> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+ keyword +"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO"),
+									rset.getString("ADMIN_ID"),
+									rset.getString("NOTICE_TITLE"),
+									rset.getDate("CREATE_DATE"),
+									rset.getInt("NOTICE_COUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 }

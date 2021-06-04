@@ -150,13 +150,20 @@
 
 	<script>
 	
-		// 공지사항 제목으로 필터링
+		// 공지사항 제목으로 조회
 	    $(document).ready(function () {
 	        $("#notice-search-box").on("keyup", function () {
+	        	if(event.keyCode == "13") {
+	        		var keyword = $(this).val().toLowerCase();
+	        		location.href = "nlist.ad?currentPage=1&key=" + keyword;
+	        	}
+	        	
+	        	/*
 	            var value = $(this).val().toLowerCase();
 	            $("#notice-list>tbody>tr").filter(function () {
 	                $(this).toggle($(this).children().eq(2).text().toLowerCase().indexOf(value) > -1)
 	            });
+	            */
 	        });
 	    });
 	    

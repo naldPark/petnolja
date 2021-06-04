@@ -30,6 +30,28 @@
 		WHERE RNUM BETWEEN ? AND ?		 
 	</entry>
 	
+	<entry key="selectKeyList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+	                SELECT 
+		     		   NOTICE_NO
+		     		 , ADMIN_ID
+		     		 , NOTICE_TITLE
+		     		 , CREATE_DATE
+		     		 , NOTICE_COUNT
+				  FROM NOTICE
+				  JOIN ADMIN ON(NOTICE_WRITER = ADMIN_NO)
+				 WHERE NOTICE_STATUS = 'Y'
+				   AND LOWER(NOTICE_TITLE) LIKE ?
+				 ORDER
+				    BY CREATE_DATE DESC
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?		 
+	</entry>
+	
 	<entry key="insertNotice">
 		INSERT
 			INTO NOTICE 
@@ -145,4 +167,5 @@
 			  , ?
 		  	  )
 	</entry>
+	
 </properties>

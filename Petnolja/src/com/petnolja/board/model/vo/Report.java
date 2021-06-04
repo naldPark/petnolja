@@ -7,16 +7,26 @@ public class Report {
 	private int reportNo;
 	private String title;	// 제목
 	private String writerId; // 작성자
+	private Date createdDate;
 	private int reportSort;
 	private int originNo;
+	private String reporterId; // 신고자
 	private Date reportedDate;
 	private char done;
 	private int memNo;
-	private String reporterId; // 신고자
 
 	public Report() {}
-	
-	
+
+	public Report(int reportNo, String title, String writerId, Date createdDate, String reporterId, Date reportedDate) {
+		super();
+		this.reportNo = reportNo;
+		this.title = title;
+		this.writerId = writerId;
+		this.createdDate = createdDate;
+		this.reporterId = reporterId;
+		this.reportedDate = reportedDate;
+	}
+
 
 	public int getReportNo() {
 		return reportNo;
@@ -81,6 +91,17 @@ public class Report {
 	public void setWriterId(String writerId) {
 		this.writerId = writerId;
 	}
+	
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 
 	public String getReporterId() {
 		return reporterId;

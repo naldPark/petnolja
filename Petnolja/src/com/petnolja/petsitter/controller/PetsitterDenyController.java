@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.member.model.service.MemberService;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
- * Servlet implementation class PetsitterAccept
+ * Servlet implementation class PetsitterDeny
  */
-@WebServlet("/petsitterAccept.ad")
-public class PetsitterAccept extends HttpServlet {
+@WebServlet("/petsitterDeny.ad")
+public class PetsitterDenyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetsitterAccept() {
+    public PetsitterDenyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +28,14 @@ public class PetsitterAccept extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
 		
 		
 		int sitterNo = Integer.parseInt(request.getParameter("sno"));
 		
-		int result = new PetsitterService().sitterAccept(sitterNo);
+		int result = new PetsitterService().sitterDeny(sitterNo);
 		
-		response.getWriter().print(result);
+		response.sendRedirect("views/admin/newPetsitterListView.jsp?currentPage=1");
 	}
 
 	/**

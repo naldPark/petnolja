@@ -106,10 +106,10 @@
 		                <td><%= n.getMemID()%></td>
 		                <td align="center"><button onclick="location.href='<%=contextPath%>/petsitterApply.ad?sno=<%= n.getSitterNo()%>';" class="btn btn-info">조회</button></td>
 		                <td>
-		                	<% if (n.getpDate().equals(null)) { %>
-		                		N
-		                	<%} else { %>
+		                	<% if (n.getpDate() != null) { %>
 		                		Y
+		                	<%} else { %>
+		                		N
 		                	<% } %>
 		                </td>
 		                <td>
@@ -142,7 +142,7 @@
             <% if(p != currentPage){ %>
 	            	<button onclick="location.href='<%=contextPath%>/newlist.ad?currentPage=<%= p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
 	        <% }else { %>
-	            	<button disabled><%= p %></button>
+	            	<button class="btn btn-outline-primary btn-sm" disabled><%= p %></button>
             <% } %>
             	
         <% } %>

@@ -2,22 +2,69 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="selectReportListCount">
+	<entry key="selectQNAListCount">
 		SELECT
-    		COUNT(*) COUNT
-    		FROM REPORT
-	
+			COUNT(*) COUNT
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 1)) REP
+						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
+                        JOIN QNA ON(QNA_NO = ORIGIN_NO)
 	</entry>
 	
-	<entry key="selectReportList">
+	<entry key="selectQNAList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                            REPORT_NO
+                             , Q_TITLE AS TITLE
+                             , MQ.MEM_ID AS WRITER_ID
+                             , Q_CREATE_DATE AS CREATE_DATE
+                             , MR.MEM_ID AS REPORTER_ID
+                             , REPORTED_DATE 
+                        FROM REPORT R
+                        JOIN QNA Q ON (R.ORIGIN_NO = Q.QNA_NO)
+                        JOIN MEMBER MQ ON(Q.Q_MEM_NO = MQ.MEM_NO)
+                        JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
+                        WHERE REPORT_SORT = 1
+		                ORDER 
+		                	BY REPORTED_DATE DESC
+		                ) A
+		        )
+		 WHERE (RNUM BETWEEN ? AND ?)
+	</entry>
+	
+	<entry key="selectRevListCount">
 		SELECT
-    		REPORT_NO,
-    		REPORT_SORT,
-    		ORIGIN_NO,
-    		REPORTED_DATE,
-    		DONE,
-    		MEM_NO
-		FROM REPORT
+			COUNT(*) COUNT
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 2)) REP
+						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
+                        JOIN REVIEW ON(REV_NO = ORIGIN_NO)
+	</entry>
+	
+	<entry key="selectRevList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                            REPORT_NO
+                             , REV_CONTENT AS TITLE
+                             , RSVM.MEM_ID AS WRITER_ID
+                             , REV_DATE AS CREATE_DATE
+                             , MR.MEM_ID AS REPORTER_ID
+                             , REPORTED_DATE
+                        FROM REPORT R
+                        JOIN REVIEW ON (R.ORIGIN_NO = REVIEW.REV_NO)
+                        JOIN RESERV RSV ON(REVIEW.RES_NO = RSV.RES_NO)
+                        JOIN MEMBER RSVM ON(RSV.MEM_NO = RSVM.MEM_NO)
+                        JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
+                        WHERE REPORT_SORT = 2
+		                ORDER 
+		                	BY REPORTED_DATE DESC
+		                ) A
+		        )
+		 WHERE (RNUM BETWEEN ? AND ?)
 	</entry>
 
 </properties>

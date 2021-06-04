@@ -151,9 +151,9 @@
         </li>
         <li><a href="<%=contextPath%>/reportlist.ad?currentPage=1">신고내역 관리</a></li>
         <li>
-            <a href="">거래내역 관리</a>
+            <a href="<%=contextPath%>/deallist.ad?currentPage=1">거래내역 관리</a>
             <ul>
-                <li><a href="">거래내역</a></li>
+                <li><a href="<%=contextPath%>/deallist.ad?currentPage=1">거래내역</a></li>
                 <li><a href="">통계자료</a></li>
                 <li><a href="">펫시터 정산</a></li>
             </ul>

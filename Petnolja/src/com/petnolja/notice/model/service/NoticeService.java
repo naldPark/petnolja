@@ -130,4 +130,17 @@ public class NoticeService {
 		return result1 * result2;
 	}
 	
+	/** 최서경
+	 * @return 공지사항 제목으로 검색
+	 */
+	public ArrayList<Notice> selectKeyList(PageInfo pi, String keyword){
+		
+		Connection conn = getConnection();
+		ArrayList<Notice> list = new NoticeDao().selectKeyList(conn, pi, keyword);
+
+		close(conn);
+		return list;
+	}
+	
+	
 }
