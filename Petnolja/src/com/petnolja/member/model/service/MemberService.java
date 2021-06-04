@@ -46,11 +46,40 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
+	// 회원 인증번호 검증을 위한 보관
+		public int tempPwd(String userId, String tempPwd) {
+			Connection conn = getConnection();
+			int result = new MemberDao().tempPwd(conn, userId, tempPwd);
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+		
+		
+		// 회원 인증번호 검증
+		public int authPwd(String userId, String authNo) {
+			Connection conn = getConnection();
+			int result = new MemberDao().authPwd(conn, userId, authNo);
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+		
+		
 
 	// 회원 비밀번호 재설정
-	public int findPwd2(int userNo, String userId, String userPwd) {
+	public int findPwd2(String userId, String userPwd) {
 		Connection conn = getConnection();
-		int result = new MemberDao().findPwd2(conn, userNo, userPwd, userId);
+		int result = new MemberDao().findPwd2(conn, userPwd, userId);
 
 		if (result > 0) {
 			commit(conn);

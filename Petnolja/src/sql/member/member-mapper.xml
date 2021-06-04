@@ -52,11 +52,25 @@
 		   AND MEM_BLOCK = 'N'
 	</entry>
 	
+	<entry key="tempPwd">
+      	UPDATE MEMBER
+		    SET MEM_MEMO = ?
+		    WHERE MEM_ID=?
+	</entry>
+	
+		<entry key="authPwd">
+      	UPDATE MEMBER
+	      	SET MEM_MEMO='Y'
+			WHERE MEM_ID=?
+			AND MEM_MEMO=?
+	</entry>
+	
 	<entry key="findPwd2">
 		UPDATE MEMBER
-		    SET MEM_PWD = ?
-		    WHERE MEM_NO= ?
-		    AND MEM_ID=?
+		    SET MEM_PWD = ?,
+		    	MEM_MEMO=null
+		    WHERE MEM_ID= ?
+		    AND MEM_MEMO='Y'
 	</entry>
 
 	<entry key="favoriteListCount">

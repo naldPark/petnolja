@@ -32,9 +32,6 @@
 }
 .radioInput{width:20px; height:20px; margin-left: 10px; margin-right:10px; }
 </style>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-<script type="text/javascript">
-   (function(){emailjs.init("service_emuyg7f"); })
 </script>
 <title>펫시터</title>
     
@@ -78,7 +75,7 @@
                     <br> <span>아이디를 모르시나요 ?&nbsp;&nbsp;</span>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="closePopup(); findId();">아이디 찾기</button>
                   </div>             
-                  <button type="button" class="btn btn-primary" id="findPwdBtn1" style="width:100%;">다음</button><br><br>  <!--submit버튼으로 변경해야함-->
+                  <button type="button" class="btn btn-primary" id="findPwdBtn1" style="width:100%;">다음</button><br><br> 
               </form>
        </div>
 
@@ -88,11 +85,11 @@
                 <div style="height:230px;" align="center">       
                   <br>
                   <br><br>
-                  <input type="radio" class="radioInput" id="findPwdByEmail" checked name="findPwdWay"><label for="findPwdByEmail" >에러: 처음부터 다시시작하세요</label><br><br>
-                  <input type="radio" class="radioInput" id="findPwdBySMS" name="findPwdWay"><label for="findPwdBySMS">에러: 처음부터 다시시작하세요</label><br>
+                  <input type="radio" class="radioInput" id="findPwdByEmail" value="email" checked name="findPwdWay"><label for="findPwdByEmail" >에러: 처음부터 다시시작하세요</label><br><br>
+                  <input type="radio" class="radioInput" id="findPwdBySMS" value="phone" name="findPwdWay"><label for="findPwdBySMS">에러: 처음부터 다시시작하세요</label><br>
                   <br><br>
                 </div>             
-                <button type="button" class="btn btn-primary" style="width:100%;" id="emailCheck">다음</button><br><br>
+                <button type="button" class="btn btn-primary" style="width:100%;" id="findPwdBtn2">다음</button><br><br>
             </form> 
         </div>
        
@@ -104,21 +101,20 @@
                 이메일(SMS)를 확인 해 주세요<br><br>
                 <input type="text" class="form-control" placeholder="인증번호를 입력하세요"  name="authNo" id="authNo"><br>
                 <br><br><br>
-                <br><br>
+                <br><br>  
               </div>             
-              <button type="button" class="btn btn-primary" style="width:100%;" id="emailConfirm">다음</button><br><br>
+              <button type="button" class="btn btn-primary" style="width:100%;" id="findPwdBtn3">다음</button><br><br>
            </form> 
         </div>
 
         <div class="find">
-          <form action="findPwd2.mem" method="post">     
+          <form action="findPwd4.mem" method="post">     
             <div style="height:230px;" align="center">       
               <br>
                  새로운 비밀번호를 설정합니다<br><br>
                  <!-- <input type="hidden" autocomplete="username" ng-hide="true"> -->
-                <input type="password" class="form-control" placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이"  name="userPwd" id="userPwd1" required autocomplete="new-password" ><br>
-                <input type="password" class="form-control" placeholder="동일하게 입력하세요" id="userPwd2" required autocomplete="new-password" >
-                <input type="hidden" id="userPwdSetNo" name="userPwdSetNo" value="">
+                <input type="password" class="form-control" placeholder="영문, 특수문자, 숫자를 모두 포함하여 8~16자 사이"  name="userPwd" id="userPwd1" required autocomplete="new-password"><br>
+                <input type="password" class="form-control" placeholder="동일하게 입력하세요" id="userPwd2" required autocomplete="new-password">
                 <input type="hidden" id="userId2" name="userId2" value="">
               <br><br>
             </div>             
@@ -163,74 +159,97 @@
     var userName = "";  //고객님의 성함
     var userEmail = "";  //고갱님의 이메일주소
     var userMessage = "";  
-    $(document).ready(function() {
-      emailjs.init("user_eo9lqugonxfzo2twbsdjP");	
-
-    //이메일 인증번호 발송	
-    $('#emailCheck').click(function(){   
-      console.log(userMessage);
-      $(this).parent().parent().css("display","none");
-      $(this).parent().parent().next().css("display","block");	 
-
-      
-    // var templateParams = {	
-    //       name: userName, email : userEmail, message : userMessage
-    //         };    
-    //       emailjs.send('service_emuyg7f', 'template_x43f8ve', templateParams)
-    //     .then(function(response) {
-    //         console.log('SUCCESS!', response.status, response.text);
-    //     }, function(error) {
-    //         console.log('FAILED...', error);
-    //    })
-
-    }); 
-    //이메일 인증번호 발송 끝
-         
-    // 발송된 이메일 검증
-    $("#emailConfirm").click(function(){
-              if($('#authNo').val()==userMessage){
-                  $("#emailConfirm").parent().parent().css("display","none");
-                  $("#emailConfirm").parent().parent().next().css("display","block");	 
-              }else{ 
-                  window.alert("인증번호가 일치하지 않습니다");
-                  return false;
-              }
-          })
-    });
-    // 발송된 이메일 검증 끝
-    
+          
     // 비밀번호 이름 아이디 검증
     	$('#findPwdBtn1').click(function(){ 
-		$.ajax({
-			url:"findPwd1.mem",
-			data:{
-				userId:$("#findPwdId").val(),
-				userName:$("#findPwdName").val(),
-			},
-			type:"post",
-			success:function(result){
-				if(result!=null){
-				alert("문자는 api가 유료라 구현하지 않았습니다 메일을 이용해주시고, 임시로 콘솔창에 인증번호 출력해놨습니다");
-				$("label[for='findPwdByEmail']").text("이메일로 인증하기("+result.tempEmail+")");	
-				$("label[for='findPwdBySMS']").text("SMS로 인증하기("+result.tempTel+")");	
-			    $("#findPwdBtn1").parent().parent().css("display","none");
-	            $("#findPwdBtn1").parent().parent().next().css("display","block");
-	            userMessage = result.tempPwd; // 인증번호
-	            userName = result.memName;  //고객님의 성함
-	            userEmail = result.memEmail; // 고객님의 이메일
-            	$("#userPwdSetNo").val(result.memNo);
-            	$("#userId2").val(result.memId);
-				}else{
-					alert("일치하는 계정이 없습니다");	
-				}
-			},error:function(){
-				alert("에러입니다");
-			}
-		});
-	})
+          $.ajax({
+            url:"findPwd1.mem",
+            data:{
+              userId:$("#findPwdId").val(),
+              userName:$("#findPwdName").val(),
+            },
+            type:"post",
+            success:function(result){
+              if(result!=null){
+                $("label[for='findPwdByEmail']").text("이메일로 인증하기("+result.tempEmail+")");	
+                $("label[for='findPwdBySMS']").text("SMS로 인증하기("+result.tempTel+")");	
+                $("#findPwdBtn1").parent().parent().css("display","none");
+                    $("#findPwdBtn1").parent().parent().next().css("display","block");
+                    userMessage = result.tempPwd; // 인증번호
+                    userName = result.memName;  //고객님의 성함
+                    userEmail = result.memEmail; // 고객님의 이메일
+                    $("#userPwdSetNo").val(result.memNo);
+                    $("#userId2").val(result.memId);
+              }else{
+                alert("일치하는 계정이 없습니다");	
+              }
+            },error:function(){
+              alert("에러입니다");
+            }
+	      	});
+    	})
+
+    //이메일,문자 인증번호 발송	
+    $('#findPwdBtn2').click(function(){   
+        $(this).parent().parent().css("display","none");
+        $(this).parent().parent().next().css("display","block");	 
+        if($("#findPwdByEmail").prop("checked")){ // 일치하면
+        	findWay="email";
+        }else{ 
+          findWay="phone";
+        }
+          $.ajax({
+                url:"findPwd2.mem",
+                data:{
+                  userId:$("#findPwdId").val(),
+                  userName:$("#findPwdName").val(),
+                  findPwdWay: findWay
+                },
+                type:"post",
+                success:function(result2){
+                  
+                   console.log("발송했다")
+                   
+                },error:function(){
+                  alert("에러입니다. 관리자에게 문의해주세요");
+                }
+              });
+      }); 
+
+      // 발송된 이메일 검증
+      $("#findPwdBtn3").click(function(){
+                        
+               
+                
+              $.ajax({
+                    url:"findPwd3.mem",
+                    data:{
+                      userId:$("#findPwdId").val(),
+                      userName:$("#findPwdName").val(),
+                      authNo:$("#authNo").val()
+
+                    },
+                    type:"post",
+                    success:function(result){
+                      if(result >0){
+                       $("#findPwdBtn3").parent().parent().css("display","none");
+                       $("#findPwdBtn3").parent().parent().next().css("display","block");	
+                      } else{
+                      window.alert("인증번호가 일치하지 않습니다");
+                      }
+                    },error:function(){
+                      window.alert("에러입니다. 관리자에게 문의해주세요");
+                      return false;
+                    }
+                  });
+        });
+
+        // 발송된 이메일 검증 끝
 
 
-    function validate(){
+
+
+       function validate(){
           var userPwd1 = document.getElementById("userPwd1");
           var userPwd2 = document.getElementById("userPwd2");
           var  regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/i;
@@ -254,7 +273,7 @@
               userPwd2.focus();
               return false;
           }
-}
+      }
 
 
 

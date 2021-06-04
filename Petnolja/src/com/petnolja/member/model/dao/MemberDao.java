@@ -1,6 +1,6 @@
 package com.petnolja.member.model.dao;
 
-import static com.petnolja.common.JDBCTemplate.close;
+import static com.petnolja.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -105,6 +105,7 @@ private Properties prop = new Properties();
 	
 	}
 	
+	
 	// 회원 비밀번호 재설정을 위한 본인 검증
 	public FindMember findPwd1(Connection conn, String userId, String userName) {
 		ResultSet rset = null;
@@ -135,16 +136,60 @@ private Properties prop = new Properties();
 		
 	}
 	
+
+	// 회원 인증번호 검증을 위한 보관
+		public int tempPwd(Connection conn, String userId, String tempPwd) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("tempPwd");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tempPwd);
+				pstmt.setString(2, userId);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		
+		// 회원 인증번호 검증
+		public int authPwd(Connection conn, String userId, String authNo) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("authPwd");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, authNo);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+	
+	
+	
 	// 회원 비밀번호 재설정
-	public int findPwd2(Connection conn, int userNo, String userPwd, String userId) {
+	public int findPwd2(Connection conn, String userPwd, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("findPwd2");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userPwd);
-			pstmt.setInt(2, userNo);
-			pstmt.setString(3, userId);
+			pstmt.setString(2, userId);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

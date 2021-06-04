@@ -27,7 +27,7 @@ public class ReserveListController extends HttpServlet {
      */
     public ReserveListController() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
