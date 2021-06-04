@@ -260,6 +260,7 @@ public class PetsitterDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
+				close(pstmt);
 			}
 			
 			return result;
@@ -280,6 +281,7 @@ public class PetsitterDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
+				close(pstmt);
 			}
 			
 			return result;	
@@ -298,9 +300,103 @@ public class PetsitterDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
+				close(pstmt);
 			}
 			
 			return result;	
 	}	
 	
+	public int insertSitterMoney(Connection conn,int sitterNo, int bakSmall, int daySmall, int bakMid, int dayMid, int bakBig, int dayBig) {
+		int result = 0;   // 그냥 결과가 1인지 0인지 성공인지 실패인지 이따가 넣으라고.. 만들어 놓음
+		PreparedStatement pstmt = null;   // 컴퓨터의 프로그램 실행을 할건데 ?에 알맞은 값을 넣겠다
+		String sql = prop.getProperty("insertSitterMoney"); // 실행할 명령문
+		
+		try {
+			pstmt = conn.prepareStatement(sql); // 오라클 열고 준비 
+			pstmt.setInt(1, sitterNo);
+			pstmt.setInt(2, daySmall);
+			pstmt.setInt(3, sitterNo);
+			pstmt.setInt(4, dayMid);
+			pstmt.setInt(5, sitterNo);
+			pstmt.setInt(6, dayBig);
+			pstmt.setInt(7, sitterNo);
+			pstmt.setInt(8, bakSmall);
+			pstmt.setInt(9, sitterNo);
+			pstmt.setInt(10, bakMid);
+			pstmt.setInt(11, sitterNo);
+			pstmt.setInt(12, bakBig);
+			result = pstmt.executeUpdate(); // 오라클에서 sql문 실행 
+			// 성공하면 result 1 , 실패하면 0 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+		
+	}
+	public int stopSitter(Connection conn , int userNo, String stopradio, String deReason) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("stopSitter");
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, stopradio);
+				pstmt.setString(2, deReason);
+				pstmt.setInt(3, userNo);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+	public int addService(Connection conn,int userNo, String checkbox) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addService");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkbox);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectQna(Connection conn, int userNo, int qnaNo, String qTitle, String qContent, String qCtrateDate,
+			String aWriter) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
+	
+

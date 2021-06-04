@@ -165,4 +165,55 @@
          	SITTER_NO = ?
 	</entry>
 	
+	
+	<entry key ="insertSitterMoney">
+	
+
+	INSERT ALL
+			INTO FEE 
+			VALUES(SEQ_FNO.NEXTVAL, ?, '소형', '데이', ?, SYSDATE)
+			INTO FEE
+			VALUES(SEQ_FNO.NEXTVAL+1, ?, '중형', '데이', ?, SYSDATE)
+			INTO FEE
+			VALUES(SEQ_FNO.NEXTVAL+2, ?, '대형', '데이', ?, SYSDATE)
+			INTO FEE
+			VALUES(SEQ_FNO.NEXTVAL+3, ?, '소형', '1박', ?, SYSDATE)
+			INTO FEE
+			VALUES(SEQ_FNO.NEXTVAL+4, ?, '중형', '1박', ?, SYSDATE)
+			INTO FEE
+			VALUES(SEQ_FNO.NEXTVAL+5, ?, '대형', '1박', ?, SYSDATE)
+			SELECT * FROM DUAL
+	
+	</entry>
+
+	<entry key ="stopSitter">
+	
+		UPDATE
+			SITTER	<!-- 테이블 이름 -->
+		SET STOP_REASON = ?
+		,	STOP_CONTENT = ?
+		,	SITTER_ACCESS = 'N'
+		 	WHERE SITTER_NO = ?
+	</entry>
+	
+	<entry key ="addService">
+		
+		UPDATE
+			SITTER
+		SET ADDITIONS = ?
+			WHERE SITTER_NO = ?
+	</entry>
+	
+	<entry key ="selectQna">
+	
+		SELECT
+			QNA_NO
+			,Q_TITLE
+			,Q_CONTENT
+			,Q_CREATE_DATE
+			,A_WRITER
+		FORM QNA
+		WHERE USERNO = ?
+		ORDER BY 1 DESC
+	</entry>
 </properties>

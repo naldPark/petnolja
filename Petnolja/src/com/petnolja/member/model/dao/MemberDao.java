@@ -297,10 +297,10 @@ private Properties prop = new Properties();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
+			close(pstmt); //사용 다했으니까 반납
 		}
 		
-		return result;
+		return result; // 완성했으니까 서비스 단으로 반환
 	}
 	
 	public Member selectMember(Connection conn, int memNo) {

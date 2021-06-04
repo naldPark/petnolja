@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class reserveListcontroller
  */
 @WebServlet("/reserveList.sit")
-public class reserveListcontroller extends HttpServlet {
+public class ReserveListcontroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public reserveListcontroller() {
+    public ReserveListcontroller() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -128,4 +128,68 @@ public class PetsitterService {
 		
 		return result;
 	}
+	
+	
+	public int insertSitterMoney(int sitterNo, int bakSmall, int daySmall, int bakMid, int dayMid, int bakBig, int dayBig) {
+		Connection conn = getConnection();  // 컴퓨터 킬게요
+		int result = new PetsitterDao().insertSitterMoney(conn, sitterNo, bakSmall, daySmall, bakMid, dayMid, bakBig, dayBig);
+		// dao로 애들을 데리고 가자
+		
+		//=======================돌아오는길
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+		
+	}
+	public int stopSitter(int userNo, String stopradio, String deReason) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().stopSitter(conn, userNo, stopradio, deReason);
+		
+		
+		if (result > 0) {
+			commit(conn);	
+			
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int addService(int userNo, String checkbox) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().addService(conn, userNo ,checkbox);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+
+	public int selectQna(int userNo, int qnaNo, String qTitle, String qContent, String qCtrateDate, String aWriter) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().selectQna(conn, userNo, qnaNo, qTitle, qContent, qCtrateDate, aWriter);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 }

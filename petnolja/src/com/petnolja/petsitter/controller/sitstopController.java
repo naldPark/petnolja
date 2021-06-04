@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class sitstopController
  */
 @WebServlet("/sitstop.sit")
-public class sitstopController extends HttpServlet {
+public class SitstopController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sitstopController() {
+    public SitstopController() {
         super();
         // TODO Auto-generated constructor stub
     }

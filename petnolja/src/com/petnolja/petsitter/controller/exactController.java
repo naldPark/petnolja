@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class exactController
  */
 @WebServlet("/exact.sit")
-public class exactController extends HttpServlet {
+public class ExactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public exactController() {
+    public ExactController() {
         super();
         // TODO Auto-generated constructor stub
     }

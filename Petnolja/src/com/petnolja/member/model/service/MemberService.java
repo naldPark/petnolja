@@ -126,9 +126,9 @@ public class MemberService {
 			rollback(conn);
 		}
 
-		close(conn);
+		close(conn); // 커넥션을 반납
 
-		return updateMem;
+		return updateMem; // 리절트라고 생각하면됨 이걸 다시 콘트롤러로 반환
 
 	}
 

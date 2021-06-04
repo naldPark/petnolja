@@ -14,6 +14,7 @@
 </style>
 </head>
 <body>
+    <%@ include file="../common/menubar.jsp" %>
     <div class="container-day">
         <div class="head-day">
             <div style="font-size: 35px; font-weight: bold;">시팅 일지 관리</div><br><br>

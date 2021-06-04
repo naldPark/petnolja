@@ -40,12 +40,13 @@
 </script>
 </head>
 <body>
+    <%@ include file="../common/menubar.jsp" %>
     <div class="container-stop">
-        <img src="PET.png" style="width: 200px;"><br><br><br>
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">
             <div></div>
         </div>
-
+        
         <div class="middle-stop">
             <div>
                 <div style="font-size: 30px; font-weight: bold;">시팅 서비스 중지</div>
@@ -67,19 +68,21 @@
                 <div class="title-stop">중지 완료 후 180일 이내 펫시터 재등록이 불가합니다.</div>
             </div><br>
         </div>
+        <form action="<%=contextPath%>/deleteSitStop.sit"  method="post">
         <div style="height: auto; width: 80%; border:1px solid #D6D6D6; padding: 30px 0px 30px 30px;">
             <div>중지 사유 선택 *</div>
-            <div><input  type="checkbox" name="searchValues" />개인 사정</div>
-            <div><input  type="checkbox" name="searchValues" />펫놀자 서비스에 대한 불만</div>
-            <div><input  type="checkbox" name="searchValues" />기타 사유(상세히 적어 주세요)</div>
+            <div><input  type="radio" name="stopRadio" value="비밀" />개인 사정</div>
+            <div><input  type="radio" name="stopRadio" value="불만"/>펫놀자 서비스에 대한 불만</div>
+            <div><input  type="radio" name="stopRadio" value="기타사유"/>기타 사유(상세히 적어 주세요)</div>
         
             <div>상세 이유 *</div>
-            <textarea name = "ta2" rows="5" cols= "70" wrap = "virtual"></textarea>
+            <textarea name ="deReason" rows="5" cols= "70" wrap = "virtual"></textarea>
         </div><br><br>
         <div style="margin-left: 35%;">
-            <input type="submit" class="submitButton" th:value="Speichern" name="submit" disabled="disabled"/>
+            <button type="submit">제출</button>
             <button class="btn2">취소</button>
         </div>
+    </form>
     </div>
 </body>
 </html>

@@ -35,8 +35,9 @@
 </script>
 </head>
 <body>
+  <%@ include file="../common/menubar.jsp" %>
     <div class="container-stop">
-        <img src="PET.png" style="width: 200px;"><br><br><br>
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">
             <div></div>
         </div>
@@ -54,11 +55,13 @@
             </div>
             <br>
         </div>
+        <form action="<%=contextPath%>/insertSitMoney.sit"  method="post">
         <div style="height: auto; width: 80%; border:1px solid #D6D6D6; padding: 10px 0px 30px 30px;">
             <div>
                 <div style="font-size: 18px;">· 1박케어 : 12시간 이상</div>
                 <div style="font-size: 18px;">· 데이케어 : 12시간 이내 장시간 외출할 때</div><br><br><br>
             </div>
+      
             <table style="width: 95%; text-align: center;">
                 <tr>
                     <td></td>
@@ -67,20 +70,20 @@
                 </tr>
                 <tr>
                     <td>소형견 7kg 미만</td>
-                    <td><input type="text" name="1bak-price" onkeypress="onlynum();" size="8">원</td>
-                    <td><input type="text" name="day-price" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="bakSmall" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="daySmall" onkeypress="onlynum();" size="8">원</td>
                 </tr>
 
                 <tr>
                     <td>중형견 7-14.9kg</td>
-                    <td><input type="text" name="1bak-price" onkeypress="onlynum();" size="8">원</td>
-                    <td><input type="text" name="day-price" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="bakMid" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="dayMid" onkeypress="onlynum();" size="8">원</td>
                 </tr>
 
                 <tr>
                     <td>대형견 15kg 이상</td>
-                    <td><input type="text" name="1bak-price" onkeypress="onlynum();" size="8">원</td>
-                    <td><input type="text" name="day-price" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="bakBig" onkeypress="onlynum();" size="8">원</td>
+                    <td><input type="text" name="dayBig" onkeypress="onlynum();" size="8">원</td>
                 </tr>
             </table>
         </div><br><br>
@@ -91,10 +94,11 @@
         </div><br>
         <div style="margin-left: 35%;">
             <p>
-                <input type="submit" class="submitButton" th:value="Speichern" name="submit" disabled="disabled"/>
-                <button class="btn2">취소</button>
+                <button type="submit">제출</button>
+                <button type="button" class="btn2">취소</button>
             </p>
         </div>
+        </form>
     </div>
 </body>
 </html>

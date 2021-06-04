@@ -29,13 +29,14 @@
 </head>
 <body>
     <div class="container-stop">
-        <img src="PET.png" style="width: 200px;"><br><br><br>
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">
             <div style="height: auto; width: 80%; border:1px solid #D6D6D6; padding: 10px 0px 30px 30px;">
                 <div>
                     <div style="font-size: 30px; font-weight: bold;">문의 내역 관리</div><br>
                 </div>
                 <div>
+                    <form action="<%=contextPath%>/selectQna.sit"  method="post">
                     <table border="1" style="height: 140px; width: 95%; text-align: center;">
                         <tr>
                             <td >번호</td>
@@ -46,7 +47,7 @@
 
                         <tr>
                             <td>1</td>
-                            <td>으억 살려주세요ㅕ 흑허ㅏㅇㄹ하</td>
+                            <td ><% %></td>
                             <td>김은용</td>
                             <td>2020-01-02</td>
                         </tr>
@@ -65,6 +66,7 @@
                             <td>2020-01-04</td>
                         </tr>
                     </table>
+                    </form>
                 </div>
             </div>
             <br><br>

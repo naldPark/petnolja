@@ -34,7 +34,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="PET.png" style="width: 250px;">
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;">
         <div class="reject">
         <div style="font-size: 45px; font-weight:bold;">예약거절</div>
         <div style="font-size: 20px;">예약취소를 신청하기 전에 안내 사항을 꼭 확인해주세요</div><br>

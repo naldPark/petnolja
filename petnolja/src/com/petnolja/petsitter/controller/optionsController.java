@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class optionsController
  */
 @WebServlet("/options.sit")
-public class optionsController extends HttpServlet {
+public class OptionsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public optionsController() {
+    public OptionsController() {
         super();
         // TODO Auto-generated constructor stub
     }

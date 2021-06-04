@@ -35,8 +35,9 @@
 </script>
 </head>
 <body>
+    <%@ include file="../common/menubar.jsp" %>
     <div class="container-stop">
-        <img src="PET.png" style="width: 200px;"><br><br><br>
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">
             <div></div>
         </div>
@@ -54,14 +55,15 @@
             </div>
             <br>
         </div>
+        <form action="<%=contextPath%>/insertSitService.sit"  method="post">
         <div style="height: auto; width: 80%; border:1px solid #D6D6D6; line-height:60%; padding: 10px 0px 30px 30px;">
            
-            <div><input type="checkbox" name="reject" value="reason" >없음</div><br>
-            <div><input type="checkbox" name="reject" value="reason" >자차 픽업 가능</div><br>
-            <div><input type="checkbox" name="reject" value="reason" >목욕 가능 (목욕시킬 수 있는 경우)</div><br>
-            <div><input type="checkbox" name="reject" value="reason" >약물 복용 (약을 바르거나 내복약을 먹여본 적 있음)</div><br>
-            <div><input type="checkbox" name="reject" value="reason" >노령견 케어 가능 (관련된 교육이나 노령견을 케어해 본 경험)</div><br>
-            <div><input type="checkbox" name="reject" value="reason" >응급상황 시 인근 병원 이동 가능</div>
+            <div><input type="checkbox" name="addServ" value="없음" >없음</div><br>
+            <div><input type="checkbox" name="addServ" value="자차픽업" >자차 픽업 가능</div><br>
+            <div><input type="checkbox" name="addServ" value="목욕가능" >목욕 가능 (목욕시킬 수 있는 경우)</div><br>
+            <div><input type="checkbox" name="addServ" value="약물복용" >약물 복용 (약을 바르거나 내복약을 먹여본 적 있음)</div><br>
+            <div><input type="checkbox" name="addServ" value="노견케어" >노령견 케어 가능 (관련된 교육이나 노령견을 케어해 본 경험)</div><br>
+            <div><input type="checkbox" name="addServ" value="응급상황" >응급상황 시 인근 병원 이동 가능</div>
         </div><br><br>
         <div style="margin-left: 20%;">
             <div><input  type="checkbox" name="searchValues" />위의 선택사항이 틀림없을 확인합니다.</div><br>
@@ -69,9 +71,10 @@
                 모두 펫시터(판매자) 에게 있음을 확인합니다.</div>
         </div><br>
         <div style="margin-left: 35%;">
-            <input type="submit" class="submitButton" th:value="Speichern" name="submit" disabled="disabled"/>
+            <button type="submit">제출</button>
             <button class="btn2">취소</button>
         </div>
+    </form>
     </div>
 </body>
 </html>
