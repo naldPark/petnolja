@@ -10,6 +10,7 @@
                         JOIN QNA ON(QNA_NO = ORIGIN_NO)
 	</entry>
 	
+	
 	<entry key="selectQNAList">
 		SELECT *
 		  FROM (
@@ -34,6 +35,7 @@
 		 WHERE (RNUM BETWEEN ? AND ?)
 	</entry>
 	
+	
 	<entry key="selectRevListCount">
 		SELECT
 			COUNT(*) COUNT
@@ -41,6 +43,7 @@
 						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
                         JOIN REVIEW ON(REV_NO = ORIGIN_NO)
 	</entry>
+	
 	
 	<entry key="selectRevList">
 		SELECT *
@@ -67,4 +70,80 @@
 		 WHERE (RNUM BETWEEN ? AND ?)
 	</entry>
 
+
+	<entry key="undoQnaReport">
+		UPDATE 
+    		QNA
+		SET 
+    		QNA_STATUS = 'Y'
+		WHERE
+    		QNA_NO IN (
+        		SELECT 
+            		QNA_NO 
+        		FROM 
+            		REPORT 
+        		JOIN REVIEW ON (QNA_NO = ORIGIN_NO)
+        		WHERE
+            		REPORT_SORT = 1
+            		AND REPORT_NO = ?
+        	)
+	</entry>
+	
+	
+	<entry key="undoRevReport">
+		UPDATE 
+    		REVIEW
+		SET 
+    		REV_STATUS = 'Y'
+		WHERE
+    		REV_NO IN (
+        		SELECT 
+            		REV_NO 
+        		FROM 
+            		REPORT 
+        		JOIN REVIEW ON (REV_NO = ORIGIN_NO)
+        		WHERE
+            		REPORT_SORT = 2
+            		AND REPORT_NO = ?
+        	)	
+	</entry>
+	
+	
+	<entry key="deleteQnaReport">
+		UPDATE 
+    		QNA
+		SET 
+    		QNA_STATUS = 'N'
+		WHERE
+    		QNA_NO IN (
+        		SELECT 
+            		QNA_NO 
+        		FROM 
+            		REPORT 
+        		JOIN REVIEW ON (QNA_NO = ORIGIN_NO)
+        		WHERE
+            		REPORT_SORT = 1
+            		AND REPORT_NO = ?
+        	)	
+	</entry>
+	
+	
+	<entry key="deleteRevReport">
+		UPDATE 
+    		REVIEW
+		SET 
+    		REV_STATUS = 'N'
+		WHERE
+    		REV_NO IN (
+        		SELECT 
+            		REV_NO 
+        		FROM 
+            		REPORT 
+        		JOIN REVIEW ON (REV_NO = ORIGIN_NO)
+        		WHERE
+            		REPORT_SORT = 2
+            		AND REPORT_NO = ?
+        	)	
+	</entry>
+	
 </properties>

@@ -42,5 +42,66 @@ public class ReportService {
 		return list;
 	}
 	
+	public int undoQnaReport(String[] list) {
+		Connection conn = getConnection();
+		
+		int result = new ReportDao().undoQnaReport(conn, list);
+		
+		if(result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	public int undoRevReport(String[] list) {
+		Connection conn = getConnection();
+		
+		int result = new ReportDao().undoRevReport(conn, list);
+		
+		if(result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	
+	public int deleteQnaReport(String[] list) {
+		Connection conn = getConnection();
+		
+		int result = new ReportDao().deleteQnaReport(conn, list);
+		
+		if(result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	public int deleteRevReport(String[] list) {
+		Connection conn = getConnection();
+		
+		int result = new ReportDao().deleteRevReport(conn, list);
+		
+		if(result == list.length) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
 	
 }

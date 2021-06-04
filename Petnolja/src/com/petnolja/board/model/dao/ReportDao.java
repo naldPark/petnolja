@@ -166,5 +166,106 @@ public class ReportDao {
 		
 		return Rlist;	
 	}
+	
+	
+	public int undoQnaReport(Connection conn, String[] list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("undoQnaReport");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int undoRevReport(Connection conn, String[] list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("undoRevReport");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteQnaReport(Connection conn, String[] list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteQnaReport");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteRevReport(Connection conn, String[] list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteRevReport");
+		
+		try {
+			int num = 0;
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.length; i++) {
+				
+				num = Integer.parseInt(list[i]);
+				
+				pstmt.setInt(1, num);
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

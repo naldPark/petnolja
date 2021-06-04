@@ -34,7 +34,7 @@ public class OldListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		
 		if(loginAdmin == null) {
 			

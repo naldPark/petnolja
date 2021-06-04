@@ -113,7 +113,7 @@
             		<% for(Report r : list){ %>
 		                <tr>
 		                	<td>
-                        		<input type="checkbox">
+                        		<input type="checkbox" onclick = "event.stopPropagation">
                     		</td>
 		                    <td><%= r.getReportNo() %></td>
 		                    <td><%= r.getTitle() %></td>
@@ -129,27 +129,101 @@
 
         <!-- 페이징바 -->
         <div id="paging-area">
-            <% if(currentPage !=1){ %>
-                <button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage-1%>';"> &lt; </button>
-            <% } %>
+            <div id="paging-area">
+			<% if(currentPage != 1){ %>
+            	<button onclick="location.href='<%=contextPath%>/reportlist.ad?currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary btn-sm"> &lt; </button>
+			<% } %>
 
             <% for(int p=startPage; p<=endPage; p++){ %>
-            	<% if(p !=currentPage){ %>
-                    <button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%= p %>';"><%= p %></button>
-                <% }else { %>
-                	<button disabled><%= p %></button>
-                <% } %>
+            	
+            	<% if(p != currentPage){ %>
+	            	<button onclick="location.href='<%=contextPath%>/reportlist.ad?currentPage=<%= p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
+	            <% }else { %>
+	            	<button class="btn btn-outline-primary btn-sm" disabled><%= p %></button>
+            	<% } %>
+            	
             <% } %>
 
-            <% if(currentPage !=maxPage){ %>
-                <button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage+1%>';"> &gt; </button>
-            <% } %>
+			<% if(currentPage != maxPage){ %>
+            	<button onclick="location.href='<%=contextPath%>/reportlist.ad?currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
+			<% } %>
 
         </div>
     </div>
 
     <br><br><br><br><br>
 
+	<!-- 복구/삭제 -->
+	<script>
+	function undoReport(){
+    	
+    	var rNoArr = [];
+    	
+    	$("input[type=checkbox]:checked").each(function(){
+    		rNoArr.push($(this).parent().siblings().eq(0).text());
+    	});
+    	
+    	var rNoList = rNoArr.join(",");
+    	
+		if(confirm("선택한 신고내역을 복구하시겠습니까?")){
+			$.ajax({
+				url:"undoreport.ad",
+				type:"post",
+				data:{rNoList:rNoList},
+				success:function(result){
+					if(result == rNoArr.length){
+						alert("성공적으로 처리되었습니다.");
+						location.reload();
+					} else {
+						alert("신고내역 복구에 실패했습니다.");
+					}
+				}, erorr:function(){
+					console.log("신고내역 복구 ajax통신 실패");
+				}
+			});
+			
+		} else {
+			$(":checkbox").prop("checked", false);
+		}
+    }
+	
+	function deleteReport(){
+    	
+    	var rNoArr = [];
+    	
+    	$("input[type=checkbox]:checked").each(function(){
+    		rNoArr.push($(this).parent().siblings().eq(0).text());
+    	});
+    	
+    	var rNoList = rNoArr.join(",");
+    	
+		if(confirm("선택한 신고내역을 삭제하시겠습니까?")){
+			$.ajax({
+				url:"deletereport.ad",
+				type:"post",
+				data:{rNoList:rNoList},
+				success:function(result){
+					if(result == rNoArr.length){
+						alert("성공적으로 처리되었습니다.");
+						location.reload();
+					} else {
+						alert("신고내역 삭제에 실패했습니다.");
+					}
+				}, erorr:function(){
+					console.log("신고내역 삭제 ajax통신 실패");
+				}
+			});
+			
+		} else {
+			$(":checkbox").prop("checked", false);
+		}
+    }
+	
+	
+	
+	</script>
+
+	<!-- 검색 -->
 	<script>
         $(document).ready(function () {
             $("#report-search-box").on("keyup", function () {
