@@ -1,4 +1,4 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.petsitter.model.service.PetsitterService;
+import com.petnolja.board.model.service.ReportService;
 
 /**
- * Servlet implementation class PetsitterDeny
+ * Servlet implementation class DeleteTheReportController
  */
-@WebServlet("/petsitterDeny.ad")
-public class PetsitterDenyController extends HttpServlet {
+@WebServlet("/deletethereport.ad")
+public class DeleteTheReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetsitterDenyController() {
+    public DeleteTheReportController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,19 +28,20 @@ public class PetsitterDenyController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		
+		String rno = request.getParameter("rno");
 		
-		int sitterNo = Integer.parseInt(request.getParameter("sno"));
+		String[] rnoArr = rno.split(",");
 		
-		int result = new PetsitterService().sitterDeny(sitterNo);
+		int result = new ReportService().deleteQnaReport(rnoArr) + new ReportService().deleteRevReport(rnoArr);
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsgAd", "정상적으로 거절되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/newlist.ad?currentPage=1");
+			int r = new ReportService().deleteListDone(rnoArr);
+			request.getSession().setAttribute("alertMsgAd", "성공적으로 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/reportlist.ad?currentPage=1");
 		} else {
-			request.getSession().setAttribute("alertMsgAd", "펫시터 권한 거절에 실패했습니다.");
-			response.sendRedirect(request.getContextPath() + "/newlist.ad?currentPage=1");
+			request.getSession().setAttribute("alertMsgAd", "게시물 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/reportlist.ad?currentPage=1");
 
 		}
 	}

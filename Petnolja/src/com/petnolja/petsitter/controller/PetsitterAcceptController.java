@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.board.model.service.ReportService;
 import com.petnolja.member.model.service.MemberService;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
@@ -36,7 +37,14 @@ public class PetsitterAcceptController extends HttpServlet {
 		
 		int result = new PetsitterService().sitterAccept(sitterNo);
 		
-		response.sendRedirect("views/admin/newPetsitterListView.jsp?currentPage=1");
+		if(result>0) {
+			request.getSession().setAttribute("alertMsgAd", "정상적으로 승인되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/newlist.ad?currentPage=1");
+		} else {
+			request.getSession().setAttribute("alertMsgAd", "펫시터 권한 승인에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/newlist.ad?currentPage=1");
+
+		}
 	}
 
 	/**
