@@ -42,9 +42,11 @@ public class ReportListController extends HttpServlet {
 		
 		int QmaxPage;		// QNA 가장 마지막 페이지 (총 페이지 수)
 		int RmaxPage;		// Review 가장 마지막 페이지 (총 페이지 수)
+		int maxPage;
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
 		int QendPage;		// 페이지 하단에 보여질 페이징바의 끝수
 		int RendPage;
+		int endPage;
 		
 		QNAListCount = new ReportService().selectQNAListCount();
 		RevListCount = new ReportService().selectRevListCount();
@@ -56,12 +58,13 @@ public class ReportListController extends HttpServlet {
 		
 		QmaxPage = (int)Math.ceil((double)QNAListCount / boardLimit);
 		RmaxPage = (int)Math.ceil((double)RevListCount / boardLimit);
-		
+		maxPage = (int)Math.ceil((double)(QNAListCount + RevListCount) / boardLimit);
 		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		
 		QendPage = startPage + pageLimit - 1;
 		RendPage = startPage + pageLimit - 1;
+		endPage = startPage + pageLimit - 1;
 		
 		if(QendPage > QmaxPage) {
 			QendPage = QmaxPage;
@@ -71,8 +74,13 @@ public class ReportListController extends HttpServlet {
 			RendPage = RmaxPage;
 		}
 		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
 		PageInfo Qpi = new PageInfo(QNAListCount, currentPage, pageLimit, boardLimit, QmaxPage, startPage, QendPage);
 		PageInfo Rpi = new PageInfo(RevListCount, currentPage, pageLimit, boardLimit, RmaxPage, startPage, RendPage);
+		PageInfo pi = new PageInfo(QNAListCount+RevListCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		ArrayList<Report> Qlist = new ReportService().selectQNAList(Qpi);
 		ArrayList<Report> Rlist = new ReportService().selectRevList(Rpi);
@@ -81,6 +89,7 @@ public class ReportListController extends HttpServlet {
 		//request.setAttribute("Rpi", Rpi);
 		request.setAttribute("Qlist", Qlist);
 		request.setAttribute("Rlist", Rlist);
+		request.setAttribute("pi", pi);
 		
 		request.getRequestDispatcher("views/admin/reportListView.jsp").forward(request, response);			
 	}

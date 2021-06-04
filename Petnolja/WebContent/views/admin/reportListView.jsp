@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.board.model.vo.Report" %>
 
-<% PageInfo pi=(PageInfo)request.getAttribute("pi"); 
-    ArrayList<Report> list = (ArrayList<Report>)request.getAttribute("list");
+<% 
+	PageInfo pi=(PageInfo)request.getAttribute("pi"); 
+    ArrayList<Report> Qlist = (ArrayList<Report>)request.getAttribute("Qlist");
+    ArrayList<Report> Rlist = (ArrayList<Report>)request.getAttribute("Rlist");
+    ArrayList<Report> list = new ArrayList<>();
+    list.addAll(Qlist); list.addAll(Rlist);
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -112,26 +116,14 @@
                         		<input type="checkbox">
                     		</td>
 		                    <td><%= r.getReportNo() %></td>
-		                    <td><%= r.getCategory() %></td>
-		                    <td><%= r.getBoardTitle() %></td>
-		                    <td><%= r.getBoardWriter() %></td>
-		                    <td><%= r.getCount() %></td>
+		                    <td><%= r.getTitle() %></td>
+		                    <td><%= r.getWriterId() %></td>
+		                    <td><%= r.getCreatedDate() %></td>
+		                    <td><%= r.getReporterId() %></td>
 		                    <td><%= r.getReportedDate() %></td>
 		                </tr>
                 	<% } %>
                 <% } %>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>001</td>
-                    <td>%%$댓글달고 돈벌자$%%</td>
-                    <td>adsea</td>
-                    <td>2021-05-20</td>
-                    <td>cucumber11</td>
-                    <td>2021-05-25</td>
-                </tr>
-                
             </tbody>
         </table>
 
