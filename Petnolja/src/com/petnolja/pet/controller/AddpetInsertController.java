@@ -90,7 +90,7 @@ public class AddpetInsertController extends HttpServlet {
 			
 			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "반려견 추가에 성공하셨습니다.");
-				request.getRequestDispatcher("views/pet/addPet.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/petList.mem");
 				
 				
 			}else {

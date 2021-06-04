@@ -106,39 +106,7 @@
      <% } %>
 
   </div> 
-        
-  <div class="modal cancelBtn">
-    <div class="modal-dialog">
-      <div class="modal-content" style="width:400px">
-        <div class="modal-body" align="center">
-        <br>
-            <h4><b>예약취소</b></h4><br>예약을 취소하시겠습니까?<br><br>
-            <button type="button" class="btn btn-primary" id="cancelBtn">
-                취소하기
-              </button>
-            <button type="button" class="btn btn-secondary"  data-dismiss="modal">
-                보류
-              </button>
-              <br><br>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal" id="finCancelReserv">
-    <div class="modal-dialog">
-      <div class="modal-content" style="width:400px">
-        <div class="modal-body" align="center">
-        <br>
-            <h4><b>예약취소</b></h4><br><br>예약내용이 취소되었습니다.<br><br>
-            <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/member/reserveList.jsp'" data-dismiss="modal">
-                확인
-              </button>
-              <br><br>
-        </div>
-      </div>
-    </div>
-  </div>
   
   
   	<script>

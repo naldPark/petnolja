@@ -64,12 +64,13 @@
       </table>
 
     </div><hr>
-    <form action="" id="cancelForm">
+    <form action="<%=contextPath %>/cancelReserve.mem"  method="post" id="cancelForm">
         <div class="form-group">
-            <textarea class="form-control" rows="5" id="cancelComment" style="resize:none; height: 110px" placeholder="취소사유 입력"></textarea>
+            <input type="hidden" id="cancelInputNo" name ="reserveNo" value="">
+            <textarea class="form-control" name="cancelComment" rows="5" id="cancelComment" style="resize:none; height: 110px" placeholder="취소사유 입력"></textarea>
             <div style="margin-left:360px; font-size:10pt"><span id="cancelCount" >0</span> / 1000<br></div>
          <div align="center">
-                <button type="submit" class="btn btn-primary btn-sm" onclick="alert('취소가 완료되었습니다'); closeCancelPopup();">등록</button>&nbsp;
+          <button type="submit" class="btn btn-primary btn-sm">등록</button>&nbsp;
                 <button type="button" class="btn btn-secondary btn-sm" onclick="closeCancelPopup()">취소</button>
               </div>
         </div>
@@ -78,8 +79,11 @@
 </div>
 <script>
     //팝업 열기
-      function openCancelPopup(){$("#cancelPopup").removeClass('cancelHide'); 
-      $("#cancelForm")[0].reset();  //input값 초기화
+      function openCancelPopup(id){
+        var cancelReserveNum= id.replace("cancel","");
+        $("#cancelInputNo").val(cancelReserveNum);
+        $("#cancelPopup").removeClass('cancelHide'); 
+        $("#cancelForm")[0].reset();  //input값 초기화
     }  
        // 팝업 닫기
       function closeCancelPopup(){$("#cancelPopup").addClass('cancelHide'); 

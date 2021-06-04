@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
-
 import com.petnolja.memreserve.model.vo.ReserveContent;
+import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.common.Attachment;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.vo.MemReserve;
@@ -97,7 +97,7 @@ public class MemReserveDao {
 					    rset.getString("RES_CHECKOUT"),
 					    rset.getString("RES_STATUS"),
 						rset.getString("CANCEL_REASON"),
-						rset.getString("RES_STATUS"),
+						rset.getString("REV_STATUS"),
 						rset.getString("PATH")));
 					    }
 		} catch (SQLException e) {
@@ -237,6 +237,31 @@ public class MemReserveDao {
 		
 	}
 	
+	
+	public String[] reviewReservInfo(Connection conn, long reserveNo) {
+		String[] arr = new String[3];
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviewReservInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reserveNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				arr[0] = rset.getString("mem_name");
+				arr[1] = rset.getString("sitter_title");
+				arr[2] = rset.getString("path");
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return arr;
+				
+	}
+	
 	public int reviewInsert(Connection conn, long reserveNo, int starCount, String comment) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -280,6 +305,99 @@ public class MemReserveDao {
 		
 		return result;
 	}
+	
+	public  MemReserve reserveListDetail(Connection conn, long reserveNo) {
+		MemReserve rc = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reserveListDetail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reserveNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				rc =new MemReserve(
+						rset.getInt("SITTER_NO"),
+						rset.getString("MEM_NAME"),
+						rset.getLong("RES_NO"),
+					    rset.getString("RES_CHECKIN"),
+					    rset.getString("RES_CHECKOUT"),
+					    rset.getInt("SITTER_CHECKIN"),
+					    rset.getInt("SITTER_CHECKOUT"),
+					    rset.getDate("RES_DATE"),
+					    rset.getString("REQUEST"),
+					    rset.getString("RES_STATUS"),
+					    rset.getString("CANCEL_REASON"),
+					    rset.getString("PAY_METHOD"),
+					    rset.getInt("PAY_AMOUNT")
+						);
+					    }
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rc;
+		
+	}
+	
+	
+	public ArrayList<Pet> reserveListDetailPet(Connection conn, long reserveNo) {
+		ArrayList<Pet> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reserveListDetailPet");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reserveNo);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				list.add(new Pet(
+						rset.getInt("PET_NO"),
+						rset.getString("PET_NAME"),
+						rset.getString("PET_BIRTH"),
+					    rset.getString("PET_SIZE"),
+					    rset.getString("PET_GENDER"),
+					    rset.getString("PET_IMG"),
+					    rset.getString("PET_STATUS")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public int cancelReserve(Connection conn, long reserveNo, String cancelComment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("cancelReserve");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, cancelComment);	
+			pstmt.setLong(2, reserveNo);	
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
 	
 	
 	

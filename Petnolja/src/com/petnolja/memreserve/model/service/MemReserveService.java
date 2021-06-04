@@ -9,6 +9,7 @@ import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.dao.MemReserveDao;
 import com.petnolja.memreserve.model.vo.MemReserve;
 import com.petnolja.memreserve.model.vo.ReserveContent;
+import com.petnolja.pet.model.vo.Pet;
 
 public class MemReserveService {
 	
@@ -34,6 +35,7 @@ public class MemReserveService {
 		
 	}
 	
+	//예약진행시 필요한 내용을 select합니다
 	public ArrayList<ReserveContent> reserveProceed(int sitterNo, String petList, String careDay, String startDate, String endDate) {
 		Connection conn = getConnection();
 		ArrayList<ReserveContent> list = new MemReserveDao().reserveProceed(conn, sitterNo, petList, careDay, startDate, endDate);
@@ -42,6 +44,7 @@ public class MemReserveService {
 		return list;
 	}
 	
+	// 예약진행 insert 기능입니다.
 	public int reserveInsertAjax(int userNo, String checkin, String checkout, String requestInput, int payNo, String payMethod, int payAmount, String sittingNo, String petNo) {
 		
 		Connection conn = getConnection();
@@ -60,6 +63,16 @@ public class MemReserveService {
 		
 	}
 	
+	public String[] reviewReservInfo(long reserveNo) {
+		Connection conn = getConnection();
+		String[] arr = new MemReserveDao().reviewReservInfo(conn, reserveNo);
+		close(conn);
+		return arr;
+		
+	}
+	
+	
+	// 리뷰작성 insert 기능입니다.
 	public int reviewInsert(long reserveNo, int starCount, String comment, Attachment at) {
 		Connection conn = getConnection();
 		int result1 = new MemReserveDao().reviewInsert(conn, reserveNo, starCount, comment);
@@ -78,5 +91,39 @@ public class MemReserveService {
 		
 		return result1 * result2;
 	}
+	
+	
+	public MemReserve reserveListDetail(long reserveNo) {
+		Connection conn = getConnection();
+		MemReserve rc = new MemReserveDao().reserveListDetail(conn, reserveNo);
+		close(conn);
+		return rc;
+		
+	}
+	
+	public ArrayList<Pet> reserveListDetailPet(long reserveNo) {
+		Connection conn = getConnection();
+		ArrayList<Pet> plist = new MemReserveDao().reserveListDetailPet(conn,reserveNo);
+		close(conn);
+		return plist;
+	}
+	
+	
+	
+	public int cancelReserve(long reserveNo, String cancelComment) {
+		Connection conn = getConnection();
+		int result = new MemReserveDao().cancelReserve(conn, reserveNo, cancelComment);
+		
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
 
 }

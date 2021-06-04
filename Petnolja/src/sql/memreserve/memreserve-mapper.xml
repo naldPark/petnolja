@@ -13,12 +13,13 @@
 		
 	</entry>
 
+
 	<entry key="reserveList">
 			SELECT *
 		  FROM (
 		        SELECT ROWNUM RNUM, A.*
 		          FROM (
-						SELECT SITTER_NO
+						SELECT DISTINCT SITTER_NO
 						     , SITTER_TITLE
 						     , MEM_NAME
 						     , RES_NO
@@ -92,6 +93,20 @@
 	
 	</entry>
 	
+	<entry key = "reviewReservInfo">
+		select mem_name, sitter_title, file_path||change_name path
+	        from reserv_sitting
+	        join fee using(sitting_no)
+	        join sitter using(sitter_no)
+	        join member on(mem_no = sitter_no)
+	        join attachment on(at_no=sitter_no)
+	        where at_category ='SITTER_PIC'
+	        and res_no = ?
+	        and file_level=1
+		
+	</entry>
+	
+	
 	<entry key = "reviewInsert">
 	
 	  INSERT 
@@ -130,6 +145,59 @@
 		  , ?
 		  , 1
 		  )
+	</entry>
+	
+
+	<entry key="reserveListDetail">
+		SELECT DISTINCT 
+			  SITTER_NO
+			, M.MEM_NAME
+			, RES_NO
+			, RES_CHECKIN
+			, RES_CHECKOUT
+			, SITTER_CHECKIN
+			, SITTER_CHECKOUT
+			, RES_DATE
+			, REQUEST
+			, RES_STATUS
+			, CANCEL_REASON
+			, PAY_METHOD
+			, PAY_AMOUNT
+		FROM RESERV
+		JOIN RESERV_SITTING USING(RES_NO)
+		JOIN FEE USING(SITTING_NO)
+		JOIN SITTER USING (SITTER_NO)
+		JOIN MEMBER M ON(SITTER_NO=M.MEM_NO)
+		WHERE RES_NO=?
+	</entry>
+
+	<entry key="reserveListDetailPet">
+
+		SELECT 
+			  PET_NO
+			, PET_NAME
+			, PET_BIRTH
+			, PET_SIZE
+			, PET_GENDER
+			, PET_IMG
+			, PET_STATUS
+		FROM RESERV_PET
+		JOIN RESERV USING(RES_NO)
+		JOIN PET USING(PET_NO)
+		WHERE RES_NO=?
+		
+	</entry>
+
+
+	<entry key="cancelReserve">
+
+		UPDATE
+			 RESERV
+		SET RES_STATUS='취소',
+		    CANCEL_REASON=?,
+		    PENALTY='N'
+		WHERE RES_NO=?
+		
 	</entry>
 	
 	
