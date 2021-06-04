@@ -13,7 +13,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.petnolja.common.Attachment;
 import com.petnolja.common.MyFileRenamePolicy;
-import com.petnolja.member.model.vo.Member;
 import com.petnolja.memreserve.model.service.MemReserveService;
 
 /**
