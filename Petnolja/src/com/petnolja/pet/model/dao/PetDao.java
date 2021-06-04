@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.vo.ReserveContent;
 import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.pet.model.vo.PetLogList;
@@ -296,23 +297,56 @@ public class PetDao {
       }
       return result;
    }
+   /** 박정빈
+    *  회원이 펫시터 예약리스트를 조회할때 목록 갯수 뽑기
+    */
+   public int dailyLogCount(Connection conn, int memNo, String startDate, String endDate) {
+	   // select문
+	   int listCount = 0;
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String sql = prop.getProperty("dailyLogCount");
+	   try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, memNo);
+		pstmt.setDate(2, java.sql.Date.valueOf(startDate));
+        pstmt.setDate(3, java.sql.Date.valueOf(endDate));
+		
+        rset = pstmt.executeQuery();
+        
+        if(rset.next()) {
+			listCount = rset.getInt("count");
+		}
+        
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	   return listCount;
+	   
+   }
    
    /** 박정빈
     * 펫 일지 보기 관련 
     */
-   public ArrayList<PetLogList> dailyLog(Connection conn, int memNo, String startDate, String endDate){
+   public ArrayList<PetLogList> dailyLog(Connection conn, int memNo, String startDate, String endDate, PageInfo pi){
       // select문
       ArrayList<PetLogList> list = new ArrayList<>();
       ResultSet rset = null;
       PreparedStatement pstmt = null;
       String sql = prop.getProperty("dailyLog");
+      int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+	  int endRow = startRow + pi.getBoardLimit() - 1;
       
       try {
          pstmt = conn.prepareStatement(sql);
          pstmt.setInt(1, memNo);
          pstmt.setDate(2, java.sql.Date.valueOf(startDate));
          pstmt.setDate(3, java.sql.Date.valueOf(endDate));
-         
+         pstmt.setInt(4, startRow);
+		 pstmt.setInt(5, endRow);
          
          rset = pstmt.executeQuery();
          while(rset.next()) {

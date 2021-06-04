@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.PetLogList"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, com.petnolja.pet.model.vo.PetLogList, com.petnolja.common.model.vo.PageInfo"%>
 <%   
    ArrayList<PetLogList> list = (ArrayList<PetLogList>)request.getAttribute("dailyLog");
    String startDate = (String)request.getAttribute("startDate");
    String endDate = (String)request.getAttribute("endDate");
+   PageInfo pi = (PageInfo)request.getAttribute("pi");	
 %>
 <!DOCTYPE html>
 <html>
@@ -50,6 +51,7 @@
                     <input type="date" class="form-control" id="startDate" name="startDate" style="height:36px;">
                     <span class="input-group-text" style="background-color: white; border: hidden;">~</span>
                     <input type="date" class="form-control" id="endDate" name="endDate" style="height:36px; margin-right: 20px;">
+                    <input type="hidden" name="searchPage" required value="1" id="searchPage">
                     <button type="submit" id="searchSubmitBtn" class="btn btn-primary btn-sm">&nbsp;조회&nbsp;</button>
                 </div> 
             </form>
@@ -102,18 +104,46 @@
             <% } %>
             <hr>
 
+	<!-- 페이지 목록 시작 -->
+             <ul class="pagination justify-content-center">
+             <% if(pi.getCurrentPage() != 1){ %>
+                <li class="page-item"><a class="page-link">&lt;</a></li>
+           	 <% } %>
+           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+           	 
+           		 <% if(p != pi.getCurrentPage()){ %>
+               		 <li class="page-item"><a class="page-link"><%= p %></a></li>
+	             <% }else { %>
+	            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)"><%= p %></a></li>
+            	 <% } %>
+             <% } %>
+     
 
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-        </ul>
-
-    </div>
+			<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+            	<li class="page-item"><a class="page-link"> &gt;</a></li>
+			<% } %>
+              </ul>
+     <!-- 페이지 목록 끝 -->
        <% } %>
+	
+    </div>
+      
 <br>
+	
+  <script>
+  	    $(".page-link").click(function(){
+		      var page = $(this).text();
+		      if(page =="<"){
+		          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
+		      } else if(page==" >"){
+		        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
+		      } else {
+		        $("#searchPage").val(page);
+		      }
+		      $("#searchSubmitBtn").click();
+	    })
+   </script>
+<% %>
     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

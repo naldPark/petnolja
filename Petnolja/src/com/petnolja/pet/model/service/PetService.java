@@ -3,6 +3,8 @@ package com.petnolja.pet.model.service;
 import static com.petnolja.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+
+import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.dao.PetDao;
 import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.pet.model.vo.PetLogList;
@@ -111,16 +113,30 @@ public class PetService {
    
    
    /** 박정빈
+    *  회원이 펫시터 예약리스트를 조회할때 목록 갯수 뽑기
+    */
+   public int dailyLogCount(int memNo, String startDate, String endDate) {
+	   Connection conn = getConnection();
+	   int listCount = new PetDao().dailyLogCount(conn, memNo, startDate, endDate);
+	   close(conn);
+	   return listCount;
+   }
+   
+   
+   /** 박정빈
     * 펫 일지 보기 관련 
     */
-   public ArrayList<PetLogList> dailyLog(int memNo, String startDate, String endDate){
+   public ArrayList<PetLogList> dailyLog(int memNo, String startDate, String endDate, PageInfo pi){
       Connection conn = getConnection();
-      ArrayList<PetLogList> list = new PetDao().dailyLog(conn, memNo, startDate, endDate);
+      ArrayList<PetLogList> list = new PetDao().dailyLog(conn, memNo, startDate, endDate, pi);
       close(conn);
       return list;
       
       
    }
+   
+  
+   
    
    
 }

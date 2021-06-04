@@ -146,25 +146,45 @@
 		   AND PET_IMG = ?
 	</entry>
 	
+	<entry key="dailyLogCount">
+	
+	SELECT COUNT(*) COUNT
+    	FROM(
+	         SELECT 
+	              RE.MEM_NO
+	            FROM LOG L
+	            JOIN RESERV RE ON(RE.RES_NO = L.RES_NO) 
+	            WHERE RE.MEM_NO = ?
+	            and log_time between ? and ?
+	            )  
+		
+	</entry>
+	
 	 <entry key="dailyLog">
-      SELECT 
-           RE.MEM_NO
-         , F.SITTER_NO
-         , M.MEM_NAME SITTERNAME
-         , LOG_NO
-         , RE.RES_NO
-         , LOG_TIME
-         , LOG_CONTENT
-         , FILE_PATH||CHANGE_NAME PATH
-         FROM LOG L
-         JOIN RESERV RE ON(RE.RES_NO = L.RES_NO) 
-         JOIN ATTACHMENT ON(LOG_NO = AT_NO) 
-         JOIN RESERV_SITTING RS ON(RE.RES_NO = RS.RES_NO)
-         JOIN FEE F ON(RS.SITTING_NO = F.SITTING_NO)
-         JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
-         WHERE RE.MEM_NO = ?
-         and log_time between ? and ?
-         AND AT_CATEGORY='LOG_PIC'
+      SELECT *
+		  FROM (    
+		      SELECT ROWNUM RNUM, B.*  
+		        FROM( 
+		            SELECT RE.MEM_NO
+		                 , F.SITTER_NO
+		                 , M.MEM_NAME SITTERNAME
+		                 , LOG_NO
+		                 , RE.RES_NO
+		                 , LOG_TIME
+		                 , LOG_CONTENT
+		                 , FILE_PATH||CHANGE_NAME PATH
+		                 FROM LOG L
+		                 JOIN RESERV RE ON(RE.RES_NO = L.RES_NO) 
+		                 JOIN ATTACHMENT ON(LOG_NO = AT_NO) 
+		                 JOIN RESERV_SITTING RS ON(RE.RES_NO = RS.RES_NO)
+		                 JOIN FEE F ON(RS.SITTING_NO = F.SITTING_NO)
+		                 JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
+		                 WHERE RE.MEM_NO = ?
+		                 AND log_time between ? and ?
+		                 AND AT_CATEGORY='LOG_PIC'
+		                 ORDER BY LOG_TIME DESC) B
+		                 )
+          WHERE RNUM BETWEEN ? AND ?
    </entry>
 	
 </properties>
