@@ -36,6 +36,10 @@ public class UndoReportController extends HttpServlet {
 		
 		int result = new ReportService().undoQnaReport(list) + new ReportService().undoRevReport(list);
 		
+		if(result == list.length) {
+			int dresult = new ReportService().undoListDone(list);
+		}
+		
 		response.getWriter().print(result);
 	}
 

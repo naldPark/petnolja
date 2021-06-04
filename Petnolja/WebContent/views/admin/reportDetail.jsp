@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.board.model.vo.Report"%>
+
+<% 
+int pno = (int)request.getAttribute("pno");
+Report r = (Report)request.getAttribute("r");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,22 +71,22 @@
             <br><br>
             <table class="top">
                 <td>
-                    <h6>제목 : 신고신고신고제목</h6>
+                    <h6><%= r.getTitle() %></h6>
                 </td>
                 <td align="right">
                     <h6>
-                        신고자 : singosingo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        작성자 : spamspam
+                        신고자 : <%= r.getReporterId() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        작성자 : <%= r.getWriterId() %>
                     </h6>
                 </td>
             </table>
             <br>
             <div id="reportContent">
-                $$$ 바 다 이 야 기 $$$
+                <%= r.getContent() %>
             </div>
             <div class="bottom" id="buttons" align="right">
-                <button type="button" class="btn btn-secondary btn-sm">삭제</button> &nbsp;
-                <button type="button" class="btn btn-primary btn-sm">복구</button>
+                <button onclick="location.href='<%=contextPath %>/deletethereport.ad?rno=<%=r.getReportNo() %>';" type="button" class="btn btn-secondary btn-sm">삭제</button> &nbsp;
+                <button onclick="location.href='<%=contextPath %>/undothereport.ad?rno=<%=r.getReportNo() %>';" type="button" class="btn btn-primary btn-sm">복구</button>
             </div>
         </div>
     </div>
