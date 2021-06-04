@@ -97,7 +97,6 @@
             } else{
                 var months =$(this).attr("id");
                 temp= new Date(new Date().setMonth(new Date().getMonth()-months));
-                // temp Date타입!!!! 
                 temp=temp.toISOString().substring(0,10);
                 $("#startDate").val(temp);          
                 $("#endDate").val(new Date().toISOString().substring(0,10));

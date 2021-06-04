@@ -110,7 +110,7 @@
               </div>
        </div><br>
               <div style="text-align: center;">
-              <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/member/reserveList.jsp'">이전페이지로</button><span style="margin:10px"></span>
+              <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/reserveList.mem'">예약내역</button><span style="margin:10px"></span>
               <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>'">메인페이지로</button>
               </div>
       
