@@ -7,8 +7,8 @@
     		COUNT(*) COUNT
     		FROM SITTER
     		JOIN MEMBER ON(SITTER_NO = MEM_NO)
-    		WHERE SITTER_ACCESS = 'Y'
-	
+    		WHERE ()SITTER_ACCESS = 'Y')
+			AND (PROMOTION_STATUS = 'Y') 
 	</entry>
 	
 	<entry key="selectNewListCount">
@@ -151,7 +151,7 @@
 		UPDATE
         	SITTER
 	       SET 
-        	(PROMOTION_STATUS, SITTER_ACCESS) = ('Y', 'Y')
+        	PROMOTION_STATUS = 'Y', SITTER_ACCESS = 'Y', PROMOTION_DATE = (SELECT SYSDATE FROM DUAL)
          WHERE
          	SITTER_NO = ?
 	</entry>
@@ -160,7 +160,7 @@
 		UPDATE
         	SITTER
 	       SET 
-        	(PROMOTION_STATUS, SITTER_ACCESS) = ('N', 'N')
+        	PROMOTION_STATUS = 'N', SITTER_ACCESS = 'N'
          WHERE
          	SITTER_NO = ?
 	</entry>

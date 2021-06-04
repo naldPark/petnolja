@@ -104,7 +104,7 @@ public class ReportDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Report(rset.getInt("report_no"),
+				Qlist.add(new Report(rset.getInt("report_no"),
 								   rset.getString("title"),
 								   rset.getString("writer_id"),
 								   rset.getDate("create_date"),
@@ -149,7 +149,7 @@ public class ReportDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Report(rset.getInt("report_no"),
+				Rlist.add(new Report(rset.getInt("report_no"),
 								   rset.getString("title"),
 								   rset.getString("writer_id"),
 								   rset.getDate("create_date"),
