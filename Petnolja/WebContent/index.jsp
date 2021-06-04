@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< Updated upstream
 <%@ page  import ="java.util.ArrayList, 
 	com.petnolja.research.model.vo.Review, com.petnolja.petsitter.model.vo.Sitter" %>
 <%
@@ -7,13 +8,19 @@
 	ArrayList<Review>reviewList = (ArrayList<Review>)session.getAttribute("reviewList");
 %>
 
+=======
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< Updated upstream
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico" type="image/x-icon" />
 <title>펫놀자</title>
+=======
+<title>펫시터</title>
+>>>>>>> Stashed changes
 <style>
         .wrap>*{
             box-sizing:border-box;
@@ -27,6 +34,7 @@
           
         }
         .wrap{width:100%; margin:auto;}
+        .wrap1{height:17%;}
         .wrap2{height:30%;}
         .wrap3{height:23%;
         background-image: url("resources/images/member/petsittingPromo.PNG") ;
@@ -57,22 +65,24 @@
             margin: auto;
        }
        .wrap3>*{color:rgb(230, 230, 230);}
-       .carousel-item h3{color:black!important;  text-align: left; font-size:17pt;}
-       .carousel-item p{color:gray!important; height: 110px; text-align: left; font-size:14pt; padding-right:220px; word-break:break-all; overflow:hidden;}
-       .reviewImg{
+       .carousel-inner img {width: 30%; height: 100%;}
+        .carousel-item h3{color:black!important;  text-align: left; font-size:17pt;}
+        .carousel-item p{color:gray!important; text-align: left; font-size:14pt;}
+        .reviewImg{
           float: left; 
-          width: 300px; height: 250px;
-          margin-left: 250px;
+          margin-left: 200px;
           margin-right: 50px;
-       }
+        }
         .recommendTitle{width:250px; height:55px; overflow: hidden; word-break:break-all; float: left;  margin-inline: 15px;}
+<<<<<<< Updated upstream
+=======
+        
+      
+>>>>>>> Stashed changes
 </style>
 
 </head>
 <body>
-<%if(sitterList==null||reviewList==null){ %>
- <jsp:forward page="index.mem"/>
- <%} %>
  <%@ include file = "views/common/menubar.jsp" %>
 
  <br>
@@ -85,6 +95,7 @@
     <h2><b>&nbsp;&nbsp;펫놀자가 엄선한 추천리스트</b></h2><br>
     
     <div style="width:100%; height:80%;">
+<<<<<<< Updated upstream
     	<% if(sitterList.isEmpty()){ %>
     		<br>조회된 리스트가 없습니다.<br><br><br>
             		
@@ -96,6 +107,18 @@
      			 <div class="recommendTitle" ><%=s.getSitterTitle() %></div>
     		 <% } %>
    	  <% } %>		 
+=======
+      <div class="recommend"><a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter1.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter2.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter3.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter4.jpg"></a></div>
+      <div class="recommend"> <a href="<%=contextPath%>/views/research/searchPetsitterDetail.jsp"><img src="resources/images/temp/petsitter5.jpg"></a></div>
+      <div class="recommendTitle" >펫시터 만렙입니다</div>
+      <div class="recommendTitle" >저한테 맡겨여</div>
+      <div class="recommendTitle" >흠흠흠ㅎ므</div>
+      <div class="recommendTitle" >맡기든가</div>
+      <div class="recommendTitle" >같이 키울래여 ?</div>
+>>>>>>> Stashed changes
     </div> 
 
   </div>
@@ -117,10 +140,7 @@
      <!-- 펫놀자 후기 시작 -->
   <div class="wrap wrap4">
      <h2><b>&nbsp;&nbsp;펫놀자 고객님들의 후기</b></h2><br><br>
-	<% if(reviewList.isEmpty()){ %>
-		<br>조회된 리스트가 없습니다.<br><br><br>
-            		
-    <% }else { %>
+
     <div id="demo" class="carousel slide" data-ride="carousel">
       <ul class="carousel-indicators">
         <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -130,22 +150,42 @@
         <li data-target="#demo" data-slide-to="4"></li>
         <li data-target="#demo" data-slide-to="5"></li>
       </ul>
-      <div class="carousel-inner"  style="width: 1400px;">
+      <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="<%=reviewList.get(0).getPath()%>" class="reviewImg">
- 
-            <h3><br><b><%=reviewList.get(0).getMemName()%></b> 회원님의 후기입니다</h3><br>
-            <p><%=reviewList.get(0).getReviewContent()%></p>
-
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p>
         </div>
-        <% for(int i = 1; i<reviewList.size(); i++){ %>
         <div class="carousel-item">
-          <img src="<%=reviewList.get(i).getPath()%>" class="reviewImg">
-            <h3><br><b><%=reviewList.get(i).getMemName()%></b> 회원님의 후기입니다</h3><br>
-            <p><%=reviewList.get(i).getReviewContent()%></p> 
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p> 
         </div>
+        <div class="carousel-item">
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p> 
+        </div>
+        <div class="carousel-item">
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p>   
+        </div>
+        <div class="carousel-item">
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p> 
+        </div>
+        <div class="carousel-item">
+          <img src="resources/images/temp/dog2.jpg" class="reviewImg">
+            <h3><br>너무 만족합니다</h3><br>
+            <p>뭉뭉이가 아주 푹쉬다가요 !!!</p>
+        </div>
+<<<<<<< Updated upstream
         <% } %>
        
+=======
+>>>>>>> Stashed changes
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
           <span><img src="resources/images/member/left-arrow.png" width="70"></span>
         </a>
