@@ -44,7 +44,7 @@
 <div id="popup" class="hide">
   <div class="findContent">
     <div style="height: 50px; background-color: rgb(230, 240, 247); text-align: center; padding:10px;"><h4>리뷰 작성</h4></div><br>
-    <div><img id="reviewSitterImg" src="<%=contextPath%>/<" style="height: 80px; float:left; margin-right:20px;"></div>
+    <div><img id="reviewSitterImg" src="<%=contextPath%>/" style="height:80px; float:left; margin-right:20px;"></div>
     <div style="margin-top:15px; margin-bottom: 25px; text-align: left;">
         
         <h6 id="reviewSitterTitle">타이틀</h6>
@@ -59,7 +59,7 @@
     <form action="<%=contextPath %>/reviewInsert.mem" id="reviewForm" method="post" enctype="multipart/form-data">
     <div style="height: 300px; text-align: center;"><h6>어떤점이 좋았나요 ?</h6>
         <div class="form-group">
-       	  	<input type="hidden" name ="reviewInputNo" value="">
+       	  	<input type="hidden" name ="reviewInputNo" id="reviewInputNo" value="">
        	  	<input type="hidden" name ="starCount" id="starCount" value="">
             <textarea class="form-control" rows="5" name="comment" id="comment" style="resize:none; height: 180px" placeholder="최소 10자 이상 입력해주세요"></textarea>
             <div style="margin-left:320px; font-size:10pt"><span id="count" >0</span> / 1000<br></div><br>
@@ -80,10 +80,10 @@
   var filledStar = "";
     //팝업 열기
       function openPopup(id){
-        console.log("아이디"+id);
         $("#popup").removeClass('hide'); 
         var reviewReserveNum= id.replace("review","");
-        $("#reviewInputNo").val(+reviewReserveNum);
+        $("#reviewInputNo").val(reviewReserveNum);
+       	console.log(reviewReserveNum);
         $("#starList").children().each(function(){
             $(this).html('&#9734;');
             filledStar="";
@@ -139,6 +139,18 @@
           }); 
        });
         function checkSize(input) {
+        	
+        	pathpoint = input.value.lastIndexOf('.');
+        	filepoint = input.value.substring(pathpoint+1,input.length);
+        	filetype = filepoint.toLowerCase();
+
+        	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+        	} else {
+        		alert('이미지 파일만 첨부 할 수 있습니다');
+                input.value = null; 
+        	}
+
+        	
           if (input.files && input.files[0].size > (20 * 1024 * 1024)) {
               alert("파일 사이즈가 20mb 를 넘습니다.");
               input.value = null; 

@@ -41,7 +41,7 @@ public class ReviewInsertController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/upfiles/review_upfiles/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 
-			long reserveNo = Long.parseLong(multiRequest.getParameter("reserveNo"));
+			long reserveNo = Long.parseLong(multiRequest.getParameter("reviewInputNo"));
 			int starCount = Integer.parseInt(multiRequest.getParameter("starCount"));
 			String comment = multiRequest.getParameter("comment");
 			//첨부파일...
