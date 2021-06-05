@@ -213,6 +213,26 @@ public class PetsitterService {
 		close(conn);
 		return b;		
 	}
+	
+	public int calculateDetailCount() {
+		
+		Connection conn = getConnection();
+		int listCount = new PetsitterDao().calculateDetailCount(conn);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public ArrayList<Petsitter> selectCalculateDetail(PageInfo pi){
+		
+		Connection conn = getConnection();
+		ArrayList<Petsitter> list = new PetsitterDao().selectCalculateDetail(conn, pi);
+		
+		close(conn);
+		return list;
+		
+	}
 }
 	
 
