@@ -54,7 +54,7 @@
 		      	 <!-- 리스트가 비어있지 않을 경우 --> 
 		      	 <% for(MemBoard b : list) { %>
 		        <tr>
-		        	<td><%= b.getaSitterNo() %></td>
+		        	<td><%= b.getQnaNo() %></td>
 		            <td><%= b.getqTitle() %></td>
 		            <td><%= b.getMemName() %></td>
 		            <td><%= b.getqCreateDate() %></td>
@@ -64,7 +64,17 @@
 			</table>
 		  </div>
 
-		  <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitter.jsp'">글작성</button>
+		  <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/askToWriter.me?sno=<%=sitterNo%>'">글작성</button>
+
+	<script>
+	  	$(function(){
+	  		$(".table>tbody>tr").click(function(){
+	  			var qno = $(this).children().eq(0).text();
+	  			
+	  			location.href = '<%=contextPath%>/askToPetdetail.me?qno=' + qno;
+	  		})
+	  	})
+	  </script>
 
 		  
 	<br><br>
