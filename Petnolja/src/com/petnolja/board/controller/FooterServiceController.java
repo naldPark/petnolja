@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.board.model.service.BoardService;
 import com.petnolja.board.model.vo.MemNotice;
-import com.petnolja.common.model.vo.PageInfo;
 
 /**
  * Servlet implementation class FooterServiceController
@@ -36,10 +35,7 @@ public class FooterServiceController extends HttpServlet {
 			ArrayList<MemNotice> list = new BoardService().memFaqList();
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/board/memservice.jsp").forward(request, response);
-	
-		
-		
-		
+
 		
 	}
 
