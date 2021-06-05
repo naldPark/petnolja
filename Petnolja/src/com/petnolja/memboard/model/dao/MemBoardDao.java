@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.petnolja.board.model.vo.MemNotice;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.qna.model.vo.Qna;
 public class MemBoardDao {
@@ -93,4 +94,44 @@ public class MemBoardDao {
 		return list;
 	
 	}
+	
+	public Qna askToAdminDetail(Connection conn, int qNo, int userNo) {
+		
+		Qna q = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("askToAdminDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qNo);
+			pstmt.setInt(2, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+		if(rset.next()) {
+			q = new Qna(rset.getInt("QNA_NO"),
+				   			  rset.getString("Q_MEM_NO"),
+							  rset.getString("Q_CATEGORY"),
+							  rset.getString("MEM_NAME"),
+							  rset.getString("Q_TITLE"),
+							  rset.getString("Q_CONTENT"),
+							  rset.getString("A_CONTENT"),
+							  rset.getDate("A_create_date"));
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return q;
+	}
+	
+	
+	
+	
+	
 }

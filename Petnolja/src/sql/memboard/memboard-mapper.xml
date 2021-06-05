@@ -43,6 +43,25 @@
     </entry>
     
     
+    
+     <entry key="askToAdminDetail">
+	    select
+	         QNA_NO
+	    	, Q_MEM_NO  
+	        , Q_CATEGORY
+	     	, MEM_NAME
+	     	, Q_TITLE
+	     	, Q_CONTENT
+	     	, A_CONTENT
+	     	, A_CREATE_DATE
+			from qna
+			JOIN MEMBER ON(MEM_NO = Q_MEM_NO)
+			where qna_no=?
+			AND QNA_STATUS='Y'
+			and Q_MEM_NO=?
+      </entry>
+    
+    
 	
 </properties>
 

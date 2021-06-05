@@ -34,5 +34,16 @@ public class MemBoardService {
 		return list;
 	}
 	
+	
+	public Qna askToAdminDetail(int qNo, int userNo) {
+		Connection conn = getConnection();
+		
+		Qna q  = new MemBoardDao().askToAdminDetail(conn, qNo, userNo);
+
+		close(conn);
+		
+		return q;
+	}
+	
 
 }

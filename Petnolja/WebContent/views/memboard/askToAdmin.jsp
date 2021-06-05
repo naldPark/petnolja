@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.qna.model.vo.Qna"%>
+<%
+	Qna q = (Qna)request.getAttribute("q");
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +47,6 @@
             <tr>
                 <th>작성자</th>
                 <td>김개똥</td>
-            </tr>
-            <tr>
-                <th>휴대폰</th>
-                <td>010-000-0000</td>
             </tr>
             <tr>
                 <th>제목</th>

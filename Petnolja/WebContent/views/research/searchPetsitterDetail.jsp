@@ -218,7 +218,7 @@
 		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" data-toggle="modal" data-target="#copyUrl">
 		         	  <img src="<%=contextPath%>/resources/images/member/share.png" class="buttonImg">&nbsp;&nbsp;&nbsp;공유하기
 		          </button><br>
-		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'">
+		          <button type="button" class="btn btn-primary" style="width:200px;margin-bottom:5px" onclick="location.href='<%=contextPath%>/askPet.me?sno=<%=sitterInfo.getSitterNo()%>&currentPage=1'">
 		          		<img src="<%=contextPath%>/resources/images/member/messenger.png" class="buttonImg">&nbsp;&nbsp;&nbsp;펫시터에게 문의하기
 		          </button><br>
 	        </div>

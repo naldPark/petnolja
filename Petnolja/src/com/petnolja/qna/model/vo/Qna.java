@@ -85,9 +85,28 @@ public class Qna {
 	}
 	
 	
+	/** 날드
+	 * qna 유저입장에서 관리자 1:1문의 특정 글 조회
+	 */
+	public Qna(int qnaNo, String qMemNo, String qCategory, String memName, String qTitle, String qContent, String aContent,
+			Date aCreateDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qMemNo = qMemNo;
+		this.qCategory = qCategory;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.aContent = aContent;
+		this.aCreateDate = aCreateDate;
+		this.memName = memName;
+	}
+
+	
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
+
 
 	public void setQnaNo(int qnaNo) {
 		this.qnaNo = qnaNo;

@@ -69,7 +69,6 @@
   </div>
      
   
-      
 <br><br>
       <!-- 페이지 목록 시작 -->
 	             <ul class="pagination justify-content-center">
@@ -98,9 +97,9 @@
    <script>
   	$(function(){
   		$(".table>tbody>tr").click(function(){
-  			var nno = $(this).children().eq(0).text();// 수정필요
+  			var qno = $(this).children().eq(0).text();// 수정필요
   			
-  			location.href = '<%=contextPath%>/askToAdmin.mem?nno=' + nno;
+  			location.href = '<%=contextPath%>/askToAdminDetail.mem?qno=' + qno;
   		})
   	})
   </script>   
