@@ -252,15 +252,16 @@ public class MemBoardDao {
 			return q;
 	}
 		
-		public int askPetSitterInsert(Connection conn, int userNo, String title, String content) {
+		public int askPetSitterInsert(Connection conn, int userNo, int sitterNo, String title, String content) {
 			int result = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("askPetSitterInsert");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, userNo);
-				pstmt.setString(2, title);
-				pstmt.setString(3, content);
+				pstmt.setInt(2, sitterNo);
+				pstmt.setString(3, title);
+				pstmt.setString(4, content);
 				
 				result = pstmt.executeUpdate();
 				

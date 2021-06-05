@@ -32,7 +32,7 @@ public class askToPetsitterController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		int sno=0;
 		if(request.getSession().getAttribute("loginUser") == null) {
 			
 			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
@@ -40,9 +40,9 @@ public class askToPetsitterController extends HttpServlet {
 		
 		}else { 
 		
-			int aSitterNo = Integer.parseInt(request.getParameter("sno"));
+			sno = Integer.parseInt(request.getParameter("sno"));
 			
-			int listCount = new MemBoardService().askToPet(aSitterNo);
+			int listCount = new MemBoardService().askToPet(sno);
 			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	   		int pageLimit = 10;
 	   		int boardLimit = 10;
@@ -56,9 +56,9 @@ public class askToPetsitterController extends HttpServlet {
 			
 	   		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-			ArrayList<MemBoard> list = new MemBoardService().selectAsktoPet(pi, aSitterNo);
+			ArrayList<MemBoard> list = new MemBoardService().selectAsktoPet(pi, sno);
 	
-			request.setAttribute("sitterNo", aSitterNo);		
+			request.setAttribute("sno", sno);		
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/memboard/askToPetsitterList.jsp").forward(request, response);

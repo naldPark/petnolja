@@ -34,12 +34,13 @@ public class askToPetSitterWriterController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		int sno= Integer.parseInt(request.getParameter("sno"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
 		String title= request.getParameter("title");
 		String content= request.getParameter("content");
 		
-		int result = new MemBoardService().askPetSitterInsert(userNo, title, content);
+		int result = new MemBoardService().askPetSitterInsert(userNo, sno, title, content);
 		
 		
 		if(result > 0) {
@@ -47,7 +48,7 @@ public class askToPetSitterWriterController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "등록되었습니다.");
 			
-			response.sendRedirect(request.getContextPath() + "/askPet.me?sno=<%=sitterNo%>&currentPage=1");
+			response.sendRedirect(request.getContextPath() + "/askPet.me?sno="+sno+"&currentPage=1");
 			
 		}else {
 			

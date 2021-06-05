@@ -87,9 +87,9 @@ public class MemBoardService {
 		return q;
 	}
 	
-	public int askPetSitterInsert(int userNo, String title, String content) {
+	public int askPetSitterInsert(int userNo, int sitterNo, String title, String content) {
 		Connection conn = getConnection();
-		int result = new MemBoardDao().askPetSitterInsert(conn, userNo, title, content);
+		int result = new MemBoardDao().askPetSitterInsert(conn, userNo, sitterNo, title, content);
 		if (result > 0) {
 			commit(conn);
 		} else {

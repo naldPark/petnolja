@@ -29,13 +29,16 @@ public class askToPetSitterViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		
+		int sno = Integer.parseInt(request.getParameter("sno"));
 		if(session.getAttribute("loginUser") == null) {
 			
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath());
 			
 		}else { // 로그인 후
+			
+			
+			request.setAttribute("sno", sno);
 			request.getRequestDispatcher("views/memboard/askToPetsitter.jsp").forward(request, response);
 		}
 		
