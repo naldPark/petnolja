@@ -32,14 +32,20 @@ public class ReserveListDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long reserveNo = Long.parseLong(request.getParameter("rno"));
-		MemReserve mr =  new MemReserveService().reserveListDetail(reserveNo);
-		ArrayList<Pet> plist = new MemReserveService().reserveListDetailPet(reserveNo);
 		
-		request.setAttribute("info", mr);
-		request.setAttribute("plist", plist);
-		request.getRequestDispatcher("views/memreserve/reserveListDetail.jsp").forward(request, response);
-		
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());	
+		}else { 
+			long reserveNo = Long.parseLong(request.getParameter("rno"));
+			MemReserve mr =  new MemReserveService().reserveListDetail(reserveNo);
+			ArrayList<Pet> plist = new MemReserveService().reserveListDetailPet(reserveNo);
+			
+			request.setAttribute("info", mr);
+			request.setAttribute("plist", plist);
+			request.getRequestDispatcher("views/memreserve/reserveListDetail.jsp").forward(request, response);
+		}
 	}
 
 	/**

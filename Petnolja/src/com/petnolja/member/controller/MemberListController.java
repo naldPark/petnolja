@@ -89,7 +89,14 @@ public class MemberListController extends HttpServlet {
 			// 1. 페이징 바 만들 때 필요한 객체
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Member> list = new MemberService().selectList(pi);
+			String keyword = request.getParameter("key");
+			ArrayList<Member> list = null;
+			
+			if(keyword == null) {
+				list = new MemberService().selectList(pi);
+			} else {
+				list = new MemberService().selectList(pi, keyword);
+			}
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);

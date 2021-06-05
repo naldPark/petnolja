@@ -97,7 +97,7 @@
    <script>
   	$(function(){
   		$(".table>tbody>tr").click(function(){
-  			var qno = $(this).children().eq(0).text();// 수정필요
+  			var qno = $(this).children().eq(0).text();
   			
   			location.href = '<%=contextPath%>/askToAdminDetail.mem?qno=' + qno;
   		})

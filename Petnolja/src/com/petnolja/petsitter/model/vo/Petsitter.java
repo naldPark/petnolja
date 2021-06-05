@@ -24,16 +24,12 @@ public class Petsitter {
 	private String sitterCkOut; // 체크아웃
 	private String additions; // 추가서비스
 	private int duration;
-	private int qnaNo; //qna 넘버
-	private String qTitle; //qna 제목
-	private String aWriter; 
-	private Date qCtrateDate;
 	
 	public Petsitter() {}
 	
 	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
 			String experience, String motive, char pStatus, Date pDate, String stopReason, String stopContent,
-			int penaltyCount, String additions, int duration, int qnaNo ,String qTitle , String aWriter ,Date qCtrateDate) {
+			int penaltyCount, String additions, int duration) {
 		super();
 		this.memID = memID;
 		this.sitterNo = sitterNo;
@@ -50,41 +46,8 @@ public class Petsitter {
 		this.penaltyCount = penaltyCount;
 		this.additions = additions;
 		this.duration = duration;
-		this.qnaNo = qnaNo;
 	}
 	
-
-	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
-			String experience, String motive, String addContent, char pStatus, Date pDate, String stopReason,
-			String stopContent, int penaltyCount, String sitterTitle, String sitterContent, String sitterCkIn,
-			String sitterCkOut, String additions, int duration, int qnaNo, String qTitle, String aWriter,
-			Date qCtrateDate) {
-		super();
-		this.memID = memID;
-		this.sitterNo = sitterNo;
-		this.access = access;
-		this.petPeriod = petPeriod;
-		this.petNo = petNo;
-		this.license = license;
-		this.experience = experience;
-		this.motive = motive;
-		this.addContent = addContent;
-		this.pStatus = pStatus;
-		this.pDate = pDate;
-		this.stopReason = stopReason;
-		this.stopContent = stopContent;
-		this.penaltyCount = penaltyCount;
-		this.sitterTitle = sitterTitle;
-		this.sitterContent = sitterContent;
-		this.sitterCkIn = sitterCkIn;
-		this.sitterCkOut = sitterCkOut;
-		this.additions = additions;
-		this.duration = duration;
-		this.qnaNo = qnaNo;
-		this.qTitle = qTitle;
-		this.aWriter = aWriter;
-		this.qCtrateDate = qCtrateDate;
-	}
 
 	public Petsitter(String memID, int sitterNo, char access, String petPeriod, String petNo, String license,
 			String experience, char pStatus, Date pDate, String additions) {
@@ -276,38 +239,6 @@ public class Petsitter {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	
-	public int getQnaNo() {
-		return qnaNo;
-	}
-
-	public void setQnaNo(int qnaNo) {
-		this.qnaNo = qnaNo;
-	}
-
-	public String getqTitle() {
-		return qTitle;
-	}
-
-	public void setqTitle(String qTitle) {
-		this.qTitle = qTitle;
-	}
-
-	public String getaWriter() {
-		return aWriter;
-	}
-
-	public void setaWriter(String aWriter) {
-		this.aWriter = aWriter;
-	}
-
-	public Date getqCtrateDate() {
-		return qCtrateDate;
-	}
-
-	public void setqCtrateDate(Date qCtrateDate) {
-		this.qCtrateDate = qCtrateDate;
-	}
 
 	@Override
 	public String toString() {
@@ -316,8 +247,7 @@ public class Petsitter {
 				+ motive + ", addContent=" + addContent + ", pStatus=" + pStatus + ", pDate=" + pDate + ", stopReason="
 				+ stopReason + ", stopContent=" + stopContent + ", penaltyCount=" + penaltyCount + ", sitterTitle="
 				+ sitterTitle + ", sitterContent=" + sitterContent + ", sitterCkIn=" + sitterCkIn + ", sitterCkOut="
-				+ sitterCkOut + ", additions=" + additions + ", duration=" + duration + ", qnaNo=" + qnaNo + ", qTitle="
-				+ qTitle + ", aWriter=" + aWriter + ", qCtrateDate=" + qCtrateDate + "]";
+				+ sitterCkOut + ", additions=" + additions + ", duration=" + duration + "]";
 	}
 
 }
