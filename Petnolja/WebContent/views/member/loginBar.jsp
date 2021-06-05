@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>펫시터</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=78c48ff942d4b0a9d168f063558d8359&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a430452224cfcb3ee2eea019ba05725c&libraries=services"></script>
 <link rel="stylesheet"  href="<%=request.getContextPath()%>/resources/css/datepicker.min.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.1.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/datepicker.min.js"></script>
@@ -31,7 +31,7 @@
         }
         .wrap1{height:280px;}
         .wrap1>div{float:left; text-align: center;}
-        /* *{border:1px solid red} */
+        .float_banner2   {   position:absolute; position:fixed; left:10PX; top:100px;    padding:0   }
 </style>
 </head>
 <body>
@@ -39,7 +39,7 @@
   <%@ include file = "findIdPwd.jsp" %>
      <!--검색창 시작-->
      <hr>
-     <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2> <a href="<%=contextPath %>/views/common/temp.jsp">임시 로그인계정 보기(클릭)</a><br>
+     <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2><br>
      <div id="searchBar">
        <form action="<%=contextPath %>/searchSitter.mem" method="post" id="search-form"><br>
 
@@ -119,6 +119,14 @@
 
   </div>
   <br clear="both">
+  <div class="float_banner2">
+				<div align="left"><span class="top" onclick="goTop(); return false;">
+					[ 임시 로그인 아이디 ]<br><br>
+					유저  ddjn6334 / pass01<br>
+					펫시터 geddong / pass01 <br>
+					관리자 admin1 / admin1</span>
+			</div>
+     </div>	
 
  <script>
  
