@@ -69,10 +69,31 @@
                     var edp = eDate.datepicker().data("datepicker");
                     edp.selectDate(new Date(eDay.replace(/-/g, "/")));  
                 }
+
                 if (!isValidStr(eDay)) {  //만약 2번쨰 달력에 값이 있다면 
-                    sDate.datepicker({     // 첫번쨰 달력의 맥스는
-                        maxDate: new Date(eDay.replace(/-/g, "/"))   // 2번째달력의 값
-                    });
+                    var index =  abled_days.indexOf(eDay); 
+                    var checkDate= new Date(abled_days[index].replace(/-/g, "/"));  // 유저가 선택한 날짜(eDate값)
+                    var count = 0;
+                    var result = new Date(abled_days[0].replace(/-/g, "/"));
+
+                    for(var i =index ; i>=0 ; i--){  
+                        var a = new Date(abled_days[i].replace(/-/g, "/")).getTime();
+                        var b= new Date(checkDate.setDate(checkDate.getDate()- count)).getTime();
+                        var c = new Date(abled_days[i].replace(/-/g, "/"));  //콘솔용
+                        var d = new Date(checkDate.setDate(checkDate.getDate())); //콘솔용
+  
+                        if(a!=b){
+                            result=  new Date(abled_days[i+1].replace(/-/g, "/"));
+                            break;
+                        }
+                        
+                        count=1;
+                    }
+                    sDate.datepicker({maxDate: new Date(eDay.replace(/-/g, "/"))}); // 1번쨰달력 최소값: 유저가 선택한 날짜
+                    if(new Date().getTime()>result.getTime()){
+                        result = new Date();
+                    }
+                    sDate.datepicker({minDate: result}); 
                 }
                 
                 sDate.datepicker({
@@ -85,10 +106,10 @@
 
                
                 if (!isValidStr(sDay)) {
-                    var index =  abled_days.indexOf(sDay, 1); 
+                    var index =  abled_days.indexOf(sDay); 
                     var checkDate= new Date(abled_days[index].replace(/-/g, "/"));  // 유저가 선택한 날짜(sDate값)
                     var count = 0;
-                    var result = "";
+                    var result = new Date(abled_days[abled_days.length-1].replace(/-/g, "/"));
                     for(var i =index ; i<abled_days.length ; i++){
                         var a = new Date(abled_days[i].replace(/-/g, "/")).getTime();
                         var b= new Date(checkDate.setDate(checkDate.getDate()+ count)).getTime();
