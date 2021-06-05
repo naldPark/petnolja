@@ -225,4 +225,18 @@
 			WHERE SITTER_NO = ?
 		
 	</entry>
+	
+	<entry key ="selectHist">
+		SELECT
+			    QNA_NO
+			    ,MEM_NAME
+			    ,Q_TITLE
+			    ,Q_MEM_NO
+			    ,Q_CREATE_DATE
+			FROM QNA
+			JOIN MEMBER ON (Q_MEM_NO = MEM_NO)
+			WHERE A_SITTER_NO = ?
+			AND QNA_STATUS='Y'
+	</entry>
+	
 </properties>

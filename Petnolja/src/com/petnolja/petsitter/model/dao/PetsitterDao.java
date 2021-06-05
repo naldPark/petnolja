@@ -2,9 +2,6 @@ package com.petnolja.petsitter.model.dao;
 
 import static com.petnolja.common.JDBCTemplate.close;
 
-import com.petnolja.common.model.vo.PageInfo;
-import com.petnolja.petsitter.model.vo.Petsitter;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,6 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.qna.model.vo.Qna;
 
 public class PetsitterDao {
 	
@@ -417,6 +418,39 @@ public class PetsitterDao {
 		}
 		return result;
 		
+		
+	}
+	public ArrayList<Qna> selectHist(Connection conn, int userNo) {
+		
+		ArrayList<Qna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHist");
+		System.out.println("여기는 dao");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("QNA_NO"),
+									rset.getString("MEM_NAME"),
+									rset.getString("Q_TITLE"),
+									rset.getString("Q_MEM_NO"),
+									rset.getDate("Q_CREATE_DATE")
+									));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 		
 	}
 }

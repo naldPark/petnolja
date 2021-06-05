@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.qna.model.vo.Qna;
 
 public class PetsitterService {
 
@@ -207,11 +208,16 @@ public class PetsitterService {
 		
 		return result;
 	}
-	public Petsitter selectBoard(int boardNo) {
+	
+	public ArrayList<Qna> selectHist(int userNo) {
+		
 		Connection conn = getConnection();
-		Board b = new BoardDao().selectBoard(conn, boardNo);
+		System.out.println("여기는서비스");
+		ArrayList<Qna> list = new PetsitterDao().selectHist(conn, userNo);
+		
 		close(conn);
-		return b;		
+		
+		return list;
 	}
 }
 	
