@@ -41,30 +41,30 @@ public class AskToAdminController extends HttpServlet {
 			
 		}else { 
 		
-			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+					int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+					
+					String subject= request.getParameter("subject");
+					String title= request.getParameter("title");
+					String content= request.getParameter("content");
+					
+					
+					int result = new MemBoardService().askToAdminInsert(userNo, subject, title, content);
 			
-			String subject= request.getParameter("subject");
-			String title= request.getParameter("title");
-			String content= request.getParameter("content");
-			
-			
-			int result = new MemBoardService().askToAdminInsert(userNo, subject, title, content);
-	
-			
-			if(result > 0) {
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("alertMsg", "등록되었습니다.");
-				
-				response.sendRedirect(request.getContextPath()+"/askToAdminList.mem?currentPage=1");
-				
-			}else {
-				
-				request.setAttribute("errorMsg", "에러가 발생했습니다");
-				
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-				
-			}
+					
+					if(result > 0) {
+						
+						HttpSession session = request.getSession();
+						session.setAttribute("alertMsg", "등록되었습니다.");
+						
+						response.sendRedirect(request.getContextPath()+"/askToAdminList.mem?currentPage=1");
+						
+					}else {
+						
+						request.setAttribute("errorMsg", "에러가 발생했습니다");
+						
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+						
+					}
 		}
 	}
 
