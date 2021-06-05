@@ -14,13 +14,13 @@ import com.petnolja.petsitter.model.service.PetsitterService;
  * Servlet implementation class selectQnaController
  */
 @WebServlet("/selectQna.sit")
-public class selectQnaController extends HttpServlet {
+public class SelectQnaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public selectQnaController() {
+    public SelectQnaController() {
         super();
         // TODO Auto-generated constructor stub
     }

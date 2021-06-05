@@ -29,13 +29,19 @@ public class FavoriteChangeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();		
-		int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
-		
-		int result = new MemberService().favoriteChange(userNo,sitterNo);
-
-		response.getWriter().print(result);
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else { 
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();		
+			int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
+			
+			int result = new MemberService().favoriteChange(userNo,sitterNo);
+	
+			response.getWriter().print(result);
+		}
 
 	}
 

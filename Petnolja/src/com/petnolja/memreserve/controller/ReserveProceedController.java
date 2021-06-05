@@ -31,28 +31,36 @@ public class ReserveProceedController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
-		String startDate = request.getParameter("reserveStart");
-		String endDate = request.getParameter("reserveEnd");
-		String petList = String.join(",", request.getParameterValues("petNo"));
-		
-		// 당일/1박 위탁방식
-		String careDay = "데이";
-		if(!startDate.equals("endDate")) {careDay="1박";}
 
-		// 몇박인지 확인
-        LocalDate dBefore = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate dAfter = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
-        int countDay = (int) dBefore.until(dAfter,ChronoUnit.DAYS);
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else { 
+			
 		
-		ArrayList<ReserveContent> reserveList= new MemReserveService().reserveProceed(sitterNo, petList, careDay, startDate, endDate);
-
-		request.setAttribute("countDay",countDay);
-		request.setAttribute("reserveList", reserveList);
-		request.getRequestDispatcher("views/memreserve/reserveProceed.jsp").forward(request, response);
-
+			request.setCharacterEncoding("UTF-8");
+			int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
+			String startDate = request.getParameter("reserveStart");
+			String endDate = request.getParameter("reserveEnd");
+			String petList = String.join(",", request.getParameterValues("petNo"));
+			
+			// 당일/1박 위탁방식
+			String careDay = "데이";
+			if(!startDate.equals("endDate")) {careDay="1박";}
+	
+			// 몇박인지 확인
+	        LocalDate dBefore = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
+	        LocalDate dAfter = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+	        int countDay = (int) dBefore.until(dAfter,ChronoUnit.DAYS);
+			
+			ArrayList<ReserveContent> reserveList= new MemReserveService().reserveProceed(sitterNo, petList, careDay, startDate, endDate);
+	
+			request.setAttribute("countDay",countDay);
+			request.setAttribute("reserveList", reserveList);
+			request.getRequestDispatcher("views/memreserve/reserveProceed.jsp").forward(request, response);
+		}
 		
 	}
 

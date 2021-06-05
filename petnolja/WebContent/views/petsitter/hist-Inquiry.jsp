@@ -1,16 +1,10 @@
-<%@page import="com.petnolja.petsitter.model.vo.Petsitter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-   <%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter, java.time.*" %>
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+    pageEncoding="UTF-8" import="com.petnolja.qna.model.vo.Qna,java.util.ArrayList" %>
+   <%
 	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-	int qnaNo = Petsitter.get
+	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -49,24 +43,23 @@
                     <div style="font-size: 30px; font-weight: bold;">문의 내역 관리</div><br>
                 </div>
                 <div>
-                    <form action="<%=contextPath%>/selectQna.sit"  method="post">
                     <table border="1" style="height: 140px; width: 95%; text-align: center;">
 						<% if(list.isEmpty()){ %>
       						<br>조회된 리스트가 없습니다.<br><br><br>
             		
        					<% }else { %>
-	      	 				<% for(PetSitter s : list){ %>
+	      	 				<% for(Qna q : list){ %>
                         <tr>
-                            <td><%=s.get %></td>
-                            <td><%=qTitle %></td>
-                            <td><%=aWriter %></td>
-                            <td><%=qCtrateDate%></td>
+                            <td><%=q.getQnaNo() %></td>
+                            <td><%=q.getqTitle() %></td>
+                            <td><%=q.getMemName() %></td>
+                            <td><%=q.getqCreateDate()%></td>
                         </tr>
                         <% } %>
+                       <% } %>
 
         
                     </table>
-                    </form>
                 </div>
             </div>
             <br><br>

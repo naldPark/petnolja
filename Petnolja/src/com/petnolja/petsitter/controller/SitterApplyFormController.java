@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.member.model.vo.Member;
+
 /**
  * Servlet implementation class enrollController
  */
 @WebServlet("/enroll.sit")
-public class enrollController extends HttpServlet {
+public class SitterApplyFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public enrollController() {
+    public SitterApplyFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +28,18 @@ public class enrollController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/enroll.jsp").forward(request, response);
+		
+		request.setCharacterEncoding("UTF-8");
+			
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+		
+		} else { 
+			
+			request.getRequestDispatcher("views/petsitter/applyPetsitter.jsp").forward(request, response);
+		}
 	}
 
 	/**

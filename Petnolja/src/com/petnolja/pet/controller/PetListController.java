@@ -35,11 +35,19 @@ public class PetListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else { 
+		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		ArrayList<Pet> list = new PetService().petList(userNo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/pet/petList.jsp").forward(request, response);
-	
+		}
 	
 	}
 

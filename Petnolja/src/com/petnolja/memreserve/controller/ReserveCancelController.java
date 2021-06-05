@@ -29,22 +29,29 @@ public class ReserveCancelController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		long reserveNo = Long.parseLong(request.getParameter("reserveNo"));
-		String cancelComment = request.getParameter("cancelComment");
 		
-		int result = new MemReserveService().cancelReserve(reserveNo, cancelComment);
-		
-		if(result > 0) { 
+		if(request.getSession().getAttribute("loginUser") == null) {
 			
-			request.getSession().setAttribute("alertMsg", "예약이 취소되었습니다");
-			response.sendRedirect(request.getContextPath() + "/reserveList.mem");
-		}else { 				
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
 			
-			request.setAttribute("errorMsg", "예약취소 중 에러가 발생 했습니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}else { 
+			long reserveNo = Long.parseLong(request.getParameter("reserveNo"));
+			String cancelComment = request.getParameter("cancelComment");
 			
+			int result = new MemReserveService().cancelReserve(reserveNo, cancelComment);
+			
+			if(result > 0) { 
+				
+				request.getSession().setAttribute("alertMsg", "예약이 취소되었습니다");
+				response.sendRedirect(request.getContextPath() + "/reserveList.mem");
+			}else { 				
+				
+				request.setAttribute("errorMsg", "예약취소 중 에러가 발생 했습니다");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				
+			}
 		}
-		
 		
 	
 	}

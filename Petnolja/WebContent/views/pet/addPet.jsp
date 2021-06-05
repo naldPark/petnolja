@@ -222,6 +222,16 @@
 	<!--사진 용량 제한(첨부 파일)-->
 	<script>
 		function checkSize(input) {
+			pathpoint = input.value.lastIndexOf('.');
+        	filepoint = input.value.substring(pathpoint+1,input.length);
+        	filetype = filepoint.toLowerCase();
+
+        	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+        	} else {
+        		alert('이미지 파일만 첨부 할 수 있습니다');
+                input.value = null; 
+        	}
+
 			if (input.files && input.files[0].size > (2 * 1024 * 1024)) {
 				alert("파일 사이즈가 2mb 를 넘습니다.");
 				input.value = null;

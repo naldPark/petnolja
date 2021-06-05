@@ -23,6 +23,19 @@ public class Qna {
 	
 	
 	public Qna() {}
+	
+	
+	//은용꺼
+	public Qna(int qnaNo, String memName, String qTitle, String qMemNo, Date qCreateDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qMemNo = qMemNo;
+		this.qTitle = qTitle;
+		this.qCreateDate = qCreateDate;
+		this.memName = memName;
+	}
+
+
 
 	public Qna(int qnaNo, String qMemNo, String aSitterNo, int qSort, String qCategory, String qTitle, String qContent,
 			Date qCreateDate, String aContent, String aWriter, Date aCreateDate, String qnaStatus, String qSecret) {

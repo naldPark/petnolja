@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="applySitterInsert">
+
+		INSERT INTO
+			SITTER
+		VALUES(
+			 ?
+			,'N'
+			,?
+			,?
+			,?  
+			,?
+			,?
+			,?
+			,'N'
+			,null
+			,null
+			,null
+			,0
+			,null
+			,null
+			,null
+			,13
+			,12
+			)
+	</entry>
+	
+	
+</properties>
