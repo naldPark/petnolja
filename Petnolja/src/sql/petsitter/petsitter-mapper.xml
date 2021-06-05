@@ -7,7 +7,7 @@
     		COUNT(*) COUNT
     		FROM SITTER
     		JOIN MEMBER ON(SITTER_NO = MEM_NO)
-    		WHERE ()SITTER_ACCESS = 'Y')
+    		WHERE (SITTER_ACCESS = 'Y')
 			AND (PROMOTION_STATUS = 'Y') 
 	</entry>
 	

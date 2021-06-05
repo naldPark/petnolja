@@ -217,6 +217,29 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+		<entry key="selectKeyList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+	                SELECT
+	                	  MEM_NO
+	             	    , MEM_ID
+	              	    , MEM_NAME
+	              	    , MEM_TEL
+  	              	    , MEM_EMAIL
+	              	    , MEM_ADDRESS
+	              	    , MEM_BLOCK
+	        		FROM MEMBER
+	       		   WHERE MEM_STATUS = 'Y'
+	       		     AND LOWER(MEM_ID) LIKE ?
+	       		   ORDER
+	      		      BY MEM_NO
+	               ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	
 	<entry key="adminUpdateMemberId">
 			UPDATE

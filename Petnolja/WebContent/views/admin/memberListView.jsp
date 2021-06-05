@@ -86,12 +86,12 @@
         <thead>
             <tr class="table-info">
                 <th width="60px">선택</th>
-                <th width="80px">고객번호</th>
-                <th width="80px">ID</th>
+                <th width="90px">고객번호</th>
+                <th width="100px">ID</th>
                 <th width="80px">고객명</th>
                 <th width="130px">전화번호</th>
-                <th width="150px">이메일</th>
-                <th width="150px">주소</th>
+                <th width="170px">이메일</th>
+                <th width="330px">주소</th>
                 <th width="120px">반려견정보</th>
                 <th width="100px">블랙리스트</th>
             </tr>
@@ -310,22 +310,6 @@
                 // @breif 전체 테이블 컬럼( td > p )에서 현재 사용중인 값의 존재여부를 확인한다.
                 Array.from(contents).forEach(function (defaultVal) {
 
-                    /*
-                    // @details 빈값( null )이 존재하는지 체크한다.
-                    if(
-                           defaultVal.textContent == ""
-                        || defaultVal.textContent == null
-                        || defaultVal.textContent == undefined
-                        || (defaultVal.textContent != null
-                        && typeof defaultVal.textContent == "object"
-                        && !Object.keys(defaultVal.textContent).length == ""))
-                    {
-
-                        // @details 내용이 존재하지 않다면 data 태그의 기본값으로 되돌린다.
-                        defaultVal.textContent = defaultVal.dataset.default;
-                    }
-                    */
-
                     // @details 저장하지 않은 내용이라고 판단하여 data 태그의 기본값으로 되돌린다.
                     defaultVal.textContent = defaultVal.dataset.default;
 
@@ -341,24 +325,10 @@
 
                 if (content.isContentEditable == false) {
 
-
-
                     // @details 편집 가능 상태로 변경
                     content.contentEditable = true;
-
-
-
-                    // @details 텍스트 문구 변경
-                    // content.textContent = "";
-
-
-
                     // @details CSS 효과 추가
-
                     content.style.border = "1px solid #FFB6C1";
-
-
-
                     // @details 포커스 지정
                     content.focus();
 
@@ -496,26 +466,21 @@
                         content.textContent = content.dataset.default;
                         content.contentEditable = false;
                         content.style.border = "0px";
-
                     }
-
                 }
-
             });
-
         });
-
     });
     
 
-
-    // 아이디로 필터링
+    // 아이디로 검색
     $(document).ready(function () {
         $("#member-search-box").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#member-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(2).text().toLowerCase().indexOf(value) > -1)
-            });
+        	
+        	if(event.keyCode == "13") {
+        		var keyword = $(this).val().toLowerCase();
+        		location.href = "<%=contextPath%>/memlist.ad?currentPage=1&key=" + keyword;
+        	}
         });
     });
 </script>

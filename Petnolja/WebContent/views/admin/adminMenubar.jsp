@@ -137,7 +137,7 @@
     <ul id="menu">
         <li><a href="<%=contextPath %>/memlist.ad?currentPage=1">회원 관리</a></li>
         <li>
-            <a href="">펫시터 관리</a>
+            <a href="<%=contextPath%>/oldlist.ad?currentPage=1">펫시터 관리</a>
             <ul>
                 <li><a href="<%=contextPath%>/oldlist.ad?currentPage=1">기존 펫시터 관리</a></li>
                 <li><a href="<%=contextPath%>/newlist.ad?currentPage=1">신규 펫시터 관리</a></li>

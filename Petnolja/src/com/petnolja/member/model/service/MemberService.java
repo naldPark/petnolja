@@ -197,6 +197,17 @@ public class MemberService {
 
 		return list;
 	}
+	
+	/** 최서경
+	 * @return 아이디 키워드를 이용하여 회원 검색
+	 */
+	public ArrayList<Member> selectList(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new MemberDao().selectList(conn, pi, keyword);
+		close(conn);
+
+		return list;
+	}
 
 	/** 최서경
  	 * 관리자 페이지에서 회원 정보 수정
@@ -278,4 +289,5 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
 }
