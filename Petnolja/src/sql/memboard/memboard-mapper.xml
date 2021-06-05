@@ -81,8 +81,43 @@
 		
 		 </entry>
 		      
+<entry key = "askToPet">
+		SELECT COUNT(*) COUNT
+	    	FROM(    
+				SELECT
+				        QNA_NO
+				     ,  A_SITTER_NO
+				    FROM QNA  
+				    WHERE QNA_STATUS= 'Y'
+				    AND Q_SORT = 2
+				    AND A_SITTER_NO = ?
+				    )
+	</entry>
+	
     
-    
+    <entry key="selectAsktoPet">
+  		SELECT *
+		  FROM (
+		   SELECT ROWNUM RNUM, B.*
+			 FROM(    
+            SELECT
+                    QNA_NO
+                  , Q_MEM_NO
+                  , A_SITTER_NO
+                  , MEM_NAME
+                  , Q_TITLE
+                  , Q_SECRET
+                  , Q_CREATE_DATE
+                FROM QNA  
+                JOIN MEMBER ON(MEM_NO = Q_MEM_NO)
+                WHERE QNA_STATUS= 'Y'
+                AND Q_SORT = 2
+                AND A_SITTER_NO = ?
+                ORDER BY Q_CREATE_DATE DESC) B
+                )
+              WHERE RNUM BETWEEN ? AND ?
+    </entry>
+	
 	
 </properties>
 

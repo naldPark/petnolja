@@ -1,6 +1,6 @@
 package com.petnolja.memboard.model.dao;
 
-import static com.petnolja.common.JDBCTemplate.*;
+import static com.petnolja.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.petnolja.board.model.vo.MemNotice;
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.memboard.model.vo.MemBoard;
 import com.petnolja.qna.model.vo.Qna;
 public class MemBoardDao {
 	
@@ -149,6 +149,73 @@ public class MemBoardDao {
 		}
 		
 		return result;
+	}
+	
+	
+	// 목록 갯수 뽑기
+	public int askToPet(Connection conn, int aSitterNo) {
+		// select문
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("askToPet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, aSitterNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	// qna 전체 조회
+	public ArrayList<MemBoard> selectAsktoPet(Connection conn, PageInfo pi, int aSitterNo){
+		// select문
+		ArrayList<MemBoard> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAsktoPet");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, aSitterNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MemBoard(rset.getInt("qna_no"),
+						 			   rset.getInt("q_mem_no"),
+						 			   rset.getInt("a_sitter_no"),
+						 			   rset.getString("mem_name"),
+						 			   rset.getString("q_title"),
+						 			   rset.getString("q_secret"),
+						 			   rset.getDate("q_create_date")));	
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	
 	}
 	
 	
