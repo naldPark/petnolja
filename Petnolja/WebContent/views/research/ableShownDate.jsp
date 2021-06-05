@@ -79,8 +79,6 @@
                     for(var i =index ; i>=0 ; i--){  
                         var a = new Date(abled_days[i].replace(/-/g, "/")).getTime();
                         var b= new Date(checkDate.setDate(checkDate.getDate()- count)).getTime();
-                        var c = new Date(abled_days[i].replace(/-/g, "/"));  //콘솔용
-                        var d = new Date(checkDate.setDate(checkDate.getDate())); //콘솔용
   
                         if(a!=b){
                             result=  new Date(abled_days[i+1].replace(/-/g, "/"));
