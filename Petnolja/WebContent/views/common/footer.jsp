@@ -32,7 +32,7 @@
           <a href="<%=contextPath%>/agreement.mem">이용약관</a>
       </div>
       <div class="col-md-2 mb-3">
-        <a href="<%=contextPath%>/memService.mem">고객센터</a>
+        <a href="<%=contextPath%>/memService.mem?currentPage=1">고객센터</a>
       </div>
     </div>
     <br>

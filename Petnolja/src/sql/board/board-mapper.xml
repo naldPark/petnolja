@@ -202,4 +202,37 @@
 		    AND REPORT_NO = ?
 	</entry>
 	
+	
+	<!-- 날드: 고객센터 faq count-->
+	<entry key="memFaqCount">
+	SELECT COUNT(*) COUNT
+    	FROM(            
+            SELECT
+                   NOTICE_NO
+		           , NOTICE_CATEGORY
+		           , NOTICE_TITLE
+		           , NOTICE_CONTENT
+						from notice
+						where NOTICE_CATEGORY != '공지'
+		            	and NOTICE_STATUS = 'Y'
+             )
+	</entry>
+	
+	<!-- 날드: 고객센터 faq -->
+	<entry key="memSelectFaqList">
+		SELECT *
+		  FROM (
+		     SELECT ROWNUM RNUM, B.*
+		       FROM( select NOTICE_NO
+		           , NOTICE_CATEGORY
+		           , NOTICE_TITLE
+		           , NOTICE_CONTENT
+						from notice
+						where NOTICE_CATEGORY != '공지'
+		            	and NOTICE_STATUS = 'Y'
+		            	 ORDER BY CREATE_DATE DESC) B
+		             )
+		        WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>

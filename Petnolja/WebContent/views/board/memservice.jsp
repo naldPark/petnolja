@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.board.model.vo.MemNotice, com.petnolja.common.model.vo.PageInfo"%>
+<%
+	ArrayList<MemNotice> list = (ArrayList<MemNotice>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");	
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +38,6 @@
 <br><br>
  <div id="outer">
     <br>
-    <script>
-
-    </script>
 
 
         <h2>고객센터</h2><br>
@@ -44,7 +45,7 @@
             <div style="float:left; width:400px;">
                 <h5><b>자주묻는 질문 검색</b></h5><br>
                 <div class="input-group mb-3">
-                <input type="text" class="form-control" id="myInput" placeholder="검색어를 입력하세요">
+              	  <input type="text" class="form-control" id="myInput" placeholder="검색어를 입력하세요">
                 </div>
             </div>
             <div style="margin-left:500px;" align="center">
@@ -70,71 +71,58 @@
                   </tr>
               </thead>
               <tbody id="myTable">
-                  <tr class="question">
-                    <th>1</th>
-                    <th>회원정보</th>
-                    <td>Q. 이름을 개명했어요</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 그래서요?</td>
-                  </tr></p>
-                  <tr class="question">
-                    <th>2</th>
-                    <th>결제/환불/취소</th>
-                    <td>Q. 환불했는데 환불 대금은 언제 들어오나요?</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 언젠간 들어오겠죠?</td>
-                  <tr class="question">
-                    <th>3</th>
-                    <th>이용관련</th>
-                    <td>Q. 예약요청 후 진행절차를 알고 싶어요</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 기다려보세요</td>
-                  </tr>
-                  <tr class="question">
-                    <th>4</th>
-                    <th>결제/환불/취소</th>
-                    <td>Q. 너구리는 맛있나요 ?</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 개인적으로 라면계의 탑이라고 생각합니다</td>
-                  </tr>
-                  <tr class="question">
-                    <th>5</th>
-                    <th>기타</th>
-                    <td>Q. 스낵면은요?</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 별미</td>
-                  </tr>
-                  <tr class="question">
-                    <th>6</th>
-                    <th>이용관련</th>
-                    <td>Q. 펫시터랑 연락이 두절되었어요</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 왜그럴까요 ?</td>
-                  </tr>
-                  <tr class="question">
-                    <th>7</th>
-                    <th>이용관련</th>
-                    <td>Q. 펫시터가 되는데 무슨 조건이 필요한가요 ?</td>
-                  </tr>
-                  <tr class="answer">
-                    <td colspan="2"></td>
-                    <td>A. 움....</td>
-                  </tr>
+              
+	              
+	   <% if(list.isEmpty()){ %>
+	    <!-- 리스트가 비어있을 경우 -->
+      	 <tr>
+      	 	<td colspan="3">존재하는 FAQ가 없습니다.</td>
+      	 <tr>
+      	 </tbody>
+     	 </table>
+      	 </div>
+      <% }else { %>	
+      	 <!-- 리스트가 비어있지 않을 경우 --> 
+	      	 <% for(MemNotice n : list) { %>
+	      	 
+	      			 <tr class="question">
+		                    <th><%=n.getNoticeNo() %></th>
+		                    <th><%= n.getNoticeCategory() %></th>
+		                    <td><%= n.getNoticeTitle() %></td>
+	                  </tr>
+	                  <tr class="answer">
+		                    <td colspan="2"></td>
+		                    <td><%= n.getNoticeContent() %></td>
+	                  </tr>
+	      	 
+	   		 <% } %> 
+                         
                 </tbody>
             </table>
          </div>
+         
+         <!-- 페이지 목록 시작 -->
+	             <ul class="pagination justify-content-center">
+	             <% if(pi.getCurrentPage() != 1){ %>
+	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
+	           	 <% } %>
+	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	           	 
+	           		 <% if(p != pi.getCurrentPage()){ %>
+	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%= p %>"><%= p %></a></li>
+		             <% }else { %>
+		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/memService.me?currentPage=<%= p %>"><%= p %></a></li>
+	            	 <% } %>
+	             <% } %>
+	
+				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
+				<% } %>
+	             </ul>
+  	    <!-- 페이지 목록 끝 -->
+      <% } %>  
+         
+         
           
          <script>
           $(document).ready(function(){
@@ -177,13 +165,7 @@
 
 
 <br><br>
-<ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="#">이전</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">다음</a></li>
-  </ul>    
+   
  </div>
  
  <%@ include file = "../common/footer.jsp"%>

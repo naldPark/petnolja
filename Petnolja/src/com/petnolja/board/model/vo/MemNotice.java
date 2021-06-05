@@ -40,6 +40,16 @@ public class MemNotice {
 
 	
 	
+	
+	
+	public MemNotice(int noticeNo, String noticeCategory, String noticeTitle, String noticeContent) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.noticeCategory = noticeCategory;
+	}
+
 	public MemNotice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, Date createDate) {
 		super();
 		this.noticeNo = noticeNo;
