@@ -33,30 +33,38 @@ public class FavoriteListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-
-		int listCount = new MemberService().favoriteListCount(userNo);
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int pageLimit = 10;
-		int boardLimit = 3;
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
-		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;		 
-		int endPage = startPage + pageLimit - 1;
-		
-		if(endPage > maxPage) {
-			endPage = maxPage;
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else { 
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+	
+			int listCount = new MemberService().favoriteListCount(userNo);
+			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			int pageLimit = 10;
+			int boardLimit = 3;
+			int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
+			int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;		 
+			int endPage = startPage + pageLimit - 1;
+			
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+	
+			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+			
+			
+			// 시터번호,시터제목,시터이름,시터메인사진경로
+			ArrayList<Sitter> list = new MemberService().favoriteList(pi, userNo);
+			
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+			
+			request.getRequestDispatcher("views/member/favoriteList.jsp").forward(request, response);	
+			
 		}
-
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		
-		// 시터번호,시터제목,시터이름,시터메인사진경로
-		ArrayList<Sitter> list = new MemberService().favoriteList(pi, userNo);
-		
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/member/favoriteList.jsp").forward(request, response);	
 	}
 
 	/**

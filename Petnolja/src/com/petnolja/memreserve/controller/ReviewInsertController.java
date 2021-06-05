@@ -35,39 +35,44 @@ public class ReviewInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		if (ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 10 * 1024 * 1024;
-			String savePath = request.getSession().getServletContext().getRealPath("resources/upfiles/review_upfiles/");
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-
-			long reserveNo = Long.parseLong(multiRequest.getParameter("reviewInputNo"));
-			int starCount = Integer.parseInt(multiRequest.getParameter("starCount"));
-			String comment = multiRequest.getParameter("comment");
-			//첨부파일...
-			Attachment at = null; 
-			if(multiRequest.getOriginalFileName("rwFilename") != null) {
-				at = new Attachment();
-				at.setOriginName(multiRequest.getOriginalFileName("rwFilename")); 
-				at.setChangeName(multiRequest.getFilesystemName("rwFilename"));
-				at.setFilePath("resources/upfiles/review_upfiles/");
-			}
+		if(request.getSession().getAttribute("loginUser") == null) {
 			
-			int result = new MemReserveService().reviewInsert(reserveNo, starCount, comment, at);
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
 			
-			if(result > 0) { 
-				
-				request.getSession().setAttribute("alertMsg", "리뷰가 등록되었습니다");
-				response.sendRedirect(request.getContextPath() + "/reserveList.mem");
-			}else { 				
-				if(at != null) {
-					new File(savePath + at.getChangeName()).delete();
-				}
-				request.setAttribute("errorMsg", "리뷰 작성에 에러가 발생 했습니다");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-				
-			}
+		}else { 
+			if (ServletFileUpload.isMultipartContent(request)) {
+				int maxSize = 10 * 1024 * 1024;
+				String savePath = request.getSession().getServletContext().getRealPath("resources/upfiles/review_upfiles/");
+				MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 	
+				long reserveNo = Long.parseLong(multiRequest.getParameter("reviewInputNo"));
+				int starCount = Integer.parseInt(multiRequest.getParameter("starCount"));
+				String comment = multiRequest.getParameter("comment");
+				//첨부파일...
+				Attachment at = null; 
+				if(multiRequest.getOriginalFileName("rwFilename") != null) {
+					at = new Attachment();
+					at.setOriginName(multiRequest.getOriginalFileName("rwFilename")); 
+					at.setChangeName(multiRequest.getFilesystemName("rwFilename"));
+					at.setFilePath("resources/upfiles/review_upfiles/");
+				}
+				
+				int result = new MemReserveService().reviewInsert(reserveNo, starCount, comment, at);
+				
+				if(result > 0) { 
+					
+					request.getSession().setAttribute("alertMsg", "리뷰가 등록되었습니다");
+					response.sendRedirect(request.getContextPath() + "/reserveList.mem");
+				}else { 				
+					if(at != null) {
+						new File(savePath + at.getChangeName()).delete();
+					}
+					request.setAttribute("errorMsg", "리뷰 작성에 에러가 발생 했습니다");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					
+				}
+			}
 
 		}
 	}

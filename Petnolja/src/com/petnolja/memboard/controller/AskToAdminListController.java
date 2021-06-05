@@ -33,30 +33,34 @@ public class AskToAdminListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();	
-		
-		// 페이지수를 계산하기 위해 service로 보냄
-   		int listCount = new MemBoardService().askToAdminListCount(userNo);
-   		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-   		int pageLimit = 10;
-   		int boardLimit = 10;
-   		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
-   		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;		 
-   		int endPage = startPage + pageLimit - 1;
-   		
-   		if(endPage > maxPage) {
-   			endPage = maxPage;
-   		}
-		
-   		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		ArrayList<Qna> list = new MemBoardService().askToAdminList(pi, userNo);
-		
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/memboard/askToAdminList.jsp").forward(request, response);
-	
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			}	else { 
+				int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();	
+				
+				// 페이지수를 계산하기 위해 service로 보냄
+		   		int listCount = new MemBoardService().askToAdminListCount(userNo);
+		   		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		   		int pageLimit = 10;
+		   		int boardLimit = 10;
+		   		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
+		   		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;		 
+		   		int endPage = startPage + pageLimit - 1;
+		   		
+		   		if(endPage > maxPage) {
+		   			endPage = maxPage;
+		   		}
+				
+		   		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+				
+				ArrayList<Qna> list = new MemBoardService().askToAdminList(pi, userNo);
+				
+				request.setAttribute("pi", pi);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("views/memboard/askToAdminList.jsp").forward(request, response);
+			}
 	}
 
 	/**

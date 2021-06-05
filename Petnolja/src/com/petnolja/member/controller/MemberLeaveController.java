@@ -32,26 +32,34 @@ public class MemberLeaveController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		String memId = ((Member) session.getAttribute("loginUser")).getMemId();
-		String memPwd = ((Member) session.getAttribute("loginUser")).getMemPwd();
-		String checkbox = "";
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+		}else { 
 		
-		if(request.getParameterValues("check")!=null) {
-			checkbox = String.join(",", request.getParameterValues("check"));
-		}
-		int result = new MemberService().leaveMember(checkbox, memId, memPwd);
-		
-		if(result > 0) {
+			HttpSession session = request.getSession();
+			String memId = ((Member) session.getAttribute("loginUser")).getMemId();
+			String memPwd = ((Member) session.getAttribute("loginUser")).getMemPwd();
+			String checkbox = "";
 			
-			session.removeAttribute("loginUser");
+			if(request.getParameterValues("check")!=null) {
+				checkbox = String.join(",", request.getParameterValues("check"));
+			}
 			
-			request.getRequestDispatcher("/views/member/memberCompleteForm.jsp").forward(request, response);
+			int result = new MemberService().leaveMember(checkbox, memId, memPwd);
 			
-		}else {
-			request.setAttribute("errorMsg", "회원 탈퇴 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
+			if(result > 0) {
+				
+				session.removeAttribute("loginUser");
+				
+				request.getRequestDispatcher("/views/member/memberCompleteForm.jsp").forward(request, response);
+				
+			}else {
+				request.setAttribute("errorMsg", "회원 탈퇴 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				
+			}
 		}
 		
 	}

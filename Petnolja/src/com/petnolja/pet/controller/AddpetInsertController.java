@@ -39,66 +39,77 @@ public class AddpetInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			// 전송용량제한
-			int maxSize = 10 * 1024 * 1024;
-			
-			// 저장할 폴더의 물리적 경로
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfiles/pet_upfiles/");
-			
-			// 전달된 파일명 수정 작업 후 서버에 업로드
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		
+		if(request.getSession().getAttribute("loginUser") == null) {
 			
 			
-			Pet p = new Pet();
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
 			
-			HttpSession session = request.getSession();
-			p.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
-			p.setPetName(multiRequest.getParameter("petName"));
-			p.setPetGender(multiRequest.getParameter("gender"));
-			p.setPetBreed(multiRequest.getParameter("dogBreed"));
-			p.setPetBirth(multiRequest.getParameter("birth"));
-			p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
-			p.setNeutered(multiRequest.getParameter("middle"));
-			p.setPetImg("resources/upfiles/pet_upfiles/"+multiRequest.getFilesystemName("file1"));
-			
-			if(p.getPetWeight()>=15.0){
-				p.setPetSize("대형견");
-				}else if(p.getPetWeight()>=7.0){
-				p.setPetSize("중형견");
-				}else{
-				p.setPetSize("소형견");
+			}else { 
+		
+		
+		
+				if(ServletFileUpload.isMultipartContent(request)) {
+					// 전송용량제한
+					int maxSize = 10 * 1024 * 1024;
+					
+					// 저장할 폴더의 물리적 경로
+					String savePath = request.getSession().getServletContext().getRealPath("/resources/upfiles/pet_upfiles/");
+					
+					// 전달된 파일명 수정 작업 후 서버에 업로드
+					MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+					
+					
+					Pet p = new Pet();
+					
+					HttpSession session = request.getSession();
+					p.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
+					p.setPetName(multiRequest.getParameter("petName"));
+					p.setPetGender(multiRequest.getParameter("gender"));
+					p.setPetBreed(multiRequest.getParameter("dogBreed"));
+					p.setPetBirth(multiRequest.getParameter("birth"));
+					p.setPetWeight(Double.parseDouble(multiRequest.getParameter("weight")));
+					p.setNeutered(multiRequest.getParameter("middle"));
+					p.setPetImg("resources/upfiles/pet_upfiles/"+multiRequest.getFilesystemName("file1"));
+					
+					if(p.getPetWeight()>=15.0){
+						p.setPetSize("대형견");
+						}else if(p.getPetWeight()>=7.0){
+						p.setPetSize("중형견");
+						}else{
+						p.setPetSize("소형견");
+						}
+					
+					p.setChip(multiRequest.getParameter("dogAdd"));
+					
+					
+					if(multiRequest.getParameterValues("Vacci")!=null) {
+						p.setVaccine(String.join(",", multiRequest.getParameterValues("Vacci")));
+					}
+					
+					if(multiRequest.getParameterValues("Cauti")!=null) {
+						p.setCaution(String.join(",", multiRequest.getParameterValues("Cauti")));
+					}
+					
+					p.setNote(multiRequest.getParameter("textarea"));
+					p.setHospi(multiRequest.getParameter("hospi"));
+					p.setHospiTel(multiRequest.getParameter("hospitel"));
+					
+					int result = new PetService().insertPet(p);
+					
+					
+					if(result > 0) {
+						request.getSession().setAttribute("alertMsg", "반려견 추가에 성공하셨습니다.");
+						response.sendRedirect(request.getContextPath() + "/petList.mem");
+						
+						
+					}else {
+						request.setAttribute("errorMsg", "작성에 실패하셨습니다.");
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					}
+					
 				}
-			
-			p.setChip(multiRequest.getParameter("dogAdd"));
-			
-			
-			if(multiRequest.getParameterValues("Vacci")!=null) {
-				p.setVaccine(String.join(",", multiRequest.getParameterValues("Vacci")));
-			}
-			
-			if(multiRequest.getParameterValues("Cauti")!=null) {
-				p.setCaution(String.join(",", multiRequest.getParameterValues("Cauti")));
-			}
-			
-			p.setNote(multiRequest.getParameter("textarea"));
-			p.setHospi(multiRequest.getParameter("hospi"));
-			p.setHospiTel(multiRequest.getParameter("hospitel"));
-			
-			int result = new PetService().insertPet(p);
-			
-			
-			if(result > 0) {
-				request.getSession().setAttribute("alertMsg", "반려견 추가에 성공하셨습니다.");
-				response.sendRedirect(request.getContextPath() + "/petList.mem");
-				
-				
-			}else {
-				request.setAttribute("errorMsg", "작성에 실패하셨습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
-			
-		}
 		
 		
 		
