@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.pet.model.vo.Log,java.util.ArrayList"%>
+    <%
+	
+	ArrayList<Log> list = (ArrayList<Log>)request.getAttribute("list");
+	
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,69 +16,49 @@
         width: 800px;
         height: 800px;
         border: 1px solid #C7C7C7;
+        margin: 0 auto;
     }
 </style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="serv-menu.jsp" %>
     <div class="container-day">
+    <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-day">
-            <div style="font-size: 35px; font-weight: bold;">시팅 일지 관리</div><br><br>
-            <div style="font-size: 20px;">이지은 보호자님의 쪼꼬,뿌꾸</div><br>
+            <div style="font-size: 35px; font-weight: bold;">시팅 일지 관리</div><br><br><br>
         </div>
         <div class="middle-day">
-            <table border="1" style="width: 100%;">
-                <tr> 
-                    <tr>
-                        <td style="width: 20%; height: 40px;">번호</td>
-                        <td style="text-align: center; width: 30%; ">예약일</td>
-                        <td style="width: 100px; text-align: center; width: 30%;">작성 시간</td>
-                        <td style="text-align: center; width: 20%;">작성 상태</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td style="text-align: center; height: 40px;">2020-05-05 15:00 ~ 24:00</td>
-                        <td style="text-align: center;">11:59</td>
-                        <td style="text-align: center;"><button>작성하기</button><button>추가작성</button></td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td style="text-align: center; height: 40px;">2020-05-08 15:00 ~ 24:00</td>
-                        <td style="text-align: center;">17:28</td>
-                        <td style="text-align: center;"><button>작성하기</button><button>추가작성</button></td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td style="text-align: center; height: 40px;">2020-05-09 15:00 ~ 24:00</td>
-                        <td style="text-align: center;">17:45</td>
-                        <td style="text-align: center;"><button>작성하기</button><button>추가작성</button></td>
-                    </tr>
+            <table border="1" style="width: 100%; text-align: center;">
+                <tr>
+                    <td>번호</td>
+                    <td>예약일</td>
+                    <td>작성일</td>
+                    <td>작성</td>
                 </tr>
+                <% if(list.isEmpty()){ %>
+      						<br>조회된 리스트가 없습니다.<br><br><br>
+            		
+       					<% }else { %>
+	      	 				<% for(Log l : list){ %>
+                        <tr>
+                        	<tr>
+                            	<td><%=l.getLogNo() %></td>
+                            	<td><%=l.getResDate()%></td>
+                            	<td><%=l.getLogTime() %></td>
+                            	<td><input type="button" value="작성하기" id="write" onclick="window.open('<%=contextPath%>/histInquiry.sit')"></td>
+                            </tr>
+                            
+                        </tr>
+                        <% } %>
+                       <% } %>
+
             </table>
-            <div align="center" class="paging-area">
-
-                <button> &lt; </button>
-
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>10</button>
-
-                <button> &gt; </button>
-            </div>
-        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+           </div>
         <div align="center">
-            <button>확인</button>
+        <br><br><br><br><br><br><br><br><br><br>
+            <input type="button" value="확인" id="back" onclick="location.href='<%=contextPath%>/service.sit'">
             </div>
     </div>
+    <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

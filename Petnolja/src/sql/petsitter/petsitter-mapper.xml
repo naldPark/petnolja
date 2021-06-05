@@ -238,5 +238,17 @@
 			WHERE A_SITTER_NO = ?
 			AND QNA_STATUS='Y'
 	</entry>
+		
+	<entry key="selectDaily">
+		SELECT
+			    LOG_NO
+			    ,RES_NO
+			    ,LOG_TIME
+			    ,RES_DATE
+			FROM LOG
+			JOIN RESERV USING(RES_NO)
+			WHERE MEM_NO = ?
+			AND RES_STATUS = '확정'
+	</entry>
 	
 </properties>

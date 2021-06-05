@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.pet.model.vo.Log;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import com.petnolja.qna.model.vo.Qna;
 
@@ -426,7 +427,6 @@ public class PetsitterDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectHist");
-		System.out.println("여기는 dao");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -439,6 +439,38 @@ public class PetsitterDao {
 									rset.getString("Q_TITLE"),
 									rset.getString("Q_MEM_NO"),
 									rset.getDate("Q_CREATE_DATE")
+									));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	public ArrayList<Log> selectDaily(Connection conn, int userNo) {
+		System.out.println("여긴 디에오");
+		ArrayList<Log> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDaily");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Log(rset.getInt("LOG_NO"),
+									rset.getString("RES_DATE"),
+									rset.getDate("LOG_TIME"),
+									rset.getLong("RES_NO")
+									
 									));
 			}
 			

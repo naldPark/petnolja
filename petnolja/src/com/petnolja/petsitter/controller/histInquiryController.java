@@ -35,7 +35,7 @@ public class HistInquiryController extends HttpServlet {
 		
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo(); // USERNO = SITTERNO
-		System.out.println("여기는컨트로럴");
+		
 		ArrayList<Qna> list = new PetsitterService().selectHist(userNo);
 		
 		request.setAttribute("list", list);
