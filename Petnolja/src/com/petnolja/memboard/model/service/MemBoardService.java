@@ -1,13 +1,16 @@
 package com.petnolja.memboard.model.service;
 
-import static com.petnolja.common.JDBCTemplate.*;
+import static com.petnolja.common.JDBCTemplate.close;
+import static com.petnolja.common.JDBCTemplate.commit;
+import static com.petnolja.common.JDBCTemplate.getConnection;
+import static com.petnolja.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
-import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.memboard.model.dao.MemBoardDao;
+import com.petnolja.memboard.model.vo.MemBoard;
 import com.petnolja.qna.model.vo.Qna;
 
 
@@ -57,6 +60,24 @@ public class MemBoardService {
 		close(conn);
 		return result;
 	}
+	
+	// 목록 갯수 뽑기
+	public int askToPet(int aSitterNo) {
+		Connection conn = getConnection();
+		int listCount = new MemBoardDao().askToPet(conn, aSitterNo);
+		close(conn);
+		return listCount;
+	}
+	
+	// qna 전체 조회
+	public ArrayList<MemBoard> selectAsktoPet(PageInfo pi, int aSitterNo){
+		Connection conn = getConnection();
+		ArrayList<MemBoard> list = new MemBoardDao().selectAsktoPet(conn, pi, aSitterNo);
+		
+		close(conn);
+		return list;
+	}
+	
 	
 
 }

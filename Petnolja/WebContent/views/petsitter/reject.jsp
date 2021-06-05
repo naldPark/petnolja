@@ -33,6 +33,7 @@
 </script>
 </head>
 <body>
+	<%@ include file="serv-menu.jsp" %>
     <div class="container">
         <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;">
         <div class="reject">
@@ -42,16 +43,17 @@
         <span style="font-size: 15px; color: coral;">예약거절에 대한 책임은 모두 펫시터(판매자)</span>
         <span>에게 있음을 알려드립니다.</span><br><br>
     
-    <form>
+    <form action="<%=contextPath%>/updateReject.sit"  method="post">
         <h3>거절사유*</h3>
         <textarea name = "ta2" rows="20" cols= "80" wrap = "virtual">예약을 거절하시는 이유를 15자 이상 상세하게 적어주세요.</textarea><br><br>
-    </form>
+    
     
     <input type="checkbox" name="reject" value="reason" checked>안내 사항을 확인하였으며 위의 내용이 사실과 틀림없음을 확인합니다.
     <br><br><br>
     <div style="margin-left: 28%;">
-        <input type="submit" class="submitButton" th:value="Speichern" name="submit" disabled="disabled"/><button id="btn2">취소</button></div>
+        <button type="submit">제출</button><button id="btn2">취소</button></div>
 </div>
+</form>
 </div>
 </body>
 </html>

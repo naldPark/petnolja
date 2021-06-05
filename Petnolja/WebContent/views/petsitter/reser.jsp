@@ -85,7 +85,7 @@
             <h2>예약 내역</h2><br>
             <div>
               <span style="float:left; width:93%">확정된 예약이 [N]건 있습니다.</span>
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
             </div>
           </div>
 

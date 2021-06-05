@@ -109,7 +109,7 @@
       <h2>펫시터가 되어 보실래요 ?</h2><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="button" class="btn btn-light btn-lg" >펫시터 지원하기</button>
+      <input type="button" value="펫시터 지원하기" class="btn btn-light btn-lg" onclick="window.open('<%=contextPath%>/enroll.sit?currentPage=1')">
    </div>
   </div><br><br>
   <hr><br><br>

@@ -216,4 +216,13 @@
 		WHERE USERNO = ?
 		ORDER BY 1 DESC
 	</entry>
+	
+	<entry key ="updateReject">
+		UPDATE
+			RESERV
+		SET RES_STATUS = '거절'
+		,	CANCEL_REASON = ?
+			WHERE SITTER_NO = ?
+		
+	</entry>
 </properties>
