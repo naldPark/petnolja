@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.board.model.vo.MemNotice, com.petnolja.common.model.vo.PageInfo"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.board.model.vo.MemNotice"%>
 <%
 	ArrayList<MemNotice> list = (ArrayList<MemNotice>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");	
 %>    
 <!DOCTYPE html>
 <html>
@@ -78,9 +77,7 @@
       	 <tr>
       	 	<td colspan="3">존재하는 FAQ가 없습니다.</td>
       	 <tr>
-      	 </tbody>
-     	 </table>
-      	 </div>
+
       <% }else { %>	
       	 <!-- 리스트가 비어있지 않을 경우 --> 
 	      	 <% for(MemNotice n : list) { %>
@@ -97,31 +94,13 @@
 	      	 
 	   		 <% } %> 
                          
-                </tbody>
+
+         
+      <% } %>  
+              </tbody>
             </table>
          </div>
-         
-         <!-- 페이지 목록 시작 -->
-	             <ul class="pagination justify-content-center">
-	             <% if(pi.getCurrentPage() != 1){ %>
-	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
-	           	 <% } %>
-	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-	           	 
-	           		 <% if(p != pi.getCurrentPage()){ %>
-	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%= p %>"><%= p %></a></li>
-		             <% }else { %>
-		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/memService.me?currentPage=<%= p %>"><%= p %></a></li>
-	            	 <% } %>
-	             <% } %>
-	
-				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
-	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/memService.me?currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
-				<% } %>
-	             </ul>
-  	    <!-- 페이지 목록 끝 -->
-      <% } %>  
-         
+           
          
           
          <script>

@@ -33,25 +33,9 @@ public class FooterServiceController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 페이지수를 계산하기 위해 service로 보냄
-   		int listCount = new BoardService().memFaqCount();
-   		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-   		int pageLimit = 10;
-   		int boardLimit = 10;
-   		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
-   		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;		 
-   		int endPage = startPage + pageLimit - 1;
-   		
-   		if(endPage > maxPage) {
-   			endPage = maxPage;
-   		}
-		
-   		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<MemNotice> list = new BoardService().memFaqList(pi);
-
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/board/memservice.jsp").forward(request, response);
+			ArrayList<MemNotice> list = new BoardService().memFaqList();
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/board/memservice.jsp").forward(request, response);
 	
 		
 		
