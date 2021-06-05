@@ -161,7 +161,7 @@
             	
             <% } %>
 
-			<% if(currentPage != maxPage){ %>
+			<% if(currentPage != maxPage && !list.isEmpty()){ %>
             	<button onclick="location.href='<%=contextPath%>/oldlist.ad?currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
 			<% } %>
 			
@@ -176,7 +176,6 @@
 	
 	<script>
 		function blockPetsitter(){
-			//console.log("되나?");
 			
 			var sitterNoArr = [];
 			$("input[type=checkbox]:checked").each(function(){
@@ -334,16 +333,6 @@
                             case 5: updateCol = "LICENSE"; break;
                             case 6: updateCol = "EXPERIENCE"; break;
                         }
-
-
-                        console.log(memNo);         // 변경이 발생한 고객의 고객번호
-                        console.log(updateValue);   // 변경된 값
-                        console.log(updateCol);     // 변경이 발생한 컬럼
-
-                        //location.href = "update.me?mno="+memNo+"&"+updateCol+"="+updateValue;
-                        // 이렇게 서블릿 호출해서 값 넘기면 되지 않을까?
-                        // 화면 우측 상단 저장 버튼은 없애야 함. (-- 없앴음)
-                        // 근데 엔터키 두개 중에서 하나만 먹힘. 왜그럴까,,,?
 
                         $.ajax({
                     		url:"sitterupdate.ad",

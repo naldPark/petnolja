@@ -474,6 +474,46 @@ private Properties prop = new Properties();
 		return list;
 	}
 	
+	/** 최서경
+	 * @return 아이디 키워드 이용하여 회원 검색
+	 */
+	public ArrayList<Member> selectList(Connection conn, PageInfo pi, String keyword){
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("MEM_NO"),
+									rset.getString("MEM_ID"),
+									rset.getString("MEM_NAME"),
+									rset.getString("MEM_TEL"),
+									rset.getString("MEM_EMAIL"),
+									rset.getString("MEM_ADDRESS"),
+									rset.getString("MEM_BLOCK")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	/** 최서경
 	 * 관리자페이지에서 회원정보 수정
