@@ -1,5 +1,17 @@
+<%@page import="com.petnolja.petsitter.model.vo.Petsitter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.petsitter.model.vo.Petsitter, java.time.*" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Petsitter> list = (ArrayList<Petsitter>)request.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	int qnaNo = Petsitter.get
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +40,7 @@
 </style>
 </head>
 <body>
+ <%@ include file="serv-menu.jsp" %>
     <div class="container-stop">
         <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">
@@ -38,33 +51,20 @@
                 <div>
                     <form action="<%=contextPath%>/selectQna.sit"  method="post">
                     <table border="1" style="height: 140px; width: 95%; text-align: center;">
+						<% if(list.isEmpty()){ %>
+      						<br>조회된 리스트가 없습니다.<br><br><br>
+            		
+       					<% }else { %>
+	      	 				<% for(PetSitter s : list){ %>
                         <tr>
-                            <td >번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
+                            <td><%=s.get %></td>
+                            <td><%=qTitle %></td>
+                            <td><%=aWriter %></td>
+                            <td><%=qCtrateDate%></td>
                         </tr>
+                        <% } %>
 
-                        <tr>
-                            <td>1</td>
-                            <td ><% %></td>
-                            <td>김은용</td>
-                            <td>2020-01-02</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>으억 살려주세요ㅕ 흑허ㅏㅇㄹ하</td>
-                            <td>김은용</td>
-                            <td>2020-01-03</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>으억 살려주세요ㅕ 흑허ㅏㅇㄹ하</td>
-                            <td>김은용</td>
-                            <td>2020-01-04</td>
-                        </tr>
+        
                     </table>
                     </form>
                 </div>

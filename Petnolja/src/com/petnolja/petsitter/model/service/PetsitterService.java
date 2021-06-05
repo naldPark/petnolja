@@ -192,4 +192,27 @@ public class PetsitterService {
 		return result;
 	}
 	
+	public int updateReject(int userNo, int resNo, String resStat, String cancelRea) {
+	
+		Connection conn = getConnection();
+		int result = new PetsitterDao().updateReject(conn, userNo, resNo, resStat, cancelRea);
+	
+		if (result > 0) {
+			commit(conn);	
+			
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	public Petsitter selectBoard(int boardNo) {
+		Connection conn = getConnection();
+		Board b = new BoardDao().selectBoard(conn, boardNo);
+		close(conn);
+		return b;		
+	}
 }
+	
+

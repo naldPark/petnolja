@@ -60,9 +60,9 @@
 			  	</div>
 			  	<div class="row">
 			  		<div class="col">
-			  			<a type="button" class="btn btn-light" href="<%=contextPath%>/petsitterRequested.ad">뒤로가기</a>
+						<input type="button" value="뒤로가기" id="back" onclick="location.href='<%=contextPath%>/reserVation.sit'">
 			  			<button type="button" class="btn btn-primary">예약확정</button>
-			  			<a type="button" class="btn btn-danger" href="<%=contextPath%>/petsitterCancelRequested.ad?rno=<%=rno%>">예약거절</a>
+			  			<input type="button" value="예약거절" id="reject" onclick="location.href='<%=contextPath%>/reject.sit'">
 			  		</div>
 			  	</div>
 	  		</div>

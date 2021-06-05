@@ -397,6 +397,28 @@ public class PetsitterDao {
 		}
 		return result;
 	}
+	public int updateReject(Connection conn, int userNo, int resNo, String resStat, String cancelRea) {
+	
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReject");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cancelRea);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+	}
 }
 	
 
