@@ -17,6 +17,7 @@
 #dropdownMenuButton:hover{border-radius:50%; box-shadow:0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 4px rgba(0, 0, 0, 0.2); cursor: pointer;}
 #logoButton:hover{border-radius:20%; box-shadow:0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 4px rgba(0, 0, 0, 0.2);}
 
+
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,6 +61,11 @@
                         </li>
                    <%} %>
                     <!--펫시터만 보여지는 메뉴 끝-->
+                     <% if(loginUser == null){%>  
+                       <li class="nav-item">
+                          <a class="nav-link" href="<%=contextPath%>/admin.ad">관리자(임시)</a>
+                        </li>
+                    <%} %>
                 </ul>
                 <% if(loginUser != null){%>
                 <span><b><%=loginUser.getMemName()%></b> 님  환영합니다&nbsp;&nbsp;</span>
@@ -82,8 +88,11 @@
                     </script>
                   <%}%>
                </div> 
+               
         </div>       
         <hr>
       </nav>
+      		
+
 </body>
 </html>
