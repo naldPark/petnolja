@@ -124,7 +124,9 @@
 					[ 임시 로그인 아이디 ]<br><br>
 					유저  ddjn6334 / pass01<br>
 					펫시터 geddong / pass01 <br>
-					관리자 admin1 / admin1</span>
+					관리자 admin1 / admin1<br>
+					<a href="<%=contextPath %>/views/common/temp.jsp">로그인계정 전체보기</a>
+					</span>
 			</div>
      </div>	
 

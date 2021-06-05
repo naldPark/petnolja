@@ -3,7 +3,7 @@
 <%
 	ArrayList<MemBoard> list = (ArrayList<MemBoard>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	int sitterNo = (Integer)request.getAttribute("sitterNo");
+	int sno = (Integer)request.getAttribute("sno");
 %>    
 <!DOCTYPE html>
 <html>
@@ -54,7 +54,7 @@
 		      	 <!-- 리스트가 비어있지 않을 경우 --> 
 		      	 <% for(MemBoard b : list) { %>
 		        <tr>
-		        	<td><%= b.getaSitterNo() %></td>
+		        	<td><%= b.getQnaNo() %></td>
 		            <td><%= b.getqTitle() %></td>
 		            <td><%= b.getMemName() %></td>
 		            <td><%= b.getqCreateDate() %></td>
@@ -64,27 +64,37 @@
 			</table>
 		  </div>
 
-		  <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitter.jsp'">글작성</button>
+		  <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/askToWriter.me?sno=<%=sno%>'">글작성</button>
+
+	<script>
+	  	$(function(){
+	  		$(".table>tbody>tr").click(function(){
+	  			var qno = $(this).children().eq(0).text();
+	  			
+	  			location.href = '<%=contextPath%>/askToPetdetail.me?qno=' + qno;
+	  		})
+	  	})
+	  </script>
 
 		  
 	<br><br>
       <!-- 페이지 목록 시작 -->
 	             <ul class="pagination justify-content-center">
 	             <% if(pi.getCurrentPage() != 1){ %>
-	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sitterNo%>&currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
+	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sno%>&currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
 	           	 <% } %>
 	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
 	           	 
 	           		 <% if(p != pi.getCurrentPage()){ %>
-	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sitterNo%>&currentPage=<%= p %>"><%= p %></a></li>
+	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sno%>&currentPage=<%= p %>"><%= p %></a></li>
 		             <% }else { %>
-		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/askPet.me?sno=<%=sitterNo%>&currentPage=<%= p %>"><%= p %></a></li>
+		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/askPet.me?sno=<%=sno%>&currentPage=<%= p %>"><%= p %></a></li>
 	            	 <% } %>
 	             <% } %>
 	     
 	
 				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
-	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sitterNo%>&currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
+	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/askPet.me?sno=<%=sno%>&currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
 				<% } %>
 	              </ul>
       <!-- 페이지 목록 끝 -->

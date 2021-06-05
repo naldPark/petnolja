@@ -78,6 +78,28 @@ public class MemBoardService {
 		return list;
 	}
 	
+	// qna 상세 조회
+	public Qna askToPetDetail(int qno) {
+		Connection conn = getConnection();
+		Qna q  = new MemBoardDao().askToPetDetail(conn, qno);
+		
+		close(conn);
+		return q;
+	}
+	
+	public int askPetSitterInsert(int userNo, int sitterNo, String title, String content) {
+		Connection conn = getConnection();
+		int result = new MemBoardDao().askPetSitterInsert(conn, userNo, sitterNo, title, content);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	
+	
+	}
 	
 
 }

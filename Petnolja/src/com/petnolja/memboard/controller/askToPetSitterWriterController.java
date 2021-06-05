@@ -1,26 +1,28 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.memboard.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.petsitter.model.service.PetsitterService;
+import com.petnolja.memboard.model.service.MemBoardService;
 
 /**
- * Servlet implementation class selectQnaController
+ * Servlet implementation class askToPetSitterWriterController
  */
-@WebServlet("/selectQna.sit")
-public class SelectQnaController extends HttpServlet {
+@WebServlet("/askToWriter2.me")
+public class askToPetSitterWriterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectQnaController() {
+    public askToPetSitterWriterController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,27 +31,35 @@ public class SelectQnaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 		
+		int sno= Integer.parseInt(request.getParameter("sno"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-		String qTitle = request.getParameter("qTitle");
-		String qContent = request.getParameter("qContent");
-		String qCtrateDate = request.getParameter("qCtrateDate");
-		String aWriter = request.getParameter("aWriter");
 		
-		int result = new PetsitterService().selectQna(userNo, qnaNo, qTitle, qContent, qCtrateDate, aWriter);
+		String title= request.getParameter("title");
+		String content= request.getParameter("content");
+		
+		int result = new MemBoardService().askPetSitterInsert(userNo, sno, title, content);
+		
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg","조회 완료되었습니다.");
-			response.sendRedirect(request.getContextPath());
-		
-	}else {
-		request.setAttribute("errorMsg", "펫시터서비스 중지가 실패하였습니다.");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "등록되었습니다.");
+			
+			response.sendRedirect(request.getContextPath() + "/askPet.me?sno="+sno+"&currentPage=1");
+			
+		}else {
+			
+			request.setAttribute("errorMsg", "에러가 발생했습니다");
+			
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		}
+
 	}
-		
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

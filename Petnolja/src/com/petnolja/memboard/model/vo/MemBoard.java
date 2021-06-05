@@ -14,6 +14,8 @@ public class MemBoard {
 		private String qTitle;
 		private String qSecret;
 		private Date qCreateDate;
+		private String aContent;
+		private Date aCreateDate;
 		
 		public MemBoard() {}
 
@@ -28,6 +30,7 @@ public class MemBoard {
 			this.qSecret = qSecret;
 			this.qCreateDate = qCreateDate;
 		}
+		
 
 		public int getQnaNo() {
 			return qnaNo;

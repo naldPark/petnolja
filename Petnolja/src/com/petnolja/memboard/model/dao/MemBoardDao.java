@@ -218,6 +218,63 @@ public class MemBoardDao {
 	
 	}
 	
+	// qna 상세조회
+		public Qna askToPetDetail(Connection conn, int qno) {
+			// select문
+			Qna q = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("askToPetDetail");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, qno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					q = new Qna(rset.getInt("QNA_NO"),
+				   			  rset.getString("Q_MEM_NO"),
+				   			  rset.getString("Q_TITLE"),
+				   			  rset.getString("Q_CONTENT"),
+				   			  rset.getDate("Q_CREATE_DATE"),
+				   			  rset.getString("A_CONTENT"),
+							  rset.getDate("A_CREATE_DATE"),
+							  rset.getString("MEM_NAME"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
 	
-	
+			return q;
+	}
+		
+		public int askPetSitterInsert(Connection conn, int userNo, int sitterNo, String title, String content) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("askPetSitterInsert");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, sitterNo);
+				pstmt.setString(3, title);
+				pstmt.setString(4, content);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		
+		
+		
 }

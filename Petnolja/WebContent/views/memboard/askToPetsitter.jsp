@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <% int sno = (Integer)request.getAttribute("sno"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,30 +30,29 @@
  <div id="outer">
     <br>
 
-        <h2>1:1 문의</h2>       
+        <h2>1:1 문의</h2>    
+    <form action="<%=contextPath%>/askToWriter2.me" method="post">       
         <table class="table" style="border:1px solid lightgray">
             <tr>
                 <th width="200">작성자</th>
-                <td>김개똥</td>
+                <td><input type="text" name="name" style="width:100%;height:100%; border:1px solid:lightgrey;" required></td>
+            <input type="hidden" name="sno" value=<%=sno%>>
             </tr>
             <tr>
                 <th>제목</th>
-                <td>펫시터야펫시터야뭐하니</td>
+                <td><input type="text" name="title" style="width:100%;height:100%; border:1px solid:lightgrey;" required></td>
             </tr>
         </table>
         <label for="comment"><h4>본문 내용</h4></label>
           <div class="form-group" style="text-align: center;">
             
-          <textarea class="form-control" rows="5" id="comment" style="resize:none; height: 400px">너구리먹고싶다</textarea>
-          <br>
-          <div class="filebox"style="font-size: 11pt;"> 파일첨부&nbsp;&nbsp; <input class="upload-name" value="" disabled="disabled"> <label for="ex_filename">첨부하기</label> 
-            <input type="file" id="ex_filename" class="upload-hidden" onchange="checkSize(this)"> </div>
-            <span>            20MB이하의 파일만 첨부 가능합니다.</span><br>
-<br>
+          <textarea class="form-control" rows="5" id="comment" name="content" style="resize:none; height: 400px" required></textarea>
+          <br>         
+		  <br>
           <button type="submit" class="btn btn-primary">문의하기</button>&nbsp;
-          <button type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/views/memboard/askToPetsitterList.jsp'">문의목록보기</button>
-          <button type="button" class="btn btn-outline-secondary" onclick="history.back();">뒤로가기</button>
+          <button type="button" class="btn btn-secondary" onclick="history.back();">문의목록보기</button>
         </div>
+        </form>
  </div>
  <script>
     $(document).ready(function(){ var fileTarget = $('.filebox .upload-hidden'); fileTarget.on('change', function(){

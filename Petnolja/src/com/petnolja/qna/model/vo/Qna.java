@@ -113,13 +113,28 @@ public class Qna {
 		this.aCreateDate = aCreateDate;
 		this.memName = memName;
 	}
-
+	
+	/** 정빈
+	 * qna 유저입장에서 펫시터에게 1:1문의 특정 글 조회
+	 */
+	public Qna(int qnaNo, String qMemNo, String qTitle, String qContent, Date qCreateDate, String aContent,
+			Date aCreateDate, String memName) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qMemNo = qMemNo;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.qCreateDate = qCreateDate;
+		this.aContent = aContent;
+		this.aCreateDate = aCreateDate;
+		this.memName = memName;
+	}
+	
 	
 	
 	public int getQnaNo() {
 		return qnaNo;
 	}
-
 
 	public void setQnaNo(int qnaNo) {
 		this.qnaNo = qnaNo;
