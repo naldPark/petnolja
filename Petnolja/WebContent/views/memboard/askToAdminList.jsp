@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.petnolja.qna.model.vo.Qna, com.petnolja.common.model.vo.PageInfo"%>
+<%
+	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");	
+%>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫놀자</title>
 <style>
         #outer{
           width:1000px;
@@ -14,7 +18,8 @@
           border:1px solid lightgray;
           padding: 15px;
         }
-        table{text-align: center;}
+        table{text-align: center; }
+        td:nth-of-type(1) { display: none; } 
 
 </style>
 </head>
@@ -25,48 +30,83 @@
      <br><br>
 <div class="container">
     <h2>고객센터 - 1:1문의내역</h2><br>
-
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th width="600">제목</th>
-          <th>작성자</th>
-          <th width="150">작성일시</th>
-          <th width="80">조회수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td> <a href='<%=contextPath%>/views/common/noticeDetail.jsp'> 관리자님 안녕하세요?</a></td>
-            <td>날드</td>
-            <td>2010-05-01</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>관리자님 홈페이지 언제 다 만드실건가요</td>
-            <td>날드</td>
-            <td>2010-05-01</td>
-            <td>1</td>
-        </tr>
-      
-      </tbody>
-    </table>
       <div align="right">
       <button class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/member/askToAdmin.jsp'">글쓰기</button>
       </div>
+<br>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+     	   <th>글번호</th>
+          <th width="600">제목</th>
+          <th>작성자</th>
+          <th width="150">작성일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(list.isEmpty()){ %>
+      	 <!-- 리스트가 비어있을 경우 -->
+      	 <tr>
+      	 	<td colspan="4">존재하는 공지사항이 없습니다.</td>
+      	 <tr>
+      	 </tbody>
+      	     </table>
+      	 </div>
+      <% }else { %>	
+      	 <!-- 리스트가 비어있지 않을 경우 --> 
+      	 <% for(Qna q : list) { %>
+        <tr>
+       	    <td><%= q.getQnaNo() %></td>
+       		<td><%= q.getRowNum() %></td>
+            <td><%= q.getqTitle() %></td>
+            <td><%= q.getMemName() %></td>
+            <td><%= q.getqCreateDate() %></td>
+        </tr>
+      <% } %> 
+
+      </tbody>
+    </table>
   </div>
-          
-
-
+     
+  
+      
 <br><br>
-<ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="#">이전</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">다음</a></li>
-  </ul>
-        
+      <!-- 페이지 목록 시작 -->
+	             <ul class="pagination justify-content-center">
+	             <% if(pi.getCurrentPage() != 1){ %>
+	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
+	           	 <% } %>
+	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	           	 
+	           		 <% if(p != pi.getCurrentPage()){ %>
+	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%= p %>"><%= p %></a></li>
+		             <% }else { %>
+		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%= p %>"><%= p %></a></li>
+	            	 <% } %>
+	             <% } %>
+	     
+	
+				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
+	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
+				<% } %>
+	              </ul>
+      <!-- 페이지 목록 끝 -->
+      
+    <% } %> 
+ </div><br>
+ 
+   <script>
+  	$(function(){
+  		$(".table>tbody>tr").click(function(){
+  			var nno = $(this).children().eq(0).text();// 수정필요
+  			
+  			location.href = '<%=contextPath%>/askToAdmin.mem?nno=' + nno;
+  		})
+  	})
+  </script>   
+
+
+
  </div><br>
  
  <%@ include file = "../common/footer.jsp"%>
