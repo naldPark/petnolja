@@ -49,7 +49,7 @@
             </div>
             <div style="margin-left:500px;" align="center">
                 <h5><b>찾으시는 질문이 없다면 ?</b></h5><br>
-                <button type="button" onclick="location.href='<%=contextPath%>/views/memboard/askToAdminList.jsp'" class="btn btn-secondary" style="width:200px">1:1문의</button>
+                <button type="button" onclick="location.href='<%=contextPath%>/askToAdminList.mem?currentPage=1'" class="btn btn-secondary" style="width:200px">1:1문의</button>
             </div>
            
         </div><br>

@@ -2,6 +2,7 @@ package com.petnolja.qna.model.vo;
 
 import java.util.Date;
 
+
 public class Qna {
 	
 	private int qnaNo;
@@ -17,6 +18,9 @@ public class Qna {
 	private Date aCreateDate;
 	private String qnaStatus;
 	private String qSecret;
+	private String memName;
+	private int rowNum;  // SORT한 글번호 다시 매김
+	
 	
 	public Qna() {}
 
@@ -65,10 +69,44 @@ public class Qna {
 		this.aContent = aContent;
 		this.aWriter = aWriter;
 	}
+	
+	/** 날드
+	 * qna 유저입장에서 관리자 1:1문의 리스트
+	 */
+	public Qna(int rowNum, int qnaNo, String qMemNo, String memName, String qCategory, String qTitle, Date qCreateDate) {
+		super();
+		this.rowNum = rowNum;
+		this.qnaNo = qnaNo;
+		this.qMemNo = qMemNo;
+		this.qCategory = qCategory;
+		this.qTitle = qTitle;
+		this.qCreateDate = qCreateDate;
+		this.memName = memName;
+	}
+	
+	
+	/** 날드
+	 * qna 유저입장에서 관리자 1:1문의 특정 글 조회
+	 */
+	public Qna(int qnaNo, String qMemNo, String qCategory, String memName, String qTitle, String qContent, String aContent,
+			Date aCreateDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qMemNo = qMemNo;
+		this.qCategory = qCategory;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.aContent = aContent;
+		this.aCreateDate = aCreateDate;
+		this.memName = memName;
+	}
 
+	
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
+
 
 	public void setQnaNo(int qnaNo) {
 		this.qnaNo = qnaNo;
@@ -169,6 +207,26 @@ public class Qna {
 
 	public void setqSecret(String qSecret) {
 		this.qSecret = qSecret;
+	}
+	
+	
+	
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 
 	@Override
