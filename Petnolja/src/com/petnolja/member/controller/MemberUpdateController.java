@@ -40,10 +40,10 @@ public class MemberUpdateController extends HttpServlet {
 		String email = request.getParameter("email"); // 이메일
 		String address = request.getParameter("address"); // 주소
 		String address2 = request.getParameter("address2"); // 상세주소
-		//double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
-		//double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
-		double latitude= 2.3333333;
-		double longtitude= 3.2222;
+		double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
+		double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
+//		double latitude= 2.3333333;
+//		double longtitude= 3.2222;
 		Member m = new Member(userNo, userPwd1, phone, email, address, address2, latitude, longtitude); 
 		
 		Member updateMem = new MemberService().updateMember(m);

@@ -10,7 +10,7 @@
     <body>
     <div id="map" style="width:300px;height:300px;"></div>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=78c48ff942d4b0a9d168f063558d8359&libraries=services"></script>
     <script>
  
 
@@ -35,19 +35,15 @@
     
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
     
-            // 결과값으로 받은 위치를 마커로 표시합니다
             var marker = new kakao.maps.Marker({
                 map: map,
                 position: coords
             });
     
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
                 content: '<div style="width:220px;text-align:center;padding:6px 0;font-size:10pt;"><%=sitterInfo.getAddress()%></div>'
             });
             infowindow.open(map, marker);
-    
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
         } 
         
@@ -56,10 +52,6 @@
 
 
     function relayout() {    
-    
-    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
     map.relayout();
 }
     

@@ -43,11 +43,11 @@ public class MemberInsertController extends HttpServlet {
 		String address = request.getParameter("address"); // 주소
 		String address2 = request.getParameter("address2"); // 상세주소
 		// double latitude =
-//		double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
+		double latitude = Double.parseDouble(request.getParameter("latitude")); // 위도
 		// double longtitude = 	
-//		double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
-			double latitude= 2.3333333;
-			double longtitude= 3.2222;
+		double longtitude = Double.parseDouble(request.getParameter("longtitude")); // 경도
+//			double latitude= 2.3333333;
+//			double longtitude= 3.2222;
 			
 		// 기본생성자로 생성 후 setter 이용해서 담기
 		Member m = new Member(userId, userName, userPwd1, phone, email, address, address2, latitude, longtitude);
