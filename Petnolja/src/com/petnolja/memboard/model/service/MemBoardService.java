@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.member.model.dao.MemberDao;
 import com.petnolja.memboard.model.dao.MemBoardDao;
 import com.petnolja.qna.model.vo.Qna;
 
@@ -43,6 +44,18 @@ public class MemBoardService {
 		close(conn);
 		
 		return q;
+	}
+	
+	public int askToAdminInsert(int userNo, String subject, String title, String content) {
+		Connection conn = getConnection();
+		int result = new MemBoardDao().askToAdminInsert(conn, userNo, subject, title, content);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 	
 

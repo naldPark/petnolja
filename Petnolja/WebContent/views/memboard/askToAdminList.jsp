@@ -31,7 +31,7 @@
 <div class="container">
     <h2>고객센터 - 1:1문의내역</h2><br>
       <div align="right">
-      <button class="btn btn-primary" onclick="location.href='<%=contextPath%>/views/member/askToAdmin.jsp'">글쓰기</button>
+      <button class="btn btn-primary" onclick="location.href='<%=contextPath%>/askToAdminPath.mem'">글쓰기</button>
       </div>
 <br>
     <table class="table table-bordered">

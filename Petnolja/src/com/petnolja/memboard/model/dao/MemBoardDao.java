@@ -130,7 +130,26 @@ public class MemBoardDao {
 		return q;
 	}
 	
-	
+	public int askToAdminInsert(Connection conn, int userNo, String subject, String title, String content) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("askToAdminInsert");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, subject);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

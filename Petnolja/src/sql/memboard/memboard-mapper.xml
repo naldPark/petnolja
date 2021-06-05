@@ -60,13 +60,31 @@
 			AND QNA_STATUS='Y'
 			and Q_MEM_NO=?
       </entry>
+      
+      
+		 <entry key="askToAdminInsert">
+				insert into qna
+					values(
+					    SEQ_QNO.NEXTVAL
+					    ,?
+					,null
+					,1
+					,?
+					,?
+					,?
+					,SYSDATE
+					,null
+					,null
+					,null
+					,'Y'
+					,'N')
+		
+		 </entry>
+		      
     
     
 	
 </properties>
-
-
-
 
 
 
