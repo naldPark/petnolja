@@ -1,4 +1,4 @@
-package com.petnolja.petsitter.model.vo;
+package com.petnolja.sitter.model.vo;
 
 import java.sql.Date;
 

@@ -1,11 +1,16 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.petnolja.member.model.vo.Member;
+import com.petnolja.sitter.model.service.SitterService;
 
 /**
  * Servlet implementation class reserveListcontroller
@@ -26,7 +31,25 @@ public class ReserveListcontroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/reser.jsp").forward(request, response);
+		
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		request.setCharacterEncoding("UTF-8");
+		if(m == null) {
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());	
+		} else if(m.getAuthSitter()==null||!m.getAuthSitter().equals("Y")){
+			request.getSession().setAttribute("alertMsg", "권한이 없습니다");
+			response.sendRedirect(request.getContextPath());
+		} else { 
+			
+			int[] count = new SitterService().selectReserveList(m.getMemNo());
+			
+			request.setAttribute("count", count);
+			request.getRequestDispatcher("views/petsitter/reser.jsp").forward(request, response);
+		
+		
+		}
 		
 	}
 

@@ -1,23 +1,28 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.member.model.vo.Member;
+import com.petnolja.sitter.model.service.SitterService;
+
 /**
- * Servlet implementation class serviceController
+ * Servlet implementation class reserveListcontroller
  */
 @WebServlet("/service.sit")
-public class ServiceController extends HttpServlet {
+public class OverallListcontroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServiceController() {
+    public OverallListcontroller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +31,23 @@ public class ServiceController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/service.jsp").forward(request, response);
+		
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		request.setCharacterEncoding("UTF-8");
+		if(m == null) {
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());	
+		} else if(m.getAuthSitter()==null||!m.getAuthSitter().equals("Y")){
+			request.getSession().setAttribute("alertMsg", "권한이 없습니다");
+			response.sendRedirect(request.getContextPath());
+		} else { 
+		
+			request.getRequestDispatcher("views/petsitter/service.jsp").forward(request, response);
+			
+		
+		}
+		
 	}
 
 	/**

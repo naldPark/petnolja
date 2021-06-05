@@ -57,7 +57,7 @@
                       </li>
 
                       <li class="nav-item">
-                          <a class="nav-link" href="<%=contextPath%>/service.sit">펫시팅관리</a>
+                          <a class="nav-link" href="<%=contextPath%>/options.sit">펫시팅관리</a>
                         </li>
                    <%} %>
                     <!--펫시터만 보여지는 메뉴 끝-->

@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.board.model.service.ReportService;
-import com.petnolja.member.model.service.MemberService;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**

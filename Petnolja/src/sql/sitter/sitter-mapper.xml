@@ -29,4 +29,50 @@
 	</entry>
 	
 	
+	
+	<entry key= "selectCurrentOptions">
+	
+	select 
+		  mem_no
+		, mem_name
+		, dsmall
+		, dmid
+		, dbig
+		, osmall
+		, omid
+		, obig
+		, additions
+		from vw_sitter
+		where mem_no=?
+	</entry>
+	
+	
+	<entry key= "sitterWaitingCount">
+	select count(*) count
+        from reserv 
+        join reserv_sitting using(res_no)
+        join fee using(sitting_no)
+        where res_checkin > sysdate
+        and res_status='대기'
+        and sitter_no=?
+    </entry>   
+     	
+    <entry key= "sitterConfirmCount">
+	select count(*) count
+        from reserv 
+        join reserv_sitting using(res_no)
+        join fee using(sitting_no)
+        where res_checkin > sysdate
+        and res_status='대기'
+        and sitter_no=?
+		</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </properties>

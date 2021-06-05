@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% int[] count = (int[])request.getAttribute("count"); %>
 
   <!DOCTYPE html>
   <html>
@@ -74,26 +75,26 @@
             <!--padding을 넣으면 위아래옆으로 네모안에 여유를 두고 글이 써짐-->
             <h2>예약 요청</h2><br>
             <div>
-              <span style="float:left; width:93%">확인되지 않은 요청이 [N]건 있습니다.</span>
+              <span style="float:left; width:93%">확인되지 않은 요청이 [<%=count[0]%>]건 있습니다.</span>
               <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
               <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <button id="btn1" align="right">더보기</button>
+              <button type="button" class="btn btn-primary" align="right">더보기</button>
             </div>
           </div>
 
           <div class="middle-left-2" style="padding: 20px">
             <h2>예약 내역</h2><br>
             <div>
-              <span style="float:left; width:93%">확정된 예약이 [N]건 있습니다.</span>
-              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
+              <span style="float:left; width:93%">확정된 예약이 [<%=count[1]%>]건 있습니다.</span>
+              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
             </div>
           </div>
 
           <div class="middle-left-3" style="padding: 20px">
             <h2>이전 예약</h2><br>
             <div>
-              <span style="float:left; width:93%">가장 최근의 예약은 YY년 MM월 DD일 입니다.</span>
-              <button id="btn1" align="right">더보기</button>
+               <span style="float:left; width:93%">&nbsp; </span>
+               <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
             </div>
           </div>
           

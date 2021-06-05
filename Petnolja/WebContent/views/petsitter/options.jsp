@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.petnolja.research.model.vo.Research"%>
+<% Research r = (Research)request.getAttribute("info"); %>
 
   <!DOCTYPE html>
   <html>
@@ -94,49 +95,55 @@
         <!-- MIDDLE -->
         <div class="middle">
 
-          <div class="middle-left-1" style="padding: 20px">
-            <!--padding을 넣으면 위아래옆으로 네모안에 여유를 두고 글이 써짐-->
-            <h2>이용일/시간관리</h2><br>
-            <div>
-              <span style="float:left; width:80%">마지막 수정일은 YY년 MM월 DD일 00:00 오후 입니다.</span>
-              <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
-              <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/Abledate.sit'" align="right">
+          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+            <h2 style="float:left;">이용일/시간 관리</h2>
+            <div style="padding-left:300px;">
+              <input type="button" value="더보기" class="btn btn-primary" onclick="location.href='<%=contextPath%>/Abledate.sit'" align="right">
             </div>
           </div>
 
-          <div class="middle-left-2" style="padding: 20px">
-            <h2>시팅 금액 관리</h2><br>
-            <div>
-              <span style="float:left; width:80%">마지막 수정일은 YY년 MM월 DD일 00:00 오후 입니다.</span>
-              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/sitmoney.sit'" align="right">
+          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+            <h2 style="float:left;">시팅 금액 관리</h2>
+            <div style="padding-left:300px;">
+            <input type="button" value="더보기" class="btn btn-primary"  onclick="location.href='<%=contextPath%>/sitmoney.sit'" align="right">
             </div>
           </div>
 
-          <div class="middle-left-3" style="padding: 20px">
-            <h2>추가 서비스 관리</h2><br>
-            <div>
-              <span style="float:left; width:80%">현재 선택된 추가서비스는 [3]개 입니다.</span>
-              <input type="button" value="더보기" id="btn1" onclick="location.href='<%=contextPath%>/addservice.sit'" align="right">
+          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+            <h2 style="float:left;">추가 서비스 관리</h2>
+            <div style="padding-left:300px;">
+            <input type="button" value="더보기" class="btn btn-primary"  onclick="location.href='<%=contextPath%>/addservice.sit'" align="right">
             </div>
           </div>
           <div class="middle-right" style="padding: 20px;" >
             <h2>현재 설정된 옵션</h2>
             <div class="dog" style="word-spacing :30px; padding: 20px;">
-              <span style="float:left"></span>
-              <span>&ensp;&ensp;시팅&ensp;금액 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;1박케어&ensp;데이케어</span>
-              <br>
               <div>
-                <span>ㆍ소형견&ensp;7키로미만 40,000원&ensp;35,000원</span><br>
-                <span>ㆍ중형견&ensp;7~14.9키로 +10%&ensp;&ensp;+10%</span><br>
-                <span>ㆍ대형견&ensp;15키로이상 +20%&ensp;&ensp;+10%</span>
-                <hr>
-              </div>
+                
+                	<div style="float:left; margin-right: 30px;">
+                	 <b>ㆍ시팅&ensp;금액</b> <br><br>
+                	ㆍ소형견&ensp;7키로미만 <br>
+                	ㆍ중형견&ensp;7~14.9키로 <br>
+                	ㆍ대형견&ensp;15키로이상
+                	</div>
+            	    <div style="float:left; margin-right: 30px;">
+            	 	<b>1박케어</b><br><br>
+                	<%=r.getSmallNightFee()%>원 <br>
+                	<%=r.getMidNightFee()%>원 <br>
+                	<%=r.getBigNightFee()%>원
+                	</div>
+                	<div>
+                	<b>데이케어</b><br><br>
+                	<%=r.getSmallDayFee()%>원 <br>
+                	<%=r.getMidDayFee()%>원 <br>
+                	<%=r.getBigDayFee()%>원
+                	</div>
+
+              </div><br>
+               <hr>
               <div style="padding: 20px;">
                 <h3>추가&ensp;서비스</h3>
-                <span>ㆍ자차&ensp;픽업</span><br>
-                <span>ㆍ약물&ensp;복용</span><br>
-                <span>ㆍ노령견&ensp;케어&ensp;가능</span>
+                <span><%=r.getAdditions() %></span><br>
             </div>
           </div>
 

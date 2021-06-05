@@ -62,7 +62,7 @@
             <div><input type="checkbox" name="addServ" value="자차픽업" >자차 픽업 가능</div><br>
             <div><input type="checkbox" name="addServ" value="목욕가능" >목욕 가능 (목욕시킬 수 있는 경우)</div><br>
             <div><input type="checkbox" name="addServ" value="약물복용" >약물 복용 (약을 바르거나 내복약을 먹여본 적 있음)</div><br>
-            <div><input type="checkbox" name="addServ" value="노견케어" >노령견 케어 가능 (관련된 교육이나 노령견을 케어해 본 경험)</div><br>
+            <div><input type="checkbox" name="addServ" value="노령견" >노령견 케어 가능 (관련된 교육이나 노령견을 케어해 본 경험)</div><br>
             <div><input type="checkbox" name="addServ" value="응급상황" >응급상황 시 인근 병원 이동 가능</div>
         </div><br><br>
         <div style="margin-left: 20%;">

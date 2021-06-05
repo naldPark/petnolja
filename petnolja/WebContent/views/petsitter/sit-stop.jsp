@@ -9,9 +9,10 @@
 <style>
     .container-stop{
         width: 700px;
-        padding: 50px 0px 40px 100px;
+        padding: 50px 0px 50px 0px;
         margin: auto;
         border: 1px solid #C7C7C7;
+        
     }
     table, td, th {
     border : 1px solid #D6D6D6;
@@ -26,28 +27,15 @@
         font-size: 12px;
     }
 </style>
-<script>
-    $(function(){
-  $("input[type='checkBox']").change(function(){
-    var len = $("input[type='checkBox']:checked").length;
-    if(len > 0)
-        $("input[type='submit']").removeAttr("disabled");
-    else
-      $("input[type='submit']").prop("disabled", true);
-  });
-  $("input[type='checkBox']").trigger('change');
-});
-</script>
+
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp" %>
-    <div class="container-stop">
-        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
-        <div class="head-stop">
-            <div></div>
-        </div>
+    <%@ include file="serv-menu.jsp" %>
+        <div class="container-stop">
+        <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;">
+
         
-        <div class="middle-stop">
+        <div class="middle-stop" style="padding: 30px;">
             <div>
                 <div style="font-size: 30px; font-weight: bold;">시팅 서비스 중지</div>
                 <div class="text-stop">펫시팅 서비스를 중지하기 전에 안내 사항을 꼭 확인해주세요.</div>
@@ -69,20 +57,22 @@
             </div><br>
         </div>
         <form action="<%=contextPath%>/deleteSitStop.sit"  method="post">
-        <div style="height: auto; width: 80%; border:1px solid #D6D6D6; padding: 30px 0px 30px 30px;">
-            <div>중지 사유 선택 *</div>
-            <div><input  type="radio" name="stopRadio" value="비밀" />개인 사정</div>
-            <div><input  type="radio" name="stopRadio" value="불만"/>펫놀자 서비스에 대한 불만</div>
-            <div><input  type="radio" name="stopRadio" value="기타사유"/>기타 사유(상세히 적어 주세요)</div>
+        <div style="height: auto; width: 80%; border:1px solid #D6D6D6; margin: 0px 30px 30px 60px; padding: 20px;">
+            <div>중지 사유 선택 *</div><br>
+            <div><input  type="radio" name="stopRadio" value="비밀" checked>개인 사정</div>
+            <div><input  type="radio" name="stopRadio" value="불만">펫놀자 서비스에 대한 불만</div>
+            <div><input  type="radio" name="stopRadio" value="기타사유">기타 사유(상세히 적어 주세요)</div><br>
         
             <div>상세 이유 *</div>
-            <textarea name ="deReason" rows="5" cols= "70" wrap = "virtual"></textarea>
-        </div><br><br>
-        <div style="margin-left: 35%;">
-            <button type="submit">제출</button>
-            <button class="btn2">취소</button>
+            <textarea name ="deReason" rows="5" cols= "70" style="width: 500px; resize:none" required></textarea>
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-primary" >제출</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/options.sit'">취소</button>
         </div>
     </form>
     </div>
+    
+
 </body>
 </html>
