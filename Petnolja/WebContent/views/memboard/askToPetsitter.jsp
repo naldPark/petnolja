@@ -19,9 +19,7 @@
             background-color: rgb(230, 230, 230);
             text-align: center; 
         }
-        .filebox input[type="file"] {position: absolute;  overflow: hidden; clip:rect(0,0,0,0);} 
-        .filebox label { display: inline-block; padding: .5em .75em; color: rgb(133, 132, 132);  cursor: pointer; border: 1px solid #ebebeb;} 
-       .filebox .upload-name { background-color: #f5f5f5; border: 1px solid #ebebeb; }
+    
 </style>
 </head>
 <body>
@@ -50,24 +48,11 @@
           <br>         
 		  <br>
           <button type="submit" class="btn btn-primary">문의하기</button>&nbsp;
-          <button type="button" class="btn btn-secondary" onclick="history.back();">문의목록보기</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/askPet.me?sno=<%=sno%>&currentPage=1'">목록보기</button>
         </div>
         </form>
  </div>
- <script>
-    $(document).ready(function(){ var fileTarget = $('.filebox .upload-hidden'); fileTarget.on('change', function(){
-    if(window.FileReader){
-    var filename = $(this)[0].files[0].name; } else { 
-    var filename = $(this).val().split('/').pop().split('\\').pop(); 
-     } 
-    $(this).siblings('.upload-name').val(filename); }); });
-    function checkSize(input) {
-    if (input.files && input.files[0].size > (20 * 1024 * 1024)) {
-        alert("파일 사이즈가 20mb 를 넘습니다.");
-        input.value = null;
-        }
-    }
-</script>
+
 
  <br><br>
  <%@ include file = "../common/footer.jsp"%>

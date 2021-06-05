@@ -19,6 +19,7 @@
           padding: 15px;
         }
         table{text-align: center;}
+        	 tr:hover{cursor:pointer; background:lightgrey}
 
 </style>
 </head>

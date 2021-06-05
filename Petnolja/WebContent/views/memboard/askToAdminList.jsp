@@ -20,6 +20,7 @@
         }
         table{text-align: center; }
         td:nth-of-type(1) { display: none; } 
+         tr:hover{cursor:pointer; background-color: lightgrey;}
 
 </style>
 </head>

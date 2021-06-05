@@ -13,13 +13,14 @@
 <style>
 	.outer{
 		width:1000px;
-		height:600px;
 		position:relative;
 		margin:auto;
 		margin-top:20px;
 		padding:70px;
 		border:1px solid lightgray;
 	}
+	 td:nth-of-type(1) { display: none; } 
+	 tr:hover{cursor:pointer}
 </style>
 </head>
 <body>
@@ -28,24 +29,27 @@
 	<div class="outer">
 		<div class="container">
 			<h2>펫시터 문의하기 목록</h2>
-
+			
+			<% if(loginUser != null) { %>
+		    <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/askToWriter.me?sno=<%=sno%>'">글작성</button>
+			<%} %>
 			<br>
 			
 			<p></p>            
-			<table class="table table-hover">
-			  <thead class="thead-dark">
+			<table class="table table-hover" style="text-align:center">
+			  <thead class="thead-dark" >
 				<tr>
-				  <th>번호</th>
-				  <th>제목</th>
-				  <th>작성자</th>
-				  <th>작성일</th>
+		     	   <td width="1">글번호</th>
+		           <th width="600">제목</th>
+		           <th width="150">작성자</th>
+		           <th width="150">작성일시</th>
 				</tr>
 			  </thead>
 			  <tbody>
 				<% if(list.isEmpty()){ %>
 		      	 <!-- 리스트가 비어있을 경우 -->
 		      	 <tr>
-		      	 	<td colspan="3">존재하는 공지사항이 없습니다.</td>
+		      	 	<td colspan="3">존재하는 게시글이 없습니다.</td>
 		      	 <tr>
 		      	</tbody>
 		      	</table>
@@ -64,7 +68,6 @@
 			</table>
 		  </div>
 
-		  <button class="btn btn-secondary" style="position:absolute; top:110px; left:840px;" onclick="location.href='<%=contextPath%>/askToWriter.me?sno=<%=sno%>'">글작성</button>
 
 	<script>
 	  	$(function(){

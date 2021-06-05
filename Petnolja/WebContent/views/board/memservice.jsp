@@ -24,7 +24,6 @@
                 margin-top:5px;
                 border-radius:10px;  
                 display:none;
-                /* border-collapse:collapse; */
             }
 
         .answer>td{background-color: rgb(247, 247, 247);}
