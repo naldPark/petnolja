@@ -304,6 +304,15 @@
     	   SET
     	    MEM_STATUS = 'N'
     </entry>
+    
+    
+	
+	<entry key="idCheck">
+		SELECT
+			   COUNT(*)
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
+	</entry>
 	
 </properties>
 

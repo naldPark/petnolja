@@ -1,25 +1,27 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.member.model.vo.Member;
+import com.petnolja.member.model.service.MemberService;
+
 
 /**
- * Servlet implementation class enrollController
+ * Servlet implementation class AjaxIdCheckController
  */
-@WebServlet("/enroll.sit")
-public class SitterApplyFormController extends HttpServlet {
+@WebServlet("/idCheck.mem")
+public class AjaxIdCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SitterApplyFormController() {
+    public AjaxIdCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +30,17 @@ public class SitterApplyFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String checkId = request.getParameter("checkId");
 		
-		request.setCharacterEncoding("UTF-8");
-			
-		if(request.getSession().getAttribute("loginUser") == null) {
-			
-			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath());
+		int count = new MemberService().idCheck(checkId);
 		
-		} else { 
-			
-			request.getRequestDispatcher("views/petsitter/applyPetsitter.jsp").forward(request, response);
+		if(count > 0) { // 존재하는 아이디가 있을경우 => 사용불가능
+			response.getWriter().print("NNNNN");
+		}else { // 존재하는 아이디가 없을 경우 => 사용가능
+			response.getWriter().print("NNNNY");
 		}
+	
 	}
 
 	/**

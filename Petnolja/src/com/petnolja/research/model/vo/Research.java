@@ -58,6 +58,21 @@ public class Research {
 	
 	
 
+	public Research(int sitterNo, String sitterName, String sitterTitle, String additions, String smallNightFee,
+			String midNightFee, String bigNightFee, String smallDayFee, String midDayFee, String bigDayFee) {
+		super();
+		this.sitterNo = sitterNo;
+		this.sitterName = sitterName;
+		this.sitterTitle = sitterTitle;
+		this.additions = additions;
+		this.smallNightFee = smallNightFee;
+		this.midNightFee = midNightFee;
+		this.bigNightFee = bigNightFee;
+		this.smallDayFee = smallDayFee;
+		this.midDayFee = midDayFee;
+		this.bigDayFee = bigDayFee;
+	}
+
 	public Research(int sitterNo, String sitterName, String smallNightFee, String midNightFee,
 			String bigNightFee, String smallDayFee, String midDayFee, String bigDayFee, String additions) {
 		super();
