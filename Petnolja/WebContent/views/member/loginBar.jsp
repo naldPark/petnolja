@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>펫시터</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=78c48ff942d4b0a9d168f063558d8359&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24041778a2f826e90efb57a4417ba69d&libraries=services"></script>
 <link rel="stylesheet"  href="<%=request.getContextPath()%>/resources/css/datepicker.min.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.1.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/datepicker.min.js"></script>
@@ -125,7 +125,8 @@
 					유저  ddjn6334 / pass01<br>
 					펫시터 geddong / pass01 <br>
 					관리자 admin1 / admin1<br>
-					<a href="<%=contextPath %>/views/common/temp.jsp">로그인계정 전체보기</a>
+					<a href="<%=contextPath %>/views/common/temp.jsp">로그인계정 전체보기</a><br>
+					<a href="https://docs.google.com/presentation/d/1rYv4m6wa1Q1C1_xVHqbdqsNIuqtXgBM4RVNTDEQOX5s/edit?usp=sharing">펫시터 페이지 개발현황</a>
 					</span>
 			</div>
      </div>	
