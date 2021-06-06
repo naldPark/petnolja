@@ -424,67 +424,6 @@ public class PetsitterDao {
 		
 	}
 	
-	public int calculateDetailCount(Connection conn) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("calculateDetailCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return listCount;		
-		
-	}
-	
-	
-	public ArrayList<Petsitter> selectCalculateDetail(Connection conn, PageInfo pi){
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		ArrayList<Petsitter> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCalculateDetail");
-	
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Petsitter(
-						
-						));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-		
-	}
-	
 	public ArrayList<Qna> selectHist(Connection conn, int userNo) {
 		
 		ArrayList<Qna> list = new ArrayList<>();

@@ -305,12 +305,148 @@ public class AdminDao {
 	}
 	
 	
+	public int CNFcalculateDetailCount(Connection conn, int sno, int month) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("CNFcalculateDetailCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, month);
+			pstmt.setInt(2, sno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
+	
+	public int CNCcalculateDetailCount(Connection conn, int sno, int month) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("CNCcalculateDetailCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, month);
+			pstmt.setInt(2, sno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
 	
 	
+	public ArrayList<Calculate> CNFselectCalculateDetail(Connection conn, PageInfo pi, int sno, int month){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("CNFselectCalculateDetail");
 	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			pstmt.setInt(1, month);
+			pstmt.setInt(2, sno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getString("mem_name"),
+								rset.getString("mem_id"),
+								rset.getString("acc_bank"),
+								rset.getString("acc_number"),
+								rset.getInt("pay_no"),
+								rset.getLong("conf"),
+								rset.getString("ispenalty").charAt(0)
+									));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
 	
+	public ArrayList<Calculate> CNCselectCalculateDetail(Connection conn, PageInfo pi, int sno, int month){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Calculate> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("CNCselectCalculateDetail");
 	
-	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			pstmt.setInt(1, month);
+			pstmt.setInt(2, sno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getString("mem_name"),
+								rset.getString("mem_id"),
+								rset.getString("acc_bank"),
+								rset.getString("acc_number"),
+								rset.getInt("pay_no"),
+								rset.getLong("canc"),
+								rset.getString("ispenalty").charAt(0)
+									));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
 	
 	
 	

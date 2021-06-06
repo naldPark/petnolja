@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.admin.model.vo.Calculate" %>
+
+<% 
+	PageInfo pi=(PageInfo)request.getAttribute("pi"); 
+	ArrayList<Calculate> CNFlist = (ArrayList<Calculate>)request.getAttribute("CNFlist");
+    ArrayList<Calculate> CNClist = (ArrayList<Calculate>)request.getAttribute("CNClist");
+    ArrayList<Calculate> list = new ArrayList<>();
+    list.addAll(CNFlist); list.addAll(CNClist);
+    int currentPage = pi.getCurrentPage();
+    int startPage = pi.getStartPage();
+    int endPage = pi.getEndPage();
+    int maxPage = pi.getMaxPage();
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,8 +79,8 @@
     <div class="outer" align="center">
         <div class="account-info" align="left">
             <span>
-                <span>ID : cucumber11 &nbsp; &nbsp;</span>
-                <span>계좌정보 : 카카오뱅크 352-555-2222-11</span>
+                <span>ID : <%= list.getMemId() %> &nbsp; &nbsp;</span>
+                <span>계좌정보 : <%= list.getAccBank() %></span>
             </span>
 
             <span>
@@ -89,101 +102,50 @@
                     <th width="200px">누적금액(원)</th>
                 </tr>
             </thead>
+            <% long sumPay = 0; %>
             <tbody>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>2021-05-25</td>
-                    <td>20210525</td>
-                    <td>50000</td>
-                    <td>N</td>
-                    <td>50000</td>
-                </tr>
-
+				<% if(list.isEmpty()){ %>
+            		<tr>
+            			<td colspan="6">조회된 결과가 없습니다.</td>
+            		</tr>
+            	<% }else { %>
+            		<% for(Calculate c : list){ %>
+            			<% long eachPay = c.getPayAmount(); %>
+		                <tr>
+		                    <td><%= c. %></td>
+		                    <td><%= c. %></td>
+		                    <td><%= c.getPayNo() %></td>
+		                    <td><%= eachPay %></td>
+		                    <td><%= c.getIsPenalty() %></td>
+		                    <% sumPay += eachPay; %>
+		                    <td><%= sumpay %></td>
+		                </tr>
+                	<% } %>
+                <% } %>
             </tbody>
         </table>
 
         <!-- 페이징바 -->
-
         <div id="paging-area">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <button class="btn btn-outline-primary btn-sm">1</button>
-            <button class="btn btn-outline-primary btn-sm">2</button>
-            <button class="btn btn-outline-primary btn-sm">3</button>
-            <button class="btn btn-outline-primary btn-sm">4</button>
-            <button class="btn btn-outline-primary btn-sm">5</button>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
+            <div id="paging-area">
+			<% if(currentPage != 1){ %>
+            	<button onclick="location.href='<%=contextPath%>/calculateDetail.ad?currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary btn-sm"> &lt; </button>
+			<% } %>
+
+            <% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            	<% if(p != currentPage){ %>
+	            	<button onclick="location.href='<%=contextPath%>/calculateDetail.adcurrentPage=<%= p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>
+	            <% }else { %>
+	            	<button class="btn btn-outline-primary btn-sm" disabled><%= p %></button>
+            	<% } %>
+            	
+            <% } %>
+
+			<% if(currentPage != maxPage){ %>
+            	<button onclick="location.href='<%=contextPath%>/calculateDetail.ad?currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
+			<% } %>
+
         </div>
     </div>
 
