@@ -82,6 +82,42 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="calculateListCount">
+		SELECT COUNT(*) COUNT
+  		  FROM VW_CAL
+	</entry>
 	
+	<entry key="selectCalculateList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+                SELECT SITTER_ID
+                     , SITTER_NAME
+                     , TO_CHAR(MONTH) "MONTH"
+                     , TO_CHAR(YEAR) "YEAR"
+                     , TOTAL
+                  FROM VW_CAL
+                ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+		<entry key="selectKeyCalculateList">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+                SELECT SITTER_ID
+                     , SITTER_NAME
+                     , TO_CHAR(MONTH) "MONTH"
+                     , TO_CHAR(YEAR) "YEAR"
+                     , TOTAL
+                  FROM VW_CAL
+                 WHERE SITTER_ID LIKE ?
+                ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
 </properties>

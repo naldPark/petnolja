@@ -155,7 +155,7 @@
             <ul>
                 <li><a href="<%=contextPath%>/deallist.ad?currentPage=1">거래내역</a></li>
                 <li><a href="">통계자료</a></li>
-                <li><a href="">펫시터 정산</a></li>
+                <li><a href="<%=contextPath %>/callist.ad?currentPage=1">펫시터 정산</a></li>
             </ul>
         </li>
         <li style="width:450px;">

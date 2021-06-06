@@ -9,10 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 
 import com.petnolja.admin.model.vo.Admin;
+import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.admin.model.vo.Deal;
 import com.petnolja.common.model.vo.PageInfo;
 
@@ -208,6 +208,101 @@ public class AdminDao {
 	}
 	
 	
+	/** 최서경
+	 * 펫시터 정산페이지 목록 개수
+	 */
+	public int calculateListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("calculateListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	/** 펫시터 정산 페이지 목록 조회
+	 */
+	public ArrayList<Calculate> selectCalculateList(Connection conn, PageInfo pi){
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		ArrayList<Calculate> list = new ArrayList<Calculate>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCalculateList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getString("sitter_id")
+									 , rset.getString("sitter_name")
+									 , rset.getString("year")
+									 , rset.getString("month")
+									 , rset.getLong("total")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	/** 최서경
+	 *  펫시터 정산페이지 펫시터 아이디로 검색
+	 */
+	public ArrayList<Calculate> selectCalculateList(Connection conn, PageInfo pi, String keyword){
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		ArrayList<Calculate> list = new ArrayList<Calculate>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyCalculateList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+ keyword +"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calculate(rset.getString("sitter_id")
+									 , rset.getString("sitter_name")
+									 , rset.getString("year")
+									 , rset.getString("month")
+									 , rset.getLong("total")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 	
