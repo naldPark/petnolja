@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <%@ include file="serv-menu.jsp" %>
+    <%@ include file="serviceMenu.jsp" %>
       <div class="container" align="center">
 
 	        <div class="middle">

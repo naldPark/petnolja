@@ -68,7 +68,6 @@
     <%@ include file="../common/menubar.jsp" %>
       <div class="container">
        <br>
-       <%@ include file="exa-menu.jsp" %>
        <span style="font-size: 25px; font-weight:bold;">정산 계좌 관리</span><br><br>
        <span style="font-size: 15px; font-weight:bold;">정산 계좌 관리 (5개까지 등록 가능)
         <span style="float:right;"><button id="btn1">계좌등록</button></span>

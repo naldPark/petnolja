@@ -41,7 +41,7 @@ public class HistInquiryController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		
-		request.getRequestDispatcher("views/petsitter/hist-Inquiry.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/serviceQuestuion.jsp").forward(request, response);
 	}
 
 	/**

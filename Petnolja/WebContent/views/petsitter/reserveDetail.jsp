@@ -60,7 +60,7 @@
 			  	</div>
 			  	<div class="row">
 			  		<div class="col">
-						<input type="button" value="뒤로가기" id="back" onclick="location.href='<%=contextPath%>/reserVation.sit'">
+						<input type="button" value="뒤로가기" id="back" onclick="location.href='<%=contextPath%>/reserveVation.sit'">
 			  			<button type="button" class="btn btn-primary">예약확정</button>
 			  			<input type="button" value="예약거절" id="reject" onclick="location.href='<%=contextPath%>/reject.sit'">
 			  		</div>

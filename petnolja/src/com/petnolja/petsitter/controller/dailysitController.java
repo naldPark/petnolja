@@ -41,7 +41,7 @@ public class DailysitController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/petsitter/daily-sit.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/serviceDailySit.jsp").forward(request, response);
 		
 	}
 

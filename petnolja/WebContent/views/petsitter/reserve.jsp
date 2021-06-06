@@ -64,7 +64,7 @@
   </head>
 
   <body>
-    <%@ include file="../petsitter/re-menu.jsp" %>
+    <%@ include file="../petsitter/reserveMenu.jsp" %>
       <div class="container">
        <br>
        
@@ -86,7 +86,7 @@
             <h2>예약 내역</h2><br>
             <div>
               <span style="float:left; width:93%">확정된 예약이 [<%=count[1]%>]건 있습니다.</span>
-              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
+              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserveVation.sit'" align="right">
             </div>
           </div>
 
@@ -94,7 +94,7 @@
             <h2>이전 예약</h2><br>
             <div>
                <span style="float:left; width:93%">&nbsp; </span>
-               <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserVation.sit'" align="right">
+               <input type="button" class="btn btn-primary"  value="더보기"  align="right">
             </div>
           </div>
           

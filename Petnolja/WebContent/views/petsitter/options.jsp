@@ -88,7 +88,7 @@
   </head>
 
   <body>
-    <%@ include file="../petsitter/serv-menu.jsp" %>
+    <%@ include file="../petsitter/serviceMenu.jsp" %>
       <div class="container">
         
         

@@ -61,15 +61,6 @@
         height: 150px;
         background-color: #E1F0FA;
       }
-
-      .middle-left-3 {
-
-        margin-top: 20px;
-        width: 600px;
-        height: 150px;
-        background-color: #E1F0FA;
-      }
-
       #btn1 {
         border: 0px;
         margin-right: 5px;
@@ -87,7 +78,7 @@
   </head>
 
   <body>
-    <%@ include file="../petsitter/exa-menu.jsp" %>
+    <%@ include file="../petsitter/reserveMenu.jsp" %>
       <div class="container">
         
         
@@ -101,7 +92,7 @@
               <span style="float:left; width:80%">YY월 MM월 DD일 기준 예정된 정산 총액은 [200,000]원입니다.</span>
               <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
               <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <button id="btn1" align="right">더보기</button>
+              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/calculateMoney.sit'" align="right">
             </div>
           </div>
 
@@ -109,19 +100,11 @@
             <h2>정산 계좌 관리</h2><br>
             <div>
               <span style="float:left; width:80%">현재 등록된 정산 계좌는 [NNNN]입니다.</span>
-              <button type="button" id="btn1" align="right">더보기</button>
+              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/calculateAccount.sit'" align="right">
             </div>
           </div>
           
-          <div class="middle-right" style="padding: 20px">
-            <h2>알림</h2><br>
-            <div>
-              <span style="float:left">
-                21년 01월 15일<br>
-                NNNN계좌로<br>
-                000,000원 정산되었습니다.</span>
-            </div>
-          </div>
+          
 
         </div>
         <br><br>

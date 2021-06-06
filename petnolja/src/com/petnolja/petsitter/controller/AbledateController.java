@@ -26,7 +26,7 @@ public class AbledateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/sitterAbleDate.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/optionAble.jsp").forward(request, response);
 	}
 
 	/**

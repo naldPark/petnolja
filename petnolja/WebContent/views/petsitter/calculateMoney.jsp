@@ -51,7 +51,7 @@
   </head>
 
   <body>
-    <%@ include file="../petsitter/exa-menu.jsp" %><br>
+    <%@ include file="../common/menubar.jsp" %><br>
       <div class="container">
        <br>
        <br>

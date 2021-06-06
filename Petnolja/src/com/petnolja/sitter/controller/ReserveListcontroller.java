@@ -46,7 +46,7 @@ public class ReserveListcontroller extends HttpServlet {
 			int[] count = new SitterService().selectReserveList(m.getMemNo());
 			
 			request.setAttribute("count", count);
-			request.getRequestDispatcher("views/petsitter/reser.jsp").forward(request, response);
+			request.getRequestDispatcher("views/petsitter/reserve.jsp").forward(request, response);
 		
 		
 		}

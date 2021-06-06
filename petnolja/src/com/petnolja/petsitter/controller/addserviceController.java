@@ -26,7 +26,7 @@ public class AddserviceController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/add-service.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/optionService.jsp").forward(request, response);
 	}
 
 	/**

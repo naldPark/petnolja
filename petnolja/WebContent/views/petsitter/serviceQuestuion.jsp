@@ -34,7 +34,7 @@
 </style>
 </head>
 <body>
- <%@ include file="serv-menu.jsp" %>
+ <%@ include file="serviceMenu.jsp" %>
     <div class="container-stop">
         <img src="<%=contextPath %>/resources/images/PET.png" style="width: 200px;"><br><br><br>
         <div class="head-stop">

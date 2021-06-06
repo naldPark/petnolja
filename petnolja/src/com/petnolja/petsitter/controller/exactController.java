@@ -26,7 +26,7 @@ public class ExactController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/exact.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/calculate.jsp").forward(request, response);
 	}
 
 	/**
