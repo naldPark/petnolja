@@ -31,12 +31,14 @@
         }
         .wrap1{height:280px;}
         .wrap1>div{float:left; text-align: center;}
-        .float_banner2   {   position:absolute; position:fixed; left:10PX; top:100px;    padding:0   }
 </style>
 </head>
 <body>
  <div class="wrap wrap1" style="height: 390px;">
   <%@ include file = "findIdPwd.jsp" %>
+	  &nbsp;&nbsp;<b>[ 테스트 계정 ]</b> &nbsp;&nbsp; 유저  ( ddjn6334 / pass01 ) &nbsp;&nbsp;|&nbsp;&nbsp;	펫시터 ( geddong / pass01 ) &nbsp;&nbsp;|&nbsp;&nbsp;	관리자 ( admin1 / admin1 )&nbsp;&nbsp;|&nbsp;&nbsp; 
+	  <a href="<%=contextPath %>/views/common/temp.jsp" target="_blank">계정 전체보기</a>&nbsp;&nbsp;|&nbsp;	&nbsp;
+	  <a href="https://docs.google.com/presentation/d/1rYv4m6wa1Q1C1_xVHqbdqsNIuqtXgBM4RVNTDEQOX5s/edit?usp=sharing" target="_blank">펫시터페이지 개발 현황</a>
      <!--검색창 시작-->
      <hr>
      <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2><br>
@@ -119,17 +121,6 @@
 
   </div>
   <br clear="both">
-  <div class="float_banner2">
-				<div align="left"><span class="top" onclick="goTop(); return false;">
-					[ 임시 로그인 아이디 ]<br><br>
-					유저  ddjn6334 / pass01<br>
-					펫시터 geddong / pass01 <br>
-					관리자 admin1 / admin1<br>
-					<a href="<%=contextPath %>/views/common/temp.jsp">로그인계정 전체보기</a><br>
-					<a href="https://docs.google.com/presentation/d/1rYv4m6wa1Q1C1_xVHqbdqsNIuqtXgBM4RVNTDEQOX5s/edit?usp=sharing">펫시터 페이지 개발현황</a>
-					</span>
-			</div>
-     </div>	
 
  <script>
  
