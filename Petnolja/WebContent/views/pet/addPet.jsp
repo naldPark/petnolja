@@ -64,7 +64,7 @@
 			<!--생일-->
 			<span>
 				<b>생일</b> &nbsp;&nbsp;
-				<input type="text" name="birth" id="birth" placeholder="-포함해서 입력하시오." required>
+				<input type="text" name="birth" id="birth" placeholder="xxxx-xx형태로 입력하세오." required>
 			</span>
 			<br><br>
 
