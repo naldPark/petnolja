@@ -261,7 +261,7 @@
 			}
 
 			 // 전화번호 검증
-	         var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+	         var  regExp =/^\d{2,3}-\d{3,4}-\d{4}$/;
 	         if(!regExp.test(phone.value)){
 	            alert("유효한 전화번호를 입력 해 주세요.")
 	            phone.select();

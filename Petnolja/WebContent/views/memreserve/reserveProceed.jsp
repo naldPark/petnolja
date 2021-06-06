@@ -182,7 +182,6 @@
             pay_method: 'card',
             merchant_uid: 'merchant_' + new Date().getTime(),
             name: '펫놀자 카드 결제페이지',
-            //amount: total+Math.floor(total*0.1), 
             amount: 100, 
             buyer_email: '<%=loginUser.getMemEmail()%>',  
             buyer_name: '<%=loginUser.getMemName()%>',  
@@ -193,16 +192,14 @@
             console.log(rsp);
             payNo=rsp.paid_at;
             if (rsp.success) {
-                var msg = '결제가 완료되었습니다.<br>';
+                var msg = '결제가 완료되었습니다.;
                 reserveInsertAjax('카드');
-                msg += '카드 승인번호 : ' + rsp.apply_num;
                 location.href = "<%=contextPath%>/reserveList.mem";
             } else {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
-            //hidden form만들어서 여기서 서브밋
       });
     
     } else { 
