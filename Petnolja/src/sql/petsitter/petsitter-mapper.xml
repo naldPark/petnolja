@@ -248,7 +248,7 @@
 		        FROM RESERV
 		        JOIN RESERV_SITTING USING (RES_NO)
 		        JOIN FEE F USING(SITTING_NO)
-		        JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
+		        JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO) 
 		        WHERE RES_STATUS = '확정'
 		            <![CDATA[AND EXTRACT(MONTH FROM TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd')) < EXTRACT(MONTH FROM SYSDATE)) USING(RES_NO)]]>
 		JOIN (SELECT (CASE WHEN D > 14 THEN M * 0
@@ -281,6 +281,7 @@
 		
 	<entry key="selectDaily">
 		SELECT
+				
 			    LOG_NO
 			    ,RES_NO
 			    ,LOG_TIME
@@ -290,5 +291,57 @@
 			WHERE MEM_NO = ?
 			AND RES_STATUS = '확정'
 	</entry>
+	
+	<entry key="selectVation">
+	SELECT
+		 MEM_NO
+        ,RES_STATUS
+        ,MEM_NAME
+        ,MEM_TEL
+        ,RES_NO
+        ,RES_CHECKIN
+        ,RES_CHECKOUT
+        ,REQUEST
+    FROM RESERV
+    JOIN MEMBER USING(MEM_NO)
+    WHERE MEM_NO = ?
+    AND RES_STATUS = '확정'
+    
+    </entry>
+    
+    <entry key="selectRequest">
+	SELECT
+		 MEM_NO
+        ,RES_STATUS
+        ,MEM_NAME
+        ,MEM_TEL
+        ,RES_NO
+        ,RES_CHECKIN
+        ,RES_CHECKOUT
+        ,REQUEST
+    FROM RESERV
+    JOIN MEMBER USING(MEM_NO)
+    WHERE MEM_NO = ?
+    AND RES_STATUS = '대기'
+    
+    </entry>
+    
+    <entry key="selectDetail">
+    SELECT
+    	 MEM_NO
+        ,RES_STATUS
+        ,RES_NO
+        ,MEM_NAME
+        ,MEM_TEL
+        ,RES_CHECKIN
+        ,RES_CHECKOUT
+        ,PET_NAME
+        ,REQUEST
+    FROM RESERV
+    JOIN MEMBER USING(MEM_NO)
+    JOIN PET USING(MEM_NO)
+    WHERE MEM_NO = ?
+    AND RES_STATUS = '대기'
+    </entry>
 	
 </properties>

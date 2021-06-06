@@ -10,13 +10,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약내역</title>
+<title>예약 요청</title>
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
     <div class="containerReserv">
         <div class="headReserv">
-            <div style="font-size: 35px; font-weight: bold;">예약 내역</div><br><br>
+            <div style="font-size: 35px; font-weight: bold;">예약 요청</div><br><br>
         </div>
         <div class="middleReserv">
             <table border="1" style="width: 100%;">
@@ -45,7 +45,7 @@
                             	<td style="text-align: center;"><%=r.getResCheckin() %></td>
                             	<td style="text-align: center;"><%=r.getResCheckout() %></td>
                             	<td style="text-align: center;"><%=r.getReQuest() %></td>
-                            	<td style="text-align: center;"><input type="button" value="상세조회" id="write"></td>
+                            	<td style="text-align: center;"><input type="button" value="상세조회" onclick="location.href='<%=contextPath%>/reserveDetail.sit'" id="write"></td>
                             </tr>
                             
                         </tr>

@@ -1,73 +1,119 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Detail,java.util.ArrayList"%>
+    <%
+    
+    Detail d = (Detail)request.getAttribute("d");
+	
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>펫놀자</title>
+<title>Insert title here</title>
 <style>
-       
+.container-check {
+    width: 800px;
+    margin: 0 auto;
+    
+}
+.top{
+    border: 1px solid #D6D6D6;
+    width: 530px;
+    height: 50px;
+    padding: 10px 0px 10px 70px;
+}
+.middle{
+    border: 1px solid #D6D6D6;
+    width: 580px;
+    height: 170px;
+    padding: 20px 0px 0px 20px;
+}
+.footer{
+    border: 1px solid #D6D6D6;
+    width: 580px;
+    height: 350px;
+    padding: 20px 0px 0px 20px;
+}
+.title-dog{
+    font-weight: bold;
+    font-size: 17px;
+    width: 120px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
-<br><br>
-<div class="container bd-content ps-lg-4">
-	<ul class="nav nav-tabs" id="myTab" role="tablist">
-	  <li class="nav-item" role="presentation">
-	    <a class="nav-link" id="reserve_list-tab" data-toggle="tab" href="<%=contextPath%>/petsitterRequested.ad" role="tab" aria-controls="reserve_list" aria-selected="false">예약내역조회</a>
-	  </li>
-	  <li class="nav-item" role="presentation">
-	    <a class="nav-link" id="reserve_done_list-tab" data-toggle="tab" href="<%=contextPath%>/petsitterRequested.ad" role="tab" aria-controls="reserve_done_list" aria-selected="false">이전내역조회</a>
-	  </li>
-	  <li class="nav-item" role="presentation">
-	    <a class="nav-link active" id="manage_of_settle-tab" data-toggle="tab" href="#manage_of_settle" role="tab" aria-controls="manage_of_settle" aria-selected="true">정산관리</a>
-	  </li>
-	</ul>
-	<div class="tab-content py-3" id="myTabContent">
-	  <div class="tab-pane fade show active" id="manage_of_settle" role="tabpanel" aria-labelledby="home-tab">
-	  	<h3>예약번호</h3>
-	  	<div class="row">
-	  		<div class="col">
-	  			<div class="row">
-			  		<div class="col">
-			  			<h4>예약 정보</h4>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col">
-			  			<h4>함께 할 반력</h4>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col">
-			  			<h4>별도 요청 사항</h4>
-			  		</div>
-			  	</div>
-	  		</div>
-	  		<div class="col">
-	  			<div class="row">
-			  		<div class="col">
-			  			<h4>정산 예정 금액</h4>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col">
-			  			<p class="text-danger">반려견 별 주의사항을 꼭 확인해주세요.</p>
-						<p class="text-danger">펫시터 계약에 따라 원칙적으로 펫시터는 확정된 예약을 취소할 수 없습니다. 만약 펫시터 귀책사유로 취소를 할 경우에는 패널티가 부과됩니다.</p>
-						<p class="text-danger">예약요청 48시간 이내 응답하지 않을 시 예약은 자동거절되며 펫시터에게 패널티가 부과됩니다.</p>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col">
-						<input type="button" value="뒤로가기" id="back" onclick="location.href='<%=contextPath%>/reserveVation.sit'">
-			  			<button type="button" class="btn btn-primary">예약확정</button>
-			  			<input type="button" value="예약거절" id="reject" onclick="location.href='<%=contextPath%>/reject.sit'">
-			  		</div>
-			  	</div>
-	  		</div>
-	  	</div>       
-	  </div>
-	</div>
-</div>
- <br><br></body></html>
+    <div class="container-check">
+        <div class="pet_check">
+            <div class="top">
+                <table>
+					<tr>
+						<td style="font-size: 17px;">승인상태</td>
+						<td><%=d.getResStatus() %></td>
+					</tr>
+                    <tr>
+                        <td style="font-size: 17px;">예약번호</td>
+						<td name="nno"><%=d.getResNo() %></td>
+                    </tr>
+                </table>
+            </div><br>
+            <div class="middle">
+                <table >
+                    <tr>
+                        <td class="title-dog">보호자</td>
+                        <td><%=d.getMemName() %></td>
+                    </tr>
+                    <tr>
+                        <td class="title-dog">연락처</td>
+                        <td><%=d.getMemTel() %></td>
+                    </tr>
+                    <tr>
+                        <td class="title-dog">체크인</td>
+                        <td><%=d.getResCheckin() %></td>
+                    </tr>
+					<tr>
+                        <td class="title-dog">체크아웃</td>
+                        <td><%=d.getResCheckout() %></td>
+                    </tr>
+                </table>
+
+            </div>
+            
+            <div class="footer">
+                <table>
+                    <tr>
+                        <td style="font-weight: bold;font-size: 17px;">
+                           	 함께 할 반려견
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><%=d.getPetName() %></td>
+                    </tr>
+                </table><br>
+
+                <table>
+                    <tr>
+                        <td class="title-dog"><%=d.getReQuest() %></td>
+                    </tr>
+                    <tr>
+                        <td><textarea name = "ta2" rows="5" cols= "70" wrap = "virtual"></textarea></td>
+                    </tr>
+                </table><br>
+                <table >
+                    <tr>
+                        <td colspan="2" class="title-dog">정산 예정 금액</td>
+                    </tr>
+                    <tr>
+                        <td class="title-dog">얼마</td>
+						<td>금액</td>
+                    </tr>
+                    
+                </table>
+				<br><br><br><br>
+				</div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -32,7 +32,7 @@ public class DailysitController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("여긴 컨트롤러");
+	
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
 		new PetsitterService().selectDaily(userNo);
