@@ -59,7 +59,6 @@ public class SitterContentEnrollController extends HttpServlet {
 				ArrayList<Attachment> list = new ArrayList<>();
 				Attachment at =null;
 				
-				int fileCount=1;
 				for(int i=1; i<=4; i++) {
 					String key = "file" + i;
 					if(multiRequest.getOriginalFileName(key) != null) {
@@ -69,7 +68,6 @@ public class SitterContentEnrollController extends HttpServlet {
 						at.setFilePath("resources/upfiles/sitter_upfiles/");
 						at.setFileLevel(i);					
 						list.add(at);	
-						fileCount++;  // i로 담으면 띄엄띄엄 담기니까 따로 설정
 					}				
 				}
 				System.out.println("머선일");
