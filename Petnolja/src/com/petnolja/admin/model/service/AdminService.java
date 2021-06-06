@@ -5,10 +5,10 @@ import static com.petnolja.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.petnolja.admin.model.dao.AdminDao;
 import com.petnolja.admin.model.vo.Admin;
+import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.admin.model.vo.Deal;
 import com.petnolja.common.model.vo.PageInfo;
 
@@ -70,6 +70,42 @@ public class AdminService {
 		Connection conn = getConnection();
 		
 		ArrayList<Deal> list = new AdminDao().selectKeyDateDealList(conn, pi, date);
+		
+		close(conn);
+		return list;
+	}
+	
+	/** 최서경
+	 * 펫시터 정산페이지 목록 개수
+	 */
+	public int calculateListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new AdminDao().calculateListCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+	
+	/** 최서경
+	 * 펫시터 정산페이지 목록 조회
+	 */
+	public ArrayList<Calculate> selectCalculateList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Calculate> list = new AdminDao().selectCalculateList(conn, pi);
+		
+		close(conn);
+		return list;
+	}
+	
+	/** 최서경
+	 * 펫시터 정산페이지 펫시터 아이디로 검색
+	 */
+	public ArrayList<Calculate> selectCalculateList(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		
+		ArrayList<Calculate> list = new AdminDao().selectCalculateList(conn, pi, keyword);
 		
 		close(conn);
 		return list;

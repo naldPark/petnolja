@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.petnolja.common.model.vo.PageInfo, java.util.ArrayList, com.petnolja.admin.model.vo.Calculate" %>
+    
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Calculate> list = (ArrayList<Calculate>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,14 +76,16 @@
 
     <div class="outer" align="center">
         <div id="search" align="left">
-            <input type="search" id="carculate-search-box" class="form-control-sm" placeholder="펫시터ID"
+            <input type="search" id="calculate-search-box" class="form-control-sm" placeholder="펫시터ID"
                 style="font-size: 14px;">
         </div>
+        <!-- 
         <div id="month-filter" align="right" style="font-size: 14px;">
             <input id="calender" type="month">
             <span id="month-sum" style="font-weight: 600; font-size: 15px;">단위기간 정산 총액 : 원</span>
         </div>
-
+		 -->
+		 
         <br><br>
         <table class="table" id="calculate-list">
             <thead>
@@ -88,100 +100,44 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-04</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-04</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-03</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>cucumber</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-03</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>banana</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-03</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>zero</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-03</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-03</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-02</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-01</td>
-                    <td>1000000</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>carrot</td>
-                    <td>김오이</td>
-                    <td><button class="btn btn-info">상세조회</button></td>
-                    <td>2021-01</td>
-                    <td>1000000</td>
-                </tr>
-
+	            <% if(list.isEmpty()) { %>
+	                <tr>
+	                    <td colspan="6">정산내역이 존재하지 않습니다.</td>
+	                </tr>            
+	            <% } else { %>
+	            	<% for(Calculate c : list) {%>
+		                <tr>
+		                    <td>001</td>
+		                    <td><%=c.getSitterId()%></td>
+		                    <td><%=c.getSitterName() %></td>
+		                    <td><button class="btn btn-info">상세조회</button></td>
+		                    <% String calMonth = Integer.parseInt(c.getCalMonth())<10 ? "0" + c.getCalMonth(): c.getCalMonth(); %>
+		                    
+		                    
+		                    <td><%=c.getCalYear()%>-<%=calMonth %></td>
+		                    <td><%=c.getPayTotal() %></td>
+		                </tr>
+	            	<% } %>
+	            <% } %>
             </tbody>
         </table>
 
         <!-- 페이징바 -->
-
-        <div id="paging-area">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <button class="btn btn-outline-primary btn-sm">1</button>
-            <button class="btn btn-outline-primary btn-sm">2</button>
-            <button class="btn btn-outline-primary btn-sm">3</button>
-            <button class="btn btn-outline-primary btn-sm">4</button>
-            <button class="btn btn-outline-primary btn-sm">5</button>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
+		<div id="paging-area">
+        	<%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath %>/callist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
+			<% } %>
+			<% for(int p=startPage; p<endPage; p++){ %>
+				<% if(p != currentPage) {%>
+		            <button onclick="location.href='<%=contextPath %>/callist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
+				<% } else {%>
+		            <button disabled class="btn btn-outline-primary btn-sm"><%=p %></button>
+				<% } %>
+			<% } %>
+			
+			<%if(currentPage != maxPage && !list.isEmpty()) {%>
+	            <button onclick="location.href='<%=contextPath %>/callist.ad?currentPage=<%=currentPage + 1 %>';" class="btn btn-outline-primary btn-sm">&gt;</button>
+			<% } %>
         </div>
     </div>
 
@@ -190,20 +146,23 @@
 <script>
     //펫시터 아이디로 필터링
     $(document).ready(function () {
-        $("#carculate-search-box").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#calculate-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(1).text().toLowerCase().indexOf(value) > -1)
-            });
-
-
+        $("#calculate-search-box").on("keyup", function () {
+        	
+        	if(event.keyCode == "13"){
+	            var keyword = $(this).val().toLowerCase();
+	            location.href = "<%=contextPath%>/callist.ad?currentPage=1&key="+keyword;
+        	}
+        	
+	        /*	
             $("#month-sum").text("단위기간 정산 총액 : 원");
 
+            */
 
 
         });
     });
 
+    /*
     //정산 기간으로 필터링
     $(document).ready(function () {
         $("#calender").on("change", function () {
@@ -225,12 +184,8 @@
 
                 $("#month-sum").text("단위기간 정산 총액 : " + sum + " 원");
             });
-
-
-
-
         });
-    });
+    });*/
 </script>
 
 </body>
