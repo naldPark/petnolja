@@ -30,8 +30,12 @@ public class LoginController extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		if(loginUser ==null) {
-			request.setAttribute("errorMsg", "로그인 실패했습니다.");
+			request.getSession().setAttribute("alertMsg", "일치하는 계정/비밀번호가 없습니다");
+			response.sendRedirect(request.getContextPath());
+		}else if(loginUser.getMemBlock().equals("Y")){
+			request.setAttribute("errorMsg", "아이디가 잠겨있는 상태입니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}else {
 			request.getSession().setAttribute("loginUser", loginUser);
 			request.getSession().setAttribute("alertMsg", loginUser.getMemName()+"님 환영합니다");

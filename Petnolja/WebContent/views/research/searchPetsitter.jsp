@@ -19,7 +19,7 @@
         }
         #outer{
           width:1400px;
-          height: 1800px;
+          height: 1900px;
           margin:auto;
           position:relative;
           font-family:'Noto Sans KR', sans-serif !important;
