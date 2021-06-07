@@ -48,8 +48,8 @@
 	<%@ include file="../common/menubar.jsp" %>
 
 
-<div id="outer"><br><br>
-  <%@ include file = "../member/loginBar.jsp" %>
+<div id="outer"><br>
+  <%@ include file = "../member/loginBar.jsp" %><hr><br>
 
     <!-- 추천리스트 시작 -->
   <div class="wrap wrap2" style="width:1000px;">
