@@ -75,7 +75,6 @@
  <%} %>
  <%@ include file = "views/common/menubar.jsp" %>
 
- <br>
 <div id="mainPage"><br>
   <%@ include file = "views/member/loginBar.jsp" %>
 

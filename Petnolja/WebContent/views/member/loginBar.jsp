@@ -36,11 +36,12 @@
 <body>
  <div class="wrap wrap1" style="height: 390px;">
   <%@ include file = "findIdPwd.jsp" %>
+ 	  <div style="border:1px solid lightgrey; width:100%; padding-top:5px; padding-bottom:5px;">
 	  &nbsp;&nbsp;<b>[ 테스트 계정 ]</b> &nbsp;&nbsp; 유저  ( ddjn6334 / pass01 ) &nbsp;&nbsp;|&nbsp;&nbsp;	펫시터 ( geddong / pass01 ) &nbsp;&nbsp;|&nbsp;&nbsp;	관리자 ( admin1 / admin1 )&nbsp;&nbsp;|&nbsp;&nbsp; 
 	  <a href="<%=contextPath %>/views/common/temp.jsp" target="_blank">계정 전체보기</a>&nbsp;&nbsp;|&nbsp;	&nbsp;
 	  <a href="https://docs.google.com/presentation/d/1rYv4m6wa1Q1C1_xVHqbdqsNIuqtXgBM4RVNTDEQOX5s/edit?usp=sharing" target="_blank">펫시터페이지 개발 현황</a>&nbsp;&nbsp;|&nbsp;	&nbsp;
 	  <a href="https://github.com/naldPark/petnolja.git" target="_blank">깃헙 레파지토리</a>
-	  
+	  </div><br><br>
      <!--검색창 시작-->
      <hr>
      <h2><b>&nbsp;&nbsp;원하는 조건을 검색하세요</b></h2><br>
