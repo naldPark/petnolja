@@ -130,7 +130,7 @@ public class SearchSitterController extends HttpServlet {
 				case "목욕": options[i] = "bath"; break;
 				case "약물":	options[i] = "medicine"; break;
 				case "노령견": options[i] = "oldPet"; break;
-				case "응급": options[i] = "hospital"; break;
+				case "병원": options[i] = "hospital"; break;
 				}
 			}
 		}
