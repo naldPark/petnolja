@@ -43,6 +43,13 @@
     height: 3px;
     background: #ccc;
   }
+  
+  #li-menu a{
+  text-decoration: none; 
+  color: rgba(0,0,0,.5); 
+  font-size: 18px;
+  font-weight: bold;
+  }
   </style>
 </head>
 <body>

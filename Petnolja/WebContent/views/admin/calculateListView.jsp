@@ -94,7 +94,7 @@
                     <th width="260px">펫시터ID</th>
                     <th width="260px">이름</th>
                     <th width="300px">상세내역</th>
-                    <th width="150px">정산기간</th>
+                    <th width="150px">정산월</th>
                     <th width="150px">정산금액(원)</th>
 
                 </tr>
@@ -111,7 +111,8 @@
 		                    <td><%=c.getSitterId()%></td>
 		                    <td><%=c.getSitterName() %></td>
 		                    <td><button class="btn btn-info">상세조회</button></td>
-		                    <% String calMonth = Integer.parseInt(c.getCalMonth())<10 ? "0" + c.getCalMonth(): c.getCalMonth(); %>
+		                    <%int realCalMonth = Integer.parseInt(c.getCalMonth()) + 1; // 실제 정산되는 월은 다음 달이니까.%>
+		                    <% String calMonth = realCalMonth<10 ? "0" + String.valueOf(realCalMonth): String.valueOf(realCalMonth); %>
 		                    
 		                    
 		                    <td><%=c.getCalYear()%>-<%=calMonth %></td>
