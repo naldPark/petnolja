@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.petnolja.pet.model.vo.Pet,java.util.ArrayList"%>
+    <%
+    
+    Pet inpo = (Pet)request.getAttribute("inpo");	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫 상세조회</title>
 <style>
 .container-check {
     width: 800px;
@@ -42,12 +46,17 @@
             <div class="top">
                 <table>
                     <tr>
-                        <td rowspan="2" style="width: 150px; height: 150px; font-size: 17px; ">사진</td>
-                        <td style="font-size: 17px;">홍믿음 보호자님의 쪼꼬</td>
+                        <td style="font-size: 17px;">
+                            <%=inpo.getMemName() %> 보호자님의 <%=inpo.getPetName() %>
+                        </td>
                     </tr>
 
                     <tr>
-                        <td style="font-weight: bold; font-size: 17px;">소형 / 3살 / 여아 (중성화 0) / 믹스</td>
+                        <td style="font-weight: bold; font-size: 17px;">
+                        	<%=inpo.getPetSize() %> /
+                        	<%=inpo.getPetGender() %> /
+                        	<%=inpo.getPetBreed() %>
+                        </td>
                     </tr>
                 </table>
             </div><br>
@@ -55,23 +64,19 @@
                 <table >
                     <tr>
                         <td class="title-dog">생일</td>
-                        <td>18년 4월</td>
+                        <td><%=inpo.getPetBirth() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">몸무게</td>
-                        <td>2.2kg</td>
-                    </tr>
-                    <tr>
-                        <td class="title-dog">중성화</td>
-                        <td>했음</td>
+                        <td><%=inpo.getPetWeight() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">반려견등록</td>
-                        <td>내장형</td>
+                        <td><%=inpo.getChip() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">예방접종</td>
-                        <td>DHPPL/코로나장염/광견병/켄넬코프/심장사상충</td>
+                        <td><%=inpo.getVaccine() %></td>
                     </tr>
                 </table>
 
@@ -85,16 +90,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>음식알러지,약물복용</td>
+                        <td><%=inpo.getCaution() %></td>
                     </tr>
                 </table><br>
 
                 <table>
                     <tr>
-                        <td class="title-dog">돌봄시 참고사항</td>
+                        <td class="title-dog">정보</td>
                     </tr>
                     <tr>
-                        <td><textarea name = "ta2" rows="5" cols= "70" wrap = "virtual"></textarea></td>
+                        <td><textarea name = "ta2" rows="5" cols= "70" wrap = "virtual"><%=inpo.getNote() %></textarea></td>
                     </tr>
                 </table><br>
 
@@ -104,11 +109,11 @@
                     </tr>
                     <tr>
                         <td class="title-dog">병원명</td>
-                        <td>KH동물병원(논현동)</td>
+                        <td><%=inpo.getHospi() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">전화번호</td>
-                        <td>02-1234-5678</td>
+                        <td><%=inpo.getHospiTel() %></td>
                     </tr>
                 </table>
             </div>

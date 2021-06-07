@@ -23,8 +23,37 @@ public class Pet {
 	private String neutered;
 	private String chip;
 	private String favorite; // 견주의 즐겨찾기 여부확인을 위해 추가 
+	private String memName;
 	
 	public Pet() {}
+	
+	
+	
+	
+	//은용짱꺼
+	public Pet(int petNo, String memName, String petName , String petSize, String petGender, String petBreed, String petBirth, double petWeight
+			,String chip , String vaccine, String caution, String note, String hospi, String hospiTel
+			) {
+		super();
+		this.petNo = petNo;
+		this.petName = petName;
+		this.petBirth = petBirth;
+		this.petWeight = petWeight;
+		this.petGender = petGender;
+		this.petSize = petSize;
+		this.petBreed = petBreed;
+		this.vaccine = vaccine;
+		this.caution = caution;
+		this.note = note;
+		this.hospi = hospi;
+		this.hospiTel = hospiTel;
+		this.chip = chip;
+		this.memName = memName;
+	}
+
+
+
+
 
 	public Pet(int petNo, int memNo, String petName, String petBirth, double petWeight, String petGender, String petSize,
 			String petBreed, String petStatus, Date petEnrollDate, String petImg, String vaccine, String caution,
@@ -285,6 +314,15 @@ public class Pet {
 	public void setChip(String chip) {
 		this.chip = chip;
 	}
+	
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
 
 	@Override
 	public String toString() {
@@ -292,12 +330,15 @@ public class Pet {
 				+ ", petWeight=" + petWeight + ", petGender=" + petGender + ", petSize=" + petSize + ", petBreed="
 				+ petBreed + ", petStatus=" + petStatus + ", petEnrollDate=" + petEnrollDate + ", petImg=" + petImg
 				+ ", vaccine=" + vaccine + ", caution=" + caution + ", note=" + note + ", hospi=" + hospi
-				+ ", hospiTel=" + hospiTel + ", neutered=" + neutered + ", chip=" + chip + "]";
+				+ ", hospiTel=" + hospiTel + ", neutered=" + neutered + ", chip=" + chip + ", favorite=" + favorite
+				+ ", memName=" + memName + "]";
 	}
+
+}
 	
 	
 	
 	
 	
 
-}
+

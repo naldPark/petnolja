@@ -185,7 +185,7 @@
 			SELECT * FROM DUAL
 	
 	</entry>
-
+	<!-- 펫시터 중지 -->
 	<entry key ="stopSitter">
 	
 		UPDATE
@@ -328,7 +328,8 @@
     
     <entry key="selectDetail">
     SELECT
-    	 MEM_NO
+    	 PET_NO
+    	,MEM_NO
         ,RES_STATUS
         ,RES_NO
         ,MEM_NAME
@@ -340,8 +341,63 @@
     FROM RESERV
     JOIN MEMBER USING(MEM_NO)
     JOIN PET USING(MEM_NO)
-    WHERE MEM_NO = ?
+    WHERE RES_NO = ?
     AND RES_STATUS = '대기'
     </entry>
+    
+    <entry key="selectPetDetail">
+	SELECT
+		PET_NO
+    	,MEM_NAME 
+       ,PET_NAME
+       ,PET_SIZE
+       ,PET_GENDER
+       ,PET_BREED
+       ,PET_BIRTH
+       ,PET_WEIGHT
+       ,CHIP
+       ,VACCINE
+       ,CAUTION
+       ,NOTE
+       ,HOSPI
+       ,HOSPI_TEL
+    FROM PET
+    JOIN MEMBER USING(MEM_NO)
+    WHERE PET_NO = ?
+	</entry>
 	
+	<entry key="selectConfi">
+    SELECT
+    	 PET_NO
+    	,MEM_NO
+        ,RES_STATUS
+        ,RES_NO
+        ,MEM_NAME
+        ,MEM_TEL
+        ,RES_CHECKIN
+        ,RES_CHECKOUT
+        ,PET_NAME
+        ,REQUEST
+    FROM RESERV
+    JOIN MEMBER USING(MEM_NO)
+    JOIN PET USING(MEM_NO)
+    WHERE RES_NO = ?
+    AND RES_STATUS = '확정'
+    </entry>
+    
+    <entry key="updateConfi">
+    UPDATE
+        RESERV
+    SET RES_STATUS = '확정'
+    WHERE RES_NO = ?
+    
+    </entry>
+    
+    <entry key="updateCancel">
+    UPDATE
+        RESERV
+    SET RES_STATUS = '거절'
+    WHERE RES_NO = ?
+    
+    </entry>
 </properties>

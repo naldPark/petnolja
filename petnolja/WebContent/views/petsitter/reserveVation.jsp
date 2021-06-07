@@ -45,7 +45,7 @@
                             	<td style="text-align: center;"><%=r.getResCheckin() %></td>
                             	<td style="text-align: center;"><%=r.getResCheckout() %></td>
                             	<td style="text-align: center;"><%=r.getReQuest() %></td>
-                            	<td style="text-align: center;"><input type="button" value="상세조회" id="write"></td>
+                            	<td style="text-align: center;"><a href='<%=contextPath%>/reserveConfi.sit?bno=<%=r.getResNo()%>'><span>자세히보기</span></a></td>
                             </tr>
                             
                         </tr>

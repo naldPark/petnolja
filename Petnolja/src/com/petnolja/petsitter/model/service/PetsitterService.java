@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
+import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
@@ -255,16 +256,65 @@ public class PetsitterService {
 	
 
 	
-	public Detail selectDetail(int nNo) {
+	public Detail selectDetail(long resNo) {
 		
 		Connection conn = getConnection();
-		Detail d = new PetsitterDao().selectDetail(conn, nNo);
+		Detail d = new PetsitterDao().selectDetail(conn, resNo);
 		
 		close(conn);
 		
 		return d;
 	}
 	
+	public Pet selectPetDetail(int petNo) {
+		
+		Connection conn = getConnection();
+		Pet p = new PetsitterDao().selectPetDetail(conn, petNo);
+		
+		close(conn);
+		
+		return p;
+	
+	}
+	public Detail selectConfi(long resNo) {
+		
+		Connection conn = getConnection();
+		Detail b = new PetsitterDao().selectConfi(conn, resNo);
+		
+		close(conn);
+		return b;
+	}
+	public int updateConfi(long resNo ) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().updateConfi(conn, resNo);
+		
+		
+		if (result > 0) {
+			commit(conn);	
+			
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int updateCancel(long resNo ) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().updateCancel(conn, resNo);
+		
+		
+		if (result > 0) {
+			commit(conn);	
+			
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 }
 	
 

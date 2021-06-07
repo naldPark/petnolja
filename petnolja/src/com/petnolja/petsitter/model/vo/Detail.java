@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Detail {
 	
+	private int petNo;
 	private int memNo;
 	private String resStatus;
 	private long resNo;
@@ -16,9 +17,10 @@ public class Detail {
     
     public Detail() {}
 
-	public Detail(int memNo, String resStatus, long resNo, String memName, String memTel, String resCheckin,
+	public Detail(int petNo, int memNo, String resStatus, long resNo, String memName, String memTel, String resCheckin,
 			String resCheckout, String petName, String reQuest) {
 		super();
+		this.petNo = petNo;
 		this.memNo = memNo;
 		this.resStatus = resStatus;
 		this.resNo = resNo;
@@ -28,6 +30,14 @@ public class Detail {
 		this.resCheckout = resCheckout;
 		this.petName = petName;
 		this.reQuest = reQuest;
+	}
+
+	public int getPetNo() {
+		return petNo;
+	}
+
+	public void setPetNo(int petNo) {
+		this.petNo = petNo;
 	}
 
 	public int getMemNo() {
@@ -104,13 +114,9 @@ public class Detail {
 
 	@Override
 	public String toString() {
-		return "Detail [memNo=" + memNo + ", resStatus=" + resStatus + ", resNo=" + resNo + ", memName=" + memName
-				+ ", memTel=" + memTel + ", resCheckin=" + resCheckin + ", resCheckout=" + resCheckout + ", petName="
-				+ petName + ", reQuest=" + reQuest + "]";
+		return "Detail [petNo=" + petNo + ", memNo=" + memNo + ", resStatus=" + resStatus + ", resNo=" + resNo
+				+ ", memName=" + memName + ", memTel=" + memTel + ", resCheckin=" + resCheckin + ", resCheckout="
+				+ resCheckout + ", petName=" + petName + ", reQuest=" + reQuest + "]";
 	}
-    
+
 }
-
-	
-
-	

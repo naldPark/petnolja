@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Detail,java.util.ArrayList"%>
     <%
     
-    Detail info = (Detail)request.getAttribute("info");	
+    Detail inbo = (Detail)request.getAttribute("inbo");	
    %>
 <!DOCTYPE html>
 <html>
@@ -48,11 +48,11 @@
                 <table>
                 	<tr>
 						<td style="font-size: 17px;">승인상태</td>
-						<td><%=info.getResStatus() %></td>
+						<td><%=inbo.getResStatus() %></td>
 					</tr>
                     <tr>
                         <td style="font-size: 17px;">예약번호</td>
-						<td><%=info.getResNo() %></td>
+						<td><%=inbo.getResNo() %></td>
                     </tr>
                 </table>
             </div><br>
@@ -60,19 +60,19 @@
                 <table >
                     <tr>
                         <td class="title-dog">보호자</td>
-                        <td><%=info.getMemName() %></td>
+                        <td><%=inbo.getMemName() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">연락처</td>
-                        <td><%=info.getMemTel() %></td>
+                        <td><%=inbo.getMemTel() %></td>
                     </tr>
                     <tr>
                         <td class="title-dog">체크인</td>
-                        <td><%=info.getResCheckin() %></td>
+                        <td><%=inbo.getResCheckin() %></td>
                     </tr>
 					<tr>
                         <td class="title-dog">체크아웃</td>
-                        <td><%=info.getResCheckout() %></td>
+                        <td><%=inbo.getResCheckout() %></td>
                     </tr>
                 </table>
 
@@ -86,7 +86,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><a href='<%=contextPath%>/reservepet.sit?pno=<%=info.getPetNo()%>'><%=info.getPetName() %></a></td>
+                        <td><%=inbo.getPetName() %></td>
                     </tr>
                 </table><br>
 
@@ -95,7 +95,7 @@
                         <td class="title-dog">요청사항</td>
                     </tr>
                     <tr>
-                        <td><textarea name = "ta2" rows="4" cols= "50" wrap = "virtual"><%=info.getReQuest() %></textarea></td>
+                        <td><textarea name = "ta2" rows="4" cols= "50" wrap = "virtual"><%=inbo.getReQuest() %></textarea></td>
                     </tr>
                 </table><br>
                 <table >
@@ -108,14 +108,10 @@
                     </tr>
                     
                 </table>
-                <form action="<%=contextPath%>/updateReserveConfi.sit"  method="post">
 				<br><br><br><br>
                 <input type="button" class="btn btn-primary"  value="뒤로가기"  onclick="location.href='<%=contextPath%>/reserveRequest.sit'">
-                <a class="btn btn-primary" href='<%=contextPath%>/updateReserveConfi.sit?cno=<%=info.getResNo()%>'>확정하기</a>
-                <a class="btn btn-primary" href='<%=contextPath%>/updateReserveCancel.sit?vno=<%=info.getResNo()%>'>거절하기</a>
+                <input type="button" class="btn btn-primary"  value="예약취소"  onclick="location.href='<%=contextPath%>/reject.sit'">
 				</div>
-				</from>
-                
         </div>
     </div>
 
