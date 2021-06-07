@@ -25,7 +25,7 @@ public class Calculate {
 		this.payTotal = payTotal;
 	}
 
-	public Calculate(String memName, String memId, String accBank, String accNumber, int payNo, long patAmount,
+	public Calculate(String memName, String memId, String accBank, String accNumber, int payNo, long payAmount,
 			char isPenalty) {
 		super();
 		this.memName = memName;
@@ -35,6 +35,17 @@ public class Calculate {
 		this.payNo = payNo;
 		this.payAmount = payAmount;
 		this.isPenalty = isPenalty;
+	}
+	
+	
+	/** 최서경
+	 * 펫시터쪽 정산페이지에 사용
+	 */
+	public Calculate(String calYear, String calMonth, long payTotal) {
+		super();
+		this.calYear = calYear;
+		this.calMonth = calMonth;
+		this.payTotal = payTotal;
 	}
 
 	public String getSitterId() {

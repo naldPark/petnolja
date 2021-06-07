@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ page import="com.petnolja.admin.model.vo.Calculate" %>
+<% Calculate c = (Calculate)request.getAttribute("c"); %>
   <!DOCTYPE html>
   <html>
   <head>
@@ -50,9 +51,16 @@
             <div>
                 <h4 style="font-weight: 600;">정산 금액 조회</h4><br>
                 <div>
-                    <span class="msg">2021년 06월 정산 금액은 [200,000]원입니다.</span>
+                	<% if(c == null) { %>
+                	
+                    <span class="msg">정산 예정 금액이 없습니다.</span>
+                    <input disabled type="button" class="btn btn-primary btn-sm buttons" value="더보기" align="right">
+                        
+                	<% } else { %>
+                    <span class="msg"><%=c.getCalYear() %>년 <%=(Integer.parseInt(c.getCalMonth()) +1)%>월 정산 금액은 [<%=c.getPayTotal() %>]원입니다.</span>
                     <input type="button" class="btn btn-primary btn-sm buttons" value="더보기"
-                        onclick="location.href='<%=contextPath%>/calculateMoney.sit'" align="right">
+                        onclick="location.href='<%=contextPath%>/callist.sit'" align="right">
+                	<% } %>
                 </div>
             </div>
 

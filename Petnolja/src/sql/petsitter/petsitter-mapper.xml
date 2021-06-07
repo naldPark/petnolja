@@ -303,5 +303,56 @@
     WHERE MEM_NO = ?
     AND RES_STATUS = '대기'
     </entry>
+    
+    <!-- 최서경 : 이번달 정산금액 조회 -->
+    <entry key="selectNowCal">
+	    SELECT
+		      TO_CHAR(MONTH) "MONTH"
+		     ,TO_CHAR(YEAR) "YEAR"
+		     , TOTAL
+		  FROM VW_CAL
+		 WHERE MONTH + 1 = EXTRACT(MONTH FROM SYSDATE)
+		   AND YEAR = EXTRACT(YEAR FROM SYSDATE)
+		   AND SITTER_ID = ?
+    </entry>
+    
+    <entry key="selectCalList">
+    		SELECT * 
+            FROM (
+                SELECT ROWNUM RNUM, A.*
+                  FROM (
+                    SELECT TO_CHAR(MONTH) "MONTH"
+                         , TO_CHAR(YEAR) "YEAR"
+                         , TOTAL
+                      FROM VW_CAL
+                      WHERE SITTER_ID = ?
+                      ORDER BY YEAR DESC, MONTH DESC
+                    ) A
+                  )
+		WHERE RNUM BETWEEN 1 AND 5 
+    </entry>
+    
+    <entry key="selectKeyCal">
+     	SELECT TO_CHAR(MONTH) "MONTH"
+             , TO_CHAR(YEAR) "YEAR"
+             , TOTAL
+          FROM VW_CAL
+         WHERE SITTER_ID = ?
+           AND YEAR = ?
+           AND MONTH = ?
+    
+    </entry>
 	
 </properties>
+
+
+
+
+
+
+
+
+
+
+
+

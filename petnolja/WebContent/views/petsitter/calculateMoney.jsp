@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.petnolja.admin.model.vo.Calculate, java.util.ArrayList" %>
 
+<% 
+Calculate c = (Calculate)request.getAttribute("c");
+int m = Integer.parseInt(c.getCalMonth()); // 펫시터가 서비스한 월
+int realMonth = m + 1;// 실제 정산되는 월
+ArrayList<Calculate> list = (ArrayList<Calculate>)request.getAttribute("list"); 
+%>
   <!DOCTYPE html>
   <html>
 <head>
@@ -69,46 +76,37 @@
         <!-- MIDDLE -->
         <div class="middle">
             <div class="middle-middle-1">
-                <div style="padding:20px 50px 0px">3/15 정산 예정 금액</div>
-                <span style="font-size:40px; padding:0px 50px">1,100,000원</span><br>
+                <div style="padding:20px 50px 0px"><%=realMonth %>/15 정산 예정 금액</div>
+                <span style="font-size:40px; padding:0px 50px"><%=c.getPayTotal() %>원</span><br>
                 <br>
                 <hr class="my-hr2">
 
                 <div style="font-size: 14px; height: 30px;">
-                    <h6 style="float:left; margin-top: 5px; font-weight: 500; color: #A4A4A4;"> 최근 6개월간 정산 내역</h6>
-                    <input style="float: right;margin-right: 10px; margin-top: 5px;" type="month">
-                    <label style="float:right; margin-top: 7px;">검색 :&nbsp;</label>
+                    <h6 style="float:left; margin-top: 5px; font-weight: 500; color: #A4A4A4;"> 최근 정산 내역</h6>
+                    <input id="calSearch" style="float:right; margin-right: 10px; margin-top: 5px;" type="month">
+                    <label style="float:right; margin-top: 7px;">서비스 단위기간 입력 :&nbsp;</label>
                 </div>
                 <br>
 
                 <div class="content">
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
-                    
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
-
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
-
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
-                    <p class="word1">2021.03.15</p>
-                    <p>2021년 2월 서비스 정산</p>
-                    <p class="cash">+90,000원</p>
-                    <hr>
+                		<!-- list.isEmpty()이면 이 페이지 연결된 더보기 버튼이 비활성화되는거니까 따로 if문 처리 안함 -->
+                		<%if(list.isEmpty()){ %>
+                		    <p class="word1" align="center" style="height: 300px; margin-top: 50px; font-size: 18px;">정산 내역이 존재하지 않습니다.</p>
+                		
+                		
+                		<% } else { %>
+	                		<%for(Calculate cal : list) { %>
+		                		<% String year = cal.getCalYear(); //서비스 한 년도 %>
+		                		<% String month = cal.getCalMonth(); // 서비스 한 월%>
+		                		<% int rYear = Integer.parseInt(month) == 12? Integer.parseInt(year) + 1 : Integer.parseInt(year); // 실제 정산 년도 %>
+		                		<% int rMonth = Integer.parseInt(month) == 12? 1 : Integer.parseInt(month) + 1; // 실제 정산 월%>
+	                		
+			                	<p class="word1"><%=rYear %>.<%= rMonth %>.15</p>
+			                    <p><%= year %>년 <%=month %>월 서비스 정산</p>
+			                    <p class="cash">+<%=cal.getPayTotal() %>원</p>
+			                    <hr>	
+	                		<% } %>
+                		<% } %>
                 </div>
             </div>
         </div>
@@ -116,7 +114,31 @@
     </div><br>
     <%@ include file="../common/footer.jsp" %>
 
+
+	<script>
+	
+	$(function(){
+
+		$("#calSearch").on("change", function(){
+			
+			var date = $(this).val();
+			
+			location.href="callist.sit?date=" + date;
+			
+		});
+		
+		
+	});
+	
+	</script>
+
 </body>
+</html>
 
 
-  </html>
+
+
+
+
+
+

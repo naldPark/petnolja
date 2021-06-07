@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
 import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import com.petnolja.petsitter.model.vo.Reserv;
 import com.petnolja.qna.model.vo.Qna;
-import com.petnolja.research.model.vo.Research;
 
 public class PetsitterDao {
 	
@@ -591,9 +591,109 @@ public class PetsitterDao {
 			}
 			
 			return d; 
-		
-			
 		}	
+		
+		
+		
+		/** 최서경
+		 * 이번달 정산금액 조회
+		 */
+		public Calculate selectNowCal(Connection conn, String memId) {
+			Calculate c = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectNowCal");
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					c = new Calculate(rset.getString("year")
+									, rset.getString("month")
+									, rset.getLong("total"));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return c;
+		}
+		
+		
+		/** 최서경
+		 * 펫시터 정산내역 추가 조회
+		 */
+		public ArrayList<Calculate> selectCalList(Connection conn, String memId){
+			ArrayList<Calculate> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectCalList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Calculate(rset.getString("year")
+										 , rset.getString("month")
+										 , rset.getLong("total")));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		
+		/** 최서경
+		 * 펫시터 정산내역 날짜로 검색
+		 */
+		public ArrayList<Calculate> selectCalList(Connection conn, String memId, String date){
+			
+			String searchYear = date.substring(0, 4);
+			String searchMonth = date.substring(5);
+			
+			//System.out.println(searchYear);
+			//System.out.println(searchMonth);
+			
+			ArrayList<Calculate> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectKeyCal");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				pstmt.setString(2, searchYear);
+				pstmt.setString(3, searchMonth);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Calculate(rset.getString("year")
+										 , rset.getString("month")
+										 , rset.getLong("total")));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
 }
 	
 
