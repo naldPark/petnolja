@@ -1,5 +1,7 @@
 package com.petnolja.admin.model.vo;
 
+import java.sql.Date;
+
 public class Calculate {
 	private String sitterId;
 	private String sitterName;
@@ -10,6 +12,7 @@ public class Calculate {
 	private String memId;
 	private String accBank;
 	private String accNumber;
+	private Date dealDate;
 	private int payNo;
 	private long payAmount;
 	private char isPenalty;
@@ -24,20 +27,21 @@ public class Calculate {
 		this.calMonth = calMonth;
 		this.payTotal = payTotal;
 	}
-
-	public Calculate(String memName, String memId, String accBank, String accNumber, int payNo, long payAmount,
-			char isPenalty) {
+	
+	
+	public Calculate(String memName, String memId, String accBank, String accNumber, Date dealDate, int payNo,
+			long payAmount, char isPenalty) {
 		super();
 		this.memName = memName;
 		this.memId = memId;
 		this.accBank = accBank;
 		this.accNumber = accNumber;
+		this.dealDate = dealDate;
 		this.payNo = payNo;
 		this.payAmount = payAmount;
 		this.isPenalty = isPenalty;
 	}
-	
-	
+
 	/** 최서경
 	 * 펫시터쪽 정산페이지에 사용
 	 */
@@ -88,7 +92,6 @@ public class Calculate {
 		this.payTotal = payTotal;
 	}
 	
-	
 
 	public String getMemName() {
 		return memName;
@@ -122,6 +125,14 @@ public class Calculate {
 		this.accNumber = accNumber;
 	}
 
+	public Date getDealDate() {
+		return dealDate;
+	}
+
+	public void setDealDate(Date dealDate) {
+		this.dealDate = dealDate;
+	}
+	
 	public int getPayNo() {
 		return payNo;
 	}
@@ -130,7 +141,6 @@ public class Calculate {
 		this.payNo = payNo;
 	}
 
-	
 
 	public long getPayAmount() {
 		return payAmount;
@@ -154,8 +164,8 @@ public class Calculate {
 	public String toString() {
 		return "Calculate [sitterId=" + sitterId + ", sitterName=" + sitterName + ", calYear=" + calYear + ", calMonth="
 				+ calMonth + ", payTotal=" + payTotal + ", memName=" + memName + ", memId=" + memId + ", accBank="
-				+ accBank + ", accNumber=" + accNumber + ", payNo=" + payNo + ", payAmount=" + payAmount
-				+ ", isPenalty=" + isPenalty + "]";
+				+ accBank + ", accNumber=" + accNumber + ", dealDate=" + dealDate + ", payNo=" + payNo + ", payAmount="
+				+ payAmount + ", isPenalty=" + isPenalty + "]";
 	}
 
 	

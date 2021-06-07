@@ -42,8 +42,9 @@ public class CaculateDetailController extends HttpServlet {
 			
 		} else {
 			
-			int sno = Integer.parseInt(request.getParameter("sno"));	// 추후 추가해줘야함
+			String sid = request.getParameter("sid");	
 			int month = Integer.parseInt(request.getParameter("month")); // 추후 추가해줘야함
+			int year = Integer.parseInt(request.getParameter("year")); // 추후 추가해줘야함
 			
 			int CNFListCount; 	// CONF 총 갯수 
 			int CNCListCount;	// CANC 총 갯수
@@ -59,8 +60,8 @@ public class CaculateDetailController extends HttpServlet {
 			int CNCendPage;
 			int endPage;
 			
-			CNFListCount = new AdminService().CNFcalculateDetailCount(sno, month);
-			CNCListCount = new AdminService().CNCcalculateDetailCount(sno, month);
+			CNFListCount = new AdminService().CNFcalculateDetailCount(sid, month, year);
+			CNCListCount = new AdminService().CNCcalculateDetailCount(sid, month, year);
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -93,13 +94,15 @@ public class CaculateDetailController extends HttpServlet {
 			PageInfo CNCpi = new PageInfo(CNCListCount, currentPage, pageLimit, boardLimit, CNCmaxPage, startPage, CNCendPage);
 			PageInfo pi = new PageInfo(CNFListCount+CNCListCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Calculate> CNFlist = new AdminService().CNFselectCalculateDetail(CNFpi, sno, month);
-			ArrayList<Calculate> CNClist = new AdminService().CNCselectCalculateDetail(CNCpi, sno, month);
+			ArrayList<Calculate> CNFlist = new AdminService().CNFselectCalculateDetail(CNFpi, sid, month, year);
+			ArrayList<Calculate> CNClist = new AdminService().CNCselectCalculateDetail(CNCpi, sid, month, year);
 			
 			
 			request.setAttribute("CNFlist", CNFlist);
 			request.setAttribute("CNClist", CNClist);
 			request.setAttribute("pi", pi);
+			request.setAttribute("year", year);
+			request.setAttribute("month", month);
 			
 			request.getRequestDispatcher("views/admin/calculateDetailView.jsp").forward(request, response);	
 		}
