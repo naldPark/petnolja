@@ -101,6 +101,7 @@ public class CaculateDetailController extends HttpServlet {
 			request.setAttribute("CNFlist", CNFlist);
 			request.setAttribute("CNClist", CNClist);
 			request.setAttribute("pi", pi);
+			request.setAttribute("sid", sid);
 			request.setAttribute("year", year);
 			request.setAttribute("month", month);
 			

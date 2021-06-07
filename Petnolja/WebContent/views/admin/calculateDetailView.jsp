@@ -7,8 +7,9 @@
     ArrayList<Calculate> CNClist = (ArrayList<Calculate>)request.getAttribute("CNClist");
     ArrayList<Calculate> list = new ArrayList<>();
     list.addAll(CNFlist); list.addAll(CNClist);
-    int year = year;
-    int month = month;
+    int year = (int)request.getAttribute("year");
+    int month = (int)request.getAttribute("month"); 
+    String sid = (String)request.getAttribute("sid"); 
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -49,7 +50,7 @@
             font-size: 15px;
             font-weight: 600;
         }
-
+		
         .account-info>span {
 
             border: 3px solid rgb(241, 129, 88);
@@ -81,8 +82,8 @@
     <div class="outer" align="center">
         <div class="account-info" align="left">
             <span>
-                <span>ID : <%=  %> &nbsp; &nbsp;</span>
-                <span>계좌정보 : <%= %></span>
+                <span>ID : <%= sid %> &nbsp; &nbsp;</span>
+                
             </span>
 
             <span>
@@ -128,7 +129,7 @@
             </tbody>
         </table>
         
-        <span align="right">정산총액 : <%= sumPay %>></span>
+        <div align="right"><b>정산총액 : <%= sumPay %></b></div>
 
         <!-- 페이징바 -->
         <div id="paging-area">

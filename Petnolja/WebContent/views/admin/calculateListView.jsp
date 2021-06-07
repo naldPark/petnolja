@@ -110,10 +110,11 @@
 		                    <td>001</td>
 		                    <td><%=c.getSitterId()%></td>
 		                    <td><%=c.getSitterName() %></td>
-		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?sid=<%=c.getSitterId()%>';" class="btn btn-info">상세조회</button></td>
+
 		                    <%int realCalMonth = Integer.parseInt(c.getCalMonth()) + 1; // 실제 정산되는 월은 다음 달이니까.%>
 		                    <% String calMonth = realCalMonth<10 ? "0" + String.valueOf(realCalMonth): String.valueOf(realCalMonth); %>
-		                    
+
+		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= c.getCalYear() %>';" class="btn btn-info">상세조회</button></td>
 		                    
 		                    <td><%=c.getCalYear()%>-<%=calMonth %></td>
 		                    <td><%=c.getPayTotal() %></td>
