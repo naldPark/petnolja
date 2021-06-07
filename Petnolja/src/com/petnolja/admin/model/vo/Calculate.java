@@ -6,6 +6,13 @@ public class Calculate {
 	private String calYear;
 	private String calMonth;
 	private long payTotal;
+	private String memName;
+	private String memId;
+	private String accBank;
+	private String accNumber;
+	private int payNo;
+	private long payAmount;
+	private char isPenalty;
 	
 	public Calculate() {}
 
@@ -16,6 +23,18 @@ public class Calculate {
 		this.calYear = calYear;
 		this.calMonth = calMonth;
 		this.payTotal = payTotal;
+	}
+
+	public Calculate(String memName, String memId, String accBank, String accNumber, int payNo, long patAmount,
+			char isPenalty) {
+		super();
+		this.memName = memName;
+		this.memId = memId;
+		this.accBank = accBank;
+		this.accNumber = accNumber;
+		this.payNo = payNo;
+		this.payAmount = payAmount;
+		this.isPenalty = isPenalty;
 	}
 
 	public String getSitterId() {
@@ -57,13 +76,76 @@ public class Calculate {
 	public void setPayTotal(long payTotal) {
 		this.payTotal = payTotal;
 	}
+	
+	
 
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getAccBank() {
+		return accBank;
+	}
+
+	public void setAccBank(String accBank) {
+		this.accBank = accBank;
+	}
+
+	public String getAccNumber() {
+		return accNumber;
+	}
+
+	public void setAccNumber(String accNumber) {
+		this.accNumber = accNumber;
+	}
+
+	public int getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
+
+	
+
+	public long getPayAmount() {
+		return payAmount;
+	}
+
+	public void setPayAmount(long payAmount) {
+		this.payAmount = payAmount;
+	}
+
+	public char getIsPenalty() {
+		return isPenalty;
+	}
+
+	public void setIsPenalty(char isPenalty) {
+		this.isPenalty = isPenalty;
+	}
+
+	
+	
 	@Override
 	public String toString() {
 		return "Calculate [sitterId=" + sitterId + ", sitterName=" + sitterName + ", calYear=" + calYear + ", calMonth="
-				+ calMonth + ", payTotal=" + payTotal + "]";
+				+ calMonth + ", payTotal=" + payTotal + ", memName=" + memName + ", memId=" + memId + ", accBank="
+				+ accBank + ", accNumber=" + accNumber + ", payNo=" + payNo + ", payAmount=" + payAmount
+				+ ", isPenalty=" + isPenalty + "]";
 	}
-
 
 	
 

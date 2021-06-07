@@ -78,7 +78,7 @@
               <span style="float:left; width:93%">확인되지 않은 요청이 [<%=count[0]%>]건 있습니다.</span>
               <!--float:left를 안넣으면 버튼이 다음줄에 표시됨-->
               <!-- 일부러 넓이를 80%를 줘서 다음 버튼이 올 공간이 20%밖에 없음: 80%차지하고 뒤에 위치(오른쪽으로 배치됨)-->
-              <button type="button" class="btn btn-primary" align="right">더보기</button>
+              <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserveRequest.sit'" align="right">
             </div>
           </div>
 

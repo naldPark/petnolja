@@ -11,8 +11,12 @@ import java.util.ArrayList;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
+import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.petsitter.model.vo.Reserv;
 import com.petnolja.qna.model.vo.Qna;
+import com.petnolja.research.model.dao.ResearchDao;
+import com.petnolja.research.model.vo.Research;
 
 public class PetsitterService {
 
@@ -220,7 +224,7 @@ public class PetsitterService {
 		return list;
 	}
 	public ArrayList<Log> selectDaily(int userNo) {
-		System.out.println("여긴 서비스");
+		
 		Connection conn = getConnection();
 		ArrayList<Log> list = new PetsitterDao().selectDaily(conn, userNo);
 		
@@ -228,6 +232,39 @@ public class PetsitterService {
 		
 		return list;
 	}
+	
+	public ArrayList<Reserv> selectVation(int userNo) {
+	
+		Connection conn = getConnection();
+		ArrayList<Reserv> list = new PetsitterDao().selectVation(conn, userNo);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Reserv> selectRequest(int userNo) {
+		
+		Connection conn = getConnection();
+		ArrayList<Reserv> list = new PetsitterDao().selectRequest(conn, userNo);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+
+	
+	public Detail selectDetail(int nNo) {
+		
+		Connection conn = getConnection();
+		Detail d = new PetsitterDao().selectDetail(conn, nNo);
+		
+		close(conn);
+		
+		return d;
+	}
+	
 }
 	
 

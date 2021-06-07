@@ -1,25 +1,25 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.member.model.vo.Member;
-
 /**
- * Servlet implementation class enrollController
+ * Servlet implementation class SitterContentEnrollPathController
  */
-@WebServlet("/enroll.sit")
-public class SitterApplyFormController extends HttpServlet {
+@WebServlet("/enrollPath.sitn")
+public class SitterContentEnrollPathController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SitterApplyFormController() {
+    public SitterContentEnrollPathController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +28,17 @@ public class SitterApplyFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-			
 		if(request.getSession().getAttribute("loginUser") == null) {
 			
 			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath());
-		
+
 		} else { 
-			
-			request.getRequestDispatcher("views/petsitter/applyPetsitter.jsp").forward(request, response);
+
+			request.getRequestDispatcher("views/petsitter/sitterContentEnrollForm.jsp").forward(request, response);
 		}
+
 	}
 
 	/**

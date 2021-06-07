@@ -110,4 +110,44 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+	
+	public int CNFcalculateDetailCount(int sno, int month) {
+		
+		Connection conn = getConnection();
+		int listCount = new AdminDao().CNFcalculateDetailCount(conn, sno, month);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public int CNCcalculateDetailCount(int sno, int month) {
+		
+		Connection conn = getConnection();
+		int listCount = new AdminDao().CNCcalculateDetailCount(conn, sno, month);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public ArrayList<Calculate> CNFselectCalculateDetail(PageInfo pi, int sno, int month){
+		
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new AdminDao().CNFselectCalculateDetail(conn, pi, sno, month);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public ArrayList<Calculate> CNCselectCalculateDetail(PageInfo pi, int sno, int month){
+		
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new AdminDao().CNCselectCalculateDetail(conn, pi, sno, month);
+		
+		close(conn);
+		return list;
+		
+	}
 }

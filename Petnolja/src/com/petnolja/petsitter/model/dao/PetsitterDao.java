@@ -13,8 +13,11 @@ import java.util.Properties;
 
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
+import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.petsitter.model.vo.Reserv;
 import com.petnolja.qna.model.vo.Qna;
+import com.petnolja.research.model.vo.Research;
 
 public class PetsitterDao {
 	
@@ -421,67 +424,6 @@ public class PetsitterDao {
 		
 	}
 	
-	public int calculateDetailCount(Connection conn) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("calculateDetailCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return listCount;		
-		
-	}
-	
-	
-	public ArrayList<Petsitter> selectCalculateDetail(Connection conn, PageInfo pi){
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		ArrayList<Petsitter> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCalculateDetail");
-	
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Petsitter(
-						
-						));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-		
-	}
-	
 	public ArrayList<Qna> selectHist(Connection conn, int userNo) {
 		
 		ArrayList<Qna> list = new ArrayList<>();
@@ -515,7 +457,7 @@ public class PetsitterDao {
 		
 	}
 	public ArrayList<Log> selectDaily(Connection conn, int userNo) {
-		System.out.println("여긴 디에오");
+		
 		ArrayList<Log> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -536,7 +478,6 @@ public class PetsitterDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -546,6 +487,113 @@ public class PetsitterDao {
 		return list;
 		
 	}
+	public ArrayList<Reserv> selectVation(Connection conn, int userNo) {
+		
+		System.out.println("여기는 다오");
+		ArrayList<Reserv> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVation");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reserv(rset.getInt("MEM_NO"),
+									rset.getString("RES_STATUS"),
+									rset.getString("MEM_NAME"),
+									rset.getString("MEM_TEL"),
+									rset.getLong("RES_NO"),
+									rset.getString("RES_CHECKIN"),
+									rset.getString("RES_CHECKOUT"),
+									rset.getString("REQUEST")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+		public ArrayList<Reserv> selectRequest(Connection conn, int userNo) {
+		
+		
+		ArrayList<Reserv> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRequest");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reserv(rset.getInt("MEM_NO"),
+									rset.getString("RES_STATUS"),
+									rset.getString("MEM_NAME"),
+									rset.getString("MEM_TEL"),
+									rset.getLong("RES_NO"),
+									rset.getString("RES_CHECKIN"),
+									rset.getString("RES_CHECKOUT"),
+									rset.getString("REQUEST")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list; 
+	}
+		
+		public Detail selectDetail(Connection conn, int nNo) {
+			
+			Detail d = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectDetail");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, nNo);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					d = new Detail(rset.getInt("MEM_NO"),
+										rset.getString("RES_STATUS"),
+										rset.getLong("RES_NO"),
+										rset.getString("MEM_NAME"),
+										rset.getString("MEM_TEL"),
+										rset.getString("RES_CHECKIN"),
+										rset.getString("RES_CHECKOUT"),
+										rset.getString("PET_NAME"),
+										rset.getString("REQUEST")
+										);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return d; 
+		
+			
+		}	
 }
 	
 

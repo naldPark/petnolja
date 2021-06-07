@@ -10,12 +10,15 @@
           width:20px;
           height:20px;
         }
+		#outer{width: 1000px; height: 900px; margin: auto;}
+
+
 </style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
 
-<div class="container bd-content ps-lg-4">
+<div id="outer">
 	<br><br>
 	<h2>펫시터 지원</h2>
 	<p>회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 회원님의 명백한 동의 없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
@@ -62,28 +65,27 @@
 			</div>
 			<div class="form-group">
 			    <label for="exampleFormControlTextarea1">5. 지원동기 *</label>
-			    <textarea class="form-control" name="motive" rows="3" placeholder="300자 이상 500자 이내로 자유롭게 작성해주세요."  required></textarea>
+			    <textarea class="form-control" name="motive" rows="3" style="resize: none" placeholder="300자 이상 500자 이내로 자유롭게 작성해주세요."  required></textarea>
 			</div>
 			<div class="form-group">
 			    <label for="exampleFormControlTextarea2">6. 하고 싶은 말 *</label>
-			    <textarea class="form-control" name="addContent" rows="3" placeholder="이 외에 본인이 펫시터로서 가지고 있는 강점이나 시팅 경험에 대해 500자 이내로 자유롭게 서술해주세요."  required></textarea>
+			    <textarea class="form-control" name="addContent" rows="3" style="resize: none" placeholder="이 외에 본인이 펫시터로서 가지고 있는 강점이나 시팅 경험에 대해 500자 이내로 자유롭게 서술해주세요."  required></textarea>
 			</div>
 			
-			<div class="form-group form-check required">
+			<div id="required" style="margin-left:30px;">
 			    <input type="checkbox" class="form-check-input largerCheckbox" id="check1">
 			    <label class="form-check-label" for="check1"> &nbsp;&nbsp;(필수) 서비스 이용약관</label>
-			</div>
-			<div class="form-group form-check  required">
+				<br>
 			    <input type="checkbox" class="form-check-input largerCheckbox" id="check2">
 			    <label class="form-check-label" for="check2">&nbsp;&nbsp;(필수) 개인정보처리방침</label>
-			</div>
-			<div class="form-group form-check  required">
+				<br>
 			    <input type="checkbox" class="form-check-input largerCheckbox" id="check3">
 			    <label class="form-check-label" for="check3"> &nbsp;&nbsp;(필수) 본인은 만 26세 이상입니다.</label>
+				<br>
 			</div>
-			<div class="form-group form-check">
-			    <input type="checkbox" class="form-check-input largerCheckbox" id="allAgree">
-			    <label class="form-check-label" for="allAgree">&nbsp;&nbsp; 약관에 모두 동의합니다.</label>
+			<div style="margin-left:30px;">
+			<input type="checkbox" class="form-check-input largerCheckbox" id="allAgree" >
+			<label class="form-check-label" for="allAgree">&nbsp;&nbsp; 약관에 모두 동의합니다.</label>
 			</div>
 			<div align="center">
 				<button type="submit" id="submit" class="btn btn-primary" style="margin-right: 20px; width:200px"  onclick="return validate();">가입하기</button>
@@ -98,16 +100,17 @@
   // 필수사항 체크 검증
 
   function validate(){
-
-  $(".required").children(":checkbox").each(function(){
-                            if($(this).prop("checked")){
-                            }else{ 
-                                window.alert("필수사항은 반드시 동의하셔야합니다");
-                                return false;
-                            }
-                        })
-
-                    }
+  var check= 0;
+  $("#required").children(":checkbox").each(function(){
+			if(!$(this).prop("checked")){
+				check++;
+			}
+   })
+   if(check >0) {
+	alert("필수사항은 반드시 동의하셔야합니다");
+	return false;
+      }
+   }
 //체크박스 모두동의
 	$(function(){
 		$("#allAgree").change(function(){
@@ -123,6 +126,8 @@
 
 
 
-
+<%@ include file = "../common/footer.jsp"%>
 </body>
+
+
 </html>

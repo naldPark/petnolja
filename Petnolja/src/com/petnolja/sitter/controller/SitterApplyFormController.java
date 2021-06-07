@@ -1,8 +1,6 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.pet.model.vo.Log;
-import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
- * Servlet implementation class dailysitController
+ * Servlet implementation class enrollController
  */
-@WebServlet("/dailysit.sit")
-public class DailysitController extends HttpServlet {
+@WebServlet("/enroll.sit")
+public class SitterApplyFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DailysitController() {
+    public SitterApplyFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +28,20 @@ public class DailysitController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("여긴 컨트롤러");
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
-		new PetsitterService().selectDaily(userNo);
-		
-		ArrayList<Log> list = new PetsitterService().selectDaily(userNo);
-		
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/petsitter/serviceDailySit.jsp").forward(request, response);
-		
+		request.setCharacterEncoding("UTF-8");
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		} else if(((Member)request.getSession().getAttribute("loginUser")).getAuthSitter()!=null){
+			request.getSession().setAttribute("alertMsg", "이미 신청하셨습니다");
+			response.sendRedirect(request.getContextPath());
+		} else {
+			
+			request.getRequestDispatcher("views/petsitter/applyPetsitter.jsp").forward(request, response);
+		}
 	}
 
 	/**

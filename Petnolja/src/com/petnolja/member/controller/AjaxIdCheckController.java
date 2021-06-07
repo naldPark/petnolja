@@ -1,23 +1,27 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petnolja.member.model.service.MemberService;
+
+
 /**
- * Servlet implementation class reserVationController
+ * Servlet implementation class AjaxIdCheckController
  */
-@WebServlet("/reserVation.sit")
-public class reserVationController extends HttpServlet {
+@WebServlet("/idCheck.mem")
+public class AjaxIdCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public reserVationController() {
+    public AjaxIdCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +30,17 @@ public class reserVationController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/petsitter/reserveVation.jsp").forward(request, response);
+	
+		String checkId = request.getParameter("checkId");
+		
+		int count = new MemberService().idCheck(checkId);
+		
+		if(count > 0) { // 존재하는 아이디가 있을경우 => 사용불가능
+			response.getWriter().print("NNNNN");
+		}else { // 존재하는 아이디가 없을 경우 => 사용가능
+			response.getWriter().print("NNNNY");
+		}
+	
 	}
 
 	/**

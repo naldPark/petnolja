@@ -131,11 +131,11 @@ public class ResearchDao {
 					PreparedStatement pstmt = null;
 					String sql = prop.getProperty("searchSitter");
 					switch(array) {
-						case "recommend": sql += "ORDER BY avgrating desc, (case when osmall = 0 then 9999999999 else 0 end), osmall asc"; break;
-						case "starArray": sql += "ORDER BY avgrating desc, date_count desc, distance"; break;
+						case "recommend": sql += "ORDER BY avgrating desc NULLS LAST, (case when osmall = 0 then 9999999999 else 0 end), osmall asc"; break;
+						case "starArray": sql += "ORDER BY avgrating desc NULLS LAST, date_count desc, distance"; break;
 						case "priceArray": sql += "ORDER BY (case when osmall = 0 then 9999999999 else 0 end), osmall asc"; break;
 						case "distanceArray": sql += "ORDER BY distance, date_count desc, avgrating desc"; break;
-						case "dateArray": sql += "ORDER BY DATE_COUNT DESC, avgrating desc"; break;
+						case "dateArray": sql += "ORDER BY DATE_COUNT DESC NULLS LAST, avgrating desc"; break;
 					}
 					sql+=") A ) where rnum between ? and ?";
 					

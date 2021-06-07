@@ -1,6 +1,7 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.petsitter.model.service.PetsitterService;
+import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.sitter.model.service.SitterService;
 
 /**
- * Servlet implementation class updateRejectController
+ * Servlet implementation class SitterContentEnrollPathController
  */
-@WebServlet("/updateReject.sit")
-public class updateRejectController extends HttpServlet {
+@WebServlet("/updatePath.sitn")
+public class SitterContentUpdatePathController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateRejectController() {
+    public SitterContentUpdatePathController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,23 +32,21 @@ public class updateRejectController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		int resNo = Integer.parseInt(request.getParameter("resNo")); 
-		String resStat = request.getParameter("resStat");
-		String cancelRea = request.getParameter("cancelRea");
-		
-		int result = new PetsitterService().updateReject(userNo, resNo, resStat, cancelRea);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg","거절햇다 시발롬아.");
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath());
-		
-	}else {
-		request.setAttribute("errorMsg", "거절을 실패했다 시발롬아.");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-	}
-		
+
+		} else { 
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo(); // 회원번호
+			Petsitter info= new SitterService().selectSitterContent(userNo);
+
+			String[] pics= new SitterService().selectSitterPics(userNo);
+			request.setAttribute("info", info);
+			request.setAttribute("pics", pics);
+			request.getRequestDispatcher("views/petsitter/sitterContentUpdateForm.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
