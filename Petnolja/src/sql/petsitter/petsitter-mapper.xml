@@ -25,30 +25,30 @@
 		        SELECT ROWNUM RNUM, A.*
 		          FROM (
 		                SELECT 
-		                       MEM_ID
-							    ,SITTER_NO
-							    ,SITTER_ACCESS
-							    ,PET_PERIOD
-							    ,PET_NO
-							    ,LICENSE
-							    ,EXPERIENCE
-							    ,MOTIVE
-							    ,PROMOTION_STATUS
-							    ,PROMOTION_DATE
-							    ,STOP_REASON
-							    ,STOP_CONTENT
-							    ,PENALTY_COUNT
-							    ,ADDITIONS
-							    ,FLOOR(MONTHS_BETWEEN((SELECT SYSDATE FROM DUAL),	PROMOTION_DATE)) AS DURATION
+		                	MEM_ID
+							,SITTER_NO
+							,SITTER_ACCESS
+							,PET_PERIOD
+							,PET_NO
+							,LICENSE
+							,EXPERIENCE
+							,MOTIVE
+							,PROMOTION_STATUS
+						    ,PROMOTION_DATE
+						    ,STOP_REASON
+						    ,STOP_CONTENT
+						    ,PENALTY_COUNT
+						    ,ADDITIONS
+						    ,FLOOR(MONTHS_BETWEEN((SELECT SYSDATE FROM DUAL),	PROMOTION_DATE)) AS DURATION
 		                FROM SITTER
 						JOIN MEMBER ON(SITTER_NO = MEM_NO)
+						WHERE PROMOTION_STATUS = 'Y' 
+		 				AND SITTER_ACCESS = 'Y'
 		                ORDER 
 		                	BY SITTER.PROMOTION_DATE DESC
 		                ) A
 		        )
 		 WHERE (RNUM BETWEEN ? AND ?)
-		 AND (PROMOTION_STATUS = 'Y') 
-		 AND (SITTER_ACCESS = 'Y')
 
 	</entry>
 	
