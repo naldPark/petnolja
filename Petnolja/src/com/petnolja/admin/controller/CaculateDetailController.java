@@ -96,7 +96,8 @@ public class CaculateDetailController extends HttpServlet {
 			
 			ArrayList<Calculate> CNFlist = new AdminService().CNFselectCalculateDetail(CNFpi, sid, month, year);
 			ArrayList<Calculate> CNClist = new AdminService().CNCselectCalculateDetail(CNCpi, sid, month, year);
-			
+			String accBank = new AdminService().selectAccBank(sid);
+			String accNum = new AdminService().selectAccNum(sid);
 			
 			request.setAttribute("CNFlist", CNFlist);
 			request.setAttribute("CNClist", CNClist);
@@ -104,6 +105,8 @@ public class CaculateDetailController extends HttpServlet {
 			request.setAttribute("sid", sid);
 			request.setAttribute("year", year);
 			request.setAttribute("month", month);
+			request.setAttribute("accBank", accBank);
+			request.setAttribute("accNum", accNum);
 			
 			request.getRequestDispatcher("views/admin/calculateDetailView.jsp").forward(request, response);	
 		}

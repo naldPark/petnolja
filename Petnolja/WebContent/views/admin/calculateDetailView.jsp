@@ -10,6 +10,8 @@
     int year = (int)request.getAttribute("year");
     int month = (int)request.getAttribute("month"); 
     String sid = (String)request.getAttribute("sid"); 
+    String accBank = (String)request.getAttribute("accBank");
+    String accNum = (String)request.getAttribute("accNum");
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -83,9 +85,9 @@
         <div class="account-info" align="left">
             <span>
                 <span>ID : <%= sid %> &nbsp; &nbsp;</span>
-                
+            	<span>계좌정보 : <%= accBank %></span>&nbsp;<span><%= accNum %></span>
             </span>
-
+			
             <span>
                 <span>정산기간 : <%= year %>년 <%= month %>월 &nbsp; &nbsp;</span>
             </span>

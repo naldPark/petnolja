@@ -232,6 +232,24 @@
 	          )
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	
+	<entry key="selectAccBank">
+		SELECT
+		    ACC_BANK
+		FROM ACCOUNT
+		JOIN MEMBER ON (MEM_NO = SITTER_NO)
+		WHERE MEM_ID = ?
+	</entry>
+	
+	
+	<entry key="selectAccNum">
+		SELECT
+		    ACC_NUMBER
+		FROM ACCOUNT
+		JOIN MEMBER ON (MEM_NO = SITTER_NO)
+		WHERE MEM_ID = ?
+	</entry>
 
 
 </properties>

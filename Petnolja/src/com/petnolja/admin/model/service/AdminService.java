@@ -150,4 +150,26 @@ public class AdminService {
 		return list;
 		
 	}
+	
+	public String selectAccBank(String sid) {
+		
+		Connection conn = getConnection();
+		String bank = new AdminDao().selectAccBank(conn, sid);
+		
+		close(conn);
+		return bank;
+		
+	}
+	
+	
+	public String selectAccNum(String sid) {
+		
+		Connection conn = getConnection();
+		String accNum = new AdminDao().selectAccNum(conn, sid);
+		
+		close(conn);
+		return accNum;
+		
+	}
+	
 }

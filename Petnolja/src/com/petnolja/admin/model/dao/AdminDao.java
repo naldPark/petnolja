@@ -457,5 +457,61 @@ public class AdminDao {
 	}
 	
 	
+	public String selectAccBank(Connection conn, String sid){
+		
+		String bank = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAccBank");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bank = rset.getString("acc_bank");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bank;
+		
+	}
+	
+	
+	public String selectAccNum(Connection conn, String sid){
+		
+		String accNum = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAccNum");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				accNum = rset.getString("acc_number");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return accNum;
+		
+	}
 	
 }
