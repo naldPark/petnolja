@@ -45,7 +45,7 @@
 		            	<span style="float:left; width:70%; padding-left: 50px;">
 			            	<br><h2>리뷰 조회</h2>
 		            	</span><br>
-		            	<button type="button" class="btn btn-primary"  onclick="window.open('<%=contextPath%>/histInquiry.sit')">더보기</button>
+		            	<button type="button" class="btn btn-primary"  onclick="window.open('<%=contextPath%>/PetSitterLog.me')">더보기</button>
 		          </div>
 	        </div><br><br>
 
