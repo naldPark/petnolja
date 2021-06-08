@@ -103,8 +103,7 @@
                         <td colspan="2" class="title-dog">정산 예정 금액</td>
                     </tr>
                     <tr>
-                        <td class="title-dog">얼마</td>
-						<td>금액</td>
+                        <td class="title-dog"><%=info.getPayAmount() %></td>
                     </tr>
                     
                 </table>

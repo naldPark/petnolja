@@ -450,6 +450,23 @@ public class PetsitterService {
 		close(conn);
 		return result;
 	}
+	
+
+	public int updateRevoke(long resNo ) {
+		Connection conn = getConnection();
+		int result = new PetsitterDao().updateRevoke(conn, resNo);
+		
+		
+		if (result > 0) {
+			commit(conn);	
+			
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 }
 	
 
