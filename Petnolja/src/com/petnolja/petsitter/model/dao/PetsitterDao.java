@@ -14,9 +14,7 @@ import java.util.Properties;
 import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
-import com.petnolja.petsitter.model.vo.Detail;
-import com.petnolja.petsitter.model.vo.Petsitter;
-import com.petnolja.petsitter.model.vo.Reserv;
+import com.petnolja.petsitter.model.vo.*;
 import com.petnolja.qna.model.vo.Qna;
 
 public class PetsitterDao {
@@ -693,6 +691,153 @@ public class PetsitterDao {
 			}
 			
 			return list;
+		}
+		
+		/** 최서경
+		 * 펫시터 정산계좌관리-> 대표계좌 은행명, 끝 4자리 번호
+		 */
+		public Account getRepAcc(Connection conn, int memNo) {
+			Account repAcc = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("getRepAcc");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					repAcc = new Account();
+					repAcc.setAccBank(rset.getString("acc_bank"));
+					repAcc.setAccNumber(rset.getString("acc_number"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return repAcc;
+		}
+		
+		/** 최서경
+		 * 펫시터 계좌 목록 조회
+		 */
+		public ArrayList<Account> selectAccList(Connection conn, int memNo){
+			ArrayList<Account> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAccList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memNo);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Account( rset.getInt("acc_no")
+									   , rset.getString("acc_bank")
+							 		   , rset.getString("acc_number")
+							 		   , rset.getString("acc_represent")));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+		
+		/** 최서경
+		 *  계좌 삭제
+		 */
+		public int deleteAccount(Connection conn, int accno) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, accno);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		/** 최서경
+		 * 대표계좌 지정 1-> 새로운 대표계좌 지정
+		 */
+		public int representAccount(Connection conn, int accno) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("representAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, accno);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		/** 최서경
+		 * 대표계좌 지정2 -> 기존 대표계좌 삭재
+		 */
+		public int deleteRepresentAccount(Connection conn) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteRepresentAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		/** 최서경
+		 * 새로운 계좌 추가
+		 */
+		public int insertAccount(Connection conn, Account a) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, a.getSitterNo());
+				pstmt.setString(2, a.getAccBank());
+				pstmt.setString(3, a.getAccNumber());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
 		}
 }
 	

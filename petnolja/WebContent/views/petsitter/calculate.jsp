@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.petnolja.admin.model.vo.Calculate" %>
-<% Calculate c = (Calculate)request.getAttribute("c"); %>
+<%@ page import="com.petnolja.admin.model.vo.Calculate, com.petnolja.petsitter.model.vo.Account" %>
+<% 
+Calculate c = (Calculate)request.getAttribute("c");
+Account a = (Account)request.getAttribute("a");
+
+String accNum = "";
+if (a != null) {
+accNum = a.getAccNumber().substring((a.getAccNumber().length()-4), (a.getAccNumber().length()));
+}
+
+%>
   <!DOCTYPE html>
   <html>
   <head>
@@ -67,9 +76,13 @@
             <div>
                 <h4 style="font-weight: 600;">정산 계좌 관리</h4><br>
                 <div>
-                    <span class="msg">현재 등록된 정산 계좌는 [NNNN]입니다.</span>
+                	<%if (a == null){ %>
+                    <span class="msg">현재 등록된 대표 계좌가 존재하지 않습니다.</span>
+                	<% } else { %>
+                    <span class="msg">현재 등록된 대표 계좌는<%=a.getAccBank() %>은행의 끝자리[<%=accNum %>]입니다.</span>
+                	<% } %>
                     <input type="button" class="btn btn-primary btn-sm buttons" value="더보기"
-                        onclick="location.href='<%=contextPath%>/calculateAccount.sit'" align="right">
+                        onclick="location.href='<%=contextPath%>/calacc.sit'" align="right">
                 </div>
             </div>
         </div>

@@ -7,23 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.member.model.vo.Member;
 import com.petnolja.petsitter.model.service.PetsitterService;
 import com.petnolja.petsitter.model.vo.Account;
 
 /**
- * Servlet implementation class exactController
+ * Servlet implementation class AddAccountController
  */
-@WebServlet("/exact.sit")
-public class ExactController extends HttpServlet {
+@WebServlet("/addAcc.sit")
+public class AddAccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExactController() {
+    public AddAccountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +33,28 @@ public class ExactController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
+		request.setCharacterEncoding("UTF-8");
+
+		String accBank = request.getParameter("accBank");
+		String accNum = request.getParameter("accNum");
 		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+
+		Account a = new Account();
+		a.setAccBank(accBank);
+		a.setAccNumber(accNum);
+		a.setSitterNo(memNo);
 		
-		Calculate c = new PetsitterService().selectNowCal(memId);
-		Account a = new PetsitterService().getRepAcc(memNo);
+		int result = new PetsitterService().insertAccount(a);
 		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "신규 계좌 등록에 성공했습니다.");
+			response.sendRedirect(request.getContextPath() + "/calacc.sit");
+			
+		} else {
+			request.setAttribute("errorMsg", "신규 계좌 등록에 실패했습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
-		request.setAttribute("c", c);
-		request.setAttribute("a", a);
-		
-		request.getRequestDispatcher("views/petsitter/calculate.jsp").forward(request, response);
 	}
 
 	/**
