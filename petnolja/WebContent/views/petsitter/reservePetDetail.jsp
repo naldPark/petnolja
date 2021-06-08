@@ -41,6 +41,7 @@
 </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
     <div class="container-check">
         <div class="pet_check">
             <div class="top">

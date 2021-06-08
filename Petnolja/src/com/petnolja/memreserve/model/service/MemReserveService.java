@@ -123,7 +123,4 @@ public class MemReserveService {
 		close(conn);
 		return result;
 	}
-	
-	
-
 }

@@ -343,6 +343,7 @@
         ,RES_CHECKOUT
         ,PET_NAME
         ,REQUEST
+        ,PAY_AMOUNT
     FROM RESERV
     JOIN MEMBER USING(MEM_NO)
     JOIN PET USING(MEM_NO)
@@ -384,6 +385,7 @@
         ,RES_CHECKOUT
         ,PET_NAME
         ,REQUEST
+        ,PAY_AMOUNT
     FROM RESERV
     JOIN MEMBER USING(MEM_NO)
     JOIN PET USING(MEM_NO)
@@ -502,6 +504,14 @@
 				      , 'N'
 				      )
 	</entry>
+	
+	<entry key="updateRevoke">
+    UPDATE
+        RESERV
+    SET RES_STATUS = '취소'
+    WHERE RES_NO = ?
+    
+    </entry>
 </properties>
 
 
