@@ -293,7 +293,7 @@
 					        , NOTICE_TITLE
 					        , NOTICE_CONTENT
 								from notice
-								where NOTICE_CATEGORY != '공지'
+								where NOTICE_CATEGORY != '%공지%'
 				            	and NOTICE_STATUS = 'Y'
 				            	 ORDER BY CREATE_DATE DESC)
 	</entry>
