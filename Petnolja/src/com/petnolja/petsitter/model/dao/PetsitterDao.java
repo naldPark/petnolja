@@ -656,7 +656,8 @@ public class PetsitterDao {
 										rset.getString("RES_CHECKIN"),
 										rset.getString("RES_CHECKOUT"),
 										rset.getString("PET_NAME"),
-										rset.getString("REQUEST")
+										rset.getString("REQUEST"),
+										rset.getInt("PAY_AMOUNT")
 										);
 				}
 				
@@ -734,7 +735,8 @@ public class PetsitterDao {
 										rset.getString("RES_CHECKIN"),
 										rset.getString("RES_CHECKOUT"),
 										rset.getString("PET_NAME"),
-										rset.getString("REQUEST")
+										rset.getString("REQUEST"),
+										rset.getInt("PAY_AMOUNT")
 										);
 				}
 				
@@ -803,16 +805,35 @@ public class PetsitterDao {
 					return result;
 				}
 		
-		public int updateCancel(Connection conn , long resNo) {
-			int result = 0;
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("updateCancel");
+			public int updateCancel(Connection conn , long resNo) {
+					int result = 0;
+					PreparedStatement pstmt = null;
+					String sql = prop.getProperty("updateCancel");
 			
-				try {
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setLong(1, resNo);
+					try {
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setLong(1, resNo);
 					
-					result = pstmt.executeUpdate();
+						result = pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				return result;
+			}
+				
+				public int updateRevoke(Connection conn , long resNo) {
+					int result = 0;
+					PreparedStatement pstmt = null;
+					String sql = prop.getProperty("updateRevoke");
+			
+					try {
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setLong(1, resNo);
+					
+						result = pstmt.executeUpdate();
 					
 				} catch (SQLException e) {
 					e.printStackTrace();

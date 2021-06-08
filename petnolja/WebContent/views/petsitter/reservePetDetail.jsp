@@ -17,8 +17,8 @@
 }
 .top{
     border: 1px solid #D6D6D6;
-    width: 530px;
-    height: 160px;
+    width: 580px;
+    height: 140px;
     padding: 10px 0px 10px 70px;
 }
 .middle{
@@ -30,7 +30,7 @@
 .footer{
     border: 1px solid #D6D6D6;
     width: 580px;
-    height: 350px;
+    height: 390px;
     padding: 20px 0px 0px 20px;
 }
 .title-dog{
@@ -41,6 +41,7 @@
 </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
     <div class="container-check">
         <div class="pet_check">
             <div class="top">
@@ -99,7 +100,7 @@
                         <td class="title-dog">정보</td>
                     </tr>
                     <tr>
-                        <td><textarea name = "ta2" rows="5" cols= "70" wrap = "virtual"><%=inpo.getNote() %></textarea></td>
+                        <td><textarea name = "ta2" rows="4" cols= "50" wrap = "virtual"><%=inpo.getNote() %></textarea></td>
                     </tr>
                 </table><br>
 

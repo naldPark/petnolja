@@ -14,8 +14,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<link rel="shortcut icon" href="resources/images/adFavicon.ico">
+<title>펫놀자?관리자!</title>
     <style>
         .outer {
             border: gray solid 1px;
@@ -118,7 +118,7 @@
 		                    <% String calMonth = realCalMonth < 10 ? "0" + String.valueOf(realCalMonth) : String.valueOf(realCalMonth); //실제 정산되는 월.한자리 수 0붙이기 %>
        		               	<% int realCalYear = Integer.parseInt(month) == 12? Integer.parseInt(year) + 1 : Integer.parseInt(year); // 실제 정산 년도 %>
 
-		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= realCalYear %>';" class="btn btn-info">상세조회</button></td>
+		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= year %>';" class="btn btn-info">상세조회</button></td>
 							<!-- 수정 전 (최서경)
 		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= c.getCalYear() %>';" class="btn btn-info">상세조회</button></td>
 		                    -->

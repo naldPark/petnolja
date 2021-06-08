@@ -100,17 +100,16 @@
                 </table><br>
                 <table >
                     <tr>
-                        <td colspan="2" class="title-dog">정산 예정 금액</td>
+                        <td colspan="2" class="title-dog">결재 예정 금액</td>
                     </tr>
                     <tr>
-                        <td class="title-dog">얼마</td>
-						<td>금액</td>
+                        <td class="title-dog"><%=inbo.getPayAmount() %></td>
                     </tr>
                     
                 </table>
 				<br><br><br><br>
                 <input type="button" class="btn btn-primary"  value="뒤로가기"  onclick="location.href='<%=contextPath%>/reserveRequest.sit'">
-                <input type="button" class="btn btn-primary"  value="예약취소"  onclick="location.href='<%=contextPath%>/reject.sit'">
+                <a class="btn btn-primary" href='<%=contextPath%>/updateReserveRevoke.sit?kno=<%=inbo.getResNo()%>'>예약취소</a>
 				</div>
         </div>
     </div>
