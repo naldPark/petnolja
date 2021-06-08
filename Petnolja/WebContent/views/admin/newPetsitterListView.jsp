@@ -15,6 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="resources/images/adFavicon.ico">
 <title>신규 지원자 목록</title>
 
 <style>
