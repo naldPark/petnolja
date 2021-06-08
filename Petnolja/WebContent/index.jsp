@@ -108,7 +108,7 @@
       <h2>펫시터가 되어 보실래요 ?</h2><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input type="button" value="펫시터 지원하기" class="btn btn-light btn-lg" onclick="location.href='<%=contextPath%>/enroll.sit'">
+      <input type="button" value="펫시터 지원하기" class="btn btn-light btn-lg" style="width:180px!important;" onclick="location.href='<%=contextPath%>/enroll.sit'">
    </div>
   </div><br><br>
   <hr><br><br>
