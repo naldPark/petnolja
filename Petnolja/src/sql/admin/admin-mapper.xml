@@ -100,6 +100,7 @@
                      , TO_CHAR(YEAR) "YEAR"
                      , TOTAL
                   FROM VW_CAL
+                  ORDER BY YEAR, MONTH DESC
                 ) A
 	          )
 		WHERE RNUM BETWEEN ? AND ?
@@ -116,6 +117,7 @@
                      , TO_CHAR(YEAR) "YEAR"
                      , TOTAL
                   FROM VW_CAL
+                  ORDER BY YEAR, MONTH DESC
                  WHERE SITTER_ID LIKE ?
                 ) A
 	          )
