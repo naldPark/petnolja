@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petnolja.member.model.vo.Member;
+import com.petnolja.memreserve.model.service.MemReserveService;
+import com.petnolja.memreserve.model.vo.MemReserve;
+import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
 import com.petnolja.petsitter.model.service.PetsitterService;
 import com.petnolja.petsitter.model.vo.Detail;
@@ -34,18 +37,19 @@ public class reserveDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		
-		int nNo = Integer.parseInt(request.getParameter("nno"));
-		
-		Detail d = new PetsitterService().selectDetail(nNo);
-		
-
-		request.setAttribute("d", d);
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());	
+		}else { 
+			long resNo = Long.parseLong(request.getParameter("rno"));
+			Detail mr =  new PetsitterService().selectDetail(resNo);
+			
+			request.setAttribute("info", mr);
 		
 		request.getRequestDispatcher("views/petsitter/reserveDetail.jsp").forward(request, response);
 	}
-
+}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

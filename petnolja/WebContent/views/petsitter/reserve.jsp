@@ -89,14 +89,6 @@
               <input type="button" class="btn btn-primary"  value="더보기"  onclick="location.href='<%=contextPath%>/reserveVation.sit'" align="right">
             </div>
           </div>
-
-          <div class="middle-left-3" style="padding: 20px">
-            <h2>이전 예약</h2><br>
-            <div>
-               <span style="float:left; width:93%">&nbsp; </span>
-               <input type="button" class="btn btn-primary"  value="더보기"  align="right">
-            </div>
-          </div>
           
 
         </div>

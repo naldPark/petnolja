@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Reserv,java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Reserv,com.petnolja.petsitter.model.vo.Detail,java.util.ArrayList"%>
     <%
-	
+    
 	ArrayList<Reserv> list = (ArrayList<Reserv>)request.getAttribute("list");
 	
 	
@@ -45,8 +45,8 @@
                             	<td style="text-align: center;"><%=r.getResCheckin() %></td>
                             	<td style="text-align: center;"><%=r.getResCheckout() %></td>
                             	<td style="text-align: center;"><%=r.getReQuest() %></td>
-                            	<td style="text-align: center;"><input type="button" value="상세조회" onclick="location.href='<%=contextPath%>/reserveDetail.sit'" id="write"></td>
-                            </tr>
+                            	<td style="text-align: center;"><a href='<%=contextPath%>/reserveDetail.sit?rno=<%=r.getResNo()%>'><span>자세히보기</span></a></td>
+                            </tr>                                                                 
                             
                         </tr>
                         <% } %>

@@ -13,7 +13,12 @@ import java.util.Properties;
 
 import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.common.model.vo.PageInfo;
+import com.petnolja.memreserve.model.vo.MemReserve;
 import com.petnolja.pet.model.vo.Log;
+import com.petnolja.pet.model.vo.Pet;
+import com.petnolja.petsitter.model.vo.Detail;
+import com.petnolja.petsitter.model.vo.Petsitter;
+import com.petnolja.petsitter.model.vo.Reserv;
 import com.petnolja.petsitter.model.vo.*;
 import com.petnolja.qna.model.vo.Qna;
 
@@ -562,7 +567,7 @@ public class PetsitterDao {
 	}
 	public ArrayList<Reserv> selectVation(Connection conn, int userNo) {
 		
-		System.out.println("여기는 다오");
+		
 		ArrayList<Reserv> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -630,21 +635,20 @@ public class PetsitterDao {
 		return list; 
 	}
 		
-		public Detail selectDetail(Connection conn, int nNo) {
+		public Detail selectDetail(Connection conn, Long resNo) {
 			
 			Detail d = null;
-			PreparedStatement pstmt = null;
 			ResultSet rset = null;
+			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("selectDetail");
-			
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, nNo);
-				
+				pstmt.setLong(1, resNo);
 				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					d = new Detail(rset.getInt("MEM_NO"),
+				if(rset.next()) {
+						d = new Detail(
+										rset.getInt("PET_NO"),
+										rset.getInt("MEM_NO"),
 										rset.getString("RES_STATUS"),
 										rset.getLong("RES_NO"),
 										rset.getString("MEM_NAME"),
@@ -664,7 +668,87 @@ public class PetsitterDao {
 			}
 			
 			return d; 
+		
+			
+		}
+
+		public Pet selectPetDetail(Connection conn, int petNo) {
+			
+			Pet p = null;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("selectPetDetail");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, petNo);
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+						p = new Pet(	
+										rset.getInt("PET_NO"),
+										rset.getString("MEM_NAME"),
+										rset.getString("PET_NAME"),
+										rset.getString("PET_SIZE"),
+										rset.getString("PET_GENDER"),
+										rset.getString("PET_BREED"),
+										rset.getString("PET_BIRTH"),
+										rset.getDouble("PET_WEIGHT"),
+										rset.getString("CHIP"),
+										rset.getString("VACCINE"),
+										rset.getString("CAUTION"),
+										rset.getString("NOTE"),
+										rset.getString("HOSPI"),
+										rset.getString("HOSPI_TEL")
+										);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return p; 
+		
+			
+		}
+			public Detail selectConfi(Connection conn, Long resNo) {
+			
+			Detail b = null;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("selectConfi");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setLong(1, resNo);
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+						b = new Detail(
+										rset.getInt("PET_NO"),
+										rset.getInt("MEM_NO"),
+										rset.getString("RES_STATUS"),
+										rset.getLong("RES_NO"),
+										rset.getString("MEM_NAME"),
+										rset.getString("MEM_TEL"),
+										rset.getString("RES_CHECKIN"),
+										rset.getString("RES_CHECKOUT"),
+										rset.getString("PET_NAME"),
+										rset.getString("REQUEST")
+										);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+
+			return b; 
 		}	
+
 		
 		
 		
@@ -677,7 +761,7 @@ public class PetsitterDao {
 			ResultSet rset = null;
 			String sql = prop.getProperty("selectNowCal");
 			
-			
+
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, memId);
@@ -697,6 +781,49 @@ public class PetsitterDao {
 			}
 			return c;
 		}
+			
+		
+			
+			public int updateConfi(Connection conn , long resNo) {
+				int result = 0;
+				PreparedStatement pstmt = null;
+				String sql = prop.getProperty("updateConfi");
+				
+					try {
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setLong(1, resNo);
+						
+						result = pstmt.executeUpdate();
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}finally {
+						close(pstmt);
+					}
+					return result;
+				}
+		
+		public int updateCancel(Connection conn , long resNo) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateCancel");
+			
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setLong(1, resNo);
+					
+					result = pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				return result;
+			}
+
+
+			
 		
 		
 		/** 최서경

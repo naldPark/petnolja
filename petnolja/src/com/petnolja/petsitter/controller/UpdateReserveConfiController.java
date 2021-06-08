@@ -11,16 +11,16 @@ import com.petnolja.member.model.vo.Member;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
- * Servlet implementation class updateRejectController
+ * Servlet implementation class UpdateReserveConfiController
  */
-@WebServlet("/updateReject.sit")
-public class updateRejectController extends HttpServlet {
+@WebServlet("/updateReserveConfi.sit")
+public class UpdateReserveConfiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateRejectController() {
+    public UpdateReserveConfiController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,18 @@ public class updateRejectController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		int resNo = Integer.parseInt(request.getParameter("resNo")); 
-		String resStat = request.getParameter("resStat");
-		String cancelRea = request.getParameter("cancelRea");
+		long resNo = Long.parseLong(request.getParameter("cno"));;
 		
-		int result = new PetsitterService().updateReject(userNo, resNo, resStat, cancelRea);
+		int result = new PetsitterService().updateConfi(resNo);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg","거절했다.");
-			response.sendRedirect(request.getContextPath());
-		
-	}else {
-		request.setAttribute("errorMsg", "거절을 실패했다.");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-	}
-		
+				request.getSession().setAttribute("alertMsg","확정되었습니다..");
+				response.sendRedirect(request.getContextPath());
+			
+		}else {
+			request.setAttribute("errorMsg", "실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**
