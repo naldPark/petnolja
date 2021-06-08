@@ -13,7 +13,7 @@ public class Calculate {
 	private String accBank;
 	private String accNumber;
 	private Date dealDate;
-	private int payNo;
+	private long payNo;
 	private long payAmount;
 	private char isPenalty;
 	
@@ -28,8 +28,8 @@ public class Calculate {
 		this.payTotal = payTotal;
 	}
 	
-	
-	public Calculate(String memName, String memId, String accBank, String accNumber, Date dealDate, int payNo,
+
+	public Calculate(String memName, String memId, String accBank, String accNumber, Date dealDate, long payNo,
 			long payAmount, char isPenalty) {
 		super();
 		this.memName = memName;
@@ -132,15 +132,15 @@ public class Calculate {
 	public void setDealDate(Date dealDate) {
 		this.dealDate = dealDate;
 	}
-	
-	public int getPayNo() {
+
+
+	public long getPayNo() {
 		return payNo;
 	}
 
-	public void setPayNo(int payNo) {
+	public void setPayNo(long payNo) {
 		this.payNo = payNo;
 	}
-
 
 	public long getPayAmount() {
 		return payAmount;
@@ -158,8 +158,6 @@ public class Calculate {
 		this.isPenalty = isPenalty;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Calculate [sitterId=" + sitterId + ", sitterName=" + sitterName + ", calYear=" + calYear + ", calMonth="
@@ -167,6 +165,7 @@ public class Calculate {
 				+ accBank + ", accNumber=" + accNumber + ", dealDate=" + dealDate + ", payNo=" + payNo + ", payAmount="
 				+ payAmount + ", isPenalty=" + isPenalty + "]";
 	}
+
 
 	
 
