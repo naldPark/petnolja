@@ -172,7 +172,7 @@
   var payNo=0;
   $("#check_module").click(function () {
     var IMP = window.IMP; 
-
+    var msg=""
 	  if($("#buyCard").prop("checked")){
       console.log("buycard");
     
@@ -192,11 +192,11 @@
             console.log(rsp);
             payNo=rsp.paid_at;
             if (rsp.success) {
-                var msg = '결제가 완료되었습니다.;
+                msg = '결제가 완료되었습니다.';
                 reserveInsertAjax('카드');
                 location.href = "<%=contextPath%>/reserveList.mem";
             } else {
-                var msg = '결제에 실패하였습니다.';
+                msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
