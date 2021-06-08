@@ -60,6 +60,32 @@ public class PetsitterDao {
 		
 	}
 	
+	public int selectOldListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyOldListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
+	
 	public int selectNewListCount(Connection conn) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -100,6 +126,55 @@ public class PetsitterDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Petsitter(rset.getString("mem_id"),
+									rset.getInt("sitter_no"),
+									rset.getString("sitter_access").charAt(0),
+									rset.getString("pet_period"),
+									rset.getString("pet_no"),
+									rset.getString("license"),
+									rset.getString("experience"),
+									rset.getString("motive"),
+									rset.getString("promotion_status").charAt(0),
+									rset.getDate("promotion_date"),
+									rset.getString("stop_reason"),
+									rset.getString("stop_content"),
+									rset.getInt("penalty_count"),
+									rset.getString("additions"),
+									rset.getInt("duration")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
+	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn, PageInfo pi, String keyword){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Petsitter> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyOldPetsitter");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
