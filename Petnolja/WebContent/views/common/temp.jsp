@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0; align:center; argin:auto;     }
+.tg  {border-collapse:collapse;border-spacing:0; align:center; margin:auto;     }
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0lax{text-align:left;vertical-align:top}
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal; width: 150px;}
+.tg .tg-0lax{text-align:center;vertical-align:top}
 .outer{        
           margin:auto;       
           font-family:'Noto Sans KR', sans-serif !important;}
@@ -22,14 +22,7 @@
 
  <div class = "outer">
    <%@ include file="../common/menubar.jsp" %>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
+
 <table class="tg">
 <thead>
   <tr>
