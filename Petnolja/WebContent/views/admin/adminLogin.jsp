@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="resources/images/adFavicon.ico">
 <title>펫놀자?관리자!</title>
 
     <!--부트스트랩-->

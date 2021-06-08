@@ -15,8 +15,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>기존 펫시터 목록</title>
-
+<link rel="shortcut icon" href="resources/images/adFavicon.ico">
+<title>펫놀자?관리자!</title>
 
 <style>
 .outer {
