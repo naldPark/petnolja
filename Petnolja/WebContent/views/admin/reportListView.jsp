@@ -232,10 +232,10 @@
 	<script>
         $(document).ready(function () {
             $("#report-search-box").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#report-list>tbody>tr").filter(function () {
-                    $(this).toggle($(this).children().eq(2).text().toLowerCase().indexOf(value) > -1)
-                });
+            	if(event.keyCode == "13") {
+            		var keyword = $(this).val().toLowerCase();
+            		location.href = "<%=contextPath%>/reportlist.ad?currentPage=1&key=" + keyword;
+            	}
             });
         });
     </script>

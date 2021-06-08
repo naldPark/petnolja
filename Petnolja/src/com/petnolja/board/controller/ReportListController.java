@@ -56,8 +56,15 @@ public class ReportListController extends HttpServlet {
 			int RendPage;
 			int endPage;
 			
-			QNAListCount = new ReportService().selectQNAListCount();
-			RevListCount = new ReportService().selectRevListCount();
+			String keyword = request.getParameter("key");
+			
+			if(keyword == null) {
+				QNAListCount = new ReportService().selectQNAListCount();
+				RevListCount = new ReportService().selectRevListCount();
+			} else {
+				QNAListCount = new ReportService().selectQNAListCount(keyword);
+				RevListCount = new ReportService().selectRevListCount(keyword);
+			}
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -90,9 +97,17 @@ public class ReportListController extends HttpServlet {
 			PageInfo Rpi = new PageInfo(RevListCount, currentPage, pageLimit, boardLimit, RmaxPage, startPage, RendPage);
 			PageInfo pi = new PageInfo(QNAListCount+RevListCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Report> Qlist = new ReportService().selectQNAList(Qpi);
-			ArrayList<Report> Rlist = new ReportService().selectRevList(Rpi);
 			
+			ArrayList<Report> Qlist = new ArrayList<>();
+			ArrayList<Report> Rlist = new ArrayList<>();
+			
+			if(keyword == null) {
+				Qlist = new ReportService().selectQNAList(Qpi);
+				Rlist = new ReportService().selectRevList(Rpi);
+			} else {
+				Qlist = new ReportService().selectQNAList(Qpi, keyword);
+				Rlist = new ReportService().selectRevList(Rpi, keyword);
+			}
 			
 			request.setAttribute("Qlist", Qlist);
 			request.setAttribute("Rlist", Rlist);
