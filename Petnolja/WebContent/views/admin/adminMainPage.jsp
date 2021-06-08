@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="shortcut icon" href="resources/images/adFavicon.ico">
+
+<title>펫놀자? 관리자!</title>
 
 <style>
     .outer {
@@ -44,7 +46,7 @@
 
 
     <div id="logo">
-        <img src="resources/images/logo.png" alt="">
+        <img src="resources/images/logo.png">
 
     </div>
 </div>

@@ -93,18 +93,18 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><img src="<%=contextPath %>/resources/images/member/loginImage1.png" style="height: 25px"></span>
               </div>
-              <input type="text" class="form-control" placeholder="아이디를 입력하세요"  name="userId" autocomplete="username">
+              <input type="text" class="form-control" placeholder="아이디를 입력하세요"  name="userId" autocomplete="username" style="font-size : 17px;">
           </div>
         
           <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><img src="<%=contextPath %>/resources/images/member/loginImage2.png" style="height: 25px"></span>
                 </div>
-              <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" autocomplete="current-password">
+              <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" autocomplete="current-password" style="font-size : 17px;">
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%">로그인</button><br><br>
-          <button type="button" class="btn btn-light" style="width:40%" onclick="location.href='<%=contextPath%>/enrollform.me'">회원가입</button>
-          <button type="button" class="btn btn-light" style="width:40%" onclick="findMain()">ID/PW찾기</button>
+          <button type="submit" class="btn btn-primary" style="width:100%; font-size : 17px;">로그인</button><br><br>
+          <button type="button" class="btn btn-light" style="width:40%; font-size : 17px;" onclick="location.href='<%=contextPath%>/enrollform.me'">회원가입</button>
+          <button type="button" class="btn btn-light" style="width:42%; font-size : 17px;" onclick="findMain()">ID/PW찾기</button>
       </form>
     </div>
     <!--로그인전에 보여지는 로그인form 끝-->
