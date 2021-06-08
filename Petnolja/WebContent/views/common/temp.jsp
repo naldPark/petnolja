@@ -114,7 +114,7 @@
     <td class="tg-0lax">pass01</td>
     <td class="tg-0lax">N</td>
     <td class="tg-0lax">010-8767-5948</td>
-    <td class="tg-0lax">aijw289@petnolja.com</td>
+    <td class="tg-0lax">seokyeong1113@gmail.com</td>
   </tr>
   <tr>
     <td class="tg-0lax">10</td>

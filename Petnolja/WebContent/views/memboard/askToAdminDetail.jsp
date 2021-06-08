@@ -48,20 +48,20 @@
         <label for="comment"><h4>본문 내용</h4></label>
           <div class="form-group" style="text-align: left;">
           
-           <div class="form-control" rows="5" id="comment" style="height:200px"><%=q.getqContent()%></div><br>
+           <div class="form-control" rows="5" id="comment" style="height:200px; white-space:pre;"><%=q.getqContent()%></div><br>
           <%if(q.getaCreateDate()==null){ %>
                           아직 등록된 답변이 없습니다 <br>
 	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;">
 	          </div>
 	      <% }else{ %>
 	       	  <%=q.getaCreateDate()%> 에 답변이 등록되었습니다 <br>
-	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;">
+	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;white-space:pre;">
 	        	  <%=q.getaContent()%>
 	          </div>
 	      <% } %>
           </div>
           <div class="form-group" style="text-align: center;">
-           	<button type="button" class="btn btn-secondary" onclick="history.back();">뒤로가기</button>
+           	<button type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/askToAdminList.mem?currentPage=1'">목록보기</button>
           </div>
  </div>
  

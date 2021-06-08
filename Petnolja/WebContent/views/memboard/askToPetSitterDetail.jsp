@@ -33,7 +33,7 @@
         <h2>고객센터 - 1:1 문의</h2>       
         <table class="table" style="border:1px solid lightgray">
             <tr>
-                <th>작성자</th>
+                <th style="width:200px;">작성자</th>
                 <td><%=a.getMemName()%></td>
             </tr>
             <tr>
@@ -44,14 +44,14 @@
         <label for="comment"><h4>본문 내용</h4></label>
           <div class="form-group" style="text-align: left;">
           
-           <div class="form-control" rows="5" id="comment" style="height:200px"><%=a.getqContent()%></div><br>
+           <div class="form-control" rows="5" id="comment" style="height:200px; white-space:pre;"><%=a.getqContent()%></div><br>
           <%if(a.getaCreateDate()==null){ %>
                           아직 등록된 답변이 없습니다 <br>
 	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;">
 	          </div>
 	      <% }else{ %>
 	       	  <%=a.getaCreateDate()%> 에 답변이 등록되었습니다 <br>
-	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;">
+	          <div class="form-control" rows="5" id="comment" style="height:200px; text-align:left;white-space:pre;">
 	        	  <%=a.getaContent()%>
 	          </div>
 	      <% } %>

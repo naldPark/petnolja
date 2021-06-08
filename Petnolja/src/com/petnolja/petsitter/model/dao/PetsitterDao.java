@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.memreserve.model.vo.MemReserve;
 import com.petnolja.pet.model.vo.Log;
@@ -425,67 +426,6 @@ public class PetsitterDao {
 		
 	}
 	
-	public int calculateDetailCount(Connection conn) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("calculateDetailCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return listCount;		
-		
-	}
-	
-	
-	public ArrayList<Petsitter> selectCalculateDetail(Connection conn, PageInfo pi){
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		ArrayList<Petsitter> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCalculateDetail");
-	
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Petsitter(
-						
-						));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-		
-	}
-	
 	public ArrayList<Qna> selectHist(Connection conn, int userNo) {
 		
 		ArrayList<Qna> list = new ArrayList<>();
@@ -729,10 +669,44 @@ public class PetsitterDao {
 				close(pstmt);
 			}
 			
+
 			return b; 
+		}	
+
 		
+		
+		
+		/** 최서경
+		 * 이번달 정산금액 조회
+		 */
+		public Calculate selectNowCal(Connection conn, String memId) {
+			Calculate c = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectNowCal");
 			
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					c = new Calculate(rset.getString("year")
+									, rset.getString("month")
+									, rset.getLong("total"));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return c;
 		}
+			
+		
 			
 			public int updateConfi(Connection conn , long resNo) {
 				int result = 0;
@@ -771,6 +745,79 @@ public class PetsitterDao {
 				}
 				return result;
 			}
+
+
+			
+		
+		
+		/** 최서경
+		 * 펫시터 정산내역 추가 조회
+		 */
+		public ArrayList<Calculate> selectCalList(Connection conn, String memId){
+			ArrayList<Calculate> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectCalList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Calculate(rset.getString("year")
+										 , rset.getString("month")
+										 , rset.getLong("total")));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		
+		/** 최서경
+		 * 펫시터 정산내역 날짜로 검색
+		 */
+		public ArrayList<Calculate> selectCalList(Connection conn, String memId, String date){
+			
+			String searchYear = date.substring(0, 4);
+			String searchMonth = date.substring(5);
+			
+			//System.out.println(searchYear);
+			//System.out.println(searchMonth);
+			
+			ArrayList<Calculate> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectKeyCal");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memId);
+				pstmt.setString(2, searchYear);
+				pstmt.setString(3, searchMonth);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					list.add(new Calculate(rset.getString("year")
+										 , rset.getString("month")
+										 , rset.getLong("total")));
+				}
+						
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
 }
 	
 

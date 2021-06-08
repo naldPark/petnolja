@@ -1,29 +1,25 @@
-package com.petnolja.petsitter.controller;
+package com.petnolja.sitter.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
- * Servlet implementation class CalculateMoneyController
+ * Servlet implementation class enrollController
  */
-@WebServlet("/callist.sit")
-public class CalculateMoneyController extends HttpServlet {
+@WebServlet("/enroll.sit")
+public class SitterApplyFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculateMoneyController() {
+    public SitterApplyFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +29,19 @@ public class CalculateMoneyController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
-		
-		Calculate c = new PetsitterService().selectNowCal(memId);
-		ArrayList<Calculate> list = null;
-		
-		String date = request.getParameter("date");
-		if(date == null) {
-			list = new PetsitterService().selectCalList(memId);
-			//System.out.println(date);	// 2021-02
+		request.setCharacterEncoding("UTF-8");
+		if(request.getSession().getAttribute("loginUser") == null) {
+			
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		} else if(((Member)request.getSession().getAttribute("loginUser")).getAuthSitter()!=null){
+			request.getSession().setAttribute("alertMsg", "이미 신청하셨습니다");
+			response.sendRedirect(request.getContextPath());
 		} else {
-			list = new PetsitterService().selectCalList(memId, date);
+			
+			request.getRequestDispatcher("views/petsitter/applyPetsitter.jsp").forward(request, response);
 		}
-		
-		
-		request.setAttribute("c", c);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/petsitter/calculateMoney.jsp").forward(request, response);
 	}
 
 	/**

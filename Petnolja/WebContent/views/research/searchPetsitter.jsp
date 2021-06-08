@@ -19,7 +19,7 @@
         }
         #outer{
           width:1400px;
-          height: 1800px;
+          height: 1900px;
           margin:auto;
           position:relative;
           font-family:'Noto Sans KR', sans-serif !important;
@@ -48,8 +48,8 @@
 	<%@ include file="../common/menubar.jsp" %>
 
 
-<div id="outer"><br><br>
-  <%@ include file = "../member/loginBar.jsp" %>
+<div id="outer"><br>
+  <%@ include file = "../member/loginBar.jsp" %><hr><br>
 
     <!-- 추천리스트 시작 -->
   <div class="wrap wrap2" style="width:1000px;">

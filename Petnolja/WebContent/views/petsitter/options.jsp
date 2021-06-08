@@ -45,29 +45,14 @@
         top: 0px;
         left: 620px;
         width: 480px;
-        height: 490px;
-      }
-
-      .middle-left-1 {
-
-        width: 600px;
-        height: 150px;
-        background-color: #E1F0FA;
-      }
-
-      .middle-left-2 {
-
-        margin-top: 20px;
-        width: 600px;
-        height: 150px;
-        background-color: #E1F0FA;
+        height: 460px;
       }
 
       .middle-left-3 {
 
         margin-top: 20px;
         width: 600px;
-        height: 150px;
+        height: 100px;
         background-color: #E1F0FA;
       }
 
@@ -90,26 +75,36 @@
   <body>
     <%@ include file="../petsitter/serviceMenu.jsp" %>
       <div class="container">
-        
-        
+
         <!-- MIDDLE -->
         <div class="middle">
+        
+        <div class="middle-left-3" style="padding: 20px; padding-top:30px; padding-left:140px;">
+            <h2 style="float:left;">프로필 관리</h2>
+            <div style="padding-left:300px;">
+            <%if(r.getSitterTitle()==null){ %>
+              <input type="button" value="신규등록" class="btn btn-primary" onclick="location.href='<%=contextPath%>/enrollPath.sitn'" align="right">
+             <%}else{ %>
+              <input type="button" value="수정하기" class="btn btn-primary" onclick="location.href='<%=contextPath%>/updatePath.sitn'" align="right">
+              <%}%>
+            </div>
+          </div>
 
-          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+          <div class="middle-left-3" style="padding: 20px; padding-top:30px; padding-left:140px;">
             <h2 style="float:left;">이용일/시간 관리</h2>
             <div style="padding-left:300px;">
               <input type="button" value="더보기" class="btn btn-primary" onclick="location.href='<%=contextPath%>/Abledate.sit'" align="right">
             </div>
           </div>
 
-          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+          <div class="middle-left-3" style="padding: 20px; padding-top:30px; padding-left:140px;">
             <h2 style="float:left;">시팅 금액 관리</h2>
             <div style="padding-left:300px;">
             <input type="button" value="더보기" class="btn btn-primary"  onclick="location.href='<%=contextPath%>/sitmoney.sit'" align="right">
             </div>
           </div>
 
-          <div class="middle-left-3" style="padding: 20px; padding-top:50px; padding-left:140px;">
+          <div class="middle-left-3" style="padding: 20px; padding-top:30px; padding-left:140px;">
             <h2 style="float:left;">추가 서비스 관리</h2>
             <div style="padding-left:300px;">
             <input type="button" value="더보기" class="btn btn-primary"  onclick="location.href='<%=contextPath%>/addservice.sit'" align="right">
@@ -117,7 +112,7 @@
           </div>
           <div class="middle-right" style="padding: 20px;" >
             <h2>현재 설정된 옵션</h2>
-            <div class="dog" style="word-spacing :30px; padding: 20px;">
+            <div class="dog" style=" padding: 20px;">
               <div>
                 
                 	<div style="float:left; margin-right: 30px;">
@@ -143,7 +138,11 @@
                <hr>
               <div style="padding: 20px;">
                 <h3>추가&ensp;서비스</h3>
+                <%if(r.getAdditions()==null) {%>
+                <span>등록하신 서비스가 없습니다</span><br>
+                <%}else{ %>
                 <span><%=r.getAdditions() %></span><br>
+                <%} %>
             </div>
           </div>
 
@@ -152,6 +151,7 @@
         <br><br>
 
       </div><br>
+      </div>
       <%@ include file="../common/footer.jsp" %>
   </body>
 

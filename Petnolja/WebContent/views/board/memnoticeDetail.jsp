@@ -49,7 +49,7 @@
             </tbody>
           </table>
         
-          <div class="form-control" style="overflow:auto; height: 400px; white-space:normal;">
+          <div class="form-control" style="overflow:auto; white-space:pre; height: 400px; ">
             <%=n.getNoticeContent() %>
         
           </div>

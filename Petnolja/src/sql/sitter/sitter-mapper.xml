@@ -35,13 +35,15 @@
 	select 
 		  mem_no
 		, mem_name
+		, sitter_title
+			, additions
 		, dsmall
 		, dmid
 		, dbig
 		, osmall
 		, omid
 		, obig
-		, additions
+	
 		from vw_sitter
 		where mem_no=?
 	</entry>
@@ -67,10 +69,75 @@
         and sitter_no=?
 		</entry>
 	
+	 <entry key= "sitterContentUpdate">
+		UPDATE SITTER
+		SET SITTER_TITLE =?
+			, SITTER_CONTENT=?
+		WHERE SITTER_NO=?
+
+	</entry>
+		
+	 <entry key= "insertAttachmentList">
+		INSERT
+			  INTO ATTACHMENT
+			  (
+			    FILE_NO
+			  , AT_CATEGORY
+			  , AT_NO
+			  , ORIGIN_NAME
+			  , CHANGE_NAME
+			  , FILE_PATH
+			  , FILE_LEVEL
+			  )
+			  VALUES
+			  (
+			    SEQ_CNO.NEXTVAL
+			  , 'SITTER_PIC'
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			  )
+	</entry>
 	
 	
 	
+	 <entry key= "selectSitterContent">
+		SELECT
+		SITTER_NO
+			,SITTER_TITLE
+			,SITTER_CONTENT		
+		 FROM SITTER
+		 WHERE SITTER_NO=?
+			  
+	</entry>
 	
+	 <entry key= "selectSitterPics">
+		select fILE_PATH||CHANGE_NAME PATH
+		,file_level
+				from attachment
+				where at_catEgory ='SITTER_PIC'
+				AND AT_NO=?
+				AND STATUS='Y'
+				ORDER BY FILE_LEVEL
+		</entry>
+	
+	
+		 <entry key= "updateAttachmentList">
+		UPDATE ATTACHMENT
+			SET ORIGIN_NAME=?
+			,CHANGE_NAME=?
+			,FILE_PATH=?
+			,FILE_LEVEL=?
+			,UPLOAD_DATE=SYSDATE
+			WHERE AT_NO =?
+			AND FILE_LEVEL=?
+			AND STATUS='Y'
+			AND at_catEgory ='SITTER_PIC'
+		
+			
+	</entry>
 	
 	
 	

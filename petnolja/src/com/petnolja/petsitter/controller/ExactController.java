@@ -1,7 +1,6 @@
 package com.petnolja.petsitter.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +13,16 @@ import com.petnolja.member.model.vo.Member;
 import com.petnolja.petsitter.model.service.PetsitterService;
 
 /**
- * Servlet implementation class CalculateMoneyController
+ * Servlet implementation class exactController
  */
-@WebServlet("/callist.sit")
-public class CalculateMoneyController extends HttpServlet {
+@WebServlet("/exact.sit")
+public class ExactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculateMoneyController() {
+    public ExactController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,20 +35,9 @@ public class CalculateMoneyController extends HttpServlet {
 		String memId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
 		
 		Calculate c = new PetsitterService().selectNowCal(memId);
-		ArrayList<Calculate> list = null;
-		
-		String date = request.getParameter("date");
-		if(date == null) {
-			list = new PetsitterService().selectCalList(memId);
-			//System.out.println(date);	// 2021-02
-		} else {
-			list = new PetsitterService().selectCalList(memId, date);
-		}
-		
 		
 		request.setAttribute("c", c);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/petsitter/calculateMoney.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/calculate.jsp").forward(request, response);
 	}
 
 	/**

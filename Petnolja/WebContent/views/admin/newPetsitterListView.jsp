@@ -147,7 +147,7 @@
             	
         <% } %>
 
-		<% if(currentPage != maxPage !list.isEmpty()){ %>
+		<% if(currentPage != maxPage && !list.isEmpty()){ %>
             <button onclick="location.href='<%=contextPath%>/newlist.ad?currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary btn-sm"> &gt; </button>
 		<% } %>
     </div>

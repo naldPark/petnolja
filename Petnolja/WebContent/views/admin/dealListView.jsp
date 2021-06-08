@@ -168,18 +168,10 @@
     $(function () {
 
         $("#date-filter").on("change", function(){
-        	
         		
             var date = $(this).val();
 			
             location.href="deallist.ad?currentPage=1&date=" + date;
-            
-            
-            /*
-            $("#deal-list>tbody>tr").filter(function(){
-                $(this).toggle($(this).children().eq(1).text().indexOf(dateFilter)>-1)
-            });
-            */
         });
     });
 

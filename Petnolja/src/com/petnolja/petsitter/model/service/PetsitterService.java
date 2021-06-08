@@ -8,6 +8,7 @@ import static com.petnolja.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
 import com.petnolja.pet.model.vo.Pet;
@@ -16,8 +17,6 @@ import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import com.petnolja.petsitter.model.vo.Reserv;
 import com.petnolja.qna.model.vo.Qna;
-import com.petnolja.research.model.dao.ResearchDao;
-import com.petnolja.research.model.vo.Research;
 
 public class PetsitterService {
 
@@ -314,6 +313,43 @@ public class PetsitterService {
 		close(conn);
 		
 		return result;
+	}
+	/** 최서경
+	 * 이번달 정산금액 조회
+	 */
+	public Calculate selectNowCal(String memId) {
+		Connection conn = getConnection();
+		
+		Calculate c = new PetsitterDao().selectNowCal(conn, memId);
+		
+		close(conn);
+		
+		return c;
+	}
+	
+	/** 최서경
+	 * 펫시터 정산내역 추가 조회
+	 */
+	public ArrayList<Calculate> selectCalList(String memId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Calculate> list = new PetsitterDao().selectCalList(conn, memId);
+		
+		close(conn);
+		return list;
+	}
+	
+	/** 최서경
+	 * 펫시터 정산내역 날짜로 검색
+	 */
+	public ArrayList<Calculate> selectCalList(String memId, String date) {
+		Connection conn = getConnection();
+		
+		ArrayList<Calculate> list = new PetsitterDao().selectCalList(conn, memId, date);
+		
+		close(conn);
+		return list;
+
 	}
 }
 	

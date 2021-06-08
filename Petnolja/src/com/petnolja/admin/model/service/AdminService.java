@@ -110,4 +110,66 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+	
+	public int CNFcalculateDetailCount(String sid, int month, int year) {
+		
+		Connection conn = getConnection();
+		int listCount = new AdminDao().CNFcalculateDetailCount(conn, sid, month, year);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public int CNCcalculateDetailCount(String sid, int month, int year) {
+		
+		Connection conn = getConnection();
+		int listCount = new AdminDao().CNCcalculateDetailCount(conn, sid, month, year);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public ArrayList<Calculate> CNFselectCalculateDetail(PageInfo pi, String sid, int month, int year){
+		
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new AdminDao().CNFselectCalculateDetail(conn, pi, sid, month, year);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public ArrayList<Calculate> CNCselectCalculateDetail(PageInfo pi, String sid, int month, int year){
+		
+		Connection conn = getConnection();
+		ArrayList<Calculate> list = new AdminDao().CNCselectCalculateDetail(conn, pi, sid, month, year);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public String selectAccBank(String sid) {
+		
+		Connection conn = getConnection();
+		String bank = new AdminDao().selectAccBank(conn, sid);
+		
+		close(conn);
+		return bank;
+		
+	}
+	
+	
+	public String selectAccNum(String sid) {
+		
+		Connection conn = getConnection();
+		String accNum = new AdminDao().selectAccNum(conn, sid);
+		
+		close(conn);
+		return accNum;
+		
+	}
+	
 }

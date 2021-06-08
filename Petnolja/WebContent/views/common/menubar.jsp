@@ -58,14 +58,12 @@
 
                       <li class="nav-item">
                           <a class="nav-link" href="<%=contextPath%>/options.sit">펫시팅관리</a>
-                        </li>
+                       </li>
                    <%} %>
                     <!--펫시터만 보여지는 메뉴 끝-->
-                     <% if(loginUser == null){%>  
                        <li class="nav-item">
                           <a class="nav-link" href="<%=contextPath%>/admin.ad">관리자(임시)</a>
-                        </li>
-                    <%} %>
+                       </li>
                 </ul>
                 <% if(loginUser != null){%>
                 <span><b><%=loginUser.getMemName()%></b> 님  환영합니다&nbsp;&nbsp;</span>

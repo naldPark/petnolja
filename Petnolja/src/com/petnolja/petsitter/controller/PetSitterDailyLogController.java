@@ -8,22 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.petnolja.admin.model.vo.Calculate;
 import com.petnolja.member.model.vo.Member;
-import com.petnolja.petsitter.model.service.PetsitterService;
+import com.petnolja.petsitter.model.service.PetsitterReviewService;
+import com.petnolja.petsitter.model.vo.PetsitterReview;
 
 /**
- * Servlet implementation class CalculateMoneyController
+ * Servlet implementation class PetSitterDailyLogController
  */
-@WebServlet("/callist.sit")
-public class CalculateMoneyController extends HttpServlet {
+@WebServlet("/PetSitterLog.me")
+public class PetSitterDailyLogController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculateMoneyController() {
+    public PetSitterDailyLogController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +34,27 @@ public class CalculateMoneyController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
+		request.setCharacterEncoding("UTF-8");
 		
-		Calculate c = new PetsitterService().selectNowCal(memId);
-		ArrayList<Calculate> list = null;
+		HttpSession session = request.getSession();
 		
-		String date = request.getParameter("date");
-		if(date == null) {
-			list = new PetsitterService().selectCalList(memId);
-			//System.out.println(date);	// 2021-02
-		} else {
-			list = new PetsitterService().selectCalList(memId, date);
-		}
+		if(session.getAttribute("loginUser") == null) {
+			
+			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else {
 		
+		//int sitterNo = Integer.parseInt(request.getParameter("sitterNo"));
+		int sitterNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
-		request.setAttribute("c", c);
+		ArrayList<PetsitterReview> list = new PetsitterReviewService().selectReview(sitterNo); 
+		
+		request.setAttribute("sitterNo", sitterNo);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/petsitter/calculateMoney.jsp").forward(request, response);
+		request.getRequestDispatcher("views/petsitter/PetsitterdailyLog.jsp").forward(request, response);
+		
+		}
 	}
 
 	/**

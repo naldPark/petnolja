@@ -47,6 +47,7 @@
                   JOIN FEE F USING(SITTING_NO)
                   JOIN MEMBER M ON(F.SITTER_NO = M.MEM_NO)
                  WHERE RES_STATUS IN('확정', '취소')
+                 ORDER BY RES_DATE DESC
 	               ) A
 	          )
 		WHERE RNUM BETWEEN ? AND ?
@@ -119,5 +120,136 @@
 	          )
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	
+	<entry key="CNFcalculateDetailCount">
+		SELECT 
+			COUNT(*) COUNT
+		FROM (SELECT SITTER_NO, MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, RES_CHECKOUT, PAY_NO, PAY_AMOUNT*0.9 AS CONF, RES_STATUS
+			FROM SITTER
+			JOIN MEMBER ON(MEM_NO = SITTER_NO)
+			JOIN ACCOUNT USING(SITTER_NO)
+			JOIN FEE USING(SITTER_NO)
+			JOIN RESERV_SITTING USING(SITTING_NO)
+			JOIN RESERV USING(RES_NO)
+			WHERE RES_STATUS = '확정'
+			<![CDATA[AND EXTRACT(MONTH FROM TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd')) < EXTRACT(MONTH FROM SYSDATE)]]>
+			<![CDATA[AND EXTRACT(YEAR FROM TO_DATE(RES_CHECKOUT,'YYYY-MM-dd')) <= EXTRACT(YEAR FROM SYSDATE))]]>
+		WHERE EXTRACT(MONTH FROM TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd')) = ?
+		AND EXTRACT(YEAR FROM TO_DATE(RES_CHECKOUT,'YYYY-MM-dd')) = ?
+		AND MEM_ID = ?
+	</entry>
+	
+	
+	
+	<entry key="CNCcalculateDetailCount">
+		SELECT 
+			COUNT(*) COUNT          
+		FROM (SELECT MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, PAY_NO, 
+			(CASE WHEN D > 14 THEN M * 0
+			WHEN D > 7 THEN M * 0.05 
+			WHEN D > 3 THEN M * 0.25
+			ELSE M * 0.9 END) AS CANC, D            
+			FROM (SELECT MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, PAY_NO,
+				ROUND(SYSDATE - (TO_DATE(RES_CHECKIN, 'YYYY-MM-dd')),0) D, PAY_AMOUNT M
+			    FROM SITTER
+			    JOIN MEMBER ON(MEM_NO = SITTER_NO)
+			    JOIN ACCOUNT USING(SITTER_NO)
+			    JOIN FEE USING(SITTER_NO)
+			    JOIN RESERV_SITTING USING(SITTING_NO)
+			    JOIN RESERV USING(RES_NO)
+			    WHERE RES_STATUS = '취소' AND PENALTY = 'N'))
+		WHERE EXTRACT(MONTH FROM CANCEL_DATE) = ?
+		AND EXTRACT(YEAR FROM CANCEL_DATE) = ?
+		AND MEM_ID = ?
+	</entry>
+	
+	
+	<entry key="CNFselectCalculateDetail">
+		SELECT * 
+	  		FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+	               SELECT MEM_NAME
+					    , MEM_ID
+					    , ACC_BANK
+					    , ACC_NUMBER
+					    , TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd') AS DEAL_DATE
+					    , PAY_NO
+					    , CONF
+					    , (CASE WHEN RES_STATUS = '확정' THEN 'N' END) AS ISPENALTY
+					FROM (SELECT SITTER_NO, MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, RES_CHECKOUT, PAY_NO, PAY_AMOUNT*0.9 AS CONF, RES_STATUS
+					        FROM SITTER
+					        JOIN MEMBER ON(MEM_NO = SITTER_NO)
+					        JOIN ACCOUNT USING(SITTER_NO)
+					        JOIN FEE USING(SITTER_NO)
+					        JOIN RESERV_SITTING USING(SITTING_NO)
+					        JOIN RESERV USING(RES_NO)
+					        WHERE RES_STATUS = '확정'
+					            <![CDATA[AND EXTRACT(MONTH FROM TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd')) < EXTRACT(MONTH FROM SYSDATE)]]>
+					            <![CDATA[AND EXTRACT(YEAR FROM TO_DATE(RES_CHECKOUT,'YYYY-MM-dd')) <= EXTRACT(YEAR FROM SYSDATE))]]>
+					WHERE EXTRACT(MONTH FROM TO_DATE(RES_CHECKOUT, 'YYYY-MM-dd')) = ?
+					AND EXTRACT(YEAR FROM TO_DATE(RES_CHECKOUT,'YYYY-MM-dd')) = ?
+					AND MEM_ID = ?   
+				                ) A
+					          )
+						WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+
+	<entry key="CNCselectCalculateDetail">
+		SELECT * 
+  		FROM (
+	        SELECT ROWNUM RNUM, A.*
+	          FROM (
+                SELECT 
+				    MEM_NAME
+				    , MEM_ID
+				    , ACC_BANK
+				    , ACC_NUMBER
+				    , CANCEL_DATE AS DEAL_DATE
+				    , PAY_NO
+				    , CANC
+				    , (CASE WHEN D > 3 THEN 'Y' ELSE 'N' END) AS ISPENALTY            
+				FROM (SELECT MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, PAY_NO, CANCEL_DATE,
+				        (CASE WHEN D > 14 THEN M * 0
+				        WHEN D > 7 THEN M * 0.05 
+				        WHEN D > 3 THEN M * 0.25
+				        ELSE M * 0.9 END) AS CANC, D            
+				        FROM (SELECT MEM_NAME, MEM_ID, ACC_BANK, ACC_NUMBER, PAY_NO, CANCEL_DATE,
+				            ROUND(SYSDATE - (TO_DATE(RES_CHECKIN, 'YYYY-MM-dd')),0) D, PAY_AMOUNT M
+				            FROM SITTER
+				            JOIN MEMBER ON(MEM_NO = SITTER_NO)
+				            JOIN ACCOUNT USING(SITTER_NO)
+				            JOIN FEE USING(SITTER_NO)
+				            JOIN RESERV_SITTING USING(SITTING_NO)
+				            JOIN RESERV USING(RES_NO)
+				        WHERE RES_STATUS = '취소' AND PENALTY = 'N'))
+				WHERE EXTRACT(MONTH FROM CANCEL_DATE) = ?
+				AND EXTRACT(YEAR FROM CANCEL_DATE) = ?
+				AND MEM_ID = ?
+                ) A
+	          )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="selectAccBank">
+		SELECT
+		    ACC_BANK
+		FROM ACCOUNT
+		JOIN MEMBER ON (MEM_NO = SITTER_NO)
+		WHERE MEM_ID = ?
+	</entry>
+	
+	
+	<entry key="selectAccNum">
+		SELECT
+		    ACC_NUMBER
+		FROM ACCOUNT
+		JOIN MEMBER ON (MEM_NO = SITTER_NO)
+		WHERE MEM_ID = ?
+	</entry>
+
 
 </properties>
