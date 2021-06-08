@@ -305,7 +305,7 @@ public class AdminDao {
 	}
 	
 	
-	public int CNFcalculateDetailCount(Connection conn, int sno, int month) {
+	public int CNFcalculateDetailCount(Connection conn, String sid, int month, int year) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -315,7 +315,8 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, month);
-			pstmt.setInt(2, sno);
+			pstmt.setInt(2, year);
+			pstmt.setString(3, sid);
 			
 			rset = pstmt.executeQuery();
 			
@@ -334,7 +335,7 @@ public class AdminDao {
 		
 	}
 	
-	public int CNCcalculateDetailCount(Connection conn, int sno, int month) {
+	public int CNCcalculateDetailCount(Connection conn, String sid, int month, int year) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -344,7 +345,8 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, month);
-			pstmt.setInt(2, sno);
+			pstmt.setInt(2, year);
+			pstmt.setString(3, sid);
 			
 			rset = pstmt.executeQuery();
 			
@@ -364,7 +366,7 @@ public class AdminDao {
 	}
 	
 	
-	public ArrayList<Calculate> CNFselectCalculateDetail(Connection conn, PageInfo pi, int sno, int month){
+	public ArrayList<Calculate> CNFselectCalculateDetail(Connection conn, PageInfo pi, String sid, int month, int year){
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -376,10 +378,12 @@ public class AdminDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			
 			pstmt.setInt(1, month);
-			pstmt.setInt(2, sno);
+			pstmt.setInt(2, year);
+			pstmt.setString(3, sid);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -388,6 +392,7 @@ public class AdminDao {
 								rset.getString("mem_id"),
 								rset.getString("acc_bank"),
 								rset.getString("acc_number"),
+								rset.getDate("deal_date"),
 								rset.getInt("pay_no"),
 								rset.getLong("conf"),
 								rset.getString("ispenalty").charAt(0)
@@ -406,7 +411,7 @@ public class AdminDao {
 		
 	}
 	
-	public ArrayList<Calculate> CNCselectCalculateDetail(Connection conn, PageInfo pi, int sno, int month){
+	public ArrayList<Calculate> CNCselectCalculateDetail(Connection conn, PageInfo pi, String sid, int month, int year){
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -418,10 +423,12 @@ public class AdminDao {
 	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			
 			pstmt.setInt(1, month);
-			pstmt.setInt(2, sno);
+			pstmt.setInt(2, year);
+			pstmt.setString(3, sid);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -430,6 +437,7 @@ public class AdminDao {
 								rset.getString("mem_id"),
 								rset.getString("acc_bank"),
 								rset.getString("acc_number"),
+								rset.getDate("deal_date"),
 								rset.getInt("pay_no"),
 								rset.getLong("canc"),
 								rset.getString("ispenalty").charAt(0)
@@ -449,5 +457,61 @@ public class AdminDao {
 	}
 	
 	
+	public String selectAccBank(Connection conn, String sid){
+		
+		String bank = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAccBank");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bank = rset.getString("acc_bank");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bank;
+		
+	}
+	
+	
+	public String selectAccNum(Connection conn, String sid){
+		
+		String accNum = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAccNum");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				accNum = rset.getString("acc_number");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return accNum;
+		
+	}
 	
 }

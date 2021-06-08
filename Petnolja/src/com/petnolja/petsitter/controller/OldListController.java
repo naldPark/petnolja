@@ -53,8 +53,13 @@ public class OldListController extends HttpServlet {
 			int startPage;		// 페이지 하단에 보여질 페이징바의 시작수 
 			int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
 			
-			listCount = new PetsitterService().selectOldListCount();
+			String keyword = request.getParameter("key");
 			
+			if(keyword == null) {
+				listCount = new PetsitterService().selectOldListCount();
+			} else {
+				listCount = new PetsitterService().selectOldListCount(keyword);
+			}
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
 			pageLimit = 5;
@@ -73,7 +78,14 @@ public class OldListController extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Petsitter> list = new PetsitterService().selectOldPetsitterList(pi);
+			
+			ArrayList<Petsitter> list = null;
+			
+			if(keyword == null) {
+				list = new PetsitterService().selectOldPetsitterList(pi);
+			} else {
+				list = new PetsitterService().selectOldPetsitterList(pi, keyword);
+			}
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);

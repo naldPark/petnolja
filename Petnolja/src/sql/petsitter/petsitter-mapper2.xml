@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectReview">
+		SELECT 
+			 SITTER_NO
+			,RES_NO
+			,RES_DATE
+			,RES_CHECKIN
+			,RES_CHECKOUT
+			,MEM_NAME
+			,REV_NO
+			,REV_RATING
+			,REV_STATUS
+			,REV_CONTENT
+			FROM RESERV R
+			JOIN REVIEW USING(RES_NO)
+			JOIN RESERV_SITTING RS USING(RES_NO)
+			JOIN FEE USING(SITTING_NO)
+			JOIN MEMBER M ON(R.MEM_NO=M.MEM_NO)
+			WHERE REV_STATUS='Y'
+			AND SITTER_NO=?
+	</entry>
+	
+	
+</properties>

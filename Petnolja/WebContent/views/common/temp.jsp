@@ -59,8 +59,8 @@
     <td class="tg-0lax">강보람</td>
     <td class="tg-0lax">pass01</td>
     <td class="tg-0lax">N</td>
-    <td class="tg-0lax">012-2367-2867</td>
-    <td class="tg-0lax">adhz398@petnolja.com</td>
+    <td class="tg-0lax">010-5511-9920</td>
+    <td class="tg-0lax">boram@iei.or.kr</td>
   </tr>
   <tr>
     <td class="tg-0lax">4</td>
@@ -69,7 +69,7 @@
     <td class="tg-0lax">pass01</td>
     <td class="tg-0lax">N</td>
     <td class="tg-0lax">010-2349-4733</td>
-    <td class="tg-0lax">aedo589@petnolja.com</td>
+    <td class="tg-0lax">mooyaoh@gmail.com</td>
   </tr>
   <tr>
     <td class="tg-0lax">5</td>
@@ -114,7 +114,7 @@
     <td class="tg-0lax">pass01</td>
     <td class="tg-0lax">N</td>
     <td class="tg-0lax">010-8767-5948</td>
-    <td class="tg-0lax">aijw289@petnolja.com</td>
+    <td class="tg-0lax">seokyeong1113@gmail.com</td>
   </tr>
   <tr>
     <td class="tg-0lax">10</td>

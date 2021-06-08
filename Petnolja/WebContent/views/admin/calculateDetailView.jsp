@@ -7,6 +7,11 @@
     ArrayList<Calculate> CNClist = (ArrayList<Calculate>)request.getAttribute("CNClist");
     ArrayList<Calculate> list = new ArrayList<>();
     list.addAll(CNFlist); list.addAll(CNClist);
+    int year = (int)request.getAttribute("year");
+    int month = (int)request.getAttribute("month"); 
+    String sid = (String)request.getAttribute("sid"); 
+    String accBank = (String)request.getAttribute("accBank");
+    String accNum = (String)request.getAttribute("accNum");
     int currentPage = pi.getCurrentPage();
     int startPage = pi.getStartPage();
     int endPage = pi.getEndPage();
@@ -47,7 +52,7 @@
             font-size: 15px;
             font-weight: 600;
         }
-
+		
         .account-info>span {
 
             border: 3px solid rgb(241, 129, 88);
@@ -79,13 +84,12 @@
     <div class="outer" align="center">
         <div class="account-info" align="left">
             <span>
-                <span>ID : <%= list.getMemId() %> &nbsp; &nbsp;</span>
-                <span>계좌정보 : <%= list.getAccBank() %></span>
+                <span>ID : <%= sid %> &nbsp; &nbsp;</span>
+            	<span>계좌정보 : <%= accBank %></span>&nbsp;<span><%= accNum %></span>
             </span>
-
+			
             <span>
-                <span>정산기간 : 2021년 4월 &nbsp; &nbsp;</span>
-                <span>정산총액 : 1,000,000원</span>
+                <span>정산기간 : <%= year %>년 <%= month %>월 &nbsp; &nbsp;</span>
             </span>
 
         </div>
@@ -98,11 +102,12 @@
                     <th width="200px">서비스일</th>
                     <th width="200px">거래번호</th>
                     <th width="200px">금액(원)</th>
-                    <th width="200px">취소여부</th>
+                    <th width="200px">취소 수수료</th>
                     <th width="200px">누적금액(원)</th>
                 </tr>
             </thead>
             <% long sumPay = 0; %>
+            <% int index = 1; %>
             <tbody>
 				<% if(list.isEmpty()){ %>
             		<tr>
@@ -112,18 +117,21 @@
             		<% for(Calculate c : list){ %>
             			<% long eachPay = c.getPayAmount(); %>
 		                <tr>
-		                    <td><%= c. %></td>
-		                    <td><%= c. %></td>
+		                	<td><%= index %></td>
+		                	<% index++; %>
+		                    <td><%= c.getDealDate() %></td>
 		                    <td><%= c.getPayNo() %></td>
 		                    <td><%= eachPay %></td>
 		                    <td><%= c.getIsPenalty() %></td>
 		                    <% sumPay += eachPay; %>
-		                    <td><%= sumpay %></td>
+		                    <td><%= sumPay %></td>
 		                </tr>
                 	<% } %>
                 <% } %>
             </tbody>
         </table>
+        
+        <div align="right"><b>정산총액 : <%= sumPay %></b></div>
 
         <!-- 페이징바 -->
         <div id="paging-area">

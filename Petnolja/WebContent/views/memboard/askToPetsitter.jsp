@@ -31,13 +31,10 @@
         <h2>1:1 문의</h2>    
     <form action="<%=contextPath%>/askToWriter2.me" method="post">       
         <table class="table" style="border:1px solid lightgray">
-            <tr>
-                <th width="200">작성자</th>
-                <td><input type="text" name="name" style="width:100%;height:100%; border:1px solid:lightgrey;" required></td>
-            <input type="hidden" name="sno" value=<%=sno%>>
-            </tr>
+
             <tr>
                 <th>제목</th>
+                <input type="hidden" name="sno" value=<%=sno%>>
                 <td><input type="text" name="title" style="width:100%;height:100%; border:1px solid:lightgrey;" required></td>
             </tr>
         </table>

@@ -258,24 +258,10 @@
 
                 if (content.isContentEditable == false) {
 
-
-
-                    // @details 편집 가능 상태로 변경
+					// @details 편집 가능 상태로 변경
                     content.contentEditable = true;
-
-
-
-                    // @details 텍스트 문구 변경
-                    // content.textContent = "";
-
-
-
                     // @details CSS 효과 추가
-
                     content.style.border = "1px solid #FFB6C1";
-
-
-
                     // @details 포커스 지정
                     content.focus();
 
@@ -322,7 +308,7 @@
 
                         content.style.border = "0px";
 
-                        var memNo = $(this).parent().siblings().eq(1).children().text();
+                        var sitterNo = $(this).parent().siblings().eq(1).text();
                         var updateValue = content.dataset.default;
                         var updateCol = "";
 
@@ -373,13 +359,12 @@
 
 
     // 아이디로 검색  // 조회버튼 필요없음
-
-    $(document).ready(function () {
+	$(document).ready(function () {
         $("#petsitter-search-box").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#old-petsitter-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(2).text().toLowerCase().indexOf(value) > -1)
-            });
+        	if(event.keyCode == "13") {
+        		var keyword = $(this).val().toLowerCase();
+        		location.href = "<%=contextPath%>/oldlist.ad?currentPage=1&key=" + keyword;
+        	}
         });
     });
 

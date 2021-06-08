@@ -31,6 +31,16 @@ public class PetsitterService {
 		
 	}
 	
+	public int selectOldListCount(String keyword) {
+		
+		Connection conn = getConnection();
+		int listCount = new PetsitterDao().selectOldListCount(conn, keyword);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
 	// 새로운 펫시터 리스트 카운트
 	public int selectNewListCount() {
 		
@@ -47,6 +57,16 @@ public class PetsitterService {
 		
 		Connection conn = getConnection();
 		ArrayList<Petsitter> list = new PetsitterDao().selectOldPetsitterList(conn, pi);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public ArrayList<Petsitter> selectOldPetsitterList(PageInfo pi, String keyword){
+		
+		Connection conn = getConnection();
+		ArrayList<Petsitter> list = new PetsitterDao().selectOldPetsitterList(conn, pi, keyword);
 		
 		close(conn);
 		return list;
