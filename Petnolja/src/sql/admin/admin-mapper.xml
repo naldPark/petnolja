@@ -86,6 +86,7 @@
 	<entry key="calculateListCount">
 		SELECT COUNT(*) COUNT
   		  FROM VW_CAL
+  		  
 	</entry>
 	
 	<entry key="selectCalculateList">

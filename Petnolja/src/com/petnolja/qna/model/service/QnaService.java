@@ -28,6 +28,17 @@ public class QnaService {
 	}
 	
 	/** 최서경
+	 * Qna 처리여부에 따른 개수 
+	 */
+	public int selectListCount(String keyword) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnaDao().selectListCount(conn, keyword);
+		
+		return listCount;
+	}
+	
+	/** 최서경
 	 * 관리자 Qna 목록 전체 조회
 	 */
 	public ArrayList<Qna> selectList(PageInfo pi){

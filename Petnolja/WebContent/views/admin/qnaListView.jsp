@@ -165,14 +165,6 @@
         $("#qna-filter").on("change", function () {
         	var value = $(this).val();
         	location.href = "qnalist.ad?currentPage=1&key=" + value;
-        	
-        	
-        	/*
-            var value = $(this).val();
-            $("#qna-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(6).text().indexOf(value) > -1)
-            });
-            */
         });
     });
     

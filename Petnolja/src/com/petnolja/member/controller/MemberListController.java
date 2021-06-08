@@ -53,8 +53,14 @@ public class MemberListController extends HttpServlet {
 			int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 			int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
 			
-			// * listCount : 총 게시글 개수
-			listCount = new MemberService().selectListCount();
+			String keyword = request.getParameter("key");
+			
+			if(keyword == null) {
+				// * listCount : 총 게시글 개수
+				listCount = new MemberService().selectListCount();
+			} else {
+				listCount = new MemberService().selectListCount(keyword);
+			}
 			
 			//System.out.println(listCount);
 		
@@ -89,7 +95,6 @@ public class MemberListController extends HttpServlet {
 			// 1. 페이징 바 만들 때 필요한 객체
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			String keyword = request.getParameter("key");
 			ArrayList<Member> list = null;
 			
 			if(keyword == null) {

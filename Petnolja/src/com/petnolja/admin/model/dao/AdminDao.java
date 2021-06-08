@@ -95,6 +95,35 @@ public class AdminDao {
 	
 	
 	/** 최서경
+	 * 거래날짜 지정하여 조회된 목록 개수
+	 */
+	public int selectKeyDateDealListCount(Connection conn, String date) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDealListCount");
+		sql += "AND TO_CHAR(RES_DATE, 'YYYY-MM-DD') =" + date; 
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	
+	/** 최서경
 	 * 거래목록 조회
 	 */
 	public ArrayList<Deal> selectDealList(Connection conn, PageInfo pi){
@@ -231,6 +260,32 @@ public class AdminDao {
 		}
 		return listCount;
 	}
+	
+	/** 최서경
+	 * 펫시터 아이디로 검색 후 정산 목록 개수
+	 */
+	public int calculateListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("calculateListCount");
+		sql += "WHERE SITTER_ID LIKE '%" + keyword + "%'";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	
 	
 	/** 펫시터 정산 페이지 목록 조회
 	 */

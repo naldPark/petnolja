@@ -59,6 +59,40 @@ public class QnaDao {
 	}
 	
 	/** 최서경
+	 * Qna 처리여부에 따른 개수 
+	 */
+	public int selectListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		if(keyword.equals("Y")) {
+			sql += "AND A_CONTENT IS NOT NULL";
+		} else {
+			sql += "AND A_CONTENT IS NULL";
+		}
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	
+	/** 최서경
 	 * 관리자 qna목록 전체 조회
 	 */
 	public ArrayList<Qna> selectList(Connection conn, PageInfo pi){

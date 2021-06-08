@@ -38,6 +38,20 @@ public class AdminService {
 		close(conn);
 		return listCount;
 	}
+	
+	
+	/** 최서경
+	 * 거래내역 목록에서 거래날짜를 이용하여 검색
+	 * 
+	 */
+	public int selectKeyDateDealListCount(String date) {
+		Connection conn = getConnection();
+		
+		int listCount = new AdminDao().selectKeyDateDealListCount(conn, date);
+		
+		close(conn);
+		return listCount;
+	}
 
 	/** 최서경
 	 * 거래목록 조회
@@ -82,6 +96,18 @@ public class AdminService {
 		Connection conn = getConnection();
 		
 		int listCount = new AdminDao().calculateListCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+	
+	/** 최서경
+	 * 펫시터 아이디로 검색 후 정산 목록 개수
+	 */
+	public int calculateListCount(String keyword) {
+		Connection conn = getConnection();
+		
+		int listCount = new AdminDao().calculateListCount(conn, keyword);
 		
 		close(conn);
 		return listCount;

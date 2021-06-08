@@ -186,6 +186,19 @@ public class MemberService {
 		return listCount;
 
 	}
+	
+	/** 최서경
+	 * @return 검색키워드 포함된 회원 수 (관리자)
+	 */
+	public int selectListCount(String keyword) {
+		Connection conn = getConnection();
+		int listCount = new MemberDao().selectListCount(conn, keyword);
+		
+		close(conn);
+		return listCount;
+
+	}
+	
 
 	/** 최서경
 	 * @return 총 회원 목록 조회

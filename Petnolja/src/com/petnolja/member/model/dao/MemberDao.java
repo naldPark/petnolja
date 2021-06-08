@@ -436,6 +436,35 @@ private Properties prop = new Properties();
 	}
 	
 	/** 최서경
+	 * @return 검색키워드 포함 회원 수 조회
+	 */
+	public int selectListCount(Connection conn, String keyword) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		sql += " AND LOWER(MEM_ID) LIKE '%" + keyword + "%'";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	/** 최서경
 	 * @return 총 회원 목록 조회
 	 */
 	public ArrayList<Member> selectList(Connection conn, PageInfo pi){

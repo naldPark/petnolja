@@ -54,8 +54,14 @@ public class AdminQnaListController extends HttpServlet {
 			int maxPage;		// 가장 마지막 페이지(총 페이지 수)
 			int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 			int endPage;		// 페이지 하단에 보여질 페이징바의 끝수
+
 			
-			listCount = new QnaService().selectListCount();
+			String keyword = request.getParameter("key");
+			if(keyword == null) {
+				listCount = new QnaService().selectListCount();
+			} else {
+				listCount = new QnaService().selectListCount(keyword);
+			}
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -75,7 +81,6 @@ public class AdminQnaListController extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			String keyword = request.getParameter("key");
 			ArrayList<Qna> list = null;
 			if(keyword == null) {
 				list = new QnaService().selectList(pi);

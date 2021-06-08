@@ -57,6 +57,34 @@ public class NoticeDao {
 		return listCount;
 	}
 	
+	/** 최서경
+	 * 제목 검색 키워드 사용한 공지사항 개수
+	 */
+	public int selectListCount(Connection conn, String keyword) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		sql += "AND LOWER(NOTICE_TITLE) LIKE '%" + keyword + "%'";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				listCount = rset.getInt("count"); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
 
 	/** 최서경
 	 * @return 전체 공지사항 목록 조회

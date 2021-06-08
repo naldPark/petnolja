@@ -110,13 +110,20 @@
 		                    <td>001</td>
 		                    <td><%=c.getSitterId()%></td>
 		                    <td><%=c.getSitterName() %></td>
-
-		                    <%int realCalMonth = Integer.parseInt(c.getCalMonth()) + 1; // 실제 정산되는 월은 다음 달이니까.%>
-		                    <% String calMonth = realCalMonth<10 ? "0" + String.valueOf(realCalMonth): String.valueOf(realCalMonth); %>
-
-		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= c.getCalYear() %>';" class="btn btn-info">상세조회</button></td>
 		                    
-		                    <td><%=c.getCalYear()%>-<%=calMonth %></td>
+		                    <% String year = c.getCalYear(); //서비스 한 년도 %>
+		                	<% String month = c.getCalMonth(); // 서비스 한 월%>
+
+		                    <%int realCalMonth = Integer.parseInt(month) == 12? 1 : Integer.parseInt(month) + 1; // 실제 정산되는 월은 다음 달이니까.%>
+		                    <% String calMonth = realCalMonth < 10 ? "0" + String.valueOf(realCalMonth) : String.valueOf(realCalMonth); //실제 정산되는 월.한자리 수 0붙이기 %>
+       		               	<% int realCalYear = Integer.parseInt(month) == 12? Integer.parseInt(year) + 1 : Integer.parseInt(year); // 실제 정산 년도 %>
+
+		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= realCalYear %>';" class="btn btn-info">상세조회</button></td>
+							<!-- 수정 전 (최서경)
+		                    <td><button onclick="location.href='<%=contextPath %>/calculateDetail.ad?currentPage=1&&sid=<%=c.getSitterId()%>&&month=<%= calMonth %>&&year=<%= c.getCalYear() %>';" class="btn btn-info">상세조회</button></td>
+		                    -->
+		                    
+		                    <td><%=realCalYear%>-<%=calMonth %></td>
 		                    <td><%=c.getPayTotal() %></td>
 		                </tr>
 	            	<% } %>
