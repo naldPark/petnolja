@@ -9,7 +9,7 @@
 	                   NOTICE_NO
 	              FROM NOTICE 
 	             WHERE NOTICE_STATUS = 'Y'
-	             and notice_category='공지'
+	             and notice_category like '%공지%'
 	             )
 	</entry>
 	
@@ -26,7 +26,7 @@
 		              FROM NOTICE 
 		              JOIN ADMIN ON(NOTICE_WRITER = ADMIN_NO)
 		             WHERE NOTICE_STATUS = 'Y'
-		             and notice_category='공지'
+		             and notice_category like '%공지%'
 		             ORDER BY CREATE_DATE DESC) B
 		             )
 		        WHERE RNUM BETWEEN ? AND ?
