@@ -359,13 +359,12 @@
 
 
     // 아이디로 검색  // 조회버튼 필요없음
-
-    $(document).ready(function () {
+	$(document).ready(function () {
         $("#petsitter-search-box").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#old-petsitter-list>tbody>tr").filter(function () {
-                $(this).toggle($(this).children().eq(2).text().toLowerCase().indexOf(value) > -1)
-            });
+        	if(event.keyCode == "13") {
+        		var keyword = $(this).val().toLowerCase();
+        		location.href = "<%=contextPath%>/oldlist.ad?currentPage=1&key=" + keyword;
+        	}
         });
     });
 

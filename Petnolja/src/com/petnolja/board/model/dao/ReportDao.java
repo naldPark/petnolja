@@ -26,6 +26,13 @@ public class ReportDao {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @author 주이진
+	 * 
+	 * 일반 신고 리스트 불러옴
+	 */
 	public int selectQNAListCount(Connection conn) {
 		// select문 => ResultSet객체 (한행)
 		int QlistCount = 0;
@@ -168,6 +175,141 @@ public class ReportDao {
 		return Rlist;	
 	}
 	
+	
+	/**
+	 * 
+	 * @author 주이진
+	 * 
+	 * 키워드에 해당하는 신고리스트 불러옴
+	 */
+	public int selectQNAListCount(Connection conn, String keyword) {
+		// select문 => ResultSet객체 (한행)
+		int QlistCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyQNAListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				QlistCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return QlistCount;		
+		
+	}
+	
+	public int selectRevListCount(Connection conn, String keyword) {
+		// select문 => ResultSet객체 (한행)
+		int RlistCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyRevListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				RlistCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return RlistCount;		
+		
+	}
+	
+	public ArrayList<Report> selectQNAList(Connection conn, PageInfo Qpi, String keyword){
+		// select문 => ResultSet(여러행)
+		ArrayList<Report> Qlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyQNAList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (Qpi.getCurrentPage() - 1) * Qpi.getBoardLimit() + 1;
+			int endRow = startRow + Qpi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Qlist.add(new Report(rset.getInt("report_no"),
+								   rset.getString("title"),
+								   rset.getString("writer_id"),
+								   rset.getDate("create_date"),
+								   rset.getString("reporter_Id"),
+								   rset.getDate("reported_date")));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return Qlist;	
+	}
+	
+	public ArrayList<Report> selectRevList(Connection conn, PageInfo Rpi, String keyword){
+		// select문 => ResultSet(여러행)
+		int startRow = (Rpi.getCurrentPage() - 1) * Rpi.getBoardLimit() + 1;
+		int endRow = startRow + Rpi.getBoardLimit() - 1;
+		
+		ArrayList<Report> Rlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyRevList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rlist.add(new Report(rset.getInt("report_no"),
+								   rset.getString("title"),
+								   rset.getString("writer_id"),
+								   rset.getDate("create_date"),
+								   rset.getString("reporter_Id"),
+								   rset.getDate("reported_date")));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return Rlist;	
+	}
 	
 	public int undoQnaReport(Connection conn, String[] list) {
 		int result = 0;

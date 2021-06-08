@@ -8,22 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petnolja.admin.model.vo.Calculate;
-import com.petnolja.member.model.vo.Member;
 import com.petnolja.petsitter.model.service.PetsitterService;
-import com.petnolja.petsitter.model.vo.Account;
 
 /**
- * Servlet implementation class exactController
+ * Servlet implementation class AjaxDeleteAccountController
  */
-@WebServlet("/exact.sit")
-public class ExactController extends HttpServlet {
+@WebServlet("/deleteAcc.sit")
+public class AjaxDeleteAccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExactController() {
+    public AjaxDeleteAccountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +30,14 @@ public class ExactController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
-		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+		request.setCharacterEncoding("UTF-8");
 		
-		Calculate c = new PetsitterService().selectNowCal(memId);
-		Account a = new PetsitterService().getRepAcc(memNo);
+		int accno = Integer.parseInt(request.getParameter("accno"));
 		
+		int result = new PetsitterService().deleteAccount(accno);
 		
-		request.setAttribute("c", c);
-		request.setAttribute("a", a);
+		response.getWriter().print(result);
 		
-		request.getRequestDispatcher("views/petsitter/calculate.jsp").forward(request, response);
 	}
 
 	/**

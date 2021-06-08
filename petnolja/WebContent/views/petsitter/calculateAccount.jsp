@@ -1,116 +1,239 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.petnolja.petsitter.model.vo.Account, java.util.ArrayList" %>
+<% ArrayList<Account> list = (ArrayList<Account>)request.getAttribute("list"); %>
 
   <!DOCTYPE html>
   <html>
-
-  <head>
+  
+  
+<head>
 
     <style>
       .container {
         width: 1000px;
-        margin: 0 auto;
-      }
-
-      .container div span {
-        display: table-cell;
-        vertical-align: middle;
-      }
-
-      .middle {
-        margin-top: 10px;
-        width: 1000px;
-        height: 500px;
-        position: relative;
+        margin: auto;
       }
 
       .middle-middle-1 {
-
-        width: 1120px;
+        width: 1000px;
         height: 70px;
         background-color: #E1F0FA;
       }
 
-      .my-hr {
-        border: 0;
-        height: 3px;
-        background: #ccc;
+      .account-list{
+          width: 1000px;
+          text-align: center;
+          font-size: 14px;
+          }
+
+      .account-list>thead>tr {
+        width: 100%;
+        height: 70px;
+        background-color: #E1F0FA;
       }
-      .my-hr2 {
-        border: 0;
-        margin: 0%;
-        height: 3px;
-        background: #ccc;
+      .account-list td {border-bottom : 1px lightgrey solid;}
+
+
+
+      .btn-sm{font-size: 12px !important;}
+
+
+      #mark{
+          background-color: lightseagreen;
+          color: white;
+          border: lightseagreen solid 1px;
+          padding: 6px;
+          border-radius: 30px;
+          font-size: 13px;
       }
-      #btn1 {
-        border: 0px;
-        margin-right: 5px;
-        margin-left: 5px;
-        background-color: #3498DB;
-        color: white;
-        border-radius: 5px;
-        width: 120px;
-        height: 30px;
-      }
-      #btn2 {
-        border: 0px;
-        margin-right: 5px;
-        margin-left: 5px;
-        background-color: #C0392B;
-        color: white;
-        border-radius: 5px;
-        width: 80px;
-        height: 30px;
-      }
+      
+       .form-control{font-size: 13px !important;}
+
+	
     </style>
+    
+    <script>
+    </script>
   </head>
 
   <body>
-    <%@ include file="../common/menubar.jsp" %>
+      <%@ include file="../common/menubar.jsp" %>
       <div class="container">
        <br>
-       <span style="font-size: 25px; font-weight:bold;">정산 계좌 관리</span><br><br>
-       <span style="font-size: 15px; font-weight:bold;">정산 계좌 관리 (5개까지 등록 가능)
-        <span style="float:right;"><button id="btn1">계좌등록</button></span>
+       <span style="font-size: 30px; font-weight:bold;">정산 계좌 관리</span><br><br>
+       <span style="font-size: 15px; font-weight:bold;">정산 계좌는 최대 5개까지 등록 가능합니다.
+       <span style="float:right; margin-right: 200px;">
+       
+       		<% if(list.size() < 5) {%>
+       			<button id="addAcc" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#AccModal">계좌등록</button>
+       		<% } %>
+       		
+			  <!-- The Modal -->
+			        
+			  <div class="modal fade" id="AccModal">
+			        <form  action="<%=contextPath %>/addAcc.sit" method="post">
+			    <div class="modal-dialog modal-dialog-centered">
+			      <div class="modal-content">
+			      
+			        <!-- Modal Header -->
+			        <div class="modal-header">
+			          <h6 class="modal-title">신규 계좌 등록</h6>
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+			        
+			        <!-- Modal body -->
+			        <div class="modal-body">
+	      		        <table id="insertAcc" align="center">
+				            <tr>
+				                <td><label class="word">은행</label></td>
+				            </tr>
+				            <tr>
+				                <td>
+				                    <select class="form-control" name="accBank" style="width: 300px;" required>
+				                        <option value="국민">국민</option>
+				                        <option value="신한">신한은행</option>
+				                        <option value="하나">하나</option>
+				                        <option value="우리">우리</option>
+				                        <option value="기업">기업</option>
+				                        <option value="농협">농협</option>
+				                        <option value="수협">수협</option>
+				                        <option value="카카오">카카오</option>
+				                    </select>
+				                </td>
+				            </tr>
+				            <tr>
+				                <td><label class="word">계좌번호</label></td>
+				            </tr>
+				            <tr>
+				                <td><input name="accNum" class="form-control" type="text" placeholder="숫자만 입력" style="width: 300px;" required></td>
+				            </tr>
+				        </table>
+			        </div>
+			        <!-- Modal footer -->
+			        <div class="modal-footer">
+			          <button type="submit" class="btn btn-warning btn-sm">등록하기</button>
+			        </div>
+			      </div>
+			    </div>
+			        </form>
+			  </div>
+       		
+       </span>
     </span>
        
         
         <!-- MIDDLE -->
         <div class="middle">
 
-          <div class="middle-middle-1">
-            <!--padding을 넣으면 위아래옆으로 네모안에 여유를 두고 글이 써짐-->
-            <span style="padding:25px 50px 0px">은행</span>
-            <span style="padding:25px 50px 0px 300px">계좌번호</span>
-            <span style="padding:25px 50px 0px 450px">관리</span>
-            <br><br>
-            
-            <div style="line-height:80%;font-size: 17px;">
-                <span><img src="kakao.png" style="padding:10px 0px 0px 28px;"></span>
-                <span style="padding:0px 0px 0px 300px">0423******23423</span>
-                <span style="padding:0px 0px 0px 360px">
-                    <button id="btn1">대표계좌설정</button><button id="btn2">삭제</button>  
-                </span>
-                <hr>
+            <table class="account-list">
+                <thead >
+                    <tr>
+                        <th style="width: 15%;">은행</th>
+                        <th style="width: 35%;">계좌번호</th>
+                        <th style="width: 10%;"></th>
+                        <th style="width: 30%;">관리</th>
+                    </tr>
+                </thead>
+                <br>
+                <tbody>
+                
+                <%if(list.isEmpty()) { %>
+                	<tr>
+                		<td colspan="5">등록된 계좌가 존재하지 않습니다.</td>
+                	</tr>
+                <% } else { %>
+                	<%for(Account a : list) { %>
+	                    <tr style="height: 70px;">
+	                        <td><%=a.getAccBank() %></td>
+	                        <td><%=a.getAccNumber() %> </td>
+	                        <td>
+	                        <% if(a.getAccRepresent().equals("Y")) { %>
+		                        <label id="mark">대표계좌</label>
+	                        <% } %>
+	                        </td>
+	                        <td>
+	                        	<input type="hidden" value="<%= a.getAccNo()%>">
+	                            <button class="btn btn-primary btn-sm representAcc">대표계좌설정</button>
+	                            <button class="btn btn-danger btn-sm deleteAcc">삭제</button>
+	                        </td>
+	                    </tr>                	
+                	<% } %>
+                <% } %>
+                
 
-                <span><img src="ibk.png" style="padding:10px 0px 0px 35px;"></span>
-                <span style="padding:0px 0px 0px 300px">0432******25543</span>
-                <span style="padding:0px 0px 0px 360px">
-                    <button id="btn1">대표계좌설정</button><button id="btn2">삭제</button>  
-                </span>
-                <hr>
-              
-              
-          </div>
-          </div>
-          
-
-          
-
+                </tbody>
+            </table>
         </div>
         <br><br><br><br><br><br><br><br>
 
       </div><br>
       <%@ include file="../common/footer.jsp" %>
+      
   </body>
-
+  
+  <script>
+  		$(".deleteAcc").on("click", function(){
+			if(confirm("계좌를 삭제하시겠습니까?")){
+			  				
+			  		var accno = $(this).siblings().eq(0).val();
+			  		
+			  		$.ajax({
+			  			url:"deleteAcc.sit",
+			  			type:"post",
+			  			data:{accno:accno},
+			  			success:function(result){
+			  				if(result > 0){
+				  				alert("계좌가 삭제되었습니다.");
+				  				location.reload();
+			  				} else {
+			  					alert("계좌 삭제에 실패했습니다.");
+			  				}
+			  			}, error:function(){
+			  				console.log("계좌삭제 ajax 통신 실패");
+			  			}
+			  		});
+			  		
+			  	}
+  		});
+  		
+  		$(".representAcc").on("click", function(){
+  			
+  			if(confirm("선택한 계좌를 대표계좌로 지정하시겠습니까?")){
+				var accno = $(this).siblings().eq(0).val();
+				
+		  		$.ajax({
+		  			url:"representAcc.sit",
+		  			type:"post",
+		  			data:{accno:accno},
+		  			success:function(result){
+		  				if(result > 0){
+			  				alert("대표계좌로 설정되었습니다.");
+			  				location.reload();
+		  				} else {
+		  					alert("대표계좌 설정에 실패했습니다.");
+		  				}
+		  			}, error:function(){
+		  				console.log("대표계좌 등록 ajax 통신 실패");
+		  			}
+		  		});
+  			}
+  		});
+  		
+  		
+  	
+  
+  </script>
+  
+  
+  
   </html>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

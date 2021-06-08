@@ -124,11 +124,8 @@
   </div>
 </div>
 
+	<script>
 
-
-<script>
-
-		//모달창이라서 hide show로 적용 헀습니다......
         function findMain(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findMain").css("display","block")}
         function findId(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findId1").css("display","block");$("#findTitle").text("아이디 찾기")}
         function findPwd(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findPwd1").css("display","block"); $("#findTitle").text("비밀번호 찾기")}
@@ -149,15 +146,13 @@
                $(this).parent().parent().next().css("display","block");
           });
         })
-</script>
+	</script>
 
-
-<!-- 아이디찾기 마지막 부분 디스플레이 끝-->
-<script>
-
+	<!-- 아이디찾기 마지막 부분 디스플레이 끝-->
+	<script>
 
     var userName = "";  //고객님의 성함
-    var userEmail = "";  //고갱님의 이메일주소
+    var userEmail = "";  //고객님의 이메일주소
     var userMessage = "";  
           
     // 비밀번호 이름 아이디 검증
@@ -174,12 +169,12 @@
                 $("label[for='findPwdByEmail']").text("이메일로 인증하기("+result.tempEmail+")");	
                 $("label[for='findPwdBySMS']").text("SMS로 인증하기("+result.tempTel+")");	
                 $("#findPwdBtn1").parent().parent().css("display","none");
-                    $("#findPwdBtn1").parent().parent().next().css("display","block");
-                    userMessage = result.tempPwd; // 인증번호
-                    userName = result.memName;  //고객님의 성함
-                    userEmail = result.memEmail; // 고객님의 이메일
-                    $("#userPwdSetNo").val(result.memNo);
-                    $("#userId2").val(result.memId);
+                $("#findPwdBtn1").parent().parent().next().css("display","block");
+                userMessage = result.tempPwd; // 인증번호
+                userName = result.memName;  //고객님의 성함
+                userEmail = result.memEmail; // 고객님의 이메일
+                $("#userPwdSetNo").val(result.memNo);
+                $("#userId2").val(result.memId);
               }else{
                 alert("일치하는 계정이 없습니다");	
               }
@@ -208,8 +203,6 @@
                 type:"post",
                 success:function(result2){
                   
-                   console.log("발송했다")
-                   
                 },error:function(){
                   alert("에러입니다. 관리자에게 문의해주세요");
                 }
@@ -218,9 +211,7 @@
 
       // 발송된 이메일 검증
       $("#findPwdBtn3").click(function(){
-                        
-               
-                
+                             
               $.ajax({
                     url:"findPwd3.mem",
                     data:{
@@ -245,10 +236,6 @@
         });
 
         // 발송된 이메일 검증 끝
-
-
-
-
        function validate(){
           var userPwd1 = document.getElementById("userPwd1");
           var userPwd2 = document.getElementById("userPwd2");

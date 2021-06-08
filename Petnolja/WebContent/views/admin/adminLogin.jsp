@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫놀자?관리자!</title>
 
     <!--부트스트랩-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,7 +15,6 @@
 
     <style>
         div {
-            /*border: solid red 1px;*/
             box-sizing: border-box;
         }
 
@@ -80,8 +79,10 @@
 
         #login-etc>button {
             box-sizing: border-box;
-            float: left;
-            width: 45%;
+            
+            /*float: left;*/
+            
+            width: 95%; 	/*45%였음..ㅠ*/
             height: 45%;
 
             font-weight: bold;
@@ -90,6 +91,7 @@
             margin-left: 7px;
             margin-right: 7px;
             cursor:pointer;
+            border : none;
         }
 
         #login-etc>button:hover {
@@ -104,7 +106,7 @@
     <div class="wrap">
         <div id="copy" align="center"><label>펫놀자? 관리자!</label></div>
         <div id="etc">
-            <div id="symbol"><img src="resources/images/logo.png"></div>
+            <div id="symbol" data-toggle="tooltip" title="펫놀자?" onclick="location.href='<%= request.getContextPath()%>';"><img src="resources/images/logo.png"></div>
             <form action="login.ad" method="POST" id="login-area">
                 <div id="login">
                     <div>
@@ -120,11 +122,20 @@
                 </div>
                 <div id="login-etc">
                     <button type="submit" class="btn btn-primary">로그인</button>
+                    <!-- 나중에 보완하기
                     <button type="button" class="btn btn-info">ID/PWD 찾기</button>
+                     -->
                 </div>
             </form>
         </div>
     </div>
+    
+	    
+	<script>
+		$(document).ready(function(){
+		  $('[data-toggle="tooltip"]').tooltip();   
+		});
+	</script>
 
 
 </body>

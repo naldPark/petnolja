@@ -154,7 +154,7 @@
 	    });
 	});
 
-/* 10개 조회 후 -> 필터링
+/* 10개 조회 후 -> 필터링 -> 조회 제대로 안됨
     $(document).ready(function () {
         $("#deal-search-box").on("keyup", function () {
             var value = $(this).val().toLowerCase();
@@ -164,7 +164,7 @@
         });
     });
 */
-
+	// 거래 날짜로 검색
     $(function () {
 
         $("#date-filter").on("change", function(){

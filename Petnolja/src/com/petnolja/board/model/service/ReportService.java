@@ -15,6 +15,12 @@ import com.petnolja.notice.model.vo.Notice;
 
 public class ReportService {
 
+	/**
+	 * 
+	 * @author 주이진
+	 * 
+	 * 일반 리스트 조회
+	 */
 	public int selectQNAListCount() {
 		Connection conn = getConnection();
 		int QlistCount = new ReportDao().selectQNAListCount(conn);
@@ -40,6 +46,42 @@ public class ReportService {
 	public ArrayList<Report> selectRevList(PageInfo Rpi){
 		Connection conn = getConnection();
 		ArrayList<Report> list = new ReportDao().selectRevList(conn, Rpi);
+		close(conn);
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @author 주이진
+	 * 
+	 * 키워드로 검색할 경우의 조회
+	 */
+	
+	public int selectQNAListCount(String keyword) {
+		Connection conn = getConnection();
+		int QlistCount = new ReportDao().selectQNAListCount(conn, keyword);
+		close(conn);
+		return QlistCount;
+	}
+	
+	public int selectRevListCount(String keyword) {
+		Connection conn = getConnection();
+		int RlistCount = new ReportDao().selectRevListCount(conn, keyword);
+		close(conn);
+		return RlistCount;
+	}
+	
+
+	public ArrayList<Report> selectQNAList(PageInfo Qpi, String keyword){
+		Connection conn = getConnection();
+		ArrayList<Report> list = new ReportDao().selectQNAList(conn, Qpi, keyword);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Report> selectRevList(PageInfo Rpi, String keyword){
+		Connection conn = getConnection();
+		ArrayList<Report> list = new ReportDao().selectRevList(conn, Rpi, keyword);
 		close(conn);
 		return list;
 	}

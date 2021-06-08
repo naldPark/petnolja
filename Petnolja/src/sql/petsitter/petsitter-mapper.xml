@@ -11,6 +11,16 @@
 			AND (PROMOTION_STATUS = 'Y') 
 	</entry>
 	
+	<entry key="selectKeyOldListCount">
+		SELECT
+    		COUNT(*) COUNT
+    		FROM SITTER
+    		JOIN MEMBER ON(SITTER_NO = MEM_NO)
+    		WHERE (SITTER_ACCESS = 'Y')
+			AND (PROMOTION_STATUS = 'Y') 
+			AND LOWER(MEM_ID) LIKE ?
+	</entry>
+	
 	<entry key="selectNewListCount">
 		SELECT
     		COUNT(*) COUNT
@@ -44,6 +54,41 @@
 						JOIN MEMBER ON(SITTER_NO = MEM_NO)
 						WHERE PROMOTION_STATUS = 'Y' 
 		 				AND SITTER_ACCESS = 'Y'
+		                ORDER 
+		                	BY SITTER.PROMOTION_DATE DESC
+		                ) A
+		        )
+		 WHERE (RNUM BETWEEN ? AND ?)
+
+	</entry>
+	
+	
+	<entry key="selectKeyOldPetsitter">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT 
+		                	MEM_ID
+							,SITTER_NO
+							,SITTER_ACCESS
+							,PET_PERIOD
+							,PET_NO
+							,LICENSE
+							,EXPERIENCE
+							,MOTIVE
+							,PROMOTION_STATUS
+						    ,PROMOTION_DATE
+						    ,STOP_REASON
+						    ,STOP_CONTENT
+						    ,PENALTY_COUNT
+						    ,ADDITIONS
+						    ,FLOOR(MONTHS_BETWEEN((SELECT SYSDATE FROM DUAL),	PROMOTION_DATE)) AS DURATION
+		                FROM SITTER
+						JOIN MEMBER ON(SITTER_NO = MEM_NO)
+						WHERE PROMOTION_STATUS = 'Y' 
+		 					AND SITTER_ACCESS = 'Y'
+		 					AND LOWER(MEM_ID) LIKE ?
 		                ORDER 
 		                	BY SITTER.PROMOTION_DATE DESC
 		                ) A
@@ -397,9 +442,66 @@
          WHERE SITTER_ID = ?
            AND YEAR = ?
            AND MONTH = ?
+    </entry>
     
+    
+    <entry key="getRepAcc">
+    	SELECT ACC_BANK, ACC_NUMBER
+		  FROM ACCOUNT 
+		 WHERE SITTER_NO = ? 
+		   AND ACC_REPRESENT = 'Y'
+		   AND ACC_STATUS = 'Y'
     </entry>
 	
+	<entry key="selectAccList">
+		SELECT ACC_NO
+			 , ACC_BANK
+			 , ACC_NUMBER
+			 , ACC_REPRESENT
+		  FROM ACCOUNT 
+		 WHERE SITTER_NO = ?
+		   AND ACC_STATUS = 'Y'
+		 ORDER BY ACC_NO DESC
+	</entry>
+	
+	<entry key="deleteAccount">
+		UPDATE 
+		    ACCOUNT 
+		   SET ACC_STATUS = 'N' 
+		 WHERE ACC_NO = ?
+	</entry>
+	
+	<entry key="representAccount">
+		UPDATE 
+		    ACCOUNT 
+		   SET ACC_REPRESENT = 'Y' 
+		 WHERE ACC_NO = ?
+	</entry>
+	
+	<entry key="deleteRepresentAccount">
+		UPDATE 
+		    ACCOUNT 
+		   SET ACC_REPRESENT = 'N' 
+		 WHERE ACC_REPRESENT = 'Y'
+	</entry>
+	
+	<entry key="insertAccount">
+		INSERT 
+		    INTO ACCOUNT(
+		                 ACC_NO
+		               , SITTER_NO
+		               , ACC_BANK
+		               , ACC_NUMBER
+		               , ACC_REPRESENT
+		               )
+				VALUES (
+				        SEQ_ANO.NEXTVAL
+				      , ?
+				      , ?
+				      , ?
+				      , 'N'
+				      )
+	</entry>
 </properties>
 
 

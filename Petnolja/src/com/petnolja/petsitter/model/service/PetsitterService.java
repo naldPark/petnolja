@@ -13,6 +13,7 @@ import com.petnolja.common.model.vo.PageInfo;
 import com.petnolja.pet.model.vo.Log;
 import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.dao.PetsitterDao;
+import com.petnolja.petsitter.model.vo.Account;
 import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import com.petnolja.petsitter.model.vo.Reserv;
@@ -25,6 +26,16 @@ public class PetsitterService {
 		
 		Connection conn = getConnection();
 		int listCount = new PetsitterDao().selectOldListCount(conn);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	public int selectOldListCount(String keyword) {
+		
+		Connection conn = getConnection();
+		int listCount = new PetsitterDao().selectOldListCount(conn, keyword);
 		
 		close(conn);
 		return listCount;
@@ -47,6 +58,16 @@ public class PetsitterService {
 		
 		Connection conn = getConnection();
 		ArrayList<Petsitter> list = new PetsitterDao().selectOldPetsitterList(conn, pi);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public ArrayList<Petsitter> selectOldPetsitterList(PageInfo pi, String keyword){
+		
+		Connection conn = getConnection();
+		ArrayList<Petsitter> list = new PetsitterDao().selectOldPetsitterList(conn, pi, keyword);
 		
 		close(conn);
 		return list;
@@ -350,6 +371,84 @@ public class PetsitterService {
 		close(conn);
 		return list;
 
+	}
+	
+	/** 최서경
+	 * 펫시터 정산계좌관리-> 대표계좌 은행명, 끝 4자리 번호
+	 */
+	public Account getRepAcc(int memNo) {
+		Connection conn = getConnection();
+		
+		Account repAcc = new PetsitterDao().getRepAcc(conn, memNo);
+		
+		close(conn);
+		return repAcc;
+	}
+	
+	/** 최서경
+	 * 펫시터 계좌 목록 조회
+	 */
+	public ArrayList<Account> selectAccList(int memNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Account> list = new PetsitterDao().selectAccList(conn, memNo);
+		
+		close(conn);
+		return list;
+	}
+	
+	/** 최서경
+	 * 펫시터 계좌 삭제
+	 */
+	public int deleteAccount(int accno) {
+		Connection conn = getConnection();
+		
+		int result = new PetsitterDao().deleteAccount(conn, accno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	/** 최서경
+	 * 대표계좌 지정
+	 */
+	public int representAccount(int accno) {
+		Connection conn = getConnection();
+		
+		int result1 = new PetsitterDao().deleteRepresentAccount(conn);
+		int result2 = new PetsitterDao().representAccount(conn, accno);
+		
+		int result = result1 * result2;
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	/** 최서경
+	 * 새로운 계좌 추가
+	 */
+	public int insertAccount(Account a) {
+		Connection conn = getConnection();
+		
+		int result = new PetsitterDao().insertAccount(conn, a);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }
 	

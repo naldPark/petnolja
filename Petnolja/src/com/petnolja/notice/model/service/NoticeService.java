@@ -25,6 +25,19 @@ public class NoticeService {
 		return listCount;
 	}
 	
+	/** 최서경
+	 * 제목 검색 키워드 사용한 공지사항 개수
+	 */
+	public int selectListCount(String keyword) {
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDao().selectListCount(conn, keyword);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
 	
 	/** 최서경
 	 * @return 전체 공지사항 목록 조회

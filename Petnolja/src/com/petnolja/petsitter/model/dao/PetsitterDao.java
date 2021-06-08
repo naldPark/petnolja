@@ -19,6 +19,7 @@ import com.petnolja.pet.model.vo.Pet;
 import com.petnolja.petsitter.model.vo.Detail;
 import com.petnolja.petsitter.model.vo.Petsitter;
 import com.petnolja.petsitter.model.vo.Reserv;
+import com.petnolja.petsitter.model.vo.*;
 import com.petnolja.qna.model.vo.Qna;
 
 public class PetsitterDao {
@@ -45,6 +46,32 @@ public class PetsitterDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;		
+		
+	}
+	
+	public int selectOldListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyOldListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -102,6 +129,55 @@ public class PetsitterDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Petsitter(rset.getString("mem_id"),
+									rset.getInt("sitter_no"),
+									rset.getString("sitter_access").charAt(0),
+									rset.getString("pet_period"),
+									rset.getString("pet_no"),
+									rset.getString("license"),
+									rset.getString("experience"),
+									rset.getString("motive"),
+									rset.getString("promotion_status").charAt(0),
+									rset.getDate("promotion_date"),
+									rset.getString("stop_reason"),
+									rset.getString("stop_content"),
+									rset.getInt("penalty_count"),
+									rset.getString("additions"),
+									rset.getInt("duration")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
+	public ArrayList<Petsitter> selectOldPetsitterList(Connection conn, PageInfo pi, String keyword){
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		ArrayList<Petsitter> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKeyOldPetsitter");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -817,6 +893,153 @@ public class PetsitterDao {
 			}
 			
 			return list;
+		}
+		
+		/** 최서경
+		 * 펫시터 정산계좌관리-> 대표계좌 은행명, 끝 4자리 번호
+		 */
+		public Account getRepAcc(Connection conn, int memNo) {
+			Account repAcc = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("getRepAcc");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					repAcc = new Account();
+					repAcc.setAccBank(rset.getString("acc_bank"));
+					repAcc.setAccNumber(rset.getString("acc_number"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return repAcc;
+		}
+		
+		/** 최서경
+		 * 펫시터 계좌 목록 조회
+		 */
+		public ArrayList<Account> selectAccList(Connection conn, int memNo){
+			ArrayList<Account> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectAccList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memNo);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Account( rset.getInt("acc_no")
+									   , rset.getString("acc_bank")
+							 		   , rset.getString("acc_number")
+							 		   , rset.getString("acc_represent")));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+		
+		/** 최서경
+		 *  계좌 삭제
+		 */
+		public int deleteAccount(Connection conn, int accno) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, accno);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		/** 최서경
+		 * 대표계좌 지정 1-> 새로운 대표계좌 지정
+		 */
+		public int representAccount(Connection conn, int accno) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("representAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, accno);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		/** 최서경
+		 * 대표계좌 지정2 -> 기존 대표계좌 삭재
+		 */
+		public int deleteRepresentAccount(Connection conn) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteRepresentAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		/** 최서경
+		 * 새로운 계좌 추가
+		 */
+		public int insertAccount(Connection conn, Account a) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertAccount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, a.getSitterNo());
+				pstmt.setString(2, a.getAccBank());
+				pstmt.setString(3, a.getAccNumber());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
 		}
 }
 	
