@@ -129,7 +129,7 @@
         function findMain(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findMain").css("display","block")}
         function findId(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findId1").css("display","block");$("#findTitle").text("아이디 찾기")}
         function findPwd(){$("#popup").removeClass('hide'); $(".find").css("display","none"); $("#findPwd1").css("display","block"); $("#findTitle").text("비밀번호 찾기")}
-        function closePopup(){$("#popup").addClass('hide'); $("#findMain,#findId1,#findPwd1").css("display","none"); $("#findTitle").text("");$("input").val("");}
+        function closePopup(){$("#popup").addClass('hide'); $("#findMain,#findId1,#findPwd1").css("display","none"); $("#findTitle").text("");$(".findContent input").val("");}
 
         $(function(){
           $("#findIdByEmail").click(function(){
