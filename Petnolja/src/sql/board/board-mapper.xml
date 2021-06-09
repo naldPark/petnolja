@@ -5,9 +5,7 @@
 	<entry key="selectQNAListCount">
 		SELECT
 			COUNT(*) COUNT
-			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 1 AND DONE = 'N')) REP
-						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
-                        JOIN QNA ON(QNA_NO = ORIGIN_NO)
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 1 AND DONE = 'N'))
 	</entry>
 	
 	
@@ -41,9 +39,7 @@
 	<entry key="selectRevListCount">
 		SELECT
 			COUNT(*) COUNT
-			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 2 AND DONE = 'N')) REP
-						JOIN MEMBER ON(REP.MEM_NO = MEMBER.MEM_NO)
-                        JOIN REVIEW ON(REV_NO = ORIGIN_NO)
+			FROM (SELECT * FROM REPORT WHERE (REPORT_SORT = 2 AND DONE = 'N'))
 	</entry>
 	
 	
@@ -163,7 +159,7 @@
             		QNA_NO 
         		FROM 
             		REPORT 
-        		JOIN REVIEW ON (QNA_NO = ORIGIN_NO)
+        		JOIN QNA ON (QNA_NO = ORIGIN_NO)
         		WHERE
             		REPORT_SORT = 1
             		AND REPORT_NO = ?
@@ -201,7 +197,7 @@
             		QNA_NO 
         		FROM 
             		REPORT 
-        		JOIN REVIEW ON (QNA_NO = ORIGIN_NO)
+        		JOIN QNA ON (QNA_NO = ORIGIN_NO)
         		WHERE
             		REPORT_SORT = 1
             		AND REPORT_NO = ?
@@ -254,7 +250,7 @@
 		    , MQ.MEM_ID AS WRITER_ID
 		    , Q_CONTENT AS CONTENT
 		FROM REPORT R
-		JOIN QNA ON (R.ORIGIN_NO = Q.QNA_NO)
+		JOIN QNA Q ON (R.ORIGIN_NO = Q.QNA_NO)
 		JOIN MEMBER MQ ON(Q.Q_MEM_NO = MQ.MEM_NO)
 		JOIN MEMBER MR ON(R.MEM_NO = MR.MEM_NO)
 		WHERE
