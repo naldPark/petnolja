@@ -6,7 +6,7 @@
 	Petsitters help your pet to give such a great experience.
 
 
-### Stack
+## Stack
 	- Eclipse, Oracle, Visual Studio
 	- DBMS: Oracle DB – sql developer
 	- Server: Apache Tomcat 8.5
@@ -15,5 +15,5 @@
 	- Tools: Notion, GitHub, Bootstrap
 
 
-### ERD
+## ERD
 ![image](https://user-images.githubusercontent.com/81441317/122658339-06dfb580-d1a7-11eb-99dd-e3a328d7d13c.png)
