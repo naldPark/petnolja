@@ -7,10 +7,9 @@
 
 
 ### Stack
-	운영 체제	Window10
-	개발 도구	Eclipse, Oracle, Visual Studio
-	DBMS	Oracle DB – sql developer
-	Server	Apache Tomcat 8.5
-	Languages	Java, SQL, JavaScript, JQuery
-	Markup	HTML5, CSS3
-	Tools	Notion, GitHub, Bootstrap
+	- Eclipse, Oracle, Visual Studio
+	- DBMS: Oracle DB – sql developer
+	- Server: Apache Tomcat 8.5
+	- Languages: Java, SQL, JavaScript, JQuery
+	- Markup: HTML5, CSS3
+	- Tools: Notion, GitHub, Bootstrap
