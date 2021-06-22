@@ -136,7 +136,7 @@
         	<%if(currentPage != 1) { %>
             <button onclick="location.href='<%=contextPath %>/callist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
 			<% } %>
-			<% for(int p=startPage; p<endPage; p++){ %>
+			<% for(int p=startPage; p<=endPage; p++){ %>
 				<% if(p != currentPage) {%>
 		            <button onclick="location.href='<%=contextPath %>/callist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
 				<% } else {%>
@@ -159,7 +159,7 @@
         	
         	if(event.keyCode == "13"){
 	            var keyword = $(this).val().toLowerCase();
-	            location.href = "<%=contextPath%>/callist.ad?currentPage=1&key="+keyword;
+	            location.href = "<%=contextPath%>/callist.ad?currentPage=1&key=" + keyword;
         	}
         	
 	        /*	

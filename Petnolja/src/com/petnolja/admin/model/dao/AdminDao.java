@@ -102,13 +102,13 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectDealListCount");
-		sql += "AND TO_CHAR(RES_DATE, 'YYYY-MM-DD') =" + date; 
+		sql += "AND TO_CHAR(RES_DATE, 'YYYY-MM-DD') = " + date; 
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				listCount = rset.getInt("count");
 			}
 			
@@ -337,7 +337,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+ keyword +"%");
+			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();

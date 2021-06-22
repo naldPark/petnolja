@@ -86,7 +86,7 @@
                 		String aWriter = (q.getaWriter() == null) ? loginAdmin.getAdminId() : q.getaWriter();
                 		String aContent = (q.getaContent() == null) ? "" : q.getaContent();
                 	%>
-                    <th colspan="3" style="text-align: right;"> 담당자 : <%= aWriter%></th>
+                    <th colspan="3" style="text-align: right;" id="awriter">담당자 : <%= aWriter%></th>
                 </tr>
                 <tr height="300px">
                     <td colspan="3">
@@ -129,6 +129,7 @@
     					if(result > 0){
     						alert("답변이 등록되었습니다.");
     						$("#answer-box").html(answer);
+    						$("#awriter").html("담당자 : <%=loginAdmin.getAdminId()%>");
     					}
     				}, error:function(){
     					alert("답변 등록에 실패했습니다.");
