@@ -434,6 +434,8 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			month--;
+			
 			pstmt.setInt(1, month);
 			pstmt.setInt(2, year);
 			pstmt.setString(3, sid);
@@ -448,7 +450,7 @@ public class AdminDao {
 								rset.getString("acc_bank"),
 								rset.getString("acc_number"),
 								rset.getDate("deal_date"),
-								rset.getInt("pay_no"),
+								rset.getLong("pay_no"),
 								rset.getLong("conf"),
 								rset.getString("ispenalty").charAt(0)
 									));
@@ -479,6 +481,8 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			month--;
+			
 			pstmt.setInt(1, month);
 			pstmt.setInt(2, year);
 			pstmt.setString(3, sid);
@@ -493,7 +497,7 @@ public class AdminDao {
 								rset.getString("acc_bank"),
 								rset.getString("acc_number"),
 								rset.getDate("deal_date"),
-								rset.getInt("pay_no"),
+								rset.getLong("pay_no"),
 								rset.getLong("canc"),
 								rset.getString("ispenalty").charAt(0)
 									));
