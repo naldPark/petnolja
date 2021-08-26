@@ -7,13 +7,11 @@
 
 
 ## Stack
-	- Eclipse, Oracle, Visual Studio
 	- DBMS: Oracle DB – sql developer
 	- Server: Apache Tomcat 8.5
-	- Languages: Java, SQL, JavaScript, JQuery
+	- Languages: Java, SQL, JavaScript, JQuery, servlet, jsp, Ajax
 	- Markup: HTML5, CSS3
-	- Tools: Notion, GitHub, Bootstrap
-
+	- IDE: Eclipse, VS Code, sql Developer
 
 ## ERD
 ![image](https://user-images.githubusercontent.com/81441317/122658339-06dfb580-d1a7-11eb-99dd-e3a328d7d13c.png)
