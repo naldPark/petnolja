@@ -39,7 +39,6 @@
                 var eDay = eDate.val(); //끝달력
                 
                 // 날짜차단하기 시작
-          
                 var abled_days = '<%=sitterInfo.getAbleDate()%>'.split(","); //차단할 날짜
                 $('#datepicker1, #datepicker2').datepicker({
                     language: 'ko',
@@ -53,14 +52,10 @@
                 });
                 // 날짜차단하기 끝
 
-                
-
                 sDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
                 eDate.datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
                 eDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
                 sDate.datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
-
-
 
                 if (flag && !isValidStr(sDay) && !isValidStr(eDay)) { 		
                     var sdp = sDate.datepicker().data("datepicker");
@@ -84,7 +79,6 @@
                             result=  new Date(abled_days[i+1].replace(/-/g, "/"));
                             break;
                         }
-                        
                         count=1;
                     }
                     sDate.datepicker({maxDate: new Date(eDay.replace(/-/g, "/"))}); // 1번쨰달력 최소값: 유저가 선택한 날짜
@@ -101,8 +95,6 @@
                         datePickerSet(sDate, eDate);
                     }
                 });
-
-               
                 if (!isValidStr(sDay)) {
                     var index =  abled_days.indexOf(sDay); 
                     var checkDate= new Date(abled_days[index].replace(/-/g, "/"));  // 유저가 선택한 날짜(sDate값)

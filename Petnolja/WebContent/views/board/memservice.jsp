@@ -110,36 +110,35 @@
                 $(".question").show();
                 var value = $(this).val().toLowerCase();
                 $("#myTable tr").filter(function() {
-                   
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                $(".answer").hide();
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  $(".answer").hide();
                 });
              });
              //질문입력시 다른 질문은 닫히고 입력한 질문이 열림
             $(".question").click(function(){         
                 if($(this).next().slideUp()){
-                    $(".answer").slideUp();         
-                    $(this).next().slideDown(); 
+                  $(".answer").slideUp();         
+                  $(this).next().slideDown(); 
                 }
-              })
+            })
             //분류선택시 일단 창이 닫히고 분류로 구분해서 해당 내용만 보여줌
              $(".classification").click(function(){
-            var temp = $(".question").children("th:odd");
-            for(var i=0 ; i<temp.length;i++){
-              if($(this).text()==temp.eq(i).text()){
-                $(".answer").hide();     
-                temp.parent().hide(); 
-                temp.eq(i).parent().show();      
-              }
-            }
-          })
-          //전체 선택시 기존으로 돌아감
-          $("#showAll").click(function(){
-            $(".answer").slideUp(); 
-            $(".question").show();
-          })
+                var temp = $(".question").children("th:odd");
+                for(var i=0 ; i<temp.length;i++){
+	              if($(this).text()==temp.eq(i).text()){
+	                $(".answer").hide();     
+	                temp.parent().hide(); 
+	                temp.eq(i).parent().show();      
+	              }
+           	    }
+         	  })
+          	//전체 선택시 기존으로 돌아감
+            $("#showAll").click(function(){
+              $(".answer").slideUp(); 
+              $(".question").show();
+            })
          });
-        </script>
+       </script>
 
 
 <br><br>

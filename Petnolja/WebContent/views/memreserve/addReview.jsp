@@ -126,7 +126,6 @@
               }
           }
       })
-      
       // 파일첨부 시작
       $(document).ready(function(){
         var fileTarget = $('.filebox .upload-hidden'); fileTarget.on('change', function(){
@@ -157,16 +156,16 @@
             }
           } //파일첨부 끝
        
-           //글자수세기
+        //글자수세기
         $(function(){
           $("#comment").keyup(function(){
               $("#count").text($(this).val().length);
               if($(this).val().length > 999) {
                  alert("글자수는 1000을 초과할 수 없습니다");
                  $(this).val($(this).val().substring(0, 999));
-            }})        
-        })
-
+              }
+          })        
+       })
 
         function validate(){
           if(filledStar==""){

@@ -148,9 +148,6 @@
             }
         }).open();
 
-      
-
-        
     }
 
     // 날짜선택하는 부분입니다
@@ -158,10 +155,9 @@
     var searchDatePicker = $('.datepicker-here').datepicker().data('datepicker');
     searchDatePicker.show();
     }
-    $('.datepicker-here').datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
-    $('.datepicker-here').datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
-    $('.datepicker-here').datepicker({autoClose:true, toggleSelected: false })
-    
+	    $('.datepicker-here').datepicker({minDate: new Date()}); //시작날짜 오늘로 설정 
+	    $('.datepicker-here').datepicker({maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});// 3달뒤로 종료날짜정하기
+	    $('.datepicker-here').datepicker({autoClose:true, toggleSelected: false })
     </script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

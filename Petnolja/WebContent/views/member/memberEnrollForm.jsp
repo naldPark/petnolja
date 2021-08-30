@@ -111,15 +111,12 @@
         	}
             
             function validate(){
-
                         var userId = document.getElementById("userId");
                         var userPwd1 = document.getElementById("userPwd1");
                         var userPwd2 = document.getElementById("userPwd2");
                         var userName = document.getElementById("userName");
-
-
                         // 이름 검증
-                        var regExp = /^[가-힣]{1,5}$/;
+                        var regExp=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
                         if(!regExp.test(userName.value)){
                             alert("유효한 이름을 입력해주세요");
                             userName.select();
@@ -137,7 +134,7 @@
                         // // 비밀번호 검증
                         if(hangulcheck.test(userPwd1.value)){
 	                        alert("비밀번호에 한글을 사용 할 수 없습니다.");
-                         }else{
+                        }else{
                             if(!regExp.test(userPwd1.value)){
                             alert("유효한 비밀번호를 입력해주세요");
                             userPwd1.value = "";
@@ -152,28 +149,25 @@
                             userPwd2.focus();
                             return false;
                         }
-
                         // 전화번호 검증
                         regExp =/^\d{2,3}-\d{3,4}-\d{4}$/;
                         if(!regExp.test(userPhone.value)){
                             alert("유효한 전화번호를 입력 해 주세요");
                             userPhone.value = "";
                             userPhone.focus();
-                        return false;
-                            }
-
+                        	return false;
+                        }
                         // 필수사항 체크 검증
                         var check= 0;
                         $("#required").children(":checkbox").each(function(){
-                                    if(!$(this).prop("checked")){
-                                        check++;
-                                    }
+                             if(!$(this).prop("checked")){
+                                 check++;
+                             }
                         })
                         if(check >0) {
                             alert("필수사항은 반드시 동의하셔야합니다");
                             return false;
                             }
-
                     }
 
 

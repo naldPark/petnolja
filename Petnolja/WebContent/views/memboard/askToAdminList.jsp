@@ -71,29 +71,28 @@
      
   
 <br><br>
-      <!-- 페이지 목록 시작 -->
+
+     		 <!-- 페이지 목록 시작 -->
 	             <ul class="pagination justify-content-center">
 	             <% if(pi.getCurrentPage() != 1){ %>
 	                <li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%=pi.getCurrentPage()-1%>">&lt;</a></li>
 	           	 <% } %>
 	           	 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
-	           	 
 	           		 <% if(p != pi.getCurrentPage()){ %>
 	               		 <li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%= p %>"><%= p %></a></li>
 		             <% }else { %>
 		            	 <li class="page-item" ><a class="page-link" style="background:rgb(194, 227, 238)" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%= p %>"><%= p %></a></li>
 	            	 <% } %>
 	             <% } %>
-	     
-	
 				<% if(pi.getCurrentPage() != pi.getMaxPage()){ %>
 	            	<li class="page-item"><a class="page-link" href="<%=contextPath%>/askToAdminList.mem?currentPage=<%=pi.getCurrentPage()+1%>"> &gt;</a></li>
 				<% } %>
 	              </ul>
-      <!-- 페이지 목록 끝 -->
-      
+     		 <!-- 페이지 목록 끝 -->
     <% } %> 
- </div><br>
+	
+   </div>
+   <br>
  
    <script>
   	$(function(){

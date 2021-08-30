@@ -113,12 +113,6 @@
     })
 
 
-// $("#reviewSitterImg").attr('src',arr[2]);
-
-
-
-
-
 		$(function(){		
             		$("#titleImg").click(function(){
             			$("#file1").click();

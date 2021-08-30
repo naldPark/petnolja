@@ -67,7 +67,7 @@
                 <button type="button" class="btn btn-outline-primary btn-sm searchBtn" id="3">최근3개월</button>&nbsp;
               <div class="input-group-prepend">
                 <span class="input-group-text" style="background-color: white; border: hidden; padding-right: 100px;"></span>
-               <span class="input-group-text">상세검색</span>
+                <span class="input-group-text">상세검색</span>
               </div>
               <input type="date" class="form-control" name="startDate" style="height:36px;" id="startDate">
               <span class="input-group-text" style="background-color: white; border: hidden;">~</span>
@@ -83,10 +83,7 @@
 			    	$("#startDate").val("<%=startDate%>");     
 			    	$("#endDate").val("<%=endDate%>");  
 			   <%}%>
-
 		    })
-
-
 
         $(".searchBtn").click(function(){
 
@@ -111,8 +108,7 @@
        <!-- 예약된 리스트 시작-->
     	  <% if(reserveList.isEmpty()){ %>
       		<br>조회된 리스트가 없습니다.<br><br><br>
-            		
-    	   <% }else { %>
+    	  <% }else { %>
                 <% for(int i = 0 ; i<reserveList.size(); i++){ %>
                   <div style="margin-bottom:30px; padding-left:20px; padding-top:15px; background-color: rgb(230, 240, 247); height:180px;" > 
                     <div class="reserveImg"><img src="<%=contextPath%>/<%=reserveList.get(i).getPath()%>" style="height: 150px;"></div>
@@ -125,44 +121,42 @@
                     </div>
                     <div id="linkList" style="padding-left:800px; text-align: center;">
                         <br>
-                        <a href='<%=contextPath%>/reservListDetail.mem?rno=<%=reserveList.get(i).getReserveNo()%>'><span>자세히보기</span></a><br>
-                        
-                        <span id="<%=reserveList.get(i).getReserveNo()%>reviewspan">
-                          
-                        <a id="<%=reserveList.get(i).getReserveNo()%>review" onclick="openPopup($(this).attr('id')); return false;">
-                          <span>후기작성</span></a><br>
-                        </span>
-                        
-                        <span id="<%=reserveList.get(i).getReserveNo()%>cancelspan">
-                          
-                        <a id="<%=reserveList.get(i).getReserveNo()%>cancel" onclick="openCancelPopup($(this).attr('id')); return false;"><span>예약취소</span></a>
+                        <a href='<%=contextPath%>/reservListDetail.mem?rno=<%=reserveList.get(i).getReserveNo()%>'><span>자세히보기</span></a><br>                        
+                        <span id="<%=reserveList.get(i).getReserveNo()%>reviewspan">                          
+                        	<a id="<%=reserveList.get(i).getReserveNo()%>review" onclick="openPopup($(this).attr('id')); return false;">
+                          		<span>후기작성</span>
+                          	</a>
+                          	<br>
+                        </span>                        
+                        <span id="<%=reserveList.get(i).getReserveNo()%>cancelspan">                          
+                        	<a id="<%=reserveList.get(i).getReserveNo()%>cancel" onclick="openCancelPopup($(this).attr('id')); return false;">
+                        		<span>예약취소</span>
+                        	</a>
                         </span>
                     </div>
-                  </div>
-                  <script>
-                          var reserveNo = "<%=reserveList.get(i).getReserveNo()%>";
-                          var reviewStatus = "<%=reserveList.get(i).getReviewStatus()%>";
-                          var reserveStatus = "<%=reserveList.get(i).getReserveStatus()%>";
-                          var today = new Date(); // 오늘날짜
-                          var yesterday = new Date(new Date().setDate(new Date().getDate()-1)); // 1일전날짜       
-                          var checkinDate =  "<%=reserveList.get(i).getCheckinDate()%>";   //체크인날짜
-                          var checkinArr = checkinDate.split('-');   //체크인날짜를 년월일 배열로 변경 
-                          var checkinToDateType = new Date(checkinArr[0], checkinArr[1]-1, checkinArr[2]);  //date타입으로 변환
-                          var checkoutDate =  "<%=reserveList.get(i).getCheckinDate()%>";   //체크아웃날짜
-                          var checkoutArr = checkinDate.split('-');   //체크아웃날짜를 년월일 배열로 변경 
-                          var checkoutToDateType = new Date(checkoutArr[0], checkoutArr[1]-1, checkoutArr[2]);  //date타입으로 변환
-
-                         
-                           // 예약취소 조건
-                          if(checkinToDateType.getTime()<yesterday.getTime() || reserveStatus=="취소"){
-                            $("#<%=reserveList.get(i).getReserveNo()%>cancelspan").html("<span> </span>");
-                          }
-                          // 리뷰버튼 조건
-                          if(checkoutToDateType.getTime()>today.getTime() || reviewStatus=='Y' || reserveStatus!='확정'){
-                            $("#<%=reserveList.get(i).getReserveNo()%>reviewspan").html("<span> </span>");
-                          }
-                  </script>
-                <% } %>
+                 </div>
+                 <script>
+                         var reserveNo = "<%=reserveList.get(i).getReserveNo()%>";
+                         var reviewStatus = "<%=reserveList.get(i).getReviewStatus()%>";
+                         var reserveStatus = "<%=reserveList.get(i).getReserveStatus()%>";
+                         var today = new Date(); // 오늘날짜
+                         var yesterday = new Date(new Date().setDate(new Date().getDate()-1)); // 1일전날짜       
+                         var checkinDate =  "<%=reserveList.get(i).getCheckinDate()%>";   //체크인날짜
+                         var checkinArr = checkinDate.split('-');   //체크인날짜를 년월일 배열로 변경 
+                         var checkinToDateType = new Date(checkinArr[0], checkinArr[1]-1, checkinArr[2]);  //date타입으로 변환
+                         var checkoutDate =  "<%=reserveList.get(i).getCheckinDate()%>";   //체크아웃날짜
+                         var checkoutArr = checkinDate.split('-');   //체크아웃날짜를 년월일 배열로 변경 
+                         var checkoutToDateType = new Date(checkoutArr[0], checkoutArr[1]-1, checkoutArr[2]);  //date타입으로 변환
+                          // 예약취소 조건
+                         if(checkinToDateType.getTime()<yesterday.getTime() || reserveStatus=="취소"){
+                           $("#<%=reserveList.get(i).getReserveNo()%>cancelspan").html("<span> </span>");
+                         }
+                         // 리뷰버튼 조건
+                         if(checkoutToDateType.getTime()>today.getTime() || reviewStatus=='Y' || reserveStatus!='확정'){
+                           $("#<%=reserveList.get(i).getReserveNo()%>reviewspan").html("<span> </span>");
+                         }
+                 </script>
+           <% } %>
   
                 <!-- 페이지 목록 시작 -->
                 <ul class="pagination justify-content-center">

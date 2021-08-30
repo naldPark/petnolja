@@ -70,10 +70,10 @@
 
 </head>
 <body>
-<%if(sitterList==null||reviewList==null){ %>
- <jsp:forward page="index.mem"/>
- <%} %>
- <%@ include file = "views/common/menubar.jsp" %>
+	<%if(sitterList==null||reviewList==null){ %>
+ 		<jsp:forward page="index.mem"/>
+ 	<% } %>
+ 		<%@ include file = "views/common/menubar.jsp" %>
 
 <div id="mainPage"><br>
   <%@ include file = "views/member/loginBar.jsp" %>

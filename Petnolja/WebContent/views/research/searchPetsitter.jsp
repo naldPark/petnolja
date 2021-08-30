@@ -152,6 +152,8 @@
   </div>
   
    <script>
+   
+   		// 선택된 정렬에 밑줄 및 굵기 표시
 		$(document).ready(function(){
 			console.log("<%=array%>");
 			var arrayCheck= "<%=array%>";
@@ -166,11 +168,12 @@
 		})
 
   
+		// 페이징바 기능
 	    $(".page-link").click(function(){
 	
 		      var page = $(this).text();
 		      if(page =="<"){
-		          $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
+		        $("#searchPage").val(<%=pi.getCurrentPage()-1%>);
 		      } else if(page==" >"){
 		        $("#searchPage").val(<%=pi.getCurrentPage()+1%>);
 		      } else {

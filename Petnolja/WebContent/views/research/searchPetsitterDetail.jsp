@@ -96,13 +96,11 @@
 
 <div id="outer">
 
-    <!--사진슬라이드-->
+  <!--사진슬라이드-->
   <div class="wrap1">
-
 		<% for(int i=1 ; i<sitterPic.length ; i++){  %>
           <img src="<%=contextPath%>/<%=sitterPic[i]%>" class="sitterImg">
 		<%} %>
-
   </div>
 
   <!--왼쪽면-->
@@ -123,25 +121,24 @@
 
       <!--시팅 금액-->
       <div style="height:200px; text-align:left; margin-bottom:30px;  padding-left:20px; border:1px solid gray;" > 
-            <br>
-            <h4>시팅 금액</h4><br>
-                <ul id="weight">
-                    <li style="list-style-type:none; color:gray"><br>1박케어<br>데이케어</li>
-                    <li>소형견<br><span><%=sitterInfo.getSmallNightFee()%>원</span><br><span><%=sitterInfo.getSmallDayFee()%>원</span></li>
-                    <li>중형견<br><span><%=sitterInfo.getMidNightFee()%>원</span><br><span><%=sitterInfo.getMidDayFee()%>원</span></li>
-                    <li>대형견<br><span><%=sitterInfo.getBigNightFee()%>원</span><br><span><%=sitterInfo.getBigDayFee()%>원</span></li>
-                </ul>
+         <br>
+         <h4>시팅 금액</h4><br>
+         <ul id="weight">
+             <li style="list-style-type:none; color:gray"><br>1박케어<br>데이케어</li>
+             <li>소형견<br><span><%=sitterInfo.getSmallNightFee()%>원</span><br><span><%=sitterInfo.getSmallDayFee()%>원</span></li>
+             <li>중형견<br><span><%=sitterInfo.getMidNightFee()%>원</span><br><span><%=sitterInfo.getMidDayFee()%>원</span></li>
+             <li>대형견<br><span><%=sitterInfo.getBigNightFee()%>원</span><br><span><%=sitterInfo.getBigDayFee()%>원</span></li>
+         </ul>
       </div> 
-
       <!--자격 현황-->
       <div style="text-align:left; margin-bottom:30px;  padding-left:20px; border:1px solid gray;" > 
         <br>
         <h4>펫시터 경력</h4><br>
-            <ul id="">
-                <li>교육: <%=sitterInfo.getLicense()%></li><br>
-                <li>반려견 케어 기간: <%=sitterInfo.getPetPeriod()%></li><br>
-                <li>펫시터 활동 기간: <%=sitterInfo.getExperience()%></li><br>
-            </ul>
+          <ul id="">
+            <li>교육: <%=sitterInfo.getLicense()%></li><br>
+            <li>반려견 케어 기간: <%=sitterInfo.getPetPeriod()%></li><br>
+            <li>펫시터 활동 기간: <%=sitterInfo.getExperience()%></li><br>
+          </ul>
       </div> 
 
       <!--지원 사항-->
@@ -164,7 +161,7 @@
             <span><img src="<%=contextPath%>/resources/images/member/checkboxHospital.png" style="height: 30px"></span></label>
             <br><br>
         </div>
-       </div> 
+      </div> 
 
       <!--펫놀자 후기-->
            <div style="text-align:left; margin-bottom:30px; padding-left:20px;" > 
@@ -366,21 +363,16 @@
               $(this).text("시팅불가");
           }
        })
-
-
       var favor = <%=sitterInfo.getFavor()%>;
-			var likeS = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기 추가됨'
-			var unlikeS = '<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">&nbsp;&nbsp;&nbsp;즐거찾기에 추가'
+	  var likeS = '<img src="<%=contextPath%>/resources/images/member/favoriteHeart.png" class="buttonImg">즐거찾기 추가됨'
+	  var unlikeS = '<img src="<%=contextPath%>/resources/images/member/justHeart.png" class="buttonImg">즐거찾기에 추가'
       $(document).ready(function(){
 	        if(favor!=0){
 	        $("#likeImgDiv").html(likeS);
 	       } else {
 	        $("#likeImgDiv").html(unlikeS);
 	       }
-       
-
-     })
-
+      })
 	  function like(){
         <%if(loginUser!=null){%>
 	          $.ajax({

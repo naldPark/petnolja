@@ -46,7 +46,6 @@ public class SitterContentUpdatePathController extends HttpServlet {
 			request.setAttribute("pics", pics);
 			request.getRequestDispatcher("views/petsitter/sitterContentUpdateForm.jsp").forward(request, response);
 		}
-
 	}
 
 	/**
