@@ -21,7 +21,7 @@
         border: gray solid 1px;
         border-radius: 7px;
         width: 1200px;
-        height: 800px;
+        height:880px;
         margin: auto;
         background-color: rgb(248, 248, 248);
         padding:10px;
@@ -141,7 +141,7 @@
     	<% if(currentPage != 1){ %>
         <button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
     	<% } %>
-    	<% for(int p=startPage; p<endPage; p++) { %>
+    	<% for(int p=startPage; p<=endPage; p++) { %>
     		
     		<% if(p != currentPage) { %>
 	    		<button onclick="location.href='<%=contextPath %>/memlist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%= p %></button>

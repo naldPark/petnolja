@@ -18,7 +18,7 @@
 	
 	<entry key="selectDealListCount">
 		SELECT
-		    COUNT(*) COUNT
+		    COUNT(*) "COUNT"
 		  FROM RESERV 
 		 WHERE RES_STATUS IN('확정', '취소')
 	</entry>
@@ -117,8 +117,8 @@
                      , TO_CHAR(YEAR) "YEAR"
                      , TOTAL
                   FROM VW_CAL
-                  ORDER BY YEAR, MONTH DESC
                  WHERE SITTER_ID LIKE ?
+                 ORDER BY YEAR, MONTH DESC
                 ) A
 	          )
 		WHERE RNUM BETWEEN ? AND ?

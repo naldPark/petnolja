@@ -125,7 +125,7 @@
         	<%if(currentPage != 1) { %>
             <button onclick="location.href='<%=contextPath %>/deallist.ad?currentPage=<%=currentPage - 1 %>';" class="btn btn-outline-primary btn-sm">&lt;</button>
 			<% } %>
-			<% for(int p=startPage; p<endPage; p++){ %>
+			<% for(int p=startPage; p<=endPage; p++){ %>
 				<% if(p != currentPage) {%>
 		            <button onclick="location.href='<%=contextPath %>/deallist.ad?currentPage=<%=p %>';" class="btn btn-outline-primary btn-sm"><%=p %></button>
 				<% } else {%>
@@ -170,6 +170,7 @@
         $("#date-filter").on("change", function(){
         		
             var date = $(this).val();
+           	console.log(date);
 			
             location.href="deallist.ad?currentPage=1&date=" + date;
         });
